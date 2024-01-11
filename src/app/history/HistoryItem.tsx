@@ -1,11 +1,13 @@
 'use client'
 import { Delete, DeleteOutline, Edit, EditOutlined } from "@mui/icons-material";
-import { IconButton, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
+import { Divider, IconButton, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
+import { HistoryRow } from "./page";
 
-export default function HistoryItem({text, date}:{text:string, date: string}) {
+
+export default function HistoryItem({history}:{history: HistoryRow}) {
     return <>
     <ListItem disableGutters>
-        <ListItemText primary={text} secondary={date}/>
+        <ListItemText primary={history.prompt} secondary={'Yesterday'}/>
         <ListItemSecondaryAction>
             <IconButton>
                 <EditOutlined fontSize="small"/>
@@ -16,5 +18,6 @@ export default function HistoryItem({text, date}:{text:string, date: string}) {
         </ListItemSecondaryAction>
         
     </ListItem>
+    <Divider/>
     </>
 }
