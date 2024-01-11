@@ -1,6 +1,6 @@
-'use client'
-import { Skeleton } from "@mui/material";
+'use client';
+import { Skeleton } from '@mui/material';
 
 export default function Loading() {
-    return <Skeleton/>;
+  return <Skeleton />;
 }

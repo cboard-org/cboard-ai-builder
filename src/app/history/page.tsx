@@ -2,11 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
-  Divider,
   List,
-  ListItem,
-  Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HistoryItem from './HistoryItem';
