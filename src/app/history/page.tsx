@@ -5,7 +5,7 @@ export type HistoryRow = {
   prompt: string;
   date: Date | string;
 };
-async function getHistoryData() {
+async function getHistoryData(): Promise<HistoryRow[]> {
   // Fetching with a 2 seconds delay to test loading state
   await fetch('https://postman-echo.com/delay/2', {
     cache: 'no-cache',
