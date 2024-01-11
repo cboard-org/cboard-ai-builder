@@ -42,7 +42,9 @@ export default function Dashboard() {
             rowSpacing={{ xs: xsSpacing, sm: smSpacing }}
           >
             <Grid item className={styles.prompt}>
-              <Typography>{'Prompt'}</Typography>
+              <Typography sx={{ border: '2px solid black', height: '100%' }}>
+                {'Prompt'}
+              </Typography>
             </Grid>
             <Grid item>
               <Typography sx={{ border: '2px solid black', height: '100%' }}>
