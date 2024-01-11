@@ -1,10 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  List,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AccordionDetails, List } from '@mui/material';
 import HistoryItem from './HistoryItem';
 
 export type HistoryRow = {
@@ -36,18 +30,12 @@ async function getHistoryData() {
 export default async function Page() {
   const historyData = await getHistoryData();
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        {/* TODO: internationalization */}
-        History
-      </AccordionSummary>
-      <AccordionDetails>
-        <List>
-          {historyData.map((h, i) => (
-            <HistoryItem history={h} key={i} />
-          ))}
-        </List>
-      </AccordionDetails>
-    </Accordion>
+    <AccordionDetails>
+      <List>
+        {historyData.map((h, i) => (
+          <HistoryItem history={h} key={i} />
+        ))}
+      </List>
+    </AccordionDetails>
   );
 }
