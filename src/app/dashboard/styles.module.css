@@ -1,0 +1,23 @@
+.dashboardBox {
+  flex-grow: 1;
+  height: 100%;
+  color: black;
+  background-color: white;
+  overflow: auto;
+}
+
+.dashboardContainer {
+  height: 100%;
+  max-width: 100%;
+  flex-grow: 1;
+}
+
+.prompt {
+  /* min-height: 55%; Auto now */
+  max-width: 100%;
+}
+
+.board {
+  flex-grow: 1;
+  min-height: 100%;
+}
