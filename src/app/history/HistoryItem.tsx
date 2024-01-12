@@ -7,9 +7,17 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@mui/material';
-import { HistoryRow } from './page';
+import { HistoryRow, removeHistory } from './actions';
+type Props = {
+  history: HistoryRow;
+  onDelete: (history: HistoryRow) => void;
+};
 
-export default function HistoryItem({ history }: { history: HistoryRow }) {
+export default function HistoryItem({ history, onDelete }: Props) {
+  const deleteHistory = async () => {
+    onDelete(history);
+    await removeHistory(history);
+  };
   return (
     <>
       <ListItem disableGutters>
@@ -18,7 +26,7 @@ export default function HistoryItem({ history }: { history: HistoryRow }) {
           <IconButton>
             <EditOutlined fontSize="small" />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={deleteHistory}>
             <DeleteOutline fontSize="small" />
           </IconButton>
         </ListItemSecondaryAction>
