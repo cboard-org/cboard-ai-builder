@@ -1,12 +1,10 @@
-'use client';
-import { DeleteOutline, EditOutlined } from '@mui/icons-material';
-import {
-  Divider,
-  IconButton,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-} from '@mui/material';
+import DeleteOutline from '@mui/icons-material/DeleteOutline';
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ListItem from '@mui/material/ListItem';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import ListItemText from '@mui/material/ListItemText';
 import { HistoryRow, removeHistory } from './actions';
 type Props = {
   history: HistoryRow;

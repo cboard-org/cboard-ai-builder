@@ -1,6 +1,7 @@
 'use client';
 
-import { AccordionDetails, List } from '@mui/material';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import List from '@mui/material/List';
 import { HistoryRow } from './actions';
 import HistoryItem from './HistoryItem';
 import { useOptimistic } from 'react';

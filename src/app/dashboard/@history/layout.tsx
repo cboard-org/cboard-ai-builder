@@ -1,6 +1,7 @@
-'use client';
-import { ExpandMore } from '@mui/icons-material';
-import { Accordion, AccordionSummary, Box } from '@mui/material';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Box from '@mui/material/Box';
 import React from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
