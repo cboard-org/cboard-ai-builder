@@ -26,9 +26,10 @@ const sxStyles = {
     columnGap: { xs: xsSpacing, sm: smSpacing },
     rowGap: { xs: xsSpacing, sm: smSpacing },
   },
-  prompt: {
+  sidebar: {
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'auto',
     rowGap: { xs: xsSpacing, sm: smSpacing },
   },
 };
@@ -50,7 +51,7 @@ export default function Dashboard() {
           </Typography>
         </Box>
 
-        <Box sx={sxStyles.prompt}>
+        <Box sx={sxStyles.sidebar}>
           <Box className={styles.prompt}>
             <Typography
               sx={{
