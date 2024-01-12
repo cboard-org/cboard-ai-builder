@@ -34,7 +34,10 @@ const sxStyles = {
   },
 };
 
-export default function Dashboard() {
+export default function Dashboard(props: {
+  children: React.ReactNode;
+  navbar: React.ReactNode;
+}) {
   return (
     <Box
       py={{ xs: 1, sm: 3 }}
@@ -45,11 +48,7 @@ export default function Dashboard() {
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        <Box className={styles.titleBox}>
-          <Typography sx={{ border: '2px solid black' }}>
-            {'Menu and title '}
-          </Typography>
-        </Box>
+        <Box className={styles.titleBox}>{props.navbar}</Box>
 
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.prompt}>
