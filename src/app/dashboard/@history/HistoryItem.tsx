@@ -1,6 +1,5 @@
 import DeleteOutline from '@mui/icons-material/DeleteOutline';
 import EditOutlined from '@mui/icons-material/EditOutlined';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
@@ -18,18 +17,17 @@ export default function HistoryItem({ history, onDelete }: Props) {
   };
   return (
     <>
-      <ListItem disableGutters>
+      <ListItem disableGutters divider>
         <ListItemText primary={history.prompt} secondary={'Yesterday'} />
         <ListItemSecondaryAction>
-          <IconButton>
+          <IconButton size="small">
             <EditOutlined fontSize="small" />
           </IconButton>
-          <IconButton onClick={deleteHistory}>
+          <IconButton onClick={deleteHistory} size="small">
             <DeleteOutline fontSize="small" />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
-      <Divider />
     </>
   );
 }

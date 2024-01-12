@@ -22,6 +22,11 @@ const fake_db = [
     prompt: 'Little family in a camp with a cup',
     date: 'Yesterday',
   },
+  {
+    id: 4,
+    prompt: 'Little family in a camp with a cup',
+    date: 'Yesterday',
+  },
 ];
 
 export async function getHistoryData(): Promise<HistoryRow[]> {

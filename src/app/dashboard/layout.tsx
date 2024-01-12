@@ -65,16 +65,7 @@ export default function Layout(props: {
               {'Prompt'}
             </Typography>
           </Box>
-          <Box>
-            {/* <Typography
-              sx={{
-                border: '2px solid black',
-              }}
-            >
-              {'History'}
-            </Typography> */}
-            {props.history}
-          </Box>
+          <Box>{props.history}</Box>
           <Box>
             <Typography sx={{ border: '2px solid black', height: '100%' }}>
               {'Saved AI Boards'}

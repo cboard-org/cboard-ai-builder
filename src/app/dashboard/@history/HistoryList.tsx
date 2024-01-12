@@ -19,7 +19,7 @@ export default function HistoryList({
   );
 
   return (
-    <AccordionDetails>
+    <AccordionDetails sx={{ maxHeight: 260, overflowY: 'scroll' }}>
       <List>
         {histories.map((h, i) => (
           <HistoryItem history={h} key={i} onDelete={deleteHistory} />
