@@ -1,64 +1,86 @@
-import { Box, Grid, Hidden, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import * as React from 'react';
 import styles from './styles.module.css';
 
 const xsSpacing = 1;
 const smSpacing = 3;
 
+const sxStyles = {
+  dashboardContainer: {
+    display: 'grid',
+    alignContent: { xs: 'flex-start', sm: 'inherit' },
+    flexDirection: { xs: 'column' },
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 4fr' },
+    gridTemplateRows: {
+      xs: 'max-content max-content 1fr',
+      sm: 'max-content auto',
+    },
+
+    gridTemplateAreas: {
+      xs: `"title"
+    "sidebar"
+    "board"`,
+      sm: `"title board board board"
+  "sidebar board board board"`,
+    },
+    columnGap: { xs: xsSpacing, sm: smSpacing },
+    rowGap: { xs: xsSpacing, sm: smSpacing },
+  },
+  prompt: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: { xs: xsSpacing, sm: smSpacing },
+  },
+};
+
 export default function Dashboard() {
   return (
-    <Box p={{ xs: 2, sm: 4 }} className={styles.dashboardBox}>
-      <Grid container className={styles.dashboardContainer}>
-        <Grid
-          item
-          container
-          sm={3}
-          direction="column"
-          wrap="nowrap"
-          pr={{ sm: smSpacing }}
-          rowSpacing={{ xs: 1, sm: 2 }}
-        >
-          <Grid item>
-            <Typography sx={{ border: '2px solid black' }}>
-              {'Menu and title '}
+    <Box
+      py={{ xs: 1, sm: 3 }}
+      px={{ xs: 2, sm: 4 }}
+      className={styles.dashboardBox}
+    >
+      <Box
+        sx={sxStyles.dashboardContainer}
+        className={styles.dashboardContainer}
+      >
+        <Box className={styles.titleBox}>
+          <Typography sx={{ border: '2px solid black' }}>
+            {'Menu and title '}
+          </Typography>
+        </Box>
+
+        <Box sx={sxStyles.prompt}>
+          <Box className={styles.prompt}>
+            <Typography
+              sx={{
+                border: '2px solid black',
+              }}
+            >
+              {'Prompt'}
             </Typography>
-          </Grid>
-          <Grid
-            item
-            // sm={3}
-            direction="column"
-            container
-            wrap="nowrap"
-            rowSpacing={{ xs: xsSpacing, sm: smSpacing }}
-          >
-            <Grid item className={styles.prompt}>
-              <Typography sx={{ border: '2px solid black', height: '100%' }}>
-                {'Prompt'}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={{ border: '2px solid black', height: '100%' }}>
-                {'History'}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={{ border: '2px solid black', height: '100%' }}>
-                {'Saved AI Boards'}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          pt={{ xs: xsSpacing, sm: 0 }}
-          pb={{ xs: xsSpacing, sm: 0 }}
-          className={styles.board}
-        >
+          </Box>
+          <Box>
+            <Typography
+              sx={{
+                border: '2px solid black',
+              }}
+            >
+              {'History'}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography sx={{ border: '2px solid black', height: '100%' }}>
+              {'Saved AI Boards'}
+            </Typography>
+          </Box>
+        </Box>
+        <Box className={styles.board}>
           <Typography sx={{ border: '2px solid black', height: '100%' }}>
             {'Board'}
           </Typography>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 }
