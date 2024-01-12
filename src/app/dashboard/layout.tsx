@@ -2,16 +2,6 @@ import { Box, Grid, Hidden, Typography } from '@mui/material';
 import * as React from 'react';
 import styles from './styles.module.css';
 
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material';
-
 const xsSpacing = 1;
 const smSpacing = 3;
 
