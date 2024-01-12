@@ -34,7 +34,10 @@ const sxStyles = {
   },
 };
 
-export default function Dashboard() {
+export default function Layout(props: {
+  history: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <Box
       py={{ xs: 1, sm: 3 }}
@@ -62,13 +65,14 @@ export default function Dashboard() {
             </Typography>
           </Box>
           <Box>
-            <Typography
+            {/* <Typography
               sx={{
                 border: '2px solid black',
               }}
             >
               {'History'}
-            </Typography>
+            </Typography> */}
+            {props.history}
           </Box>
           <Box>
             <Typography sx={{ border: '2px solid black', height: '100%' }}>
@@ -81,6 +85,7 @@ export default function Dashboard() {
             {'Board'}
           </Typography>
         </Box>
+        {props.children}
       </Box>
     </Box>
   );
