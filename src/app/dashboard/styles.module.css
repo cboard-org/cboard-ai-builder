@@ -1,0 +1,29 @@
+.dashboardBox {
+  flex-grow: 1;
+  height: 100%;
+  color: black;
+  background-color: white;
+  overflow: auto;
+}
+
+.dashboardContainer {
+  height: 100%;
+  max-width: 100%;
+  flex-grow: 1;
+}
+
+.titleBox {
+  grid-area: title;
+}
+
+.prompt {
+  /* min-height: 55%; Auto now */
+  grid-area: sidebar;
+  max-width: 100%;
+}
+
+.board {
+  grid-area: board;
+  flex-grow: 1;
+  min-height: 100%;
+}
