@@ -17,6 +17,7 @@
     "@mui/material": "^5.15.4",
     "@mui/material-nextjs": "^5.15.3",
     "next": "14.0.4",
+    "next-intl": "^3.4.2",
     "react": "^18",
     "react-dom": "^18"
   },

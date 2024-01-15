@@ -49,7 +49,6 @@ export default function Dashboard(props: {
         className={styles.dashboardContainer}
       >
         <Box className={styles.titleBox}>{props.navbar}</Box>
-
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.prompt}>
             <Typography
