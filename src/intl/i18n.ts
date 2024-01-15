@@ -1,13 +1,11 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-
-// Can be imported from a shared config
-const locales = ['en-US', 'de'];
+import { supportedLocales } from './intl.constants';
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale)) notFound();
+  if (!supportedLocales.includes(locale)) notFound();
 
   return {
-    messages: (await import(`./dictionary/${locale}.json`)).default,
+    messages: (await import(`./dictionaries/${locale}.json`)).default,
   };
 });
