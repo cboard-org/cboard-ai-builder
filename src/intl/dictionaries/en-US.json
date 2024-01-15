@@ -1,5 +1,9 @@
 {
   "Dashboard": {
     "menu": "Tu vieja y el menu"
+  },
+  "Navbar": {
+    "Ai": "Ai",
+    "CBuilder": "CBuilder"
   }
 }

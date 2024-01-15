@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SvgIcon from '@mui/material/SvgIcon';
 import styles from './styles.module.css';
 import Typography from '@mui/material/Typography';
+import { useTranslations } from 'next-intl';
 
 const BrandIcon = () => (
   <SvgIcon>
@@ -59,6 +60,7 @@ const BrandIcon = () => (
 );
 
 export default function DashboardPage() {
+  const messages = useTranslations('Navbar');
   return (
     <Box className={styles.header}>
       <IconButton
@@ -81,9 +83,9 @@ export default function DashboardPage() {
           ml={0.5}
         >
           <Box component="span" fontWeight="bold">
-            {`Ai `}
+            {messages('Ai')}
           </Box>
-          CBuilder
+          {messages('CBuilder')}
         </Typography>
       </Box>
     </Box>
