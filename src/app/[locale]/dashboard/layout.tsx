@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import * as React from 'react';
 import styles from './styles.module.css';
+import { useTranslations } from 'next-intl';
 
 const xsSpacing = 1;
 const smSpacing = 3;
@@ -35,6 +36,7 @@ const sxStyles = {
 };
 
 export default function Dashboard() {
+  const message = useTranslations('Dashboard');
   return (
     <Box
       py={{ xs: 1, sm: 3 }}
@@ -47,7 +49,7 @@ export default function Dashboard() {
       >
         <Box className={styles.titleBox}>
           <Typography sx={{ border: '2px solid black' }}>
-            {'Menu and title '}
+            {message('menu')}
           </Typography>
         </Box>
 
