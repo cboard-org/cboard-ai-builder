@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import styles from './styles.module.css';
+import { useTranslations } from 'next-intl';
 
 const xsSpacing = 1;
 const smSpacing = 3;
@@ -39,6 +40,7 @@ export default function Layout(props: {
   history: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const message = useTranslations('Dashboard');
   return (
     <Box
       py={{ xs: 1, sm: 3 }}
@@ -51,7 +53,7 @@ export default function Layout(props: {
       >
         <Box className={styles.titleBox}>
           <Typography sx={{ border: '2px solid black' }}>
-            {'Menu and title '}
+            {message('menu')}
           </Typography>
         </Box>
 
