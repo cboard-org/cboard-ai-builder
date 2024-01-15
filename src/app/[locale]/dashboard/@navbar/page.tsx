@@ -43,7 +43,7 @@ const BrandIcon = () => (
         transform="rotate(-15 0.876678 7.24345)"
         fill="#D7B3FF"
         stroke="black"
-        stroke-width="1.43161"
+        strokeWidth="1.43161"
       />
       <rect
         x="11"
