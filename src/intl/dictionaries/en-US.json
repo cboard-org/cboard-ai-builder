@@ -4,5 +4,9 @@
   },
   "History": {
     "title": "History"
+  },
+  "Navbar": {
+    "ai": "Ai",
+    "cbuilder": "CBuilder"
   }
 }
