@@ -6,26 +6,32 @@ export type HistoryRow = {
   date: Date | string;
 };
 
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+const todayMinsAgo = new Date();
+todayMinsAgo.setMinutes(todayMinsAgo.getMinutes() - 10);
+const todayHoursAgo = new Date();
+todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
 const fake_db = [
   {
     id: 1,
     prompt: 'Little family in a camp with a cup',
-    date: 'Yesterday',
+    date: todayMinsAgo.toISOString(),
   },
   {
     id: 2,
     prompt: 'Little family in a camp with a cup',
-    date: 'Yesterday',
+    date: todayHoursAgo.toISOString(),
   },
   {
     id: 3,
     prompt: 'Little family in a camp with a cup',
-    date: 'Yesterday',
+    date: yesterday.toISOString(),
   },
   {
     id: 4,
     prompt: 'Little family in a camp with a cup',
-    date: 'Yesterday',
+    date: yesterday.toISOString(),
   },
 ];
 
