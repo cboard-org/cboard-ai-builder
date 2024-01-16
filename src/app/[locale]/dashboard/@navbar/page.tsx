@@ -83,9 +83,9 @@ export default function DashboardPage() {
           ml={0.5}
         >
           <Box component="span" fontWeight="bold">
-            {messages('Ai')}
+            {messages('ai')}
           </Box>
-          {messages('CBuilder')}
+          {messages('cbuilder')}
         </Typography>
       </Box>
     </Box>

@@ -3,7 +3,7 @@
     "menu": "Tu vieja y el menu"
   },
   "Navbar": {
-    "Ai": "Ai",
-    "CBuilder": "CBuilder"
+    "ai": "Ai",
+    "cbuilder": "CBuilder"
   }
 }
