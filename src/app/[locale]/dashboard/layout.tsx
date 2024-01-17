@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import styles from './styles.module.css';
 
@@ -35,6 +36,7 @@ const sxStyles = {
 };
 
 export default function Dashboard(props: {
+  history: React.ReactNode;
   children: React.ReactNode;
   navbar: React.ReactNode;
   promptForm: React.ReactNode;
@@ -52,15 +54,7 @@ export default function Dashboard(props: {
         <Box className={styles.titleBox}>{props.navbar}</Box>
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.prompt}>{props.promptForm}</Box>
-          <Box>
-            <Typography
-              sx={{
-                border: '2px solid black',
-              }}
-            >
-              {'History'}
-            </Typography>
-          </Box>
+          <Box>{props.history}</Box>
           <Box>
             <Typography sx={{ border: '2px solid black', height: '100%' }}>
               {'Saved AI Boards'}
@@ -72,6 +66,7 @@ export default function Dashboard(props: {
             {'Board'}
           </Typography>
         </Box>
+        {props.children}
       </Box>
     </Box>
   );

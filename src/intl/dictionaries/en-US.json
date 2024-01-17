@@ -2,6 +2,9 @@
   "Dashboard": {
     "menu": "Tu vieja y el menu"
   },
+  "History": {
+    "title": "History"
+  },
   "Navbar": {
     "ai": "Ai",
     "cbuilder": "CBuilder"
