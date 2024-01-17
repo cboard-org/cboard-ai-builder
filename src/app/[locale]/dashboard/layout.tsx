@@ -37,6 +37,7 @@ const sxStyles = {
 export default function Dashboard(props: {
   children: React.ReactNode;
   navbar: React.ReactNode;
+  promptForm: React.ReactNode;
 }) {
   return (
     <Box
@@ -50,15 +51,7 @@ export default function Dashboard(props: {
       >
         <Box className={styles.titleBox}>{props.navbar}</Box>
         <Box sx={sxStyles.sidebar}>
-          <Box className={styles.prompt}>
-            <Typography
-              sx={{
-                border: '2px solid black',
-              }}
-            >
-              {'Prompt'}
-            </Typography>
-          </Box>
+          <Box className={styles.prompt}>{props.promptForm}</Box>
           <Box>
             <Typography
               sx={{
