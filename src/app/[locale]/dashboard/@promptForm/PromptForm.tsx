@@ -16,6 +16,8 @@ import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
@@ -132,16 +134,35 @@ export function PromptForm() {
               flexDirection: 'column',
               flexGrow: 1,
               mt: '0.5rem',
+              mb: '0.3rem',
             }}
           >
-            <Typography
-              id="color-scheme-label"
-              variant="body2"
-              component="label"
-              sx={{ mb: '0.3rem' }}
+            <Stack
+              spacing={1}
+              direction="row"
+              useFlexGap
+              flexWrap="nowrap"
+              sx={{
+                alignContent: 'center',
+                alignItems: 'center',
+                mb: '0.3rem',
+              }}
             >
-              Color Scheme
-            </Typography>
+              <Typography
+                id="color-scheme-label"
+                variant="body2"
+                component="label"
+              >
+                Color Scheme
+              </Typography>
+              <IconButton
+                aria-label="help"
+                sx={{ fontSize: 'inherit' }}
+                size="small"
+              >
+                <HelpOutlineIcon fontSize="inherit" />
+              </IconButton>
+            </Stack>
             <FormControl size="small">
               <Select
                 id="color-scheme"
@@ -160,10 +181,33 @@ export function PromptForm() {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', mt: '0.5rem' }}>
-            <Typography variant="body2" component="div" sx={{ mb: '0.3rem' }}>
-              AI prompt
-            </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', mt: '0.3rem' }}>
+            <Stack
+              spacing={1}
+              direction="row"
+              useFlexGap
+              flexWrap="nowrap"
+              sx={{
+                alignContent: 'center',
+                alignItems: 'center',
+                mb: '0.3rem',
+              }}
+            >
+              <Typography
+                id="color-scheme-label"
+                variant="body2"
+                component="label"
+              >
+                AI prompt
+              </Typography>
+              <IconButton
+                aria-label="help"
+                sx={{ fontSize: 'inherit' }}
+                size="small"
+              >
+                <HelpOutlineIcon fontSize="inherit" />
+              </IconButton>
+            </Stack>
             <TextField
               id="prompt-text"
               name="prompt-text"
@@ -177,7 +221,7 @@ export function PromptForm() {
                   color: theme.palette.text.secondary,
                 },
               }}
-              inputProps={{ minlength: 5, maxLength: 10 }}
+              inputProps={{ minLength: 5, maxLength: 10 }}
               sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
             />
           </Box>
@@ -196,7 +240,26 @@ export function PromptForm() {
               name="use-ai-pictograms"
               control={<Switch defaultChecked />}
               label={
-                <Typography fontSize={'0.7rem'}>Use AI pictograms</Typography>
+                <Stack
+                  spacing={1}
+                  direction="row"
+                  useFlexGap
+                  flexWrap="nowrap"
+                  sx={{
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    mb: '0.3rem',
+                  }}
+                >
+                  <Typography fontSize={'0.7rem'}>Use AI pictograms</Typography>
+                  <IconButton
+                    aria-label="help"
+                    sx={{ fontSize: 'inherit' }}
+                    size="small"
+                  >
+                    <HelpOutlineIcon fontSize="inherit" />
+                  </IconButton>
+                </Stack>
               }
             />
           </Box>
