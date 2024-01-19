@@ -16,12 +16,12 @@ import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
-import { SelectChangeEvent } from '@mui/material';
 import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
+import GridSizeSelect from './GridSizeSelect';
 
-const totalRows = 10;
-const totalColumns = 10;
+const totalRows = 12;
+const totalColumns = 12;
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -32,7 +32,7 @@ function SubmitButton() {
         variant="contained"
         type="submit"
         disabled={pending}
-        sx={{ width: '100%', mt: '0.5rem' }}
+        sx={{ width: '100%' }}
       >
         <Typography variant="body2" component="div">
           NEW AI BOARD
@@ -45,7 +45,7 @@ function SubmitButton() {
             position: 'absolute',
             top: '50%',
             left: '50%',
-            marginTop: '-0.4em',
+            marginTop: '-0.7em',
             marginLeft: '-0.5em',
           }}
         />
@@ -55,19 +55,8 @@ function SubmitButton() {
 }
 
 export function PromptForm() {
-  const [rowSelected, setRowSelected] = React.useState('5');
-  const [columnSelected, setColumnSelected] = React.useState('5');
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
-
-  const handleRowChange = (event: SelectChangeEvent) => {
-    setRowSelected(event.target.value);
-  };
-
-  const handleColumnChange = (event: SelectChangeEvent) => {
-    setColumnSelected(event.target.value);
-  };
 
   return (
     <form action={formAction}>
@@ -85,29 +74,21 @@ export function PromptForm() {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  mb: '0.3rem',
                 }}
               >
                 <RowsIcon fontSize="small" />
-                <Typography variant="body2" component="label">
+                <Typography id="rows-label" variant="body2" component="label">
                   Rows
                 </Typography>
               </Box>
               <FormControl size="small">
-                <Select
-                  id={'rows'}
-                  name={'rows'}
-                  value={rowSelected}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  onChange={handleRowChange}
-                  sx={{ backgroundColor: 'white' }}
-                >
-                  {Array.from({ length: totalRows }).map((_, rowIndex) => (
-                    <MenuItem value={rowIndex} key={`row-${rowIndex}`}>
-                      {rowIndex}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <GridSizeSelect
+                  name="rows"
+                  labelId="rows-label"
+                  totalItems={totalRows}
+                  initialValue={5}
+                />
               </FormControl>
             </Box>
             <Box
@@ -121,34 +102,25 @@ export function PromptForm() {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  mb: '0.3rem',
                 }}
               >
                 <ColumnsIcon fontSize="small" />
-                <Typography variant="body2" component="label">
+                <Typography
+                  id="columns-label"
+                  variant="body2"
+                  component="label"
+                >
                   Columns
                 </Typography>
               </Box>
               <FormControl size="small">
-                <Select
-                  id="columns"
+                <GridSizeSelect
                   name="columns"
-                  value={columnSelected}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  onChange={handleColumnChange}
-                  sx={{ flexGrow: 1, backgroundColor: 'white' }}
-                >
-                  {Array.from({ length: totalColumns }).map(
-                    (_, columnIndex) => (
-                      <MenuItem
-                        value={columnIndex}
-                        key={`column-${columnIndex}`}
-                      >
-                        {columnIndex}
-                      </MenuItem>
-                    ),
-                  )}
-                </Select>
+                  labelId="columns-label"
+                  totalItems={totalColumns}
+                  initialValue={5}
+                />
               </FormControl>
             </Box>
           </Stack>
@@ -162,29 +134,34 @@ export function PromptForm() {
               mt: '0.5rem',
             }}
           >
-            <Typography variant="body2" component="div">
+            <Typography
+              id="color-scheme-label"
+              variant="body2"
+              component="label"
+              sx={{ mb: '0.3rem' }}
+            >
               Color Scheme
             </Typography>
             <FormControl size="small">
               <Select
                 id="color-scheme"
                 name="color-scheme"
-                value={columnSelected}
+                labelId="color-scheme-label"
+                defaultValue="default"
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
-                onChange={handleColumnChange}
-                sx={{ flexGrow: 1, backgroundColor: 'white' }}
+                sx={{ backgroundColor: 'white' }}
               >
-                <MenuItem value={1} key={`colorscheme-${1}`}>
-                  {1}
-                </MenuItem>
+                <MenuItem value="default">Default</MenuItem>
+                <MenuItem value="dark">Dark</MenuItem>
+                <MenuItem value="light">Light</MenuItem>
               </Select>
             </FormControl>
           </Box>
         </Grid>
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', flexDirection: 'column', mt: '0.5rem' }}>
-            <Typography variant="body2" component="div" sx={{ mb: '0.5rem' }}>
+            <Typography variant="body2" component="div" sx={{ mb: '0.3rem' }}>
               AI prompt
             </Typography>
             <TextField
@@ -192,6 +169,7 @@ export function PromptForm() {
               name="prompt-text"
               multiline
               rows={5}
+              required
               InputProps={{
                 inputComponent: 'textarea',
                 style: {
@@ -204,7 +182,14 @@ export function PromptForm() {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              flexGrow: 1,
+              mt: '.5rem',
+            }}
+          >
             <FormControlLabel
               id="use-ai-pictograms"
               name="use-ai-pictograms"
