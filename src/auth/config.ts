@@ -12,14 +12,31 @@ export default {
         email: { type: 'text', label: 'Email' },
         password: { type: 'password', label: 'Password' },
       },
-      authorize(credentials) {
-        if (
-          credentials?.email === 'admin' &&
-          credentials.password === 'admin'
-        ) {
-          return { id: '1', name: 'admin' };
-        }
+      async authorize(credentials) {
+        console.log(`${process.env.NEXT_PUBLIC_API_URL!}user/login`);
+        console.log(credentials);
+        try {
+          const apiResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL!}user/login`,
+            {
+              method: 'POST',
+              body: JSON.stringify(credentials),
+              headers: {
+                'Content-type': 'application/json',
+              },
+            },
+          );
 
+          const user = await apiResponse.json();
+          console.log(user);
+          if (apiResponse.ok && user) {
+            return user;
+          }
+        } catch (e) {
+          // TODO: send error message to client
+          console.error(e);
+          return null;
+        }
         return null;
       },
     }),
