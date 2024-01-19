@@ -3,27 +3,22 @@ import * as React from 'react';
 
 import { useFormState } from 'react-dom';
 import { useFormStatus } from 'react-dom';
-import { createTodo } from './actions';
-import {
-  Box,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-  FormControlLabel,
-  Switch,
-  Button,
-  Grid,
-  FormControl,
-} from '@mui/material';
-import { MenuItem } from '@mui/material';
+import { submit } from './actions';
+import Box from '@mui/material/Box';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 import { SelectChangeEvent } from '@mui/material';
 import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
-
-const initialState = {
-  message: '',
-};
 
 const totalRows = 10;
 const totalColumns = 10;
@@ -32,26 +27,39 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    // <button type="submit" aria-disabled={pending}>
-    //   Add
-    // </button>
-    <Button
-      variant="contained"
-      type="submit"
-      aria-disabled={pending}
-      sx={{ width: '100%', mt: '0.5rem' }}
-    >
-      <Typography variant="body2" component="div">
-        NEW AI BOARD
-      </Typography>
-    </Button>
+    <Box sx={{ m: 1, position: 'relative' }}>
+      <Button
+        variant="contained"
+        type="submit"
+        disabled={pending}
+        sx={{ width: '100%', mt: '0.5rem' }}
+      >
+        <Typography variant="body2" component="div">
+          NEW AI BOARD
+        </Typography>
+      </Button>
+      {pending && (
+        <CircularProgress
+          size={21}
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: '-0.4em',
+            marginLeft: '-0.5em',
+          }}
+        />
+      )}
+    </Box>
   );
 }
 
 export function PromptForm() {
   const [rowSelected, setRowSelected] = React.useState('5');
   const [columnSelected, setColumnSelected] = React.useState('5');
-  const [state, formAction] = useFormState(createTodo, initialState);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [state, formAction] = useFormState(submit, null);
 
   const handleRowChange = (event: SelectChangeEvent) => {
     setRowSelected(event.target.value);
@@ -86,6 +94,8 @@ export function PromptForm() {
               </Box>
               <FormControl size="small">
                 <Select
+                  id={'rows'}
+                  name={'rows'}
                   value={rowSelected}
                   displayEmpty
                   inputProps={{ 'aria-label': 'Without label' }}
@@ -120,6 +130,8 @@ export function PromptForm() {
               </Box>
               <FormControl size="small">
                 <Select
+                  id="columns"
+                  name="columns"
                   value={columnSelected}
                   displayEmpty
                   inputProps={{ 'aria-label': 'Without label' }}
@@ -155,6 +167,8 @@ export function PromptForm() {
             </Typography>
             <FormControl size="small">
               <Select
+                id="color-scheme"
+                name="color-scheme"
                 value={columnSelected}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
@@ -174,7 +188,8 @@ export function PromptForm() {
               AI prompt
             </Typography>
             <TextField
-              id="outlined-multiline-flexible"
+              id="prompt-text"
+              name="prompt-text"
               multiline
               rows={5}
               InputProps={{
@@ -191,6 +206,8 @@ export function PromptForm() {
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
             <FormControlLabel
+              id="use-ai-pictograms"
+              name="use-ai-pictograms"
               control={<Switch defaultChecked />}
               label={
                 <Typography fontSize={'0.7rem'}>Use AI pictograms</Typography>
@@ -198,15 +215,9 @@ export function PromptForm() {
             />
           </Box>
         </Grid>
-
-        {/* <input type="text" id="todo" name="todo" required /> */}
-        {/* <label htmlFor="todo">Todo</label> */}
         <Grid item xs={12}>
           <SubmitButton />
         </Grid>
-        <p aria-live="polite" className="sr-only" role="status">
-          {state?.message}
-        </p>
       </Grid>
     </form>
   );
