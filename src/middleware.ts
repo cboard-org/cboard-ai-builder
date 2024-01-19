@@ -52,10 +52,10 @@ const authMiddleware = withAuth(
     callbacks: {
       authorized: ({ token }) => token != null,
     },
-    pages: {
-      signIn: '/login-signup',
-      newUser: '/login-signup',
-    },
+    // pages: {
+    //   signIn: '/login-signup',
+    //   newUser: '/login-signup',
+    // },
   },
 );
 // Taken from next-intl example: https://github.com/amannn/next-intl/blob/main/examples/example-app-router-next-auth/src/middleware.ts

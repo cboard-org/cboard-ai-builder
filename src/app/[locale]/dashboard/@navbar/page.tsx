@@ -4,7 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SvgIcon from '@mui/material/SvgIcon';
 import styles from './styles.module.css';
 import Typography from '@mui/material/Typography';
-import { useTranslations } from 'next-intl';
+import { getServerSession } from 'next-auth';
+import authConfig from '@/auth/config';
+import { getTranslations } from 'next-intl/server';
 
 const BrandIcon = () => (
   <SvgIcon>
@@ -59,8 +61,9 @@ const BrandIcon = () => (
   </SvgIcon>
 );
 
-export default function DashboardPage() {
-  const messages = useTranslations('Navbar');
+export default async function DashboardPage() {
+  const messages = await getTranslations('Navbar');
+  const session = await getServerSession(authConfig);
   return (
     <Box className={styles.header}>
       <IconButton
@@ -88,6 +91,7 @@ export default function DashboardPage() {
           {' ' + messages('cbuilder')}
         </Typography>
       </Box>
+      Logged in as: {session?.user?.name}
     </Box>
   );
 }

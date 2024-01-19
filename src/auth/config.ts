@@ -1,17 +1,20 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
+import AppleProvider from 'next-auth/providers/apple';
 
 export default {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { type: 'text' },
-        password: { type: 'password' },
+        email: { type: 'text', label: 'Email' },
+        password: { type: 'password', label: 'Password' },
       },
       authorize(credentials) {
         if (
-          credentials?.username === 'admin' &&
+          credentials?.email === 'admin' &&
           credentials.password === 'admin'
         ) {
           return { id: '1', name: 'admin' };
@@ -19,6 +22,18 @@ export default {
 
         return null;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_APP_ID!,
+      clientSecret: process.env.GOOGLE_APP_SECRET!,
+    }),
+    FacebookProvider({
+      clientId: '',
+      clientSecret: '',
+    }),
+    AppleProvider({
+      clientId: '',
+      clientSecret: '',
     }),
   ],
 } satisfies AuthOptions;
