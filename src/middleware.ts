@@ -33,7 +33,7 @@ import { withAuth } from 'next-auth/middleware';
 
 const publicPages = [
   // '/',
-  '/login',
+  '/login-signup',
   // (/secret requires auth)
 ];
 
@@ -52,12 +52,13 @@ const authMiddleware = withAuth(
     callbacks: {
       authorized: ({ token }) => token != null,
     },
-    // pages: {
-    //   signIn: '/login',
-    // },
+    pages: {
+      signIn: '/login-signup',
+      newUser: '/login-signup',
+    },
   },
 );
-
+// Taken from next-intl example: https://github.com/amannn/next-intl/blob/main/examples/example-app-router-next-auth/src/middleware.ts
 export default function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
     `^(/(${supportedLocales.join('|')}))?(${publicPages
