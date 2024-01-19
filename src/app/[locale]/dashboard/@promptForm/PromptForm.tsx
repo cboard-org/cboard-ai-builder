@@ -177,6 +177,7 @@ export function PromptForm() {
                   color: theme.palette.text.secondary,
                 },
               }}
+              inputProps={{ minlength: 5, maxLength: 10 }}
               sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
             />
           </Box>
