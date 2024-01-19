@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/auth/config';
 import { getTranslations } from 'next-intl/server';
+import Tooltip from '@mui/material/Tooltip';
+import Logout from '@mui/icons-material/Logout';
 
 const BrandIcon = () => (
   <SvgIcon>
@@ -75,6 +77,12 @@ export default async function DashboardPage() {
       >
         <MenuIcon />
       </IconButton>
+      {/* TODO: remove this when menu items are done */}
+      <Tooltip title={`Logged in as: ${session?.user?.name}`}>
+        <IconButton href="/api/auth/signout">
+          <Logout />
+        </IconButton>
+      </Tooltip>
       <Box className={styles.brand}>
         <BrandIcon />
 
@@ -91,7 +99,6 @@ export default async function DashboardPage() {
           {' ' + messages('cbuilder')}
         </Typography>
       </Box>
-      Logged in as: {session?.user?.name}
     </Box>
   );
 }
