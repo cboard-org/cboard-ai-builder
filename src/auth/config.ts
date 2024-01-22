@@ -13,6 +13,11 @@ export default {
         password: { type: 'password', label: 'Password' },
       },
       async authorize(credentials) {
+        // TODO: find a way to make this work without affecting this env var or
+        // connecting to external APIs without issues from our local
+
+        // To work on localhost we need to disable the HTTPS cert check
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
         console.log(`${process.env.NEXT_PUBLIC_API_URL!}user/login`);
         console.log(credentials);
         try {
@@ -36,6 +41,9 @@ export default {
           // TODO: send error message to client
           console.error(e);
           return null;
+        } finally {
+          // Restore HTTPS check
+          process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
         }
         return null;
       },
