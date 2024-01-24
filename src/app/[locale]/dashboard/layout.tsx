@@ -39,6 +39,7 @@ export default function Dashboard(props: {
   history: React.ReactNode;
   children: React.ReactNode;
   navbar: React.ReactNode;
+  board: React.ReactNode;
 }) {
   return (
     <Box
@@ -68,11 +69,7 @@ export default function Dashboard(props: {
             </Typography>
           </Box>
         </Box>
-        <Box className={styles.board}>
-          <Typography sx={{ border: '2px solid black', height: '100%' }}>
-            {'Board'}
-          </Typography>
-        </Box>
+        <Box className={styles.board}>{props.board}</Box>
         {props.children}
       </Box>
     </Box>
