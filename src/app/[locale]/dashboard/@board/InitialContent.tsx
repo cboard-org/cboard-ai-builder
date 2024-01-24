@@ -5,14 +5,15 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
-const promptExamples = [
-  'A board encourages them to arrange these pictograms in a sequence to tell a magical and adventurous story.',
-  'I Want a board that describe a family of a mother, son and grandmother and all social interactions between them.',
-  'Mix and match pictograms to craft imaginative stories about animal adventures and friendships',
-];
+const promptExampleMessagesKey = [
+  'promptExample1',
+  'promptExample2',
+  'promptExample3',
+] as const;
 
-const PromptExamplesTextField = ({ prompt }: { prompt: string }) => {
+const PromptExamplesTextField = ({ message }: { message: string }) => {
   return (
     <TextField
       // id="prompt-text"
@@ -20,7 +21,7 @@ const PromptExamplesTextField = ({ prompt }: { prompt: string }) => {
       multiline
       rows={5}
       aria-readonly
-      value={prompt}
+      value={message}
       InputProps={{
         inputComponent: 'textarea',
         style: {
@@ -40,6 +41,7 @@ const PromptExamplesTextField = ({ prompt }: { prompt: string }) => {
 };
 
 export default function InitialContent() {
+  const messages = useTranslations('Board.InitialContent');
   return (
     <Box sx={{ height: '100%', backgroundColor: '#f8f8f8' }}>
       <Box
@@ -63,7 +65,7 @@ export default function InitialContent() {
           <Box sx={{ width: { xs: '100%', sm: '336px' } }}>
             <Box textAlign={'end'}>
               <Chip
-                label={'AI'}
+                label={messages('AI')}
                 sx={{ backgroundColor: '#363636', color: 'white' }}
               />
             </Box>
@@ -74,11 +76,10 @@ export default function InitialContent() {
                 lineHeight: '56px',
               }}
             >
-              {'Create a '}
-              <Box component="span" fontWeight="bold">
-                {'New'}
-                <br /> {'Ai Board'}
-              </Box>
+              {messages.rich('createANewAiBoard', {
+                br: () => <br />,
+                b: (children) => <b>{children}</b>,
+              })}
             </Typography>
           </Box>
           <Box
@@ -115,13 +116,13 @@ export default function InitialContent() {
               overflowX: 'auto',
             }}
           >
-            {promptExamples.map((item, index) => {
+            {promptExampleMessagesKey.map((key, index) => {
               return (
                 <Box
                   key={index}
                   sx={{ flexShrink: 0, flexGrow: 1, flexBasis: '188px' }}
                 >
-                  <PromptExamplesTextField prompt={item} />
+                  <PromptExamplesTextField message={messages(key)} />
                 </Box>
               );
             })}
