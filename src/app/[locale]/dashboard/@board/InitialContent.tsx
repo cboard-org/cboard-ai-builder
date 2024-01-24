@@ -65,7 +65,7 @@ export default function InitialContent() {
           <Box sx={{ width: { xs: '100%', sm: '336px' } }}>
             <Box textAlign={'end'}>
               <Chip
-                label={messages('AI')}
+                label={messages('ai')}
                 sx={{ backgroundColor: '#363636', color: 'white' }}
               />
             </Box>
@@ -104,7 +104,7 @@ export default function InitialContent() {
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ pb: '0.5rem' }}>
-            <Typography>{'Examples'}</Typography>
+            <Typography>{messages('examples')}</Typography>
           </Box>
           <Divider />
           <Box
