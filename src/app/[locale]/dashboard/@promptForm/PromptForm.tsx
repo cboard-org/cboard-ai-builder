@@ -21,11 +21,12 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
+import { useTranslations } from 'next-intl';
 
 const totalRows = 12;
 const totalColumns = 12;
 
-function SubmitButton() {
+function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
 
   return (
@@ -37,7 +38,7 @@ function SubmitButton() {
         sx={{ width: '100%' }}
       >
         <Typography variant="body2" component="div">
-          NEW AI BOARD
+          {text}
         </Typography>
       </Button>
       {pending && (
@@ -59,6 +60,7 @@ function SubmitButton() {
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
+  const message = useTranslations('PromptForm');
 
   return (
     <form action={formAction}>
@@ -81,7 +83,7 @@ export function PromptForm() {
               >
                 <RowsIcon fontSize="small" />
                 <Typography id="rows-label" variant="body2" component="label">
-                  Rows
+                  {message('rows')}
                 </Typography>
               </Box>
               <FormControl size="small">
@@ -113,7 +115,7 @@ export function PromptForm() {
                   variant="body2"
                   component="label"
                 >
-                  Columns
+                  {message('columns')}
                 </Typography>
               </Box>
               <FormControl size="small">
@@ -153,7 +155,7 @@ export function PromptForm() {
                 variant="body2"
                 component="label"
               >
-                Color Scheme
+                {message('colorScheme')}
               </Typography>
               <IconButton
                 aria-label="help"
@@ -198,7 +200,7 @@ export function PromptForm() {
                 variant="body2"
                 component="label"
               >
-                AI prompt
+                {message('aiPrompt')}
               </Typography>
               <IconButton
                 aria-label="help"
@@ -251,7 +253,9 @@ export function PromptForm() {
                     mb: '0.3rem',
                   }}
                 >
-                  <Typography fontSize={'0.7rem'}>Use AI pictograms</Typography>
+                  <Typography fontSize={'0.7rem'}>
+                    {message('useAiPictograms')}
+                  </Typography>
                   <IconButton
                     aria-label="help"
                     sx={{ fontSize: 'inherit' }}
@@ -265,7 +269,7 @@ export function PromptForm() {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <SubmitButton />
+          <SubmitButton text={message('newAiBoard')} />
         </Grid>
       </Grid>
     </form>
