@@ -4,25 +4,25 @@ import * as React from 'react';
 import styles from './styles.module.css';
 
 const xsSpacing = 1;
-const smSpacing = 3;
+const smSpacing = 2;
 
 const sxStyles = {
   dashboardContainer: {
     display: 'grid',
     alignContent: { xs: 'flex-start', sm: 'inherit' },
     flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 4fr' },
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 3fr' },
     gridTemplateRows: {
-      xs: 'max-content max-content 1fr',
-      sm: 'max-content auto',
+      xs: '7% 93% auto',
+      sm: '50px auto',
     },
 
     gridTemplateAreas: {
-      xs: `"title"
-    "sidebar"
-    "board"`,
-      sm: `"title board board board"
-  "sidebar board board board"`,
+      xs: ` "title"
+            "board"
+            "sidebar"`,
+      sm: ` "title board"
+            "sidebar board"`,
     },
     columnGap: { xs: xsSpacing, sm: smSpacing },
     rowGap: { xs: xsSpacing, sm: smSpacing },
@@ -40,6 +40,7 @@ export default function Dashboard(props: {
   children: React.ReactNode;
   navbar: React.ReactNode;
   promptForm: React.ReactNode;
+  board: React.ReactNode;
 }) {
   return (
     <Box
@@ -61,11 +62,7 @@ export default function Dashboard(props: {
             </Typography>
           </Box>
         </Box>
-        <Box className={styles.board}>
-          <Typography sx={{ border: '2px solid black', height: '100%' }}>
-            {'Board'}
-          </Typography>
-        </Box>
+        <Box className={styles.board}>{props.board}</Box>
         {props.children}
       </Box>
     </Box>
