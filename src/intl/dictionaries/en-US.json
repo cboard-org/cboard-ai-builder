@@ -9,6 +9,14 @@
     "ai": "Ai",
     "cbuilder": "CBuilder"
   },
+  "PromptForm": {
+    "rows": "Rows",
+    "columns": "Columns",
+    "colorScheme": "Color Scheme",
+    "aiPrompt": "AI Prompt",
+    "useAiPictograms": "Use AI Pictograms",
+    "newAiBoard": "New ai board"
+  },
   "Board": {
     "InitialContent": {
       "ai": "AI",
