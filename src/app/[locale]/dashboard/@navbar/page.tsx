@@ -5,7 +5,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import styles from './styles.module.css';
 import Typography from '@mui/material/Typography';
 import { getServerSession } from 'next-auth';
-import authConfig from '@/auth/config';
+import authConfig from '@/lib/next-auth/config';
 import { getTranslations } from 'next-intl/server';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';

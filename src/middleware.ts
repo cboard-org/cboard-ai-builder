@@ -1,6 +1,5 @@
 import createIntlMiddleware from 'next-intl/middleware';
 import { NextRequest } from 'next/server';
-
 import {
   supportedLocales,
   defaultLocale,
