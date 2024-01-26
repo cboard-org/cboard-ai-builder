@@ -21,6 +21,8 @@
     "next": "14.0.4",
     "next-intl": "^3.4.2",
     "react": "^18",
+    "react-dnd": "^16.0.1",
+    "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "^18",
     "zod": "^3.22.4"
   },
