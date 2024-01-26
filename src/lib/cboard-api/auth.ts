@@ -62,7 +62,7 @@ export async function oauthLogin(
     refreshToken: account.refresh_token,
   };
   const apiResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL!}login/passport/${account.provider}`,
+    `${process.env.NEXT_PUBLIC_API_URL!}login/oauth/${account.provider}`,
     {
       method: 'POST',
       body: JSON.stringify(payload),
