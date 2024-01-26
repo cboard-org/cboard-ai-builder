@@ -7,32 +7,9 @@ import {
   localePrefix,
 } from './intl/intl.constants';
 import { withAuth } from 'next-auth/middleware';
-// export default createMiddleware({
-//   locales: supportedLocales,
-//   defaultLocale,
-//   localePrefix,
-// });
-
-// const intlMiddleware = createIntlMiddleware({
-//   locales: supportedLocales,
-//   defaultLocale,
-//   localePrefix,
-// });
-
-// const authMiddleware = withAuth(
-//   function onSuccess(req) {
-//     return intlMiddleware(req);
-//   }
-// );
-
-// export default withAuth({});
-
-// export const config = {
-//   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-// };
 
 const publicPages = [
-  // '/',
+  '/',
   '/login-signup',
   // (/secret requires auth)
 ];

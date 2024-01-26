@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple';
+import { oauthLogin } from '@/lib/cboard-api';
 const providers = [];
 
 if (process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
@@ -32,6 +33,19 @@ if (process.env.APPLE_APP_CLIENT_ID && process.env.APPLE_KEY_ID) {
 }
 
 export default {
+  callbacks: {
+    async jwt({ account, token, profile }) {
+      // Signin
+      if (account && profile) {
+        if (account.type == 'oauth') {
+          const cboardUser = await oauthLogin(profile, account);
+          token.cboard_user = cboardUser;
+        }
+      }
+
+      return token;
+    },
+  },
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -63,7 +77,7 @@ export default {
             throw new Error(user.message);
           }
 
-          console.log('User found:', user);
+          // console.log('User found:', user);
           if (apiResponse.ok && user) {
             return user;
           }
