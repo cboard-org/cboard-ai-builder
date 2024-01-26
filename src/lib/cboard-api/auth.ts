@@ -1,6 +1,12 @@
 import { Account, Profile } from 'next-auth';
 import { User } from './types';
 
+// TODO: Make this connector to be separated from any other component
+// Currently it is importing types from 'next-auth', ideally this functions shouldn't rely on
+// external services.
+// Basically no imports should come from something that's an external service
+// not related to cboard-api
+
 /**
  * Sign in a user with credentials
  * @throws Error on fetch error
