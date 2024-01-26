@@ -2,9 +2,34 @@ import { Account, Profile } from 'next-auth';
 import { User } from './types';
 
 /**
+ * Sign in a user with credentials
+ * @throws Error on fetch error
+ * @param credentials
+ * @returns
+ */
+export async function credentialsLogin(
+  credentials: Record<'email' | 'password', string>,
+): Promise<User> {
+  const apiResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL!}user/login`,
+    {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    },
+  );
+
+  const user = await apiResponse.json();
+  return user;
+}
+
+/**
  * Sends oauth data Cboard API to create/update user
  * @param profile
  * @param account
+ * @throws Error on fetch error
  * @returns
  */
 export async function oauthLogin(
