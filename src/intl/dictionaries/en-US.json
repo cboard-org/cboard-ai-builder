@@ -8,5 +8,23 @@
   "Navbar": {
     "ai": "Ai",
     "cbuilder": "CBuilder"
+  },
+  "PromptForm": {
+    "rows": "Rows",
+    "columns": "Columns",
+    "colorScheme": "Color Scheme",
+    "aiPrompt": "AI Prompt",
+    "useAiPictograms": "Use AI Pictograms",
+    "newAiBoard": "New ai board"
+  },
+  "Board": {
+    "InitialContent": {
+      "ai": "AI",
+      "createANewAiBoard": "Create a <b>New <br></br> Ai Board</b>",
+      "examples": "Examples",
+      "promptExample1": "A board encourages them to arrange these pictograms in a sequence to tell a magical and adventurous story.",
+      "promptExample2": "I Want a board that describe a family of a mother, son and grandmother and all social interactions between them.",
+      "promptExample3": "Mix and match pictograms to craft imaginative stories about animal adventures and friendships"
+    }
   }
 }
