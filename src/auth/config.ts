@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple';
 import { oauthLogin, credentialsLogin } from '@/lib/cboard-api/auth';
+import { User as CBoardUser } from '@/lib/cboard-api/types';
 const providers = [];
 
 if (process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
@@ -34,15 +35,22 @@ if (process.env.APPLE_APP_CLIENT_ID && process.env.APPLE_KEY_ID) {
 
 export default {
   callbacks: {
-    async jwt({ account, token, profile }) {
+    async session({ session, token }) {
+      // Persisting cboard API user data on backend too
+      session.cboard_user = token.cboard_user;
+      return session;
+    },
+    async jwt({ account, token, user, profile }) {
       // Signin
+      if (account && user && account.type == 'credentials' && user) {
+        token.cboard_user = user as CBoardUser;
+      }
       if (account && profile) {
         if (account.type == 'oauth') {
           const cboardUser = await oauthLogin(profile, account);
           token.cboard_user = cboardUser;
         }
       }
-
       return token;
     },
   },
@@ -57,7 +65,6 @@ export default {
         if (!credentials) {
           return null;
         }
-
         try {
           const user = await credentialsLogin(credentials);
           return user;

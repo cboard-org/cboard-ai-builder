@@ -20,6 +20,10 @@ export async function credentialsLogin(
       },
     },
   );
+  if (!apiResponse.ok) {
+    // TODO: error messages in UI
+    throw new Error('TODO: error messages in UI');
+  }
 
   const user = await apiResponse.json();
   return user;
@@ -67,6 +71,10 @@ export async function oauthLogin(
       },
     },
   );
+  if (!apiResponse.ok) {
+    // TODO: error messages in UI
+    throw new Error('TODO: error messages in UI');
+  }
 
   const jsonResp = (await apiResponse.json()) as User;
   return jsonResp;
