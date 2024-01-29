@@ -1,0 +1,431 @@
+{
+  "isPublic": false,
+  "tiles": [
+    {
+      "labelKey": "symbol.pronouns.friend",
+      "image": "/symbols/arasaac/friend.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "Bc4bk1-GX"
+    },
+    {
+      "labelKey": "cboard.board.home",
+      "image": "/symbols/arasaac/home.png",
+      "loadBoard": "jjmlUcQs19",
+      "sound": "",
+      "type": "folder",
+      "backgroundColor": "#2196F3",
+      "linkedBoard": true,
+      "id": "caGWf2ZO_"
+    },
+    {
+      "labelKey": "symbol.descriptiveQuantity.categories",
+      "image": "/symbols/arasaac/categories.png",
+      "loadBoard": "22NGG3QTHX",
+      "sound": "",
+      "type": "folder",
+      "backgroundColor": "#2196F3",
+      "linkedBoard": true,
+      "id": "hhi7g42aw"
+    },
+    {
+      "labelKey": "cboard.symbol.actions",
+      "image": "/symbols/mulberry/verbs_collective.svg",
+      "loadBoard": "zxah1D5mr4",
+      "sound": "",
+      "type": "folder",
+      "backgroundColor": "#2196F3",
+      "linkedBoard": true,
+      "id": "TP3VfIeRL"
+    },
+    {
+      "labelKey": "cboard.symbol.describe",
+      "image": "/symbols/arasaac/describe.png",
+      "loadBoard": "1R4sFwAYCC",
+      "sound": "",
+      "type": "folder",
+      "backgroundColor": "#2196F3",
+      "linkedBoard": true,
+      "id": "5Xr-IMFrQ"
+    },
+    {
+      "labelKey": "cboard.symbol.people",
+      "image": "/symbols/arasaac/people.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#2196F3",
+      "linkedBoard": false,
+      "id": "xvPcYvwAo"
+    },
+    {
+      "labelKey": "symbol.pronouns.me",
+      "image": "/symbols/arasaac/me.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "I0PG7wU9Z"
+    },
+    {
+      "labelKey": "symbol.pronouns.anybody",
+      "image": "/symbols/arasaac/anybody.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "QrlSZdkvJ"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.mum",
+      "image": "/symbols/arasaac/mum.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "OT4WUICNO"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.dad",
+      "image": "/symbols/arasaac/dad.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "BWnqRFsG-"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.sister",
+      "image": "/symbols/arasaac/sister.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "8IyuP2kR2"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.brother",
+      "image": "/symbols/arasaac/brother.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "pOByyEcHe"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.grandmother",
+      "image": "/symbols/arasaac/grandmother.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "i6G14YDX2"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.grandfather",
+      "image": "/symbols/arasaac/grandfather.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "znB8dkzR2"
+    },
+    {
+      "labelKey": "symbol.pronouns.everybody",
+      "image": "/symbols/arasaac/everybody.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "8vg063hjU"
+    },
+    {
+      "labelKey": "symbol.pronouns.nobody",
+      "image": "/symbols/arasaac/nobody.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "oiOL4zxAu"
+    },
+    {
+      "labelKey": "symbol.pronouns.us",
+      "image": "/symbols/arasaac/us.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "XYrcCq_3U"
+    },
+    {
+      "labelKey": "symbol.pronouns.mine",
+      "image": "/symbols/arasaac/mine.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "C0OLkBaiw"
+    },
+    {
+      "labelKey": "symbol.pronouns.them",
+      "image": "/symbols/arasaac/them.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "BezxZyCYV"
+    },
+    {
+      "labelKey": "symbol.pronouns.their",
+      "image": "/symbols/arasaac/their.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "jqoR7pdq_"
+    },
+    {
+      "labelKey": "symbol.pronouns.him",
+      "image": "/symbols/arasaac/him.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "mER73m0k4"
+    },
+    {
+      "labelKey": "symbol.pronouns.his",
+      "image": "/symbols/arasaac/his.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "NWvChb_1g"
+    },
+    {
+      "labelKey": "symbol.pronouns.her",
+      "image": "/symbols/arasaac/her.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "JDI2TJx7B"
+    },
+    {
+      "labelKey": "symbol.pronouns.hers",
+      "image": "/symbols/arasaac/hers.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "GStv5XN12"
+    },
+    {
+      "labelKey": "symbol.pronouns.girl",
+      "image": "/symbols/arasaac/girl.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "JJ6ADD-ym"
+    },
+    {
+      "labelKey": "symbol.pronouns.whoever",
+      "image": "/symbols/arasaac/whoever.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "mWV4cj3LL"
+    },
+    {
+      "labelKey": "symbol.pronouns.boy",
+      "image": "/symbols/arasaac/boy.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "xsq8ZI7RV"
+    },
+    {
+      "labelKey": "symbol.peopleDescriptive.baby",
+      "image": "/symbols/arasaac/baby.svg",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "gPZ1vjs6a"
+    },
+    {
+      "labelKey": "symbol.pronouns.children",
+      "image": "/symbols/arasaac/children.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "fPdLr_KA0"
+    },
+    {
+      "labelKey": "symbol.pronouns.kids",
+      "image": "/symbols/arasaac/kids.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "JapqX_28O"
+    },
+    {
+      "labelKey": "symbol.pronouns.our",
+      "image": "/symbols/arasaac/our.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "h-4ww5L0L"
+    },
+    {
+      "labelKey": "cboard.symbol.your",
+      "image": "/symbols/arasaac/your.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "COQ1s1MyS"
+    },
+    {
+      "labelKey": "symbol.peopleRelationship.parents",
+      "image": "/symbols/arasaac/parents.png",
+      "loadBoard": "",
+      "sound": "",
+      "type": "button",
+      "backgroundColor": "#fff176",
+      "linkedBoard": false,
+      "id": "ZAOQ6sUNt"
+    }
+  ],
+  "cellSize": "medium",
+  "locale": "en-US",
+  "format": "cboard",
+  "description": "",
+  "isFixed": true,
+  "nameKey": "cboard.symbol.people",
+  "author": "cboard team",
+  "email": "support@cboard.io",
+  "caption": "/symbols/arasaac/people.png",
+  "lastEdited": "2022-11-28T17:09:51-03:00",
+  "grid": {
+    "rows": 6,
+    "columns": 11,
+    "order": [
+      [
+        null,
+        "oiOL4zxAu",
+        null,
+        "OT4WUICNO",
+        "BWnqRFsG-",
+        "8IyuP2kR2",
+        "pOByyEcHe",
+        "i6G14YDX2",
+        "znB8dkzR2",
+        "c1F2Yvl9I",
+        "SBU5Dnf_A"
+      ],
+      [
+        null,
+        "I0PG7wU9Z",
+        "mER73m0k4",
+        "JDI2TJx7B",
+        "GStv5XN12",
+        "JJ6ADD-ym",
+        null,
+        null,
+        null,
+        "fPdLr_KA0",
+        null
+      ],
+      [
+        "F2a_iOWz2",
+        "C0OLkBaiw",
+        "NWvChb_1g",
+        null,
+        "Bc4bk1-GX",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "xLs5zAL4l"
+      ],
+      [
+        null,
+        "BezxZyCYV",
+        "jqoR7pdq_",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "ZAOQ6sUNt",
+        "M0TmCQ-6B"
+      ],
+      [
+        null,
+        "COQ1s1MyS",
+        "h-4ww5L0L",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "BqPuvZKcs"
+      ],
+      [
+        "caGWf2ZO_",
+        "xvPcYvwAo",
+        "XYrcCq_3U",
+        "TP3VfIeRL",
+        null,
+        null,
+        null,
+        "5Xr-IMFrQ",
+        null,
+        null,
+        "hhi7g42aw"
+      ]
+    ]
+  },
+  "id": "twTE1_zkPv",
+  "hidden": true
+}

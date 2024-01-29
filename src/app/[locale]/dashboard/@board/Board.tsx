@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
@@ -7,9 +8,65 @@ import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import Grid from './Grid';
+import Grid from './FixedGrid/Grid';
+import board from './FixedGrid/testBoard.json';
+
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { ReactNode } from 'react';
+
+const dndOptions = {
+  enableTouchEvents: true,
+  enableMouseEvents: true,
+  enableKeyboardEvents: true,
+};
 
 export default function Board() {
+  const renderTileFixedBoard = (item: {
+    color: string;
+    label: string;
+  }): ReactNode => {
+    return (
+      <Box
+        sx={{
+          width: '50px',
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: item.color,
+          borderRadius: '0.5rem',
+          border: '1px solid #ccc',
+          boxShadow: '0 0 5px #ccc',
+        }}
+      >
+        <Box sx={{ fontSize: '2rem', color: 'white' }}>{item.label}</Box>
+      </Box>
+    );
+  };
+
+  const renderEmptyCell = () => {
+    return (
+      <Box
+        sx={{
+          width: '50px',
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'grey',
+          borderRadius: '0.5rem',
+          border: '1px solid #ccc',
+          boxShadow: '0 0 5px #ccc',
+        }}
+      >
+        <Box sx={{ fontSize: '2rem', color: 'white' }}>lol</Box>
+      </Box>
+    );
+  };
+  const onTileDrop = () => {};
+
+  //console.log(board);
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box
@@ -59,8 +116,23 @@ export default function Board() {
             // border: '2px solid grey'
           }}
         >
-          <Box sx={{ maxWidth: '1500px', overflowX: 'scroll' }}>
-            <Grid />
+          <Box sx={{ maxWidth: '1500px', overflowX: 'scroll', height: '100%' }}>
+            <DndProvider backend={TouchBackend} options={dndOptions}>
+              <Grid
+                order={board.grid ? board.grid.order : []}
+                items={board.tiles}
+                columns={board.grid ? board.grid.columns : 6} //DEFAULT_COLUMNS_NUMBER}
+                rows={board.grid ? board.grid.rows : 6} // DEFAULT_ROWS_NUMBER}
+                dragAndDropEnabled={true} //{isSelecting}
+                renderItem={(item) => renderTileFixedBoard(item)}
+                onItemDrop={onTileDrop}
+                renderEmptyCell={renderEmptyCell}
+                //fixedRef={this.fixedBoardContainerRef}
+                // setIsScroll={setIsScroll}
+                // isBigScrollBtns={navigationSettings.bigScrollButtonsActive}
+                // isNavigationButtonsOnTheSide={isNavigationButtonsOnTheSide}
+              />
+            </DndProvider>
           </Box>
         </Box>
       </Box>
