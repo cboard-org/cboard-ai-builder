@@ -12,7 +12,7 @@ export interface Grid {
 
 export type GridOrder = (string | null)[][];
 
-interface Props {
+interface GridProps {
   items: Item[]; //Items to render.
   rows: number; //Number of rows
   columns: number; //Number of columns
@@ -28,12 +28,5 @@ interface Props {
     position: { row: number; column: number },
   ) => void; //
   className?: string; //Classname
-}
-
-export interface GridProps extends Props {
   style?: CSSProperties; //Inline style
-}
-
-export interface GridBaseProps extends Props {
-  page: number;
 }
