@@ -5,15 +5,16 @@ import styles from './styles.module.css';
 
 const xsSpacing = 1;
 const smSpacing = 3;
-
+const menuBarHeight = 56;
 const sxStyles = {
   dashboardContainer: {
     display: 'grid',
+    overflowY: { xs: 'scroll', sm: 'unset' },
     alignContent: { xs: 'flex-start', sm: 'inherit' },
     flexDirection: { xs: 'column' },
     gridTemplateColumns: { xs: '1fr', sm: '1fr 3fr' },
     gridTemplateRows: {
-      xs: 'max-content max-content 100%',
+      xs: `max-content max-content calc(100% - ${menuBarHeight}px);`,
       sm: 'auto 1fr',
     },
 
@@ -24,7 +25,7 @@ const sxStyles = {
       sm: `"title board"
   "sidebar board"`,
     },
-    columnGap: { xs: xsSpacing, sm: smSpacing },
+    columnGap: { xs: 0, sm: smSpacing },
     rowGap: { xs: xsSpacing, sm: smSpacing },
   },
   sidebar: {
@@ -43,16 +44,15 @@ export default function Dashboard(props: {
   board: React.ReactNode;
 }) {
   return (
-    <Box
-      py={{ xs: 1, sm: 3 }}
-      px={{ xs: 2, sm: 4 }}
-      className={styles.dashboardBox}
-    >
+    <Box py={{ xs: 0, sm: 3 }} className={styles.dashboardBox}>
       <Box
+        px={{ xs: 2, sm: 4 }}
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        <Box className={styles.titleBox}>{props.navbar}</Box>
+        <Box py={{ xs: xsSpacing, sm: 0 }} className={styles.titleBox}>
+          {props.navbar}
+        </Box>
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.prompt}>{props.promptForm}</Box>
           <Box>{props.history}</Box>
