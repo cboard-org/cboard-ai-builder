@@ -4,7 +4,9 @@ import * as React from 'react';
 import styles from './styles.module.css';
 
 const xsSpacing = 1;
-const smSpacing = 3;
+const smSpacing = 2;
+const mdSpacing = 3;
+
 const menuBarHeight = 56;
 const sxStyles = {
   dashboardContainer: {
@@ -12,7 +14,7 @@ const sxStyles = {
     overflowY: { xs: 'scroll', sm: 'unset' },
     alignContent: { xs: 'flex-start', sm: 'inherit' },
     flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 3fr' },
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 2fr', md: '1fr 3fr' },
     gridTemplateRows: {
       xs: `max-content max-content calc(100% - ${menuBarHeight}px);`,
       sm: 'auto 1fr',
@@ -25,14 +27,14 @@ const sxStyles = {
       sm: `"title board"
   "sidebar board"`,
     },
-    columnGap: { xs: 0, sm: smSpacing },
-    rowGap: { xs: xsSpacing, sm: smSpacing },
+    columnGap: { xs: 0, sm: smSpacing, md: mdSpacing },
+    rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
   },
   sidebar: {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'auto',
-    rowGap: { xs: xsSpacing, sm: smSpacing },
+    rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
   },
 };
 
@@ -44,9 +46,9 @@ export default function Dashboard(props: {
   board: React.ReactNode;
 }) {
   return (
-    <Box py={{ xs: 0, sm: 3 }} className={styles.dashboardBox}>
+    <Box py={{ xs: 0, sm: 2, md: 3 }} className={styles.dashboardBox}>
       <Box
-        px={{ xs: 2, sm: 4 }}
+        px={{ xs: 2, md: 4 }}
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
