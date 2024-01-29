@@ -8,8 +8,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import Grid from './FixedGrid/Grid';
-import board from './FixedGrid/testBoard.json';
+import Grid from './Grid';
+import board from './Grid/testBoard.json';
 
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
