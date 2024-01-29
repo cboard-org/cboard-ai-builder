@@ -127,10 +127,6 @@ export default function Board() {
                 renderItem={(item) => renderTileFixedBoard(item)}
                 onItemDrop={onTileDrop}
                 renderEmptyCell={renderEmptyCell}
-                //fixedRef={this.fixedBoardContainerRef}
-                // setIsScroll={setIsScroll}
-                // isBigScrollBtns={navigationSettings.bigScrollButtonsActive}
-                // isNavigationButtonsOnTheSide={isNavigationButtonsOnTheSide}
               />
             </DndProvider>
           </Box>

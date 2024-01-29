@@ -33,7 +33,6 @@ function Grid({
   renderItem,
   className,
   style,
-  fixedRef,
 }: GridProps) {
   const itemsPerPage = rows * columns;
   const [pages, setPages] = useState(chunks(items, itemsPerPage));
@@ -203,27 +202,11 @@ function Grid({
   //   };
   // }, []);
 
-  // useEffect(
-  //   () => {
-  //     if (isBigScrollBtns) {
-  //       const isScroll = pages.length > 1 ? true : false;
-  //       const totalRows = pages.length * other.rows;
-  //       setIsScroll(isScroll, totalRows);
-  //     }
-  //   },
-  //   [items, pages, setIsScroll, other.rows, isBigScrollBtns]
-  // );
-
   return (
     <div
-      // className={classNames(styles.root, {
-      //   FixedGridScrollButtonsOnTheSides:
-      //     isNavigationButtonsOnTheSide && isBigScrollBtns
-      // })}
       className={styles.root}
       style={style}
       //onKeyDown={handleOnKeyDown}
-      ref={fixedRef}
     >
       {pages.length > 0 ? (
         pages.map((pageItems, i) => (

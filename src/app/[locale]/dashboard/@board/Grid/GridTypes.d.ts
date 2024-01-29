@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, LegacyRef } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 
 export interface Item {
   id: string;
@@ -31,12 +31,7 @@ interface Props {
 }
 
 export interface GridProps extends Props {
-  isScroll?: boolean; //Is scroll
   style?: CSSProperties; //Inline style
-  setIsScroll?: boolean; // Funtion for change isScroll state
-  fixedRef?: LegacyRef<HTMLDivElement> | undefined; //Ref to fixed grid container
-  isBigScrollBtns?: boolean; //Is navigation buttons on the side
-  isNavigationButtonsOnTheSide?: boolean; //Is navigation buttons on the side
 }
 
 export interface GridBaseProps extends Props {
