@@ -28,5 +28,5 @@
 .board {
   grid-area: board;
   flex-grow: 1;
-  min-height: 100%;
+  height: 100%;
 }

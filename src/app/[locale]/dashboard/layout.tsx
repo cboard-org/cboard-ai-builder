@@ -11,10 +11,10 @@ const sxStyles = {
     display: 'grid',
     alignContent: { xs: 'flex-start', sm: 'inherit' },
     flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 4fr' },
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 3fr' },
     gridTemplateRows: {
-      xs: 'max-content max-content 1fr',
-      sm: 'max-content auto',
+      xs: 'max-content max-content 100%',
+      sm: 'auto 1fr',
     },
 
     gridTemplateAreas: {
@@ -62,7 +62,9 @@ export default function Dashboard(props: {
             </Typography>
           </Box>
         </Box>
-        <Box className={styles.board}>{props.board}</Box>
+        <Box pb={{ xs: xsSpacing, sm: 0 }} className={styles.board}>
+          {props.board}
+        </Box>
         {props.children}
       </Box>
     </Box>
