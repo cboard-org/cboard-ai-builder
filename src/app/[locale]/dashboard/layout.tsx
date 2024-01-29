@@ -4,25 +4,25 @@ import * as React from 'react';
 import styles from './styles.module.css';
 
 const xsSpacing = 1;
-const smSpacing = 2;
+const smSpacing = 3;
 
 const sxStyles = {
   dashboardContainer: {
     display: 'grid',
     alignContent: { xs: 'flex-start', sm: 'inherit' },
     flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 3fr' },
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 4fr' },
     gridTemplateRows: {
-      xs: '7% 93% auto',
-      sm: '50px auto',
+      xs: 'max-content max-content 1fr',
+      sm: 'max-content auto',
     },
 
     gridTemplateAreas: {
-      xs: ` "title"
-            "board"
-            "sidebar"`,
-      sm: ` "title board"
-            "sidebar board"`,
+      xs: `"title"
+    "sidebar"
+    "board"`,
+      sm: `"title board board board"
+  "sidebar board board board"`,
     },
     columnGap: { xs: xsSpacing, sm: smSpacing },
     rowGap: { xs: xsSpacing, sm: smSpacing },
