@@ -21,8 +21,8 @@ const sxStyles = {
       xs: `"title"
     "sidebar"
     "board"`,
-      sm: `"title board board board"
-  "sidebar board board board"`,
+      sm: `"title board"
+  "sidebar board"`,
     },
     columnGap: { xs: xsSpacing, sm: smSpacing },
     rowGap: { xs: xsSpacing, sm: smSpacing },
