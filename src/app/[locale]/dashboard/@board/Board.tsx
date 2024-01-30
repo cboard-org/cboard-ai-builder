@@ -36,34 +36,13 @@ export default function Board() {
     );
   };
 
-  const renderEmptyCell = () => {
-    return (
-      <Box
-        sx={{
-          width: '50px',
-          height: '50px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'grey',
-          borderRadius: '0.5rem',
-          border: '1px solid #ccc',
-          boxShadow: '0 0 5px #ccc',
-        }}
-      >
-        <Box sx={{ fontSize: '2rem', color: 'white' }}>lol</Box>
-      </Box>
-    );
-  };
   const onTileDrop = () => {};
 
-  //console.log(board);
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box
         sx={{
           display: 'flex',
-          // border: '2px solid red',
           flexDirection: 'column',
           height: '100%',
           position: 'relative',
@@ -74,7 +53,6 @@ export default function Board() {
         <Box
           sx={{
             height: '12%',
-            //border: '2px solid blue',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -104,7 +82,6 @@ export default function Board() {
         <Box
           sx={{
             flexGrow: 1,
-            // border: '2px solid grey'
           }}
         >
           <Box sx={{ maxWidth: '1500px', overflowX: 'scroll', height: '100%' }}>
@@ -116,7 +93,6 @@ export default function Board() {
               dragAndDropEnabled={true} //{isSelecting}
               renderItem={(item) => renderTileFixedBoard(item)}
               onItemDrop={onTileDrop}
-              renderEmptyCell={renderEmptyCell}
             />
           </Box>
         </Box>

@@ -8,6 +8,7 @@ import * as utils from './utils';
 import Row from './Row/Row';
 import DroppableCell from './DroppableCell/DroppableCell';
 import DraggableItem from './DraggableItem/DraggableItem';
+import DefaultEmptyCell from './DefaultEmptyCell/DefaultEmptyCell';
 
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
@@ -70,8 +71,10 @@ function Grid({
                       >
                         {renderItem(item, itemIndex++)}
                       </DraggableItem>
+                    ) : renderEmptyCell ? (
+                      renderEmptyCell()
                     ) : (
-                      renderEmptyCell && renderEmptyCell()
+                      <DefaultEmptyCell />
                     )}
                   </DroppableCell>
                 );

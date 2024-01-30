@@ -18,7 +18,6 @@ interface GridProps {
   columns: number; //Number of columns
   order: GridOrder; //Items order by ID.
   dragAndDropEnabled: boolean; //If `true`, items can be dragged and dropped.
-  renderEmptyCell: () => ReactNode; // Render empty cell
   renderItem: (
     item: { id: string | number; color: string; label: string },
     itemIndex: number,
@@ -27,6 +26,7 @@ interface GridProps {
     item: ReactNode,
     position: { row: number; column: number },
   ) => void; //
+  renderEmptyCell?: () => ReactNode; // Render empty cell
   className?: string; //Classname
   style?: CSSProperties; //Inline style
 }
