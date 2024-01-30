@@ -9,6 +9,15 @@ import Row from './Row/Row';
 import DroppableCell from './DroppableCell/DroppableCell';
 import DraggableItem from './DraggableItem/DraggableItem';
 
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
+
+const dndOptions = {
+  enableTouchEvents: true,
+  enableMouseEvents: true,
+  enableKeyboardEvents: true,
+};
+
 const page = 0;
 
 function Grid({
@@ -30,46 +39,48 @@ function Grid({
   let itemIndex = 0;
 
   return (
-    <div
-      className={styles.GridContainer}
-      style={style}
-      //onKeyDown={handleOnKeyDown}
-    >
-      <div className={gridClassName}>
-        {grid.map((row, rowIndex) => (
-          <Row key={rowIndex.toString()}>
-            {row.map((item, columnIndex) => {
-              const yPosition = page * rows + rowIndex;
-              const idWithPosition = `${columnIndex}-${yPosition}`;
-              return (
-                <DroppableCell
-                  key={columnIndex.toString()}
-                  id={idWithPosition}
-                  accept={'grid-item'}
-                  onDrop={(item) => {
-                    const position = { row: rowIndex, column: columnIndex };
+    <DndProvider backend={TouchBackend} options={dndOptions}>
+      <div
+        className={styles.GridContainer}
+        style={style}
+        //onKeyDown={handleOnKeyDown}
+      >
+        <div className={gridClassName}>
+          {grid.map((row, rowIndex) => (
+            <Row key={rowIndex.toString()}>
+              {row.map((item, columnIndex) => {
+                const yPosition = page * rows + rowIndex;
+                const idWithPosition = `${columnIndex}-${yPosition}`;
+                return (
+                  <DroppableCell
+                    key={columnIndex.toString()}
+                    id={idWithPosition}
+                    accept={'grid-item'}
+                    onDrop={(item) => {
+                      const position = { row: rowIndex, column: columnIndex };
 
-                    onItemDrop(item, position);
-                  }}
-                >
-                  {item ? (
-                    <DraggableItem
-                      type={'grid-item'}
-                      id={item.id}
-                      disabled={!dragAndDropEnabled}
-                    >
-                      {renderItem(item, itemIndex++)}
-                    </DraggableItem>
-                  ) : (
-                    renderEmptyCell && renderEmptyCell()
-                  )}
-                </DroppableCell>
-              );
-            })}
-          </Row>
-        ))}
+                      onItemDrop(item, position);
+                    }}
+                  >
+                    {item ? (
+                      <DraggableItem
+                        type={'grid-item'}
+                        id={item.id}
+                        disabled={!dragAndDropEnabled}
+                      >
+                        {renderItem(item, itemIndex++)}
+                      </DraggableItem>
+                    ) : (
+                      renderEmptyCell && renderEmptyCell()
+                    )}
+                  </DroppableCell>
+                );
+              })}
+            </Row>
+          ))}
+        </div>
       </div>
-    </div>
+    </DndProvider>
   );
 }
 
