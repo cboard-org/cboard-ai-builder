@@ -5,33 +5,36 @@ import styles from './styles.module.css';
 
 const xsSpacing = 1;
 const smSpacing = 2;
+const mdSpacing = 3;
 
+const menuBarHeight = 56;
 const sxStyles = {
   dashboardContainer: {
     display: 'grid',
+    overflowY: { xs: 'scroll', sm: 'unset' },
     alignContent: { xs: 'flex-start', sm: 'inherit' },
     flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 3fr' },
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 2fr', md: '1fr 3fr' },
     gridTemplateRows: {
-      xs: '7% 93% auto',
-      sm: '50px auto',
+      xs: `max-content max-content calc(100% - ${menuBarHeight}px);`,
+      sm: 'auto 1fr',
     },
 
     gridTemplateAreas: {
-      xs: ` "title"
-            "board"
-            "sidebar"`,
-      sm: ` "title board"
-            "sidebar board"`,
+      xs: `"title"
+    "sidebar"
+    "board"`,
+      sm: `"title board"
+  "sidebar board"`,
     },
-    columnGap: { xs: xsSpacing, sm: smSpacing },
-    rowGap: { xs: xsSpacing, sm: smSpacing },
+    columnGap: { xs: 0, sm: smSpacing, md: mdSpacing },
+    rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
   },
   sidebar: {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'auto',
-    rowGap: { xs: xsSpacing, sm: smSpacing },
+    rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
   },
 };
 
@@ -43,16 +46,15 @@ export default function Dashboard(props: {
   board: React.ReactNode;
 }) {
   return (
-    <Box
-      py={{ xs: 1, sm: 3 }}
-      px={{ xs: 2, sm: 4 }}
-      className={styles.dashboardBox}
-    >
+    <Box py={{ xs: 0, sm: 2, md: 3 }} className={styles.dashboardBox}>
       <Box
+        px={{ xs: 2, md: 4 }}
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        <Box className={styles.titleBox}>{props.navbar}</Box>
+        <Box py={{ xs: xsSpacing, sm: 0 }} className={styles.titleBox}>
+          {props.navbar}
+        </Box>
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.prompt}>{props.promptForm}</Box>
           <Box>{props.history}</Box>
@@ -62,7 +64,9 @@ export default function Dashboard(props: {
             </Typography>
           </Box>
         </Box>
-        <Box className={styles.board}>{props.board}</Box>
+        <Box pb={{ xs: xsSpacing, sm: 0 }} className={styles.board}>
+          {props.board}
+        </Box>
         {props.children}
       </Box>
     </Box>
