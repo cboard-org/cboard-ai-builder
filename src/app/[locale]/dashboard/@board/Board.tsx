@@ -3,14 +3,10 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
-import IconButton from '@mui/material/IconButton';
-import DownloadIcon from '@mui/icons-material/Download';
-import EditIcon from '@mui/icons-material/Edit';
-import PrintIcon from '@mui/icons-material/Print';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Grid from './Grid';
 import board from './Grid/testBoard.json';
 import { ReactNode } from 'react';
+import BoardToolbar from './BoardToolbar';
 
 export default function Board() {
   const renderTileFixedBoard = (item: {
@@ -59,34 +55,7 @@ export default function Board() {
           backgroundColor: '#f8f8f8',
         }}
       >
-        <Box
-          sx={{
-            height: '12%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Box sx={{ display: 'flex' }}>
-            <Box>Image</Box>
-            <Box>| Board title</Box>
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            <IconButton>
-              <EditIcon fontSize="small" />
-            </IconButton>
-            <IconButton>
-              <DownloadIcon fontSize="small" />
-            </IconButton>
-            <IconButton>
-              <PrintIcon fontSize="small" />
-            </IconButton>
-            <Divider orientation="vertical" flexItem />
-            <IconButton>
-              <BookmarkBorderIcon fontSize="small" />
-            </IconButton>
-          </Box>
-        </Box>
+        <BoardToolbar />
         <Divider flexItem sx={{ my: '0.5rem' }} />
         <Grid
           order={board.grid ? board.grid.order : []}
