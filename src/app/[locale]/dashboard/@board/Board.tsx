@@ -20,8 +20,8 @@ export default function Board() {
     return (
       <Box
         sx={{
-          width: '50px',
-          height: '50px',
+          width: '100%',
+          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -39,13 +39,18 @@ export default function Board() {
   const onTileDrop = () => {};
 
   return (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          position: 'relative',
           p: '.5rem',
           backgroundColor: '#f8f8f8',
         }}
@@ -79,23 +84,15 @@ export default function Board() {
           </Box>
         </Box>
         <Divider flexItem sx={{ my: '0.5rem' }} />
-        <Box
-          sx={{
-            flexGrow: 1,
-          }}
-        >
-          <Box sx={{ maxWidth: '1500px', overflowX: 'scroll', height: '100%' }}>
-            <Grid
-              order={board.grid ? board.grid.order : []}
-              items={board.tiles}
-              columns={board.grid ? board.grid.columns : 6} //DEFAULT_COLUMNS_NUMBER}
-              rows={board.grid ? board.grid.rows : 6} // DEFAULT_ROWS_NUMBER}
-              dragAndDropEnabled={true} //{isSelecting}
-              renderItem={(item) => renderTileFixedBoard(item)}
-              onItemDrop={onTileDrop}
-            />
-          </Box>
-        </Box>
+        <Grid
+          order={board.grid ? board.grid.order : []}
+          items={board.tiles}
+          columns={board.grid ? board.grid.columns : 6} //DEFAULT_COLUMNS_NUMBER}
+          rows={board.grid ? board.grid.rows : 6} // DEFAULT_ROWS_NUMBER}
+          dragAndDropEnabled={true} //{isSelecting}
+          renderItem={(item) => renderTileFixedBoard(item)}
+          onItemDrop={onTileDrop}
+        />
       </Box>
       <Box
         sx={{
@@ -103,6 +100,7 @@ export default function Board() {
           justifyContent: 'end',
           alignItems: 'center',
           pt: '0.5rem',
+          pb: { xs: '0.5rem', sm: '0' },
         }}
       >
         <Button

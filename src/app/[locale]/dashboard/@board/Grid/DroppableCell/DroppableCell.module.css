@@ -1,6 +1,6 @@
 .root {
   position: relative;
-  flex: 1 auto;
+  flex: 1 0 40px; /* 40px is the width of the cell */
   width: 0;
   margin: 6px;
   display: flex;

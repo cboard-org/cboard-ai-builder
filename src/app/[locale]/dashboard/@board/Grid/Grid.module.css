@@ -4,16 +4,16 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   /* scroll-snap-type: y mandatory; */
 }
 
 .Grid {
-  flex-shrink: 0;
-  box-sizing: border-box;
-  height: 100%;
+  height: 10px; /*WHY DOES THIS WORK?*/
   width: 100%;
   padding: 6px;
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   /* scroll-snap-align: start; */
 }
