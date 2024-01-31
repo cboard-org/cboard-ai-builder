@@ -16,6 +16,7 @@ export default function Board() {
   const renderTileFixedBoard = (item: {
     color: string;
     label: string;
+    backgroundColor: string;
   }): ReactNode => {
     return (
       <Box
@@ -25,7 +26,7 @@ export default function Board() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: item.color,
+          backgroundColor: item.backgroundColor,
           borderRadius: '0.5rem',
           border: '1px solid #ccc',
           boxShadow: '0 0 5px #ccc',
@@ -36,7 +37,10 @@ export default function Board() {
     );
   };
 
-  const onTileDrop = () => {};
+  const onTileDrop = () =>
+    // item: { id: string | number },
+    // position: { row: number; column: number },
+    {};
 
   return (
     <Box
