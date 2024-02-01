@@ -4,7 +4,9 @@ import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple';
 import { oauthLogin, credentialsLogin } from '@/lib/cboard-api/auth';
-import { User as CBoardUser } from '@/lib/cboard-api/types';
+import { User } from '../cboard-api/types';
+import { CboardUser, pickKeys } from './types';
+import pick from 'lodash.pick';
 const providers = [];
 
 if (process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
@@ -33,6 +35,10 @@ if (process.env.APPLE_APP_CLIENT_ID && process.env.APPLE_KEY_ID) {
   );
 }
 
+function omitUserPropsForSession(user: User): CboardUser {
+  return pick(user, pickKeys);
+}
+
 export default {
   callbacks: {
     async session({ session, token }) {
@@ -43,13 +49,11 @@ export default {
     async jwt({ account, token, user, profile }) {
       // Signin
       if (account && user && account.type == 'credentials' && user) {
-        token.cboard_user = user as CBoardUser;
+        token.cboard_user = omitUserPropsForSession(user as User);
       }
-      if (account && profile) {
-        if (account.type == 'oauth') {
-          const cboardUser = await oauthLogin(profile, account);
-          token.cboard_user = cboardUser;
-        }
+      if (account && profile && account.type == 'oauth') {
+        const oauthResponse = await oauthLogin(profile, account);
+        token.cboard_user = omitUserPropsForSession(oauthResponse);
       }
       return token;
     },
