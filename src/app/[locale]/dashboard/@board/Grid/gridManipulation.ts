@@ -1,7 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 //TODO refactor to avoid using any
 
-import { Grid, GridOrder } from './GridTypes';
+import { Grid, GridOrder } from './types';
 
 export function createGrid(rows: number = 2, columns: number = 2): Grid {
   const order = createMatrix(rows, columns);
@@ -76,7 +76,10 @@ export function sortGrid({
     }
   });
 
-  return fillEmptyGridCells(grid, itemsToSort);
+  return grid;
+  //return fillEmptyGridCells(grid, itemsToSort);
+  /* Avoid fillEmptyGridCells to generate the grid exactly like the order 
+    Needs to fix this on import implementation */
 }
 
 function iterateGridItems(
@@ -90,15 +93,15 @@ function iterateGridItems(
   });
 }
 
-function fillEmptyGridCells(grid: any[][], items: any[]) {
-  const itemQueue = [...items];
+// function fillEmptyGridCells(grid: any[][], items: any[]) {
+//   const itemQueue = [...items];
 
-  return grid.map((row) =>
-    row.map((item) => {
-      return item || itemQueue.shift();
-    }),
-  );
-}
+//   return grid.map((row) =>
+//     row.map((item) => {
+//       return item || itemQueue.shift();
+//     }),
+//   );
+// }
 
 export function getNewOrder({
   columns,
