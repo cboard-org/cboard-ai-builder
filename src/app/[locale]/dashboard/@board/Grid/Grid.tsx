@@ -1,10 +1,9 @@
 'use client';
-import React from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 import classNames from 'classnames';
-
+import { Item, GridOrder } from './types';
 import styles from './Grid.module.css';
-import { GridProps } from './GridTypes';
-import * as utils from './utils';
+import * as utils from './gridManipulation';
 import Row from './Row/Row';
 import DroppableCell from './DroppableCell/DroppableCell';
 import DraggableItem from './DraggableItem/DraggableItem';
@@ -12,6 +11,30 @@ import DefaultEmptyCell from './DefaultEmptyCell/DefaultEmptyCell';
 
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
+
+type Props = {
+  items: Item[]; //Items to render.
+  rows: number; //Number of rows
+  columns: number; //Number of columns
+  order: GridOrder; //Items order by ID.
+  dragAndDropEnabled: boolean; //If `true`, items can be dragged and dropped.
+  renderItem: (
+    item: {
+      id: string;
+      color: string;
+      label: string;
+      backgroundColor: string;
+    },
+    itemIndex: number,
+  ) => ReactNode; // Item renderer.
+  onItemDrop: (
+    item: { id: string },
+    position: { row: number; column: number },
+  ) => void; //
+  renderEmptyCell?: () => ReactNode; // Render empty cell
+  className?: string; //Classname
+  style?: CSSProperties; //Inline style
+};
 
 const dndOptions = {
   enableTouchEvents: true,
@@ -32,7 +55,7 @@ function Grid({
   renderItem,
   className,
   style,
-}: GridProps) {
+}: Props) {
   const gridClassName = classNames(styles.Grid, className);
 
   const grid = utils.sortGrid({ columns, rows, order, items });

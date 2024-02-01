@@ -8,7 +8,7 @@ type Props = {
   id: string;
   accept: string | symbol | [];
   className?: string;
-  onDrop: (item: { id: string | number }) => void;
+  onDrop: (item: { id: string }) => void;
   children?: ReactNode;
 };
 
