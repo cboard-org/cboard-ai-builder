@@ -4,39 +4,55 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
-import board from './Grid/testBoard.json';
-import { ReactNode } from 'react';
+import testBoard from './testBoard.json';
+import React, { ReactNode, useState } from 'react';
 import BoardToolbar from './BoardToolbar';
+import { moveOrderItem } from './Grid/gridManipulation';
+import { BoardRecord } from './types';
+
+const renderTileFixedBoard = (item: {
+  id: string;
+  color: string;
+  label: string;
+  backgroundColor: string;
+}): ReactNode => {
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: item.backgroundColor,
+        borderRadius: '0.5rem',
+        border: '1px solid #ccc',
+        boxShadow: '0 0 5px #ccc',
+      }}
+    >
+      <Box sx={{ fontSize: '0.5rem', color: 'black' }}>{item.id}L</Box>
+    </Box>
+  );
+};
 
 export default function Board() {
-  const renderTileFixedBoard = (item: {
-    color: string;
-    label: string;
-    backgroundColor: string;
-  }): ReactNode => {
-    return (
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: item.backgroundColor,
-          borderRadius: '0.5rem',
-          border: '1px solid #ccc',
-          boxShadow: '0 0 5px #ccc',
-        }}
-      >
-        <Box sx={{ fontSize: '2rem', color: 'white' }}>{item.label}</Box>
-      </Box>
-    );
-  };
+  const [board, setBoard] = useState<BoardRecord>(testBoard[0]);
 
-  const onTileDrop = () =>
-    // item: { id: string | number },
-    // position: { row: number; column: number },
-    {};
+  const onTileDrop = (
+    item: { id: string },
+    position: { row: number; column: number },
+  ) => {
+    console.log(item);
+    const newOrder = moveOrderItem(item.id, position, board.grid.order);
+    const newBoard: BoardRecord = {
+      ...board,
+      grid: {
+        ...board.grid,
+        order: newOrder,
+      },
+    };
+    setBoard(newBoard);
+  };
 
   return (
     <Box
