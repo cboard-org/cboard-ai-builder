@@ -1,6 +1,6 @@
 import { User } from '@/lib/cboard-api/types';
 
-export const pickKeys = [
+export const PICK_KEYS = [
   'name',
   'role',
   'provider',
@@ -13,6 +13,6 @@ export const pickKeys = [
   'authToken',
   'location',
 ] as const;
-type Keys = (typeof pickKeys)[number];
+type Keys = (typeof PICK_KEYS)[number];
 
 export type CboardUser = Pick<User, Keys>;

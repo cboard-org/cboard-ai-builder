@@ -5,7 +5,7 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple';
 import { oauthLogin, credentialsLogin } from '@/lib/cboard-api/auth';
 import { User } from '../cboard-api/types';
-import { CboardUser, pickKeys } from './types';
+import { CboardUser, PICK_KEYS } from './types';
 import pick from 'lodash.pick';
 const providers = [];
 
@@ -36,7 +36,7 @@ if (process.env.APPLE_APP_CLIENT_ID && process.env.APPLE_KEY_ID) {
 }
 
 function omitUserPropsForSession(user: User): CboardUser {
-  return pick(user, pickKeys);
+  return pick(user, PICK_KEYS);
 }
 
 export default {
