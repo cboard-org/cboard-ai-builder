@@ -42,7 +42,6 @@ export default function Board() {
     item: { id: string },
     position: { row: number; column: number },
   ) => {
-    console.log(item);
     const newOrder = moveOrderItem(item.id, position, board.grid.order);
     const newBoard: BoardRecord = {
       ...board,
