@@ -1,7 +1,7 @@
 //import InitialContent from './InitialContent';
-import Board from './Board';
+import BoardContainer from './BoardContainer';
 
 export default function BoardPage() {
   //return <InitialContent />;
-  return <Board />;
+  return <BoardContainer />;
 }

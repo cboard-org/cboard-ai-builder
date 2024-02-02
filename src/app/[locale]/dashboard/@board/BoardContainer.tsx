@@ -6,7 +6,7 @@ import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
 import testBoard from './testBoard.json';
 import React, { ReactNode, useState } from 'react';
-import BoardToolbar from './BoardToolbar';
+import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from './types';
 
@@ -35,7 +35,7 @@ const renderTileFixedBoard = (item: {
   );
 };
 
-export default function Board() {
+export default function BoardContainer() {
   const [board, setBoard] = useState<BoardRecord>(testBoard[0]);
 
   const onTileDrop = (
@@ -70,7 +70,7 @@ export default function Board() {
           backgroundColor: '#f8f8f8',
         }}
       >
-        <BoardToolbar />
+        <Toolbar />
         <Divider flexItem sx={{ my: '0.5rem' }} />
         <Grid
           order={board.grid ? board.grid.order : []}

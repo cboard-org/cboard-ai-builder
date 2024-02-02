@@ -6,7 +6,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
-export default function BoardToolbar() {
+export default function Toolbar() {
   return (
     <Box
       sx={{
