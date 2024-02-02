@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import styles from './styles.module.css';
+import SavedData from './savedData/SavedData';
 
 const xsSpacing = 1;
 const smSpacing = 2;
@@ -56,12 +57,9 @@ export default function Dashboard(props: {
           {props.navbar}
         </Box>
         <Box sx={sxStyles.sidebar}>
-          <Box className={styles.prompt}>{props.promptForm}</Box>
-          <Box>{props.history}</Box>
-          <Box>
-            <Typography sx={{ border: '2px solid black', height: '100%' }}>
-              {'Saved AI Boards'}
-            </Typography>
+          <Box className={styles.controls}>{props.promptForm}</Box>
+          <Box className={styles.controls}>
+            <SavedData history={props.history} />
           </Box>
         </Box>
         <Box pb={{ xs: xsSpacing, sm: 0 }} className={styles.board}>
