@@ -30,4 +30,7 @@ export type BoardRecord = {
   nameKey?: string;
   caption?: string;
   hidden?: boolean;
+  name?: string;
+  prevId?: string;
+  focusedTileId?: string;
 };
