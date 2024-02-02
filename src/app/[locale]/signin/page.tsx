@@ -1,3 +1,7 @@
+import { BrandIcon } from '@/components/icons/Brand';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 const PURPLE = '#D6B2FF';
@@ -32,16 +36,47 @@ export default function Page(): JSX.Element {
             display: { xs: 'none', sm: 'block' },
           }}
         >
-          Hero
+          <Stack direction={'row'} alignItems={'center'}>
+            <BrandIcon sx={{ fontSize: 125 }} />
+            <Typography>
+              <Typography component={'span'} sx={{ fontWeight: 'bold' }}>
+                Cboard Ai
+              </Typography>{' '}
+              CBuilder
+            </Typography>
+          </Stack>
+          <Box>
+            <Stack direction={'row'} alignItems={'start'}>
+              <Typography variant="h2">Fast and intelligent</Typography>
+              <Chip label="AI" variant="filled" size="small" />
+            </Stack>
+            <Typography variant="h5">
+              Create Tile boards in a simple way, just by typing what you need.
+            </Typography>
+          </Box>
         </Box>
         <Box
           sx={{
             gridArea: 'sign-actions',
-            background: { xs: PURPLE, sm: 'blue' },
+            background: { xs: PURPLE, sm: 'inherit' },
             width: { sx: '100%' },
           }}
         >
-          Sign-actions
+          <Box
+            sx={{
+              w: '352px',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Box>
+              <Typography variant="h2">Hola!</Typography>
+              <Typography>Te damos la bienvenida a AI Board Builder</Typography>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>

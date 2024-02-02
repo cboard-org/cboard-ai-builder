@@ -1,7 +1,8 @@
 import SvgIcon from '@mui/material/SvgIcon';
+import React from 'react';
 
-export const BrandIcon = () => (
-  <SvgIcon>
+export const BrandIcon = (props: React.ComponentProps<typeof SvgIcon>) => (
+  <SvgIcon {...props}>
     <svg
       width="24"
       height="24"
