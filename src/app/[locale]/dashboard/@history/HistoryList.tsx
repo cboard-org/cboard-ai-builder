@@ -1,6 +1,5 @@
 'use client';
 
-import AccordionDetails from '@mui/material/AccordionDetails';
 import List from '@mui/material/List';
 import { HistoryRow } from './actions';
 import HistoryItem from './HistoryItem';
@@ -19,12 +18,10 @@ export default function HistoryList({
   );
 
   return (
-    <AccordionDetails sx={{ maxHeight: 278, overflowY: 'scroll' }}>
-      <List>
-        {histories.map((h, i) => (
-          <HistoryItem history={h} key={i} onDelete={deleteHistory} />
-        ))}
-      </List>
-    </AccordionDetails>
+    <List>
+      {histories.map((h, i) => (
+        <HistoryItem history={h} key={i} onDelete={deleteHistory} />
+      ))}
+    </List>
   );
 }
