@@ -58,9 +58,9 @@ export default function Dashboard(props: {
         </Box>
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.controls}>{props.promptForm}</Box>
-          <Box className={styles.controls}>
+          <div className={styles.controls}>
             <SavedData history={props.history} />
-          </Box>
+          </div>
         </Box>
         <Box pb={{ xs: xsSpacing, sm: 0 }} className={styles.board}>
           {props.board}
