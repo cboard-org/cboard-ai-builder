@@ -70,6 +70,7 @@ export default function BoardContainer() {
           height: '100%',
           p: '.5rem',
           backgroundColor: '#f8f8f8',
+          overflow: 'auto',
         }}
       >
         <Box
