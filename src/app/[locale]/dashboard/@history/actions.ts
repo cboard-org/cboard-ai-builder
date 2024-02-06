@@ -1,5 +1,5 @@
 'use server';
-import { DataRow } from '../savedData/types';
+import { DataRow } from '../../../../components/savedData/types';
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);

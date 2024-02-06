@@ -2,7 +2,7 @@
 
 import List from '@mui/material/List';
 import { useOptimistic } from 'react';
-import DataItem from '../savedData/DataItem';
+import DataItem from '../../../../components/savedData/DataItem';
 import { removeHistoryData } from './actions';
 
 type HistoryData = {
