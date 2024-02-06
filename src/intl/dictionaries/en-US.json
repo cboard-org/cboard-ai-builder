@@ -25,6 +25,9 @@
       "promptExample1": "A board encourages them to arrange these pictograms in a sequence to tell a magical and adventurous story.",
       "promptExample2": "I Want a board that describe a family of a mother, son and grandmother and all social interactions between them.",
       "promptExample3": "Mix and match pictograms to craft imaginative stories about animal adventures and friendships"
+    },
+    "BoardContainer": {
+      "exportToCboard": "Export to Cboard"
     }
   }
 }

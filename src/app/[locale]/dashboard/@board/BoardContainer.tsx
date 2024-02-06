@@ -9,6 +9,7 @@ import React, { ReactNode, useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from './types';
+import { useTranslations } from 'next-intl';
 
 const renderTileFixedBoard = (item: {
   id: string;
@@ -36,6 +37,7 @@ const renderTileFixedBoard = (item: {
 };
 
 export default function BoardContainer() {
+  const message = useTranslations('Board.BoardContainer');
   const [board, setBoard] = useState<BoardRecord>(testBoard[0]);
 
   const onTileDrop = (
@@ -97,7 +99,7 @@ export default function BoardContainer() {
           startIcon={<NorthEast />}
           sx={{ fontSize: '0.7rem' }}
         >
-          Export to Cboard
+          {message('exportToCboard')}
         </Button>
       </Box>
     </Box>
