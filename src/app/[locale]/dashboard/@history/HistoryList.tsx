@@ -1,7 +1,6 @@
 'use client';
 
 import List from '@mui/material/List';
-import HistoryItem from './HistoryItem';
 import { useOptimistic } from 'react';
 import DataItem from '../savedData/DataItem';
 import { removeHistoryData } from './actions';
