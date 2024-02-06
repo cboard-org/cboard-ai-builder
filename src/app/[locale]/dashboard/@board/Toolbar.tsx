@@ -8,33 +8,20 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 export default function Toolbar() {
   return (
-    <Box
-      sx={{
-        height: '12%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Box sx={{ display: 'flex' }}>
-        <Box>Image</Box>
-        <Box>| Board title</Box>
-      </Box>
-      <Box sx={{ display: 'flex' }}>
-        <IconButton>
-          <EditIcon fontSize="small" />
-        </IconButton>
-        <IconButton>
-          <DownloadIcon fontSize="small" />
-        </IconButton>
-        <IconButton>
-          <PrintIcon fontSize="small" />
-        </IconButton>
-        <Divider orientation="vertical" flexItem />
-        <IconButton>
-          <BookmarkBorderIcon fontSize="small" />
-        </IconButton>
-      </Box>
+    <Box sx={{ display: 'flex' }}>
+      <IconButton>
+        <EditIcon fontSize="small" />
+      </IconButton>
+      <IconButton>
+        <DownloadIcon fontSize="small" />
+      </IconButton>
+      <IconButton>
+        <PrintIcon fontSize="small" />
+      </IconButton>
+      <Divider orientation="vertical" flexItem />
+      <IconButton>
+        <BookmarkBorderIcon fontSize="small" />
+      </IconButton>
     </Box>
   );
 }

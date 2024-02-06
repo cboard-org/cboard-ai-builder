@@ -72,7 +72,20 @@ export default function BoardContainer() {
           backgroundColor: '#f8f8f8',
         }}
       >
-        <Toolbar />
+        <Box
+          sx={{
+            height: '12%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box sx={{ display: 'flex' }}>
+            <Box>Image</Box>
+            <Box>| Board title</Box>
+          </Box>
+          <Toolbar />
+        </Box>
         <Divider flexItem sx={{ my: '0.5rem' }} />
         <Grid
           order={board.grid ? board.grid.order : []}
