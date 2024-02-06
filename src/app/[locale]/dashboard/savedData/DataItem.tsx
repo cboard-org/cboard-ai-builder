@@ -8,12 +8,15 @@ import { useFormatter } from 'next-intl';
 
 import Box from '@mui/material/Box';
 
-type Props = {
-  data: DataRow;
-  onDelete: (dataRow: DataRow) => void;
+type Props<DataType> = {
+  data: DataType;
+  onDelete: (dataRow: DataType) => void;
 };
 
-export default function DataItem({ data, onDelete }: Props) {
+export default function DataItem<DataType>({
+  data,
+  onDelete,
+}: Props<DataType>) {
   const format = useFormatter();
 
   return (

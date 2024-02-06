@@ -1,24 +1,29 @@
 'use client';
 
 import List from '@mui/material/List';
-import { DataRow } from '../savedData/types';
 import HistoryItem from './HistoryItem';
 import { useOptimistic } from 'react';
 import DataItem from '../savedData/DataItem';
 import { removeHistoryData } from './actions';
 
+type HistoryData = {
+  id: number | string;
+  prompt: string;
+  date: Date | string;
+};
+
 export default function HistoryList({
   initialHistories,
 }: {
-  initialHistories: DataRow[];
+  initialHistories: HistoryData[];
 }) {
   const [histories, deleteHistory] = useOptimistic(
     initialHistories,
-    (histories, historyToDelete: DataRow) => {
+    (histories, historyToDelete: HistoryData) => {
       return histories.filter((h) => h.id != historyToDelete.id);
     },
   );
-  const deleteHistoryData = async (historyToDelete: DataRow) => {
+  const deleteHistoryData = async (historyToDelete: HistoryData) => {
     deleteHistory(historyToDelete);
     await removeHistoryData(historyToDelete);
   };
@@ -26,7 +31,7 @@ export default function HistoryList({
   return (
     <List>
       {histories.map((data, index) => (
-        <DataItem
+        <DataItem<HistoryData>
           data={data}
           key={index}
           onDelete={() => deleteHistoryData(data)}
