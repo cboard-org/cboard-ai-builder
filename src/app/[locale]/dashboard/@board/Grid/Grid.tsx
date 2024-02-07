@@ -1,6 +1,5 @@
 'use client';
-import React, { ReactNode, CSSProperties } from 'react';
-import classNames from 'classnames';
+import React, { ReactNode } from 'react';
 import { Item, GridOrder } from './types';
 import styles from './Grid.module.css';
 import * as utils from './gridManipulation';
@@ -32,8 +31,6 @@ type Props = {
     position: { row: number; column: number },
   ) => void; //
   renderEmptyCell?: () => ReactNode; // Render empty cell
-  className?: string; //Classname
-  style?: CSSProperties; //Inline style
 };
 
 const dndOptions = {
@@ -53,11 +50,7 @@ function Grid({
   dragAndDropEnabled,
   renderEmptyCell,
   renderItem,
-  className,
-  style,
 }: Props) {
-  const gridClassName = classNames(styles.Grid, className);
-
   const grid = utils.sortGrid({ columns, rows, order, items });
 
   let itemIndex = 0;
@@ -66,10 +59,9 @@ function Grid({
     <DndProvider backend={TouchBackend} options={dndOptions}>
       <div
         className={styles.GridContainer}
-        style={style}
         //onKeyDown={handleOnKeyDown}
       >
-        <div className={gridClassName}>
+        <div className={styles.Grid}>
           {grid.map((row, rowIndex) => (
             <Row key={rowIndex.toString()}>
               {row.map((item, columnIndex) => {

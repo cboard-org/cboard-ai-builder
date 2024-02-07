@@ -1,26 +1,17 @@
 import React, { ReactNode } from 'react';
 import { useDrag } from 'react-dnd';
-import classNames from 'classnames';
 
 import styles from './DraggableItem.module.css';
 
 type Props = {
   disabled: boolean;
   id: string;
-  style?: object;
   type: string;
   className?: string;
   children: ReactNode;
 };
 
-function DraggableItem({
-  disabled,
-  id,
-  style,
-  type,
-  className,
-  children,
-}: Props) {
+function DraggableItem({ disabled, id, type, children }: Props) {
   const [{ opacity }, drag] = useDrag({
     type: type,
     item: () => ({ id }),
@@ -30,11 +21,8 @@ function DraggableItem({
     }),
   });
 
-  const cellStyle = { ...style, opacity };
-  const cellClassName = classNames(styles.root, className);
-
   return (
-    <div className={cellClassName} style={cellStyle} ref={drag}>
+    <div className={styles.root} style={{ opacity }} ref={drag}>
       {children}
     </div>
   );

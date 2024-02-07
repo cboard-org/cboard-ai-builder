@@ -25,6 +25,6 @@
   pointer-events: none;
 }
 
-.isActive::after {
+.root[data-isactive='true']::after {
   opacity: 1;
 }
