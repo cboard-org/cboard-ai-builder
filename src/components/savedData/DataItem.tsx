@@ -3,7 +3,6 @@ import EditOutlined from '@mui/icons-material/EditOutlined';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { DataRow } from './types';
 import { useFormatter } from 'next-intl';
 
 import Box from '@mui/material/Box';
