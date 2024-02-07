@@ -30,11 +30,7 @@ export default function HistoryList({
   return (
     <List>
       {histories.map((data, index) => (
-        <DataItem<HistoryData>
-          data={data}
-          key={index}
-          onDelete={() => deleteHistoryData(data)}
-        />
+        <DataItem data={data} key={index} onDelete={deleteHistoryData} />
       ))}
     </List>
   );
