@@ -4,12 +4,7 @@ import List from '@mui/material/List';
 import { useOptimistic } from 'react';
 import DataItem from '../../../../components/savedData/DataItem';
 import { removeHistoryData } from './actions';
-
-type HistoryData = {
-  id: number | string;
-  prompt: string;
-  date: Date | string;
-};
+import { HistoryData } from './actions';
 
 export default function HistoryList({
   initialHistories,

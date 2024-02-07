@@ -1,5 +1,10 @@
 'use server';
-import { DataRow } from '../../../../components/savedData/types';
+
+export type HistoryData = {
+  id: number | string;
+  prompt: string;
+  date: Date | string;
+};
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
@@ -30,7 +35,7 @@ const fake_db = [
   },
 ];
 
-export async function getHistoryData(): Promise<DataRow[]> {
+export async function getHistoryData(): Promise<HistoryData[]> {
   // Fetching with a 2 seconds delay to test loading state
   await fetch('https://postman-echo.com/delay/2', {
     cache: 'no-cache',
@@ -39,7 +44,7 @@ export async function getHistoryData(): Promise<DataRow[]> {
   return fake_db;
 }
 
-export async function removeHistoryData(data: DataRow) {
+export async function removeHistoryData(data: HistoryData) {
   // Fetching with a 2 seconds delay to test loading state
   await fetch('https://postman-echo.com/delay/2', {
     cache: 'no-cache',
