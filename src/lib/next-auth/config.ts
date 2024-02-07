@@ -18,10 +18,34 @@ if (process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
   );
 }
 if (process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {
+  // Solution from https://github.com/nextauthjs/next-auth/discussions/4146#discussioncomment-7603759
   providers.push(
     FacebookProvider({
+      idToken: true,
       clientId: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
+      authorization: {
+        url: 'https://www.facebook.com/v11.0/dialog/oauth',
+        params: {
+          client_id: process.env.FACEBOOK_APP_ID,
+          scope: 'openid email',
+          response_type: 'code',
+        },
+      },
+      token: {
+        url: 'https://graph.facebook.com/oauth/access_token',
+        async request(context) {
+          const url =
+            `https://graph.facebook.com/oauth/access_token` +
+            `?code=${context.params.code}` +
+            `&client_id=${context.provider.clientId}` +
+            `&redirect_uri=${context.provider.callbackUrl}` +
+            `&client_secret=${context.provider.clientSecret}`;
+          const response = await fetch(url);
+          const tokens = await response.json();
+          return { tokens };
+        },
+      },
     }),
   );
 }
