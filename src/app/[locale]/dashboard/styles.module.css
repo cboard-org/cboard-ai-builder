@@ -20,13 +20,12 @@
   z-index: 1;
 }
 
-.prompt {
+.controls {
   /* min-height: 55%; Auto now */
   grid-area: sidebar;
   max-width: 100%;
   background-color: rgb(240, 238, 238);
   border-radius: 5px;
-  padding: 1rem;
 }
 
 .board {
