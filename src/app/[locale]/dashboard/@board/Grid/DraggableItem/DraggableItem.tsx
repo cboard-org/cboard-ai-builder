@@ -7,7 +7,6 @@ type Props = {
   disabled: boolean;
   id: string;
   type: string;
-  className?: string;
   children: ReactNode;
 };
 
