@@ -6,6 +6,7 @@ import { ClientSafeProvider } from 'next-auth/react';
 import Facebook from '@/components/icons/Facebook';
 import Apple from '@/components/icons/Apple';
 import LockIcon from '@mui/icons-material/Lock';
+import Typography from '@mui/material/Typography';
 
 function getIcon(id: string) {
   switch (id) {
@@ -61,8 +62,10 @@ export default function OAuthButton({
         </SvgIcon>
       </Box>
 
-      <Box sx={{ width: '100%', fontWeight: 500 }}>
-        Iniciar sesión con {provider.name}
+      <Box sx={{ width: '100%' }}>
+        <Typography fontWeight={500}>
+          Iniciar sesión con {provider.name}
+        </Typography>
       </Box>
       <SvgIcon sx={{ visibility: 'hidden' }}>
         <Icon />

@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import OAuthButton from './OAuthButton';
 import { getProviders } from 'next-auth/react';
+import { Link } from '@/navigation';
 
 const PURPLE = '#D6B2FF';
 export default async function Page(): Promise<JSX.Element> {
@@ -80,7 +81,12 @@ export default async function Page(): Promise<JSX.Element> {
               alignItems: 'center',
             }}
           >
-            <Box alignSelf={'start'}>
+            <Box
+              sx={{
+                alignSelf: { xs: 'center', sm: 'start' },
+                textAlign: { xs: 'center', sm: 'inherit' },
+              }}
+            >
               <Typography variant="h2">Hola!</Typography>
               <Typography>Te damos la bienvenida a AI Board Builder</Typography>
             </Box>
@@ -106,6 +112,19 @@ export default async function Page(): Promise<JSX.Element> {
             {oauthProviders.map((provider) => (
               <OAuthButton key={provider.id} provider={provider} />
             ))}
+
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                color: { sx: '#221152', sm: '#868686' },
+                fontWeight: { sx: 500, sm: 400 },
+              }}
+            >
+              <Link href={'#'}>Privacy policy</Link>
+              <Link href={'#'}>Terms</Link>
+            </Box>
           </Box>
         </Box>
       </Box>
