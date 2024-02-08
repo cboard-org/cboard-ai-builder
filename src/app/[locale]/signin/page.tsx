@@ -9,6 +9,7 @@ import OAuthButton from './OAuthButton';
 import { getProviders } from 'next-auth/react';
 import { Link } from '@/navigation';
 import Image from 'next/image';
+import LoginButton from '@/app/[locale]/signin/Login/Button';
 
 const PURPLE = '#D6B2FF';
 export default async function Page(): Promise<JSX.Element> {
@@ -152,14 +153,15 @@ export default async function Page(): Promise<JSX.Element> {
               </Typography>
             </Box>
 
-            <Button
+            {/* <Button
               fullWidth
               variant="outlined"
               sx={{ backgroundColor: '#fff' }}
               size="large"
             >
               LOGIN
-            </Button>
+            </Button> */}
+            <LoginButton />
 
             <Button fullWidth variant="contained" size="large">
               SIGN UP
@@ -187,7 +189,7 @@ export default async function Page(): Promise<JSX.Element> {
               <Link href={'#'}>Privacy policy</Link>
               <Link href={'#'}>Terms</Link>
             </Box>
-            <Box sx={{ display: { md: 'none' }, width: '100%' }}>
+            {/* <Box sx={{ display: { md: 'none' }, width: '100%' }}>
               <Image
                 priority={true}
                 src="/images/boards-example-cut.png"
@@ -197,7 +199,7 @@ export default async function Page(): Promise<JSX.Element> {
                 style={{ objectFit: 'contain' }}
                 unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
               />
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </Box>
