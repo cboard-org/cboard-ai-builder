@@ -42,32 +42,52 @@ export default async function Page(): Promise<JSX.Element> {
             background: PURPLE,
             borderRadius: '16px',
             height: '100%',
-            maxWidth: 846,
+            maxWidth: { md: '846px' },
             display: { xs: 'none', md: 'block' },
           }}
         >
-          <Stack direction={'row'} alignItems={'center'}>
-            <BrandIcon sx={{ fontSize: 125 }} />
-            <Typography>
-              <Typography component={'span'} sx={{ fontWeight: 'bold' }}>
-                Cboard Ai
-              </Typography>{' '}
-              CBuilder
-            </Typography>
-          </Stack>
-          <Box>
-            <Stack direction={'row'} alignItems={'start'}>
-              <Typography variant="h2">Fast and intelligent</Typography>
-              <Chip label="AI" variant="filled" size="small" />
+          <Box sx={{ pl: '56px', pt: '62px' }}>
+            <Stack direction={'row'} alignItems={'center'}>
+              <BrandIcon sx={{ fontSize: '50px', height: '52px', pr: '7px' }} />
+              <Typography sx={{ fontSize: '26px' }}>
+                <Typography
+                  component={'span'}
+                  sx={{ fontWeight: 'bold', fontSize: '26px' }}
+                >
+                  Cboard Ai
+                </Typography>{' '}
+                CBuilder
+              </Typography>
             </Stack>
-            <Typography variant="h5">
-              Create Tile boards in a simple way, just by typing what you need.
-            </Typography>
+            <Box
+              sx={{
+                pt: '81px',
+              }}
+            >
+              <Stack
+                direction={'row'}
+                alignItems={'start'}
+                gap={2}
+                sx={{ pb: '32px' }}
+              >
+                <Typography variant="h2">Fast and intelligent</Typography>
+                <Chip
+                  label="AI"
+                  variant="filled"
+                  // size="small"
+                  sx={{ backgroundColor: '#363636', color: 'white' }}
+                />
+              </Stack>
+              <Typography variant="h5">
+                Create Tile boards in a simple way, just by typing what you
+                need.
+              </Typography>
+            </Box>
           </Box>
           <Box>
             <Image
               priority={true}
-              src="/images/tiles-signin.png"
+              src="/images/boards-example.png"
               width={846}
               height={463}
               alt="Tiles"
@@ -87,6 +107,7 @@ export default async function Page(): Promise<JSX.Element> {
             sx={{
               gap: 2,
               mx: { md: 20 },
+              maxWidth: { xs: 'inherit', md: '352px' },
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
@@ -94,14 +115,41 @@ export default async function Page(): Promise<JSX.Element> {
               alignItems: 'center',
             }}
           >
+            <Box sx={{ display: { md: 'none' } }}>
+              <Stack direction={'row'} alignItems={'center'}>
+                <BrandIcon
+                  sx={{ fontSize: '34px', height: '25px', pr: '7px' }}
+                />
+                <Typography sx={{ fontSize: '16px' }}>
+                  <Typography
+                    component={'span'}
+                    sx={{ fontWeight: 'bold', fontSize: '16px' }}
+                  >
+                    Cboard Ai
+                  </Typography>{' '}
+                  CBuilder
+                </Typography>
+              </Stack>
+            </Box>
             <Box
               sx={{
                 alignSelf: { xs: 'center', md: 'start' },
                 textAlign: { xs: 'center', md: 'inherit' },
               }}
             >
-              <Typography variant="h2">Hola!</Typography>
-              <Typography>Te damos la bienvenida a AI Board Builder</Typography>
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  fontSize: { xs: '32px', md: '48px' },
+                  color: '#181717',
+                  pb: '16px',
+                }}
+              >
+                ¡Hola!
+              </Typography>
+              <Typography sx={{ color: '#2B2B2B', fontSize: '16px' }}>
+                Te damos la bienvenida a AI Board Builder
+              </Typography>
             </Box>
 
             <Button
@@ -131,12 +179,24 @@ export default async function Page(): Promise<JSX.Element> {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'space-between',
-                color: { sx: '#221152', md: '#868686' },
-                fontWeight: { sx: 500, sm: 400 },
+                color: { xs: '#221152', md: '#868686' },
+                fontWeight: { xs: 500, sm: 400 },
+                fontSize: { xs: '12px', md: '16px' },
               }}
             >
               <Link href={'#'}>Privacy policy</Link>
               <Link href={'#'}>Terms</Link>
+            </Box>
+            <Box sx={{ display: { md: 'none' }, width: '100%' }}>
+              <Image
+                priority={true}
+                src="/images/boards-example-cut.png"
+                width={430}
+                height={133}
+                alt="Tiles"
+                style={{ objectFit: 'contain' }}
+                unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
+              />
             </Box>
           </Box>
         </Box>
