@@ -1,0 +1,17 @@
+.GridContainer {
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* scroll-snap-type: y mandatory; */
+}
+
+.Grid {
+  width: 100%;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  /* scroll-snap-align: start; */
+}
