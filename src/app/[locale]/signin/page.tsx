@@ -3,6 +3,9 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Google from '@mui/icons-material/Google';
 
 const PURPLE = '#D6B2FF';
 export default function Page(): JSX.Element {
@@ -64,7 +67,9 @@ export default function Page(): JSX.Element {
         >
           <Box
             sx={{
-              w: '352px',
+              // w: '352px',
+              mx: { sm: 20 },
+              // background: 'red',
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
@@ -72,10 +77,51 @@ export default function Page(): JSX.Element {
               alignItems: 'center',
             }}
           >
-            <Box>
+            <Box alignSelf={'start'}>
               <Typography variant="h2">Hola!</Typography>
               <Typography>Te damos la bienvenida a AI Board Builder</Typography>
             </Box>
+
+            <Button fullWidth variant="outlined" size="large">
+              LOGIN
+            </Button>
+
+            <Button fullWidth variant="contained" size="large">
+              SIGN UP
+            </Button>
+
+            <Divider
+              flexItem
+              sx={{ my: 2, borderColor: { xs: '#6D6D6D', sm: '#C9C9C9' } }}
+              variant="fullWidth"
+            />
+
+            {/* <ButtonBase>Iniciar sesión con google</ButtonBase> */}
+
+            <Button
+              fullWidth
+              variant="outlined"
+              size="large"
+              sx={{
+                color: '#2B2B2B',
+                fontWeight: 500,
+                // justifyContent: 'center',
+                borderColor: '#0000003B',
+                borderWidth: '1px',
+                textTransform: 'initial',
+                px: 2,
+                // '& .MuiButton-startIcon': {
+                //   // justifyContent: 'flex-end',
+
+                //   borderRight: '1px #0000003B',
+                // },
+              }}
+            >
+              <Google />
+
+              <Box sx={{ width: '100%' }}>Iniciar sesión con google</Box>
+              <Google sx={{ visibility: 'hidden' }} />
+            </Button>
           </Box>
         </Box>
       </Box>
