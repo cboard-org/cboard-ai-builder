@@ -1,30 +1,32 @@
 'use client';
 
-import AccordionDetails from '@mui/material/AccordionDetails';
 import List from '@mui/material/List';
-import { HistoryRow } from './actions';
-import HistoryItem from './HistoryItem';
 import { useOptimistic } from 'react';
+import DataItem from '../../../../components/savedData/DataItem';
+import { removeHistoryData } from './actions';
+import { HistoryData } from './actions';
 
 export default function HistoryList({
   initialHistories,
 }: {
-  initialHistories: HistoryRow[];
+  initialHistories: HistoryData[];
 }) {
   const [histories, deleteHistory] = useOptimistic(
     initialHistories,
-    (histories, historyToDelete: HistoryRow) => {
+    (histories, historyToDelete: HistoryData) => {
       return histories.filter((h) => h.id != historyToDelete.id);
     },
   );
+  const deleteHistoryData = async (historyToDelete: HistoryData) => {
+    deleteHistory(historyToDelete);
+    await removeHistoryData(historyToDelete);
+  };
 
   return (
-    <AccordionDetails sx={{ maxHeight: 278, overflowY: 'scroll' }}>
-      <List>
-        {histories.map((h, i) => (
-          <HistoryItem history={h} key={i} onDelete={deleteHistory} />
-        ))}
-      </List>
-    </AccordionDetails>
+    <List>
+      {histories.map((data, index) => (
+        <DataItem data={data} key={index} onDelete={deleteHistoryData} />
+      ))}
+    </List>
   );
 }

@@ -64,7 +64,7 @@ export function PromptForm() {
 
   return (
     <form action={formAction}>
-      <Grid container>
+      <Grid p={3} container>
         <Grid item xs={12}>
           <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
             <Box
