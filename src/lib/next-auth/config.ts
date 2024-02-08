@@ -55,6 +55,11 @@ if (process.env.APPLE_APP_CLIENT_ID && process.env.APPLE_KEY_ID) {
     AppleProvider({
       clientId: process.env.APPLE_APP_CLIENT_ID,
       clientSecret: process.env.APPLE_KEY_ID,
+      style: {
+        bg: 'bg',
+        logo: 'logo',
+        text: 'text',
+      },
     }),
   );
 }

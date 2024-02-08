@@ -5,11 +5,14 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Google from '@/components/icons/Google';
-import SvgIcon from '@mui/material/SvgIcon';
+import OAuthButton from './OAuthButton';
+import { getProviders } from 'next-auth/react';
 
 const PURPLE = '#D6B2FF';
-export default function Page(): JSX.Element {
+export default async function Page(): Promise<JSX.Element> {
+  const oauthProviders = Object.values((await getProviders()) || {}).filter(
+    (p) => p.type === 'oauth',
+  );
   return (
     <Box
       sx={{
@@ -68,9 +71,8 @@ export default function Page(): JSX.Element {
         >
           <Box
             sx={{
-              // w: '352px',
+              gap: 2,
               mx: { sm: 20 },
-              // background: 'red',
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
@@ -83,7 +85,12 @@ export default function Page(): JSX.Element {
               <Typography>Te damos la bienvenida a AI Board Builder</Typography>
             </Box>
 
-            <Button fullWidth variant="outlined" size="large">
+            <Button
+              fullWidth
+              variant="outlined"
+              sx={{ backgroundColor: '#fff' }}
+              size="large"
+            >
               LOGIN
             </Button>
 
@@ -93,53 +100,12 @@ export default function Page(): JSX.Element {
 
             <Divider
               flexItem
-              sx={{ my: 2, borderColor: { xs: '#6D6D6D', sm: '#C9C9C9' } }}
+              sx={{ my: 4, borderColor: { xs: '#6D6D6D', sm: '#C9C9C9' } }}
               variant="fullWidth"
             />
-
-            {/* <ButtonBase>Iniciar sesión con google</ButtonBase> */}
-
-            <Button
-              fullWidth
-              variant="outlined"
-              size="large"
-              sx={{
-                color: '#2B2B2B',
-                fontWeight: 500,
-                backgroundColor: '#FFFFFF',
-                borderColor: '#0000003B',
-                borderWidth: '1px',
-                textTransform: 'initial',
-                pr: '16px',
-                py: '8px',
-                '&:hover': {
-                  borderColor: '#2B2B2B',
-                },
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  height: '100%',
-                  alignContent: 'center',
-                  alignSelf: 'center',
-                  borderRight: '1px #0000003B solid',
-                  pr: '12px',
-                  py: '3px',
-                }}
-              >
-                <SvgIcon>
-                  <Google />
-                </SvgIcon>
-              </Box>
-
-              <Box sx={{ width: '100%', fontWeight: 500 }}>
-                Iniciar sesión con google
-              </Box>
-              <SvgIcon sx={{ visibility: 'hidden' }}>
-                <Google />
-              </SvgIcon>
-            </Button>
+            {oauthProviders.map((provider) => (
+              <OAuthButton key={provider.id} provider={provider} />
+            ))}
           </Box>
         </Box>
       </Box>
