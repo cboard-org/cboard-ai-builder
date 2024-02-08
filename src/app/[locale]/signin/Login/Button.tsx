@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import MUIButton from '@mui/material/Button';
 import { useState } from 'react';
 import DialogActions from '@mui/material/DialogActions';
+import { signIn } from 'next-auth/react';
 
 export default function Button() {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,17 @@ export default function Button() {
         fullWidth
         PaperProps={{
           component: 'form',
+          //   action: credentialsLogin,
+          onSubmit: (evt: React.FormEvent<HTMLFormElement>) => {
+            evt.preventDefault();
+            const formData = new FormData(evt.currentTarget);
+            signIn('credentials', {
+              email: formData.get('email') as string,
+              password: formData.get('password') as string,
+              callbackUrl: '/dashboard',
+              //   redirect: false,
+            });
+          },
           sx: {
             // p: { md: 2 },
             // pl: '24px',
@@ -44,6 +56,7 @@ export default function Button() {
               size="medium"
               label="Email"
               type="email"
+              name="email"
               required
             />
           </Box>
@@ -54,6 +67,7 @@ export default function Button() {
               size="medium"
               label="Password"
               type="password"
+              name="password"
               required
             />
           </Box>
