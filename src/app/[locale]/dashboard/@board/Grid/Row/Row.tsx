@@ -1,12 +1,8 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import styles from './Row.module.css';
 
-type Props = {
-  children?: ReactNode;
-};
-
-function Row({ children }: Props) {
+function Row({ children }: React.PropsWithChildren) {
   return <div className={styles.root}>{children}</div>;
 }
 export default Row;
