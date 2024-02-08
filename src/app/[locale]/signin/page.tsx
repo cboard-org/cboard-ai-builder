@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import OAuthButton from './OAuthButton';
 import { getProviders } from 'next-auth/react';
 import { Link } from '@/navigation';
+import Image from 'next/image';
 
 const PURPLE = '#D6B2FF';
 export default async function Page(): Promise<JSX.Element> {
@@ -17,7 +18,7 @@ export default async function Page(): Promise<JSX.Element> {
   return (
     <Box
       sx={{
-        background: { xs: PURPLE, sm: 'white' },
+        background: { xs: PURPLE, md: 'white' },
         width: '100%',
         height: '100%',
         px: 2,
@@ -31,7 +32,7 @@ export default async function Page(): Promise<JSX.Element> {
           gridTemplateAreas: {
             xs: `"sign-actions"
             "hero"`,
-            sm: `"hero sign-actions"`,
+            md: `"hero sign-actions"`,
           },
         }}
       >
@@ -41,7 +42,8 @@ export default async function Page(): Promise<JSX.Element> {
             background: PURPLE,
             borderRadius: '16px',
             height: '100%',
-            display: { xs: 'none', sm: 'block' },
+            maxWidth: 846,
+            display: { xs: 'none', md: 'block' },
           }}
         >
           <Stack direction={'row'} alignItems={'center'}>
@@ -62,18 +64,29 @@ export default async function Page(): Promise<JSX.Element> {
               Create Tile boards in a simple way, just by typing what you need.
             </Typography>
           </Box>
+          <Box>
+            <Image
+              priority={true}
+              src="/images/tiles-signin.png"
+              width={846}
+              height={463}
+              alt="Tiles"
+              style={{ objectFit: 'contain' }}
+              unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
+            />
+          </Box>
         </Box>
         <Box
           sx={{
             gridArea: 'sign-actions',
-            background: { xs: PURPLE, sm: 'inherit' },
+            background: { xs: PURPLE, md: 'inherit' },
             width: { sx: '100%' },
           }}
         >
           <Box
             sx={{
               gap: 2,
-              mx: { sm: 20 },
+              mx: { md: 20 },
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
@@ -83,8 +96,8 @@ export default async function Page(): Promise<JSX.Element> {
           >
             <Box
               sx={{
-                alignSelf: { xs: 'center', sm: 'start' },
-                textAlign: { xs: 'center', sm: 'inherit' },
+                alignSelf: { xs: 'center', md: 'start' },
+                textAlign: { xs: 'center', md: 'inherit' },
               }}
             >
               <Typography variant="h2">Hola!</Typography>
@@ -106,7 +119,7 @@ export default async function Page(): Promise<JSX.Element> {
 
             <Divider
               flexItem
-              sx={{ my: 4, borderColor: { xs: '#6D6D6D', sm: '#C9C9C9' } }}
+              sx={{ my: 4, borderColor: { xs: '#6D6D6D', md: '#C9C9C9' } }}
               variant="fullWidth"
             />
             {oauthProviders.map((provider) => (
@@ -118,7 +131,7 @@ export default async function Page(): Promise<JSX.Element> {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'space-between',
-                color: { sx: '#221152', sm: '#868686' },
+                color: { sx: '#221152', md: '#868686' },
                 fontWeight: { sx: 500, sm: 400 },
               }}
             >
