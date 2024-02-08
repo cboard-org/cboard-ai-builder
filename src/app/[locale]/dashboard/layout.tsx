@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import styles from './styles.module.css';
-import SavedData from '../../../components/savedData/SavedData';
+import SavedData from './SavedData/SavedData';
 
 const xsSpacing = 1;
 const smSpacing = 2;
