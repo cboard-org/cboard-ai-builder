@@ -10,6 +10,7 @@ import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from './types';
 import { useTranslations } from 'next-intl';
+import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 
 const renderTileFixedBoard = (item: {
   id: string;
@@ -91,8 +92,8 @@ export default function BoardContainer() {
         <Grid
           order={board.grid ? board.grid.order : []}
           items={board.tiles}
-          columns={board.grid ? board.grid.columns : 6} //DEFAULT_COLUMNS_NUMBER}
-          rows={board.grid ? board.grid.rows : 6} // DEFAULT_ROWS_NUMBER}
+          columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
+          rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
           dragAndDropEnabled={true} //{isSelecting}
           renderItem={(item) => renderTileFixedBoard(item)}
           onItemDrop={onTileDrop}
