@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Google from '@mui/icons-material/Google';
+import Google from '@/components/icons/Google';
+import SvgIcon from '@mui/material/SvgIcon';
 
 const PURPLE = '#D6B2FF';
 export default function Page(): JSX.Element {
@@ -105,22 +106,39 @@ export default function Page(): JSX.Element {
               sx={{
                 color: '#2B2B2B',
                 fontWeight: 500,
-                // justifyContent: 'center',
+                backgroundColor: '#FFFFFF',
                 borderColor: '#0000003B',
                 borderWidth: '1px',
                 textTransform: 'initial',
-                px: 2,
-                // '& .MuiButton-startIcon': {
-                //   // justifyContent: 'flex-end',
-
-                //   borderRight: '1px #0000003B',
-                // },
+                pr: '16px',
+                py: '8px',
+                '&:hover': {
+                  borderColor: '#2B2B2B',
+                },
               }}
             >
-              <Google />
+              <Box
+                sx={{
+                  display: 'flex',
+                  height: '100%',
+                  alignContent: 'center',
+                  alignSelf: 'center',
+                  borderRight: '1px #0000003B solid',
+                  pr: '12px',
+                  py: '3px',
+                }}
+              >
+                <SvgIcon>
+                  <Google />
+                </SvgIcon>
+              </Box>
 
-              <Box sx={{ width: '100%' }}>Iniciar sesión con google</Box>
-              <Google sx={{ visibility: 'hidden' }} />
+              <Box sx={{ width: '100%', fontWeight: 500 }}>
+                Iniciar sesión con google
+              </Box>
+              <SvgIcon sx={{ visibility: 'hidden' }}>
+                <Google />
+              </SvgIcon>
             </Button>
           </Box>
         </Box>
