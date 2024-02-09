@@ -13,9 +13,8 @@ import LoginButton from '@/app/[locale]/signin/Login/Button';
 import authOptions from '@/lib/next-auth/config';
 import { redirect } from '@/navigation';
 import { getServerSession } from 'next-auth';
+import { PURPLE, DEFAULT_CALLBACK_URL } from './constants';
 
-const PURPLE = '#D6B2FF';
-const DEFAULT_CALLBACK_URL = '/dashboard';
 export default async function Page({
   searchParams,
 }: {

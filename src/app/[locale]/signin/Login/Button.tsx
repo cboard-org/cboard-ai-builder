@@ -8,9 +8,14 @@ import MUIButton from '@mui/material/Button';
 import { useState } from 'react';
 import DialogActions from '@mui/material/DialogActions';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import Alert from '@mui/material/Alert';
 
 export default function Button() {
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState<string | false>(false);
+  const [loading, setLoading] = useState(false);
+  const { refresh } = useRouter();
   return (
     <>
       <MUIButton
@@ -28,16 +33,24 @@ export default function Button() {
         fullWidth
         PaperProps={{
           component: 'form',
-          //   action: credentialsLogin,
-          onSubmit: (evt: React.FormEvent<HTMLFormElement>) => {
+          onSubmit: async (evt: React.FormEvent<HTMLFormElement>) => {
             evt.preventDefault();
+            setLoading(true);
             const formData = new FormData(evt.currentTarget);
-            signIn('credentials', {
+            const response = await signIn('credentials', {
               email: formData.get('email') as string,
               password: formData.get('password') as string,
-              // callbackUrl: '/dashboard',
-              //   redirect: false,
+              redirect: false,
             });
+            if (response?.ok) {
+              // parent Page will do a redirect if user is logged-in to the callback url
+              refresh();
+              return;
+            }
+            if (response?.error) {
+              setError(response.error);
+            }
+            setLoading(false);
           },
           sx: {
             // p: { md: 2 },
@@ -49,6 +62,7 @@ export default function Button() {
       >
         <DialogTitle sx={{ pb: 2 }}>Login</DialogTitle>
         <DialogContent>
+          <Box>{error && <Alert severity="error">{error}</Alert>}</Box>
           <Box>
             <TextField
               fullWidth
@@ -80,7 +94,12 @@ export default function Button() {
           >
             Cancel
           </MUIButton>
-          <MUIButton size="medium" variant="contained" type="submit">
+          <MUIButton
+            size="medium"
+            variant="contained"
+            type="submit"
+            disabled={loading}
+          >
             Login
           </MUIButton>
         </DialogActions>
