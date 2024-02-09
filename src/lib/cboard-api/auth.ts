@@ -89,6 +89,7 @@ export async function oauthLogin(
     },
   );
   if (!apiResponse.ok) {
+    console.error(await apiResponse.text());
     // TODO: error messages in UI
     throw new Error('TODO: error messages in UI');
   }

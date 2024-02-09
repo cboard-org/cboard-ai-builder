@@ -1,8 +1,9 @@
+'use client';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import MUIButton from '@mui/material/Button';
 import Google from '@/components/icons/Google';
 import SvgIcon from '@mui/material/SvgIcon';
-import { ClientSafeProvider } from 'next-auth/react';
+import { ClientSafeProvider, signIn } from 'next-auth/react';
 import Facebook from '@/components/icons/Facebook';
 import Apple from '@/components/icons/Apple';
 import LockIcon from '@mui/icons-material/Lock';
@@ -21,17 +22,18 @@ function getIcon(id: string) {
   }
 }
 
-export default function OAuthButton({
-  provider,
-}: {
-  provider: ClientSafeProvider;
-}) {
+export default function Button({ provider }: { provider: ClientSafeProvider }) {
   const Icon = getIcon(provider.id);
   return (
-    <Button
+    <MUIButton
       fullWidth
       variant="outlined"
       size="large"
+      onClick={() =>
+        signIn(provider.id, undefined, {
+          prompt: 'select_account',
+        })
+      }
       sx={{
         color: '#2B2B2B',
         fontWeight: 500,
@@ -64,12 +66,13 @@ export default function OAuthButton({
 
       <Box sx={{ width: '100%' }}>
         <Typography fontWeight={500}>
+          {/* TODO: add internationalization */}
           Iniciar sesión con {provider.name}
         </Typography>
       </Box>
       <SvgIcon sx={{ visibility: 'hidden' }}>
         <Icon />
       </SvgIcon>
-    </Button>
+    </MUIButton>
   );
 }

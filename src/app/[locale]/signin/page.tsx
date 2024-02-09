@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import OAuthButton from './OAuthButton';
+import OAuthButton from './OAuth/Button';
 import { getProviders } from 'next-auth/react';
 import { Link } from '@/navigation';
 import Image from 'next/image';
