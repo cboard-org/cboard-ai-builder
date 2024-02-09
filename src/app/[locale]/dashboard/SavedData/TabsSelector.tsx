@@ -26,7 +26,10 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function TabsSelector(props: { history: React.ReactNode }) {
+export default function TabsSelector(props: {
+  history: React.ReactNode;
+  savedBoards: React.ReactNode;
+}) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -51,7 +54,7 @@ export default function TabsSelector(props: { history: React.ReactNode }) {
           {props.history}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          {props.savedBoards}
         </TabPanel>
       </Box>
     </Box>
