@@ -13,7 +13,12 @@ import LoginContainer from '@/app/[locale]/signin/Login/Container';
 import authOptions from '@/lib/next-auth/config';
 import { redirect } from '@/navigation';
 import { getServerSession } from 'next-auth';
-import { PURPLE, DEFAULT_CALLBACK_URL } from './constants';
+import {
+  PURPLE,
+  DEFAULT_CALLBACK_URL,
+  DEFAULT_ERROR_MESSAGE,
+} from './constants';
+import Alert from '@mui/material/Alert';
 
 export default async function Page({
   searchParams,
@@ -31,6 +36,11 @@ export default async function Page({
     }
     redirect(callbackUrl);
     return;
+  }
+
+  let errorMessage = '';
+  if ('error' in searchParams && typeof searchParams['error'] == 'string') {
+    errorMessage = DEFAULT_ERROR_MESSAGE;
   }
 
   const oauthProviders = Object.values((await getProviders()) || {}).filter(
@@ -184,6 +194,13 @@ export default async function Page({
               sx={{ my: 4, borderColor: { xs: '#6D6D6D', md: '#C9C9C9' } }}
               variant="fullWidth"
             />
+
+            {errorMessage && (
+              <Alert sx={{ width: '100%' }} severity="error">
+                {errorMessage}
+              </Alert>
+            )}
+
             {oauthProviders.map((provider) => (
               <OAuthButton key={provider.id} provider={provider} />
             ))}

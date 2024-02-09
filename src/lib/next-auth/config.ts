@@ -64,6 +64,10 @@ function omitUserPropsForSession(user: User): CboardUser {
 }
 
 export default {
+  pages: {
+    signIn: '/signin',
+    error: '/signin',
+  },
   callbacks: {
     async session({ session, token }) {
       // Persisting cboard API user data on backend too
@@ -97,7 +101,6 @@ export default {
           const user = await credentialsLogin(credentials);
           return user;
         } catch (e) {
-          // TODO: send error message to client, you can throw an exception and the message will be sent to the client
           console.error(e);
           throw e;
         }

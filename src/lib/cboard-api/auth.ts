@@ -89,9 +89,10 @@ export async function oauthLogin(
     },
   );
   if (!apiResponse.ok) {
-    console.error(await apiResponse.text());
-    // TODO: error messages in UI
-    throw new Error('TODO: error messages in UI');
+    console.error(
+      `Something went wrong after oauth after calling login/oauth/${account.provider} in cboard API ${apiResponse.status}`,
+    );
+    throw new Error(DEFAULT_ERROR_MESSAGE);
   }
 
   const jsonResp = (await apiResponse.json()) as User;
