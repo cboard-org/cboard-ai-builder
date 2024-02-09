@@ -7,17 +7,17 @@ import { useFormatter } from 'next-intl';
 
 import Box from '@mui/material/Box';
 
-type BaseDataType = {
+export type BaseDataItemType = {
   prompt: string;
   date: Date | string;
 };
 
-type Props<DataType extends BaseDataType> = {
+type Props<DataType extends BaseDataItemType> = {
   data: DataType;
   onDelete: (dataRow: DataType) => void;
 };
 
-export default function DataItem<DataType extends BaseDataType>({
+export default function DataItem<DataType extends BaseDataItemType>({
   data,
   onDelete,
 }: Props<DataType>) {
