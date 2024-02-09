@@ -9,7 +9,7 @@ import OAuthButton from './OAuthButton';
 import { getProviders } from 'next-auth/react';
 import { Link } from '@/navigation';
 import Image from 'next/image';
-import LoginButton from '@/app/[locale]/signin/Login/Button';
+import LoginContainer from '@/app/[locale]/signin/Login/Container';
 import authOptions from '@/lib/next-auth/config';
 import { redirect } from '@/navigation';
 import { getServerSession } from 'next-auth';
@@ -173,7 +173,7 @@ export default async function Page({
               </Typography>
             </Box>
 
-            <LoginButton />
+            <LoginContainer />
 
             <Button fullWidth variant="contained" size="large">
               SIGN UP
