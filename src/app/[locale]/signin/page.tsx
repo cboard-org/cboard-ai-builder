@@ -10,9 +10,30 @@ import { getProviders } from 'next-auth/react';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import LoginButton from '@/app/[locale]/signin/Login/Button';
+import authOptions from '@/lib/next-auth/config';
+import { redirect } from '@/navigation';
+import { getServerSession } from 'next-auth';
 
 const PURPLE = '#D6B2FF';
-export default async function Page(): Promise<JSX.Element> {
+const DEFAULT_CALLBACK_URL = '/dashboard';
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<JSX.Element | unknown> {
+  const session = await getServerSession(authOptions);
+  if (session) {
+    let callbackUrl = DEFAULT_CALLBACK_URL;
+    if (
+      'callbackUrl' in searchParams &&
+      typeof searchParams['callbackUrl'] == 'string'
+    ) {
+      callbackUrl = searchParams['callbackUrl'];
+    }
+    redirect(callbackUrl);
+    return;
+  }
+
   const oauthProviders = Object.values((await getProviders()) || {}).filter(
     (p) => p.type === 'oauth',
   );
@@ -153,14 +174,6 @@ export default async function Page(): Promise<JSX.Element> {
               </Typography>
             </Box>
 
-            {/* <Button
-              fullWidth
-              variant="outlined"
-              sx={{ backgroundColor: '#fff' }}
-              size="large"
-            >
-              LOGIN
-            </Button> */}
             <LoginButton />
 
             <Button fullWidth variant="contained" size="large">

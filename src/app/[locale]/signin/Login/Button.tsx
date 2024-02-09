@@ -35,7 +35,7 @@ export default function Button() {
             signIn('credentials', {
               email: formData.get('email') as string,
               password: formData.get('password') as string,
-              callbackUrl: '/dashboard',
+              // callbackUrl: '/dashboard',
               //   redirect: false,
             });
           },
