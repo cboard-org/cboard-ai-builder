@@ -10,6 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Alert from '@mui/material/Alert';
+import { useTranslations } from 'next-intl';
 export default function Dialog({
   open,
   handleClose,
@@ -17,6 +18,7 @@ export default function Dialog({
   open: boolean;
   handleClose: () => void;
 }) {
+  const t = useTranslations('SignIn.LoginDialog');
   const [error, setError] = useState<string | false>(false);
   const [loading, setLoading] = useState(false);
   const { refresh } = useRouter();
@@ -42,7 +44,7 @@ export default function Dialog({
             return;
           }
           if (response?.error) {
-            setError(response.error);
+            setError(t('errorMessage'));
           }
           setLoading(false);
         },
@@ -54,7 +56,7 @@ export default function Dialog({
       }}
       // maxWidth={'md'}
     >
-      <DialogTitle sx={{ pb: 2 }}>Login</DialogTitle>
+      <DialogTitle sx={{ pb: 2 }}>{t('title')}</DialogTitle>
       <DialogContent>
         <Box>{error && <Alert severity="error">{error}</Alert>}</Box>
         <Box>
@@ -82,7 +84,7 @@ export default function Dialog({
       </DialogContent>
       <DialogActions>
         <MUIButton size="medium" variant="text" onClick={handleClose}>
-          Cancel
+          {t('cancelButton')}
         </MUIButton>
         <MUIButton
           size="medium"
@@ -90,12 +92,12 @@ export default function Dialog({
           type="submit"
           disabled={loading}
         >
-          Login
+          {t('loginButton')}
         </MUIButton>
       </DialogActions>
       <Box sx={{ px: 2, pb: 2 }}>
         <MUIButton size="medium" variant="text">
-          Forgot Password?
+          {t('forgotPassword')}
         </MUIButton>
       </Box>
     </MUIDialog>

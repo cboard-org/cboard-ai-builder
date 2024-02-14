@@ -8,6 +8,7 @@ import Facebook from '@/components/icons/Facebook';
 import Apple from '@/components/icons/Apple';
 import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
+import { useTranslations } from 'next-intl';
 
 function getIcon(id: string) {
   switch (id) {
@@ -23,6 +24,7 @@ function getIcon(id: string) {
 }
 
 export default function Button({ provider }: { provider: ClientSafeProvider }) {
+  const t = useTranslations('SignIn');
   const Icon = getIcon(provider.id);
   return (
     <MUIButton
@@ -66,8 +68,7 @@ export default function Button({ provider }: { provider: ClientSafeProvider }) {
 
       <Box sx={{ width: '100%' }}>
         <Typography fontWeight={500}>
-          {/* TODO: add internationalization */}
-          Iniciar sesión con {provider.name}
+          {t('signInWith', { provider: provider.name })}
         </Typography>
       </Box>
       <SvgIcon sx={{ visibility: 'hidden' }}>

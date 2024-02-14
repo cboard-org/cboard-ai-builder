@@ -7,7 +7,7 @@ import { User } from './types';
 // Basically no imports should come from something that's an external service
 // not related to cboard-api
 
-const DEFAULT_ERROR_MESSAGE = 'Something went wrong during login';
+const LOGIN_ERROR_CODE = 'loginError';
 
 /**
  * Sign in a user with credentials
@@ -29,19 +29,11 @@ export async function credentialsLogin(
     },
   );
   if (!apiResponse.ok) {
-    let message = DEFAULT_ERROR_MESSAGE;
-    try {
-      const errorResp = await apiResponse.json();
-      // TODO: add internationalization to error message (I didn't find that in the cboard app)
-      if ('message' in errorResp && typeof errorResp['message'] === 'string') {
-        message = errorResp['message'];
-      }
-    } catch (e) {
-      console.error(`Failed to parse API response to login ${e}`);
-    }
-    throw new Error(message);
+    console.error(
+      `Credential login response: ${apiResponse.status} for account ${credentials.email}`,
+    );
+    throw new Error(LOGIN_ERROR_CODE);
   }
-
   const user = await apiResponse.json();
   return user;
 }
@@ -92,7 +84,7 @@ export async function oauthLogin(
     console.error(
       `Something went wrong after oauth after calling login/oauth/${account.provider} in cboard API ${apiResponse.status}`,
     );
-    throw new Error(DEFAULT_ERROR_MESSAGE);
+    throw new Error(LOGIN_ERROR_CODE);
   }
 
   const jsonResp = (await apiResponse.json()) as User;
