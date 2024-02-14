@@ -3,6 +3,7 @@ import MUIButton from '@mui/material/Button';
 import { useState } from 'react';
 import Dialog from './Dialog';
 import { useTranslations } from 'next-intl';
+import { styles } from './styles';
 
 export default function Container() {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function Container() {
       <MUIButton
         fullWidth
         variant="outlined"
-        sx={{ backgroundColor: '#fff' }}
+        sx={styles.button}
         size="large"
         onClick={() => setOpen(true)}
       >

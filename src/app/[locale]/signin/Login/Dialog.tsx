@@ -11,6 +11,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Alert from '@mui/material/Alert';
 import { useTranslations } from 'next-intl';
+import { styles } from './styles';
 export default function Dialog({
   open,
   handleClose,
@@ -56,7 +57,7 @@ export default function Dialog({
       }}
       // maxWidth={'md'}
     >
-      <DialogTitle sx={{ pb: 2 }}>{t('title')}</DialogTitle>
+      <DialogTitle sx={styles.dialogTitle}>{t('title')}</DialogTitle>
       <DialogContent>
         <Box>{error && <Alert severity="error">{error}</Alert>}</Box>
         <Box>
@@ -95,7 +96,7 @@ export default function Dialog({
           {t('loginButton')}
         </MUIButton>
       </DialogActions>
-      <Box sx={{ px: 2, pb: 2 }}>
+      <Box sx={styles.dialogForgotPasswordContainer}>
         <MUIButton size="medium" variant="text">
           {t('forgotPassword')}
         </MUIButton>
