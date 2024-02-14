@@ -131,7 +131,7 @@ export default async function Page({
           sx={{
             gridArea: 'sign-actions',
             background: { xs: PURPLE, md: 'inherit' },
-            width: { sx: '100%' },
+            width: { xs: '100%' },
           }}
         >
           <Box
@@ -217,18 +217,26 @@ export default async function Page({
             >
               <Link href={'#'}>Privacy policy</Link>
               <Link href={'#'}>Terms</Link>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  display: { md: 'none' },
+                }}
+              >
+                <Image
+                  priority={true}
+                  src="/images/boards-example-cut.png"
+                  width={393}
+                  height={127}
+                  // fill
+                  alt="Tiles"
+                  style={{ objectFit: 'cover' }}
+                  unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
+                />
+              </Box>
             </Box>
-            {/* <Box sx={{ display: { md: 'none' }, width: '100%' }}>
-              <Image
-                priority={true}
-                src="/images/boards-example-cut.png"
-                width={430}
-                height={133}
-                alt="Tiles"
-                style={{ objectFit: 'contain' }}
-                unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
-              />
-            </Box> */}
           </Box>
         </Box>
       </Box>

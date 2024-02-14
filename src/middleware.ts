@@ -7,11 +7,7 @@ import {
 } from './intl/intl.constants';
 import { withAuth } from 'next-auth/middleware';
 
-const publicPages = [
-  '/',
-  '/signin',
-  // (/secret requires auth)
-];
+const publicPages = ['/signin'];
 
 const intlMiddleware = createIntlMiddleware({
   locales: supportedLocales,
