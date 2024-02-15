@@ -38,7 +38,7 @@
     "ai": "AI",
     "errorMessage": "Something went wrong during signin",
     "hola": "¡Hola!",
-    "welcome": "Te damos la bienvenida a AI Board Builder",
+    "welcome": "Welcome to AI Board Builder",
     "loginButton": "LOGIN",
     "signUpButton": "SIGN UP",
     "signInWith": "Sign in with {provider}",
