@@ -1,4 +1,3 @@
-
 # Cboard AI builder
 
 The Cboard AI Builder is an augmentative and alternative communication (AAC) board generator designed to streamline the creation process for speech therapists or caregivers. It aims to reduce the time required to create specific AAC boards and provide a preliminary draft quickly.
@@ -20,7 +19,7 @@ yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) with your browser to see the result.
 
 The page auto-updates as you edit any file.
 
@@ -30,4 +29,4 @@ This is a [Next.js v14](https://nextjs.org/) project bootstrapped with [`create-
 
 ## Developers
 
-For the transaltions we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, just add it on the file ```en-US.json```.
+For the transaltions we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, just add it on the file `en-US.json`.
