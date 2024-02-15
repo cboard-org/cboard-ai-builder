@@ -3,7 +3,6 @@ import authOptions from '@/lib/next-auth/config';
 import { redirect } from '@/navigation';
 import { getServerSession } from 'next-auth';
 import { DEFAULT_CALLBACK_URL } from './constants';
-import { NextIntlClientProvider } from 'next-intl';
 import Container from './Container';
 
 export default async function Page({
@@ -30,8 +29,6 @@ export default async function Page({
     errorMessage = searchParams['error'];
   }
   return (
-    <NextIntlClientProvider>
-      <Container errorMessage={errorMessage} authProviders={authProviders} />
-    </NextIntlClientProvider>
+    <Container errorMessage={errorMessage} authProviders={authProviders} />
   );
 }
