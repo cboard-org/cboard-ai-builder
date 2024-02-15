@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  cboard-ai-builder-app:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: cboard-ai-builder-app
+    env_file:
+      - ../.env.development.local
+    ports:
+      - '3000:3000'
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  cboard-ai-builder-network:
+    external: true
