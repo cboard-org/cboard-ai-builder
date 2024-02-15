@@ -16,16 +16,13 @@ import { User } from './types';
 export async function credentialsLogin(
   credentials: Record<'email' | 'password', string>,
 ): Promise<User> {
-  const apiResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL!}user/login`,
-    {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-      headers: {
-        'Content-type': 'application/json',
-      },
+  const apiResponse = await fetch(`${process.env.CBOARD_API_URL!}user/login`, {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+    headers: {
+      'Content-type': 'application/json',
     },
-  );
+  });
   if (!apiResponse.ok) {
     // TODO: error messages in UI
     throw new Error('TODO: error messages in UI');
@@ -68,7 +65,7 @@ export async function oauthLogin(
     refreshToken: account.refresh_token,
   };
   const apiResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL!}login/oauth/${account.provider}`,
+    `${process.env.CBOARD_API_URL!}login/oauth/${account.provider}`,
     {
       method: 'POST',
       body: JSON.stringify(payload),
