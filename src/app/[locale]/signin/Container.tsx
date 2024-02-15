@@ -10,7 +10,6 @@ import { getProviders } from 'next-auth/react';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import LoginContainer from '@/app/[locale]/signin/Login/Container';
-import { PURPLE } from './constants';
 import Alert from '@mui/material/Alert';
 import {
   NextIntlClientProvider,
@@ -18,6 +17,7 @@ import {
   useTranslations,
 } from 'next-intl';
 import pick from 'lodash.pick';
+import { styles } from './styles';
 
 export default function Container({
   errorMessage,
@@ -33,39 +33,12 @@ export default function Container({
     (p) => p.type === 'oauth',
   );
   return (
-    <Box
-      sx={{
-        background: { xs: PURPLE, md: 'white' },
-        width: '100%',
-        height: '100%',
-        px: 2,
-        py: 2,
-      }}
-    >
-      <Box
-        sx={{
-          height: '100%',
-          display: 'grid',
-          gridTemplateAreas: {
-            xs: `"sign-actions"
-            "hero"`,
-            md: `"hero sign-actions"`,
-          },
-        }}
-      >
-        <Box
-          sx={{
-            gridArea: 'hero',
-            background: PURPLE,
-            borderRadius: '16px',
-            height: '100%',
-            maxWidth: { md: '846px' },
-            display: { xs: 'none', md: 'block' },
-          }}
-        >
+    <Box sx={styles.root}>
+      <Box sx={styles.grid}>
+        <Box sx={styles.hero}>
           <Box sx={{ pl: '56px', pt: '62px' }}>
             <Stack direction={'row'} alignItems={'center'}>
-              <BrandIcon sx={{ fontSize: '50px', height: '52px', pr: '7px' }} />
+              <BrandIcon sx={styles.brandIcon} />
               <Typography sx={{ fontSize: '26px' }}>
                 <Typography
                   component={'span'}
@@ -88,12 +61,7 @@ export default function Container({
                 sx={{ pb: '32px' }}
               >
                 <Typography variant="h2">{t('sloganTitle')}</Typography>
-                <Chip
-                  label={t('ai')}
-                  variant="filled"
-                  // size="small"
-                  sx={{ backgroundColor: '#363636', color: 'white' }}
-                />
+                <Chip label={t('ai')} variant="filled" sx={styles.chipAI} />
               </Stack>
               <Typography variant="h5">{t('sloganSubtitle')}</Typography>
             </Box>
@@ -110,30 +78,11 @@ export default function Container({
             />
           </Box>
         </Box>
-        <Box
-          sx={{
-            gridArea: 'sign-actions',
-            background: { xs: PURPLE, md: 'inherit' },
-            width: { xs: '100%' },
-          }}
-        >
-          <Box
-            sx={{
-              gap: 2,
-              mx: { md: 20 },
-              maxWidth: { xs: 'inherit', md: '352px' },
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+        <Box sx={styles.signActions}>
+          <Box sx={styles.signActionsContainer}>
             <Box sx={{ display: { md: 'none' } }}>
               <Stack direction={'row'} alignItems={'center'}>
-                <BrandIcon
-                  sx={{ fontSize: '34px', height: '25px', pr: '7px' }}
-                />
+                <BrandIcon sx={styles.brandIconSmall} />
                 <Typography sx={{ fontSize: '16px' }}>
                   <Typography
                     component={'span'}
@@ -145,25 +94,9 @@ export default function Container({
                 </Typography>
               </Stack>
             </Box>
-            <Box
-              sx={{
-                alignSelf: { xs: 'center', md: 'start' },
-                textAlign: { xs: 'center', md: 'inherit' },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontWeight: 600,
-                  fontSize: { xs: '32px', md: '48px' },
-                  color: '#181717',
-                  pb: '16px',
-                }}
-              >
-                {t('hola')}
-              </Typography>
-              <Typography sx={{ color: '#2B2B2B', fontSize: '16px' }}>
-                {t('welcome')}
-              </Typography>
+            <Box sx={styles.welcomeTextContainer}>
+              <Typography sx={styles.holaText}>{t('hola')}</Typography>
+              <Typography sx={styles.welcomeText}>{t('welcome')}</Typography>
             </Box>
 
             <NextIntlClientProvider messages={pick(messages, 'SignIn')}>
@@ -174,11 +107,7 @@ export default function Container({
               {t('signUpButton')}
             </Button>
 
-            <Divider
-              flexItem
-              sx={{ my: 4, borderColor: { xs: '#6D6D6D', md: '#C9C9C9' } }}
-              variant="fullWidth"
-            />
+            <Divider flexItem sx={styles.divider} variant="fullWidth" />
 
             {errorMessage && (
               <Alert sx={{ width: '100%' }} severity="error">
@@ -192,26 +121,10 @@ export default function Container({
               ))}
             </NextIntlClientProvider>
 
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                color: { xs: '#221152', md: '#868686' },
-                fontWeight: { xs: 500, sm: 400 },
-                fontSize: { xs: '12px', md: '16px' },
-              }}
-            >
+            <Box sx={styles.bottomLinks}>
               <Link href={'#'}>{t('privacyPolicy')}</Link>
               <Link href={'#'}>{t('terms')}</Link>
-              <Box
-                sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  display: { md: 'none' },
-                }}
-              >
+              <Box sx={styles.bottomImage}>
                 <Image
                   priority={true}
                   src="/images/boards-example-cut.png"
