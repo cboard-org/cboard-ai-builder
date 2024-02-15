@@ -5,37 +5,13 @@ import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
 import testBoard from './testBoard.json';
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from './types';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
-
-const renderTileFixedBoard = (item: {
-  id: string;
-  color: string;
-  label: string;
-  backgroundColor: string;
-}): ReactNode => {
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: item.backgroundColor,
-        borderRadius: '0.5rem',
-        border: '1px solid #ccc',
-        boxShadow: '0 0 5px #ccc',
-      }}
-    >
-      <Box sx={{ fontSize: '0.5rem', color: 'black' }}>{item.id}L</Box>
-    </Box>
-  );
-};
+import Tile from '@/components/Tile';
 
 export default function BoardContainer() {
   const message = useTranslations('Board.BoardContainer');
@@ -95,7 +71,7 @@ export default function BoardContainer() {
           columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
           dragAndDropEnabled={true} //{isSelecting}
-          renderItem={(item) => renderTileFixedBoard(item)}
+          renderItem={(item) => <Tile tile={item} />}
           onItemDrop={onTileDrop}
         />
       </Box>
