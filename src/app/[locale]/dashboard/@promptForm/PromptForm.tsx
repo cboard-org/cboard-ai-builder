@@ -214,17 +214,16 @@ export function PromptForm() {
               id="prompt-text"
               name="prompt-text"
               multiline
-              rows={3}
+              rows={5}
               required
               InputProps={{
                 inputComponent: 'textarea',
                 style: {
-                  fontSize: '1rem',
+                  fontSize: '0.8rem',
                   color: theme.palette.text.secondary,
-                  paddingTop: '0.5rem',
                 },
               }}
-              inputProps={{ minLength: 5, maxLength: 60 }}
+              inputProps={{ minLength: 5, maxLength: 10 }}
               sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
             />
           </Box>
@@ -246,13 +245,12 @@ export function PromptForm() {
                 <Stack
                   spacing={1}
                   direction="row"
-                  justifyContent="center"
                   useFlexGap
                   flexWrap="nowrap"
                   sx={{
                     alignContent: 'center',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    mb: '0.3rem',
                   }}
                 >
                   <Typography fontSize={'0.7rem'}>
