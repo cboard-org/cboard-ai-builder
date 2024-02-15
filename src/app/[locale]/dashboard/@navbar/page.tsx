@@ -8,7 +8,8 @@ import authConfig from '@/lib/next-auth/config';
 import { getTranslations } from 'next-intl/server';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
-import { BrandIcon } from '@/components/icons/Brand';
+import Brand from '@/components/icons/Brand';
+import SvgIcon from '@mui/material/SvgIcon';
 
 export default async function DashboardPage() {
   const messages = await getTranslations('Navbar');
@@ -31,7 +32,9 @@ export default async function DashboardPage() {
         </IconButton>
       </Tooltip>
       <Box className={styles.brand}>
-        <BrandIcon />
+        <SvgIcon>
+          <Brand />
+        </SvgIcon>
 
         <Typography
           variant="h6"

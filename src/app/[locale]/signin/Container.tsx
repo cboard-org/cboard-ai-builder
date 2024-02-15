@@ -1,4 +1,4 @@
-import { BrandIcon } from '@/components/icons/Brand';
+import Brand from '@/components/icons/Brand';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -18,6 +18,7 @@ import {
 } from 'next-intl';
 import pick from 'lodash.pick';
 import { styles } from './styles';
+import SvgIcon from '@mui/material/SvgIcon';
 
 export default function Container({
   errorMessage,
@@ -38,7 +39,10 @@ export default function Container({
         <Box sx={styles.hero}>
           <Box sx={{ pl: '56px', pt: '62px' }}>
             <Stack direction={'row'} alignItems={'center'}>
-              <BrandIcon sx={styles.brandIcon} />
+              <SvgIcon sx={styles.brandIcon}>
+                <Brand />
+              </SvgIcon>
+
               <Typography sx={{ fontSize: '26px' }}>
                 <Typography
                   component={'span'}
@@ -82,7 +86,9 @@ export default function Container({
           <Box sx={styles.signActionsContainer}>
             <Box sx={{ display: { md: 'none' } }}>
               <Stack direction={'row'} alignItems={'center'}>
-                <BrandIcon sx={styles.brandIconSmall} />
+                <SvgIcon sx={styles.brandIconSmall}>
+                  <Brand />
+                </SvgIcon>
                 <Typography sx={{ fontSize: '16px' }}>
                   <Typography
                     component={'span'}

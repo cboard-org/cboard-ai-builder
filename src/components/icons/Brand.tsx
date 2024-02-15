@@ -1,8 +1,7 @@
-import SvgIcon from '@mui/material/SvgIcon';
 import React from 'react';
 
-export const BrandIcon = (props: React.ComponentProps<typeof SvgIcon>) => (
-  <SvgIcon {...props}>
+export default function Brand(): JSX.Element {
+  return (
     <svg
       width="24"
       height="24"
@@ -51,5 +50,5 @@ export const BrandIcon = (props: React.ComponentProps<typeof SvgIcon>) => (
         fill="black"
       />
     </svg>
-  </SvgIcon>
-);
+  );
+}
