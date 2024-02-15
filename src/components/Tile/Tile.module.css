@@ -1,0 +1,93 @@
+.Tile {
+  height: 100%;
+  width: 100%;
+  padding: 10px 5px 0 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  --folder-flap-height: 12px;
+
+  /* HACK: fixes iOS flicker on scroll */
+  transform: translateZ(0);
+}
+
+.Tile:not(.scanner__focused) {
+  outline: 0;
+}
+
+.CheckCircle {
+  color: #1976d2;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  width: 32px;
+  height: 32px;
+}
+
+.CheckCircleIcon {
+  /* TODO: in js :/ */
+  height: 100% !important;
+  width: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.Tile .CheckCircle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+  border: 2px solid;
+}
+
+.TileShape::before,
+.TileShape[data-isfolder='true']::after {
+  background: inherit;
+  border: 3px solid transparent;
+  z-index: -1;
+}
+
+.TileShape::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+.TileShape[data-isfolder='true']::before {
+  top: 10px;
+  border-radius: 0 3px 3px 3px;
+}
+
+.TileShape[data-isfolder='true']::after {
+  content: '';
+  width: 50%;
+  height: var(--folder-flap-height);
+  border-radius: 0 20px 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: 0;
+  z-index: -1;
+}
+
+.Tile:focus .TileShape::before,
+.Tile:focus .TileShape[data-isfolder='true']::after,
+.Tile:active .TileShape::before,
+.Tile:active .TileShape[data-isfolder='true']::after {
+  border-color: rgb(0, 0, 0);
+}
+
+.Tile:not(:focus):hover .TileShape::before,
+.Tile:not(:focus):hover .TileShape[data-isfolder='true']::after {
+  border-color: rgba(0, 0, 0, 0.5);
+  transition: none;
+}
