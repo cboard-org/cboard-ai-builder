@@ -13,7 +13,7 @@ export default function SavedBoardsList({
   const [savedBoards, deletesavedBoard] = useOptimistic(
     initialData,
     (savedBoards, savedBoardToDelete: SavedBoardsData) => {
-      return savedBoards.filter((h) => h.id != savedBoardToDelete.id);
+      return savedBoards.filter((board) => board.id != savedBoardToDelete.id);
     },
   );
   const deleteSavedBoardsData = async (savedBoardToDelete: SavedBoardsData) => {
