@@ -29,5 +29,9 @@
     "BoardContainer": {
       "exportToCboard": "Export to Cboard"
     }
+  },
+  "SavedData": {
+    "savedBoards": "Saved boards",
+    "history": "History"
   }
 }
