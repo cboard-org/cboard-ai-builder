@@ -3,6 +3,7 @@ import EditOutlined from '@mui/icons-material/EditOutlined';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
 import { useFormatter } from 'next-intl';
 
 import Box from '@mui/material/Box';
@@ -37,11 +38,21 @@ export default function DataItem<DataType extends BaseDataItemType>({
         </Box>
       }
     >
-      <ListItemText
-        primary={data.prompt}
-        secondary={format.relativeTime(new Date(data.date))}
-        sx={{ pr: 4 }}
-      />
+      <Tooltip title={data.prompt} arrow>
+        <ListItemText
+          primary={data.prompt}
+          primaryTypographyProps={{
+            style: {
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            },
+          }}
+          secondary={format.relativeTime(new Date(data.date))}
+          sx={{ pr: 4 }}
+          aria-multiline="false"
+        />
+      </Tooltip>
     </ListItem>
   );
 }
