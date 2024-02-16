@@ -15,7 +15,25 @@ import Tile from '@/components/Tile';
 
 export default function BoardContainer() {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useState<BoardRecord>(testBoard[0]);
+  const [board, setBoard] = useState<BoardRecord>(testBoard[1]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
+
+  const handleEditClick = () => {
+    setIsEditing((isEditing) => !isEditing);
+    setSelectedTiles([]);
+  };
+
+  const handleTileClick = (id: string) => {
+    if (!isEditing) return;
+    if (selectedTiles.includes(id)) {
+      setSelectedTiles((selectedTiles) =>
+        selectedTiles.filter((tileId) => tileId !== id),
+      );
+    } else {
+      setSelectedTiles((selectedTiles) => [...selectedTiles, id]);
+    }
+  };
 
   const onTileDrop = (
     item: { id: string },
@@ -62,7 +80,7 @@ export default function BoardContainer() {
             <Box>Image</Box>
             <Box>| Board title</Box>
           </Box>
-          <Toolbar />
+          <Toolbar onEditClick={handleEditClick} />
         </Box>
         <Divider flexItem sx={{ my: '0.5rem' }} />
         <Grid
@@ -71,7 +89,14 @@ export default function BoardContainer() {
           columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
           dragAndDropEnabled={true} //{isSelecting}
-          renderItem={(item) => <Tile tile={item} />}
+          renderItem={(item) => (
+            <Tile
+              tile={item}
+              isEditing={isEditing}
+              handleTileClick={handleTileClick}
+              isSelected={selectedTiles.includes(item.id)}
+            />
+          )}
           onItemDrop={onTileDrop}
         />
       </Box>

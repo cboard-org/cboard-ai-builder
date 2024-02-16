@@ -2,13 +2,22 @@ import React, { ReactNode } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord } from './types';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 type Props = {
   children?: ReactNode;
   tile: TileRecord;
+  isSelected: boolean;
+  handleTileClick: (id: string) => void;
+  isEditing?: boolean;
 };
 
-export default function Tile({ tile }: Props) {
+export default function Tile({
+  tile,
+  isEditing = false,
+  isSelected,
+  handleTileClick,
+}: Props) {
   const displaySettings = {
     labelPosition: 'Below',
   }; // TODO: get from settings
@@ -26,8 +35,12 @@ export default function Tile({ tile }: Props) {
     tileShapeStyles.backgroundColor = tile.backgroundColor;
   }
 
+  const onTileClick = () => {
+    handleTileClick(tile.id);
+  };
+
   return (
-    <button className={style.Tile} type="button">
+    <button className={style.Tile} type="button" onClick={onTileClick}>
       <div
         className={style.TileShape}
         style={tileShapeStyles}
@@ -35,14 +48,14 @@ export default function Tile({ tile }: Props) {
       />
       <Symbol
         image={tile.image}
-        label={tile.label}
+        label={tile.id}
         labelpos={displaySettings.labelPosition}
       />
-      {/* {isSelecting && !isSaving && (
-          <div className="CheckCircle">
-            {isSelected && <CheckCircleIcon className={style.CheckCircleIcon} />}
-          </div>
-        )} */}
+      {isEditing && (
+        <div className={style.CheckCircle}>
+          {isSelected && <CheckCircleIcon className={style.CheckCircleIcon} />}
+        </div>
+      )}
     </button>
   );
 }

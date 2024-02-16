@@ -6,10 +6,14 @@ import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
-export default function Toolbar() {
+type Props = {
+  onEditClick: () => void;
+};
+
+export default function Toolbar({ onEditClick }: Props) {
   return (
     <Box sx={{ display: 'flex' }}>
-      <IconButton>
+      <IconButton onClick={() => onEditClick()}>
         <EditIcon fontSize="small" />
       </IconButton>
       <IconButton>
