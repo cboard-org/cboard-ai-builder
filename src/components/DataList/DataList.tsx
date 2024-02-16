@@ -8,6 +8,8 @@ import DataItem from '@/components/DataItem/DataItem';
 import { BaseDataItemType } from '@/components/DataItem/DataItem';
 import styles from './Styles';
 
+const ITEMS_PER_PAGE = 2;
+
 export default function DataList<DataItemType extends BaseDataItemType>({
   list,
   deleteItem,
@@ -19,10 +21,9 @@ export default function DataList<DataItemType extends BaseDataItemType>({
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const itemsPerPage = 2;
-  const paginationCount = Math.ceil(list.length / itemsPerPage);
-  const start = (page - 1) * itemsPerPage;
-  const truncatedItems = list.slice(start, start + itemsPerPage);
+  const paginationCount = Math.ceil(list.length / ITEMS_PER_PAGE);
+  const start = (page - 1) * ITEMS_PER_PAGE;
+  const truncatedItems = list.slice(start, start + ITEMS_PER_PAGE);
 
   return (
     <Stack sx={styles.stack}>
