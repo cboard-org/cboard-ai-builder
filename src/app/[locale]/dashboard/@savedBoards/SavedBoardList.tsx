@@ -10,16 +10,16 @@ export default function SavedBoardsList({
 }: {
   initialData: SavedBoardsData[];
 }) {
-  const [histories, deleteHistory] = useOptimistic(
+  const [savedBoards, deletesavedBoard] = useOptimistic(
     initialData,
-    (histories, historyToDelete: SavedBoardsData) => {
-      return histories.filter((h) => h.id != historyToDelete.id);
+    (savedBoards, savedBoardToDelete: SavedBoardsData) => {
+      return savedBoards.filter((h) => h.id != savedBoardToDelete.id);
     },
   );
-  const deleteSavedBoardsData = async (historyToDelete: SavedBoardsData) => {
-    deleteHistory(historyToDelete);
-    await removeSavedBoardsData(historyToDelete);
+  const deleteSavedBoardsData = async (savedBoardToDelete: SavedBoardsData) => {
+    deletesavedBoard(savedBoardToDelete);
+    await removeSavedBoardsData(savedBoardToDelete);
   };
 
-  return <DataList list={histories} deleteItem={deleteSavedBoardsData} />;
+  return <DataList list={savedBoards} deleteItem={deleteSavedBoardsData} />;
 }
