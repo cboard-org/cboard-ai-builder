@@ -6,18 +6,7 @@ import List from '@mui/material/List';
 import Pagination from '@mui/material/Pagination';
 import DataItem from '@/components/DataItem/DataItem';
 import { BaseDataItemType } from '@/components/DataItem/DataItem';
-
-const sxStyles = {
-  stack: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-  list: { width: '100%' },
-  pagination: { paddingBottom: 1 },
-};
+import styles from './Styles';
 
 export default function DataList<DataItemType extends BaseDataItemType>({
   list,
@@ -36,14 +25,14 @@ export default function DataList<DataItemType extends BaseDataItemType>({
   const truncatedItems = list.slice(start, start + itemsPerPage);
 
   return (
-    <Stack sx={sxStyles.stack}>
-      <List sx={sxStyles.list}>
+    <Stack sx={styles.stack}>
+      <List sx={styles.list}>
         {truncatedItems.map((data, index) => (
           <DataItem data={data} key={index} onDelete={deleteItem} />
         ))}
       </List>
       <Pagination
-        sx={sxStyles.pagination}
+        sx={styles.pagination}
         count={paginationCount}
         color="primary"
         siblingCount={0}
