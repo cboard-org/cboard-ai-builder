@@ -37,16 +37,19 @@ export default function Container({
     <Box sx={styles.root}>
       <Box sx={styles.grid}>
         <Box sx={styles.hero}>
-          <Box sx={{ pl: '56px', pt: '62px' }}>
-            <Stack direction={'row'} alignItems={'center'}>
+          <Box sx={styles.heroBranding}>
+            <Stack direction={'row'} alignItems={'center'} sx={styles.brand}>
               <SvgIcon sx={styles.brandIcon}>
                 <Brand />
               </SvgIcon>
 
-              <Typography sx={{ fontSize: '26px' }}>
+              <Typography fontWeight={300} fontSize={26} color={'#000000'}>
                 <Typography
                   component={'span'}
-                  sx={{ fontWeight: 'bold', fontSize: '26px' }}
+                  fontWeight={800}
+                  fontSize={26}
+                  color={'#000000'}
+                  //sx={{ fontWeight: 'bold', fontSize: '26px' }}
                 >
                   {t('cboardAi')}
                 </Typography>{' '}
@@ -54,31 +57,49 @@ export default function Container({
               </Typography>
             </Stack>
             <Box
-              sx={{
-                pt: '81px',
-              }}
+              sx={styles.heroTextContainer}
+              // sx={{
+              //   pt: '81px',
+              // }}
             >
               <Stack
                 direction={'row'}
                 alignItems={'start'}
                 gap={2}
-                sx={{ pb: '32px' }}
+                sx={{ width: 'max-content' }}
               >
-                <Typography variant="h2">{t('sloganTitle')}</Typography>
+                <Typography
+                  color={'#363636'}
+                  fontWeight={700}
+                  fontSize={{ md: 48, lg: 64 }}
+                  variant="h2"
+                  sx={{ width: 'max-content' }}
+                >
+                  {t('sloganTitle')}
+                </Typography>
                 <Chip label={t('ai')} variant="filled" sx={styles.chipAI} />
               </Stack>
-              <Typography variant="h5">{t('sloganSubtitle')}</Typography>
+              <Typography
+                variant="body1"
+                fontWeight={300}
+                fontSize={{ md: 24, lg: 32 }}
+                lineHeight={'37.34px'}
+                color={'#363636'}
+              >
+                {t('sloganSubtitle')}
+              </Typography>
             </Box>
           </Box>
-          <Box>
+          <Box sx={{ mb: 8 }}>
             <Image
-              priority={true}
+              // priority={true}
               src="/images/boards-example.png"
               width={846}
               height={463}
               alt="Tiles"
-              style={{ objectFit: 'contain' }}
-              unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
+              style={{ width: '100%', height: 'auto' }}
+
+              //unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
             />
           </Box>
         </Box>
