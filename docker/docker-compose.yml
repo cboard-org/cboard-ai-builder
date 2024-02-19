@@ -7,7 +7,7 @@ services:
       dockerfile: docker/Dockerfile
     image: cboard-ai-builder-web
     env_file:
-      - ../.env.development.local
+      - ../.env.local
     ports:
       - '3000:3000'
     networks:
