@@ -6,18 +6,19 @@ services:
       context: ../
       dockerfile: docker/Dockerfile
     image: cboard-ai-builder-web
+    depends_on:
+      - mongodb
     env_file:
       - ../.env.local
     ports:
       - '3000:3000'
     networks:
       - cboard-ai-builder-network
-  mongo:
+  mongodb:
     image: mongo:7.0
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: test
+    env_file:
+      - ../.env.local
     volumes:
       - '../data:/data/db'
     ports:
