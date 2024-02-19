@@ -121,49 +121,50 @@ export default function Container({
                 </Typography>
               </Stack>
             </Box>
-            <Box sx={styles.welcomeTextContainer}>
-              <Typography sx={styles.holaText}>{t('hola')}</Typography>
-              <Typography sx={styles.welcomeText}>{t('welcome')}</Typography>
+            <Box sx={styles.mainContainer}>
+              <Box sx={styles.welcomeTextContainer}>
+                <Typography sx={styles.holaText}>{t('hola')}</Typography>
+                <Typography sx={styles.welcomeText}>{t('welcome')}</Typography>
+              </Box>
+
+              <NextIntlClientProvider messages={pick(messages, 'SignIn')}>
+                <LoginContainer />
+              </NextIntlClientProvider>
+
+              <Button fullWidth variant="contained" size="large">
+                {t('signUpButton')}
+              </Button>
+
+              <Divider flexItem sx={styles.divider} variant="fullWidth" />
+
+              {errorMessage && (
+                <Alert sx={{ width: '100%' }} severity="error">
+                  {t('errorMessage')}
+                </Alert>
+              )}
+
+              <NextIntlClientProvider messages={pick(messages, 'SignIn')}>
+                {oauthProviders.map((provider) => (
+                  <OAuthButton key={provider.id} provider={provider} />
+                ))}
+              </NextIntlClientProvider>
             </Box>
-
-            <NextIntlClientProvider messages={pick(messages, 'SignIn')}>
-              <LoginContainer />
-            </NextIntlClientProvider>
-
-            <Button fullWidth variant="contained" size="large">
-              {t('signUpButton')}
-            </Button>
-
-            <Divider flexItem sx={styles.divider} variant="fullWidth" />
-
-            {errorMessage && (
-              <Alert sx={{ width: '100%' }} severity="error">
-                {t('errorMessage')}
-              </Alert>
-            )}
-
-            <NextIntlClientProvider messages={pick(messages, 'SignIn')}>
-              {oauthProviders.map((provider) => (
-                <OAuthButton key={provider.id} provider={provider} />
-              ))}
-            </NextIntlClientProvider>
-
             <Box sx={styles.bottomLinks}>
               <Link href={'#'}>{t('privacyPolicy')}</Link>
               <Link href={'#'}>{t('terms')}</Link>
-              <Box sx={styles.bottomImage}>
-                <Image
-                  priority={true}
-                  src="/images/boards-example-cut.png"
-                  width={393}
-                  height={127}
-                  // fill
-                  alt="Tiles"
-                  style={{ objectFit: 'cover' }}
-                  unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
-                />
-              </Box>
             </Box>
+          </Box>
+          <Box sx={styles.bottomImage}>
+            <Image
+              priority={true}
+              src="/images/boards-example-cut.png"
+              width={393}
+              height={127}
+              // fill
+              alt="Tiles"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+              unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
+            />
           </Box>
         </Box>
       </Box>
