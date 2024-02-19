@@ -2,22 +2,14 @@ import React, { ReactNode } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord } from './types';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 type Props = {
   children?: ReactNode;
   tile: TileRecord;
-  isSelected: boolean;
   handleTileClick: (id: string) => void;
-  isEditing?: boolean;
 };
 
-export default function Tile({
-  tile,
-  isEditing = false,
-  isSelected,
-  handleTileClick,
-}: Props) {
+export default function Tile({ tile, handleTileClick, children }: Props) {
   const displaySettings = {
     labelPosition: 'Below',
   }; // TODO: get from settings
@@ -51,11 +43,7 @@ export default function Tile({
         label={tile.id}
         labelpos={displaySettings.labelPosition}
       />
-      {isEditing && (
-        <div className={style.CheckCircle}>
-          {isSelected && <CheckCircleIcon className={style.CheckCircleIcon} />}
-        </div>
-      )}
+      {children}
     </button>
   );
 }

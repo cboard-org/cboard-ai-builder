@@ -12,6 +12,7 @@ import { BoardRecord } from './types';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';
+import SelectTileMask from '@/components/SelectTileMask';
 
 export default function BoardContainer() {
   const message = useTranslations('Board.BoardContainer');
@@ -90,12 +91,11 @@ export default function BoardContainer() {
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
           dragAndDropEnabled={true} //{isSelecting}
           renderItem={(item) => (
-            <Tile
-              tile={item}
-              isEditing={isEditing}
-              handleTileClick={handleTileClick}
-              isSelected={selectedTiles.includes(item.id)}
-            />
+            <Tile tile={item} handleTileClick={handleTileClick}>
+              {isEditing && (
+                <SelectTileMask isSelected={selectedTiles.includes(item.id)} />
+              )}
+            </Tile>
           )}
           onItemDrop={onTileDrop}
         />
