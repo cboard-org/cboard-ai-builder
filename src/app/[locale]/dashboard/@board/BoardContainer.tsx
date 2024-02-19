@@ -27,13 +27,12 @@ export default function BoardContainer() {
 
   const handleTileClick = (id: string) => {
     if (!isEditing) return;
-    if (selectedTiles.includes(id)) {
-      setSelectedTiles((selectedTiles) =>
-        selectedTiles.filter((tileId) => tileId !== id),
-      );
-    } else {
-      setSelectedTiles((selectedTiles) => [...selectedTiles, id]);
-    }
+
+    setSelectedTiles((selectedTiles) =>
+      selectedTiles.includes(id)
+        ? selectedTiles.filter((tileId) => tileId !== id)
+        : [...selectedTiles, id],
+    );
   };
 
   const onTileDrop = (
