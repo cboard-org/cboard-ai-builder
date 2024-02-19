@@ -6,7 +6,6 @@ export const styles = {
     background: { xs: PURPLE, md: 'white' },
     width: '100%',
     height: '100%',
-    // overflow: { xs: 'hidden', md: 'auto' },
     py: { xs: 0, md: 2 },
   },
   grid: {
@@ -37,8 +36,6 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    // mt: 8,
-    // alignItems: 'center',
   },
   brand: { pb: 4 },
   brandIcon: { fontSize: '50px', height: '52px', pr: '7px' },
@@ -66,7 +63,6 @@ export const styles = {
     justifyContent: { xs: 'flex-start', md: 'center' },
     flexDirection: 'column',
     alignItems: 'center',
-    // overflow: { xs: 'hidden', md: 'auto' },
     height: '100%',
     overflow: 'scroll',
   },
@@ -77,7 +73,6 @@ export const styles = {
     height: '100%',
     display: 'grid',
     flexDirection: 'column',
-    // justifyContent: { xs: 'space-between', md: 'flex-start' },
     alignItems: 'center',
   },
   welcomeTextContainer: {
@@ -106,8 +101,6 @@ export const styles = {
     alignSelf: 'flex-end',
   },
   bottomImage: {
-    // position: 'absolute',
-    // bottom: 0,
     flexShrink: 1,
     height: '100%',
     width: '100%',
