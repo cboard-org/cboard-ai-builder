@@ -6,7 +6,7 @@ import List from '@mui/material/List';
 import Pagination from '@mui/material/Pagination';
 import DataItem from '@/components/DataItem/DataItem';
 import { BaseDataItemType } from '@/components/DataItem/DataItem';
-import styles from './Styles';
+import styles from './styles';
 
 const ITEMS_PER_PAGE = 2;
 

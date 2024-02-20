@@ -2,7 +2,7 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AlertTitle from '@mui/material/AlertTitle';
-import Styles from './Styles';
+import Styles from './styles';
 
 export default function ErrorAndReset({ reset }: { reset: () => void }) {
   return (
