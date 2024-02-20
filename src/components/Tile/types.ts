@@ -12,3 +12,5 @@ export type TileRecord = {
   linkedBoard?: boolean;
   borderColor?: string;
 };
+
+export type LabelPositionRecord = 'Above' | 'Below' | undefined;
