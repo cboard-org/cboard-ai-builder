@@ -19,6 +19,7 @@ import {
 import pick from 'lodash.pick';
 import { styles } from './styles';
 import SvgIcon from '@mui/material/SvgIcon';
+import { BRAND_COLOR } from './constants';
 
 export default function Container({
   errorMessage,
@@ -69,7 +70,7 @@ export default function Container({
                 sx={{ width: 'max-content' }}
               >
                 <Typography
-                  color={'#363636'}
+                  color={BRAND_COLOR}
                   fontWeight={700}
                   fontSize={{ md: 48, lg: 64 }}
                   variant="h2"
@@ -84,7 +85,7 @@ export default function Container({
                 fontWeight={300}
                 fontSize={{ md: 24, lg: 32 }}
                 lineHeight={'37.34px'}
-                color={'#363636'}
+                color={BRAND_COLOR}
               >
                 {t('sloganSubtitle')}
               </Typography>
@@ -105,15 +106,17 @@ export default function Container({
         </Box>
         <Box sx={styles.signActions}>
           <Box sx={styles.signActionsContainer}>
-            <Box sx={{ display: { md: 'none' } }}>
+            <Box sx={styles.brandLogoXs}>
               <Stack direction={'row'} alignItems={'center'}>
                 <SvgIcon sx={styles.brandIconSmall}>
                   <Brand />
                 </SvgIcon>
-                <Typography sx={{ fontSize: '16px' }}>
+                <Typography fontSize={16} color={BRAND_COLOR}>
                   <Typography
                     component={'span'}
-                    sx={{ fontWeight: 'bold', fontSize: '16px' }}
+                    color={BRAND_COLOR}
+                    fontSize={16}
+                    fontWeight={800}
                   >
                     {t('cboardAi')}
                   </Typography>{' '}

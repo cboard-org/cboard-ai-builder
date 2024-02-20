@@ -54,6 +54,12 @@ export const styles = {
     maxWidth: '370px',
     alignSelf: 'flex-end',
   },
+  brandLogoXs: {
+    display: { xs: 'flex', md: 'none' },
+    justifyContent: 'center',
+    mb: 3,
+    pt: 2,
+  },
   chipAI: { backgroundColor: '#363636', color: 'white' },
   signActions: {
     gridArea: 'sign-actions',
@@ -64,7 +70,7 @@ export const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     height: '100%',
-    overflow: 'scroll',
+    overflow: { xs: 'hidden', md: 'auto' },
   },
   signActionsContainer: {
     gap: 2,
@@ -74,6 +80,7 @@ export const styles = {
     display: 'grid',
     flexDirection: 'column',
     alignItems: 'center',
+    alignContent: { xs: 'flex-end', md: 'unset' },
   },
   welcomeTextContainer: {
     alignSelf: { xs: 'center', md: 'start' },
@@ -93,16 +100,16 @@ export const styles = {
   bottomLinks: {
     width: '100%',
     display: 'flex',
-    mb: 6,
+    mb: { xs: 1, md: 6 },
     justifyContent: 'space-between',
     color: { xs: '#221152', md: '#868686' },
     fontWeight: { xs: 500, sm: 400 },
     fontSize: { xs: '12px', md: '16px' },
     alignSelf: 'flex-end',
+    marginTop: { xs: 4, md: 0 },
   },
   bottomImage: {
     flexShrink: 1,
-    height: '100%',
     width: '100%',
     display: { md: 'none' },
   },
