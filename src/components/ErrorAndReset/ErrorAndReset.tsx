@@ -2,7 +2,7 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AlertTitle from '@mui/material/AlertTitle';
-import Styles from './styles';
+import styles from './styles';
 
 export default function ErrorAndReset({ reset }: { reset: () => void }) {
   return (
@@ -15,7 +15,7 @@ export default function ErrorAndReset({ reset }: { reset: () => void }) {
             // Attempt to recover by trying to re-render the segment
             () => reset()
           }
-          sx={Styles.iconButton}
+          sx={styles.iconButton}
         >
           <RefreshIcon />
         </IconButton>
