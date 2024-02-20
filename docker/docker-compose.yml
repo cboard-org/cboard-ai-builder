@@ -20,7 +20,7 @@ services:
     env_file:
       - ../.env.local
     volumes:
-      - '../data:/data/db'
+      - 'db-data:/data/db'
     ports:
       - '27017:27017'
     networks:
@@ -31,3 +31,5 @@ services:
 networks:
   cboard-ai-builder-network:
     driver: bridge
+volumes:
+  db-data:
