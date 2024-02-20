@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import OAuthButton from './OAuth/Button';
 import { getProviders } from 'next-auth/react';
-import CustomLink from '@/components/CustomLink/CustomLink';
+import InternalLink from '@/components/InternalLink/InternalLink';
 import Image from 'next/image';
 import LoginContainer from '@/app/[locale]/signin/Login/Container';
 import Alert from '@mui/material/Alert';
@@ -152,8 +152,8 @@ export default function Container({
                 ))}
               </Box>
               <Box sx={styles.bottomLinks}>
-                <CustomLink href={'#'}>{t('privacyPolicy')}</CustomLink>
-                <CustomLink href={'#'}>{t('terms')}</CustomLink>
+                <InternalLink href={'#'}>{t('privacyPolicy')}</InternalLink>
+                <InternalLink href={'#'}>{t('terms')}</InternalLink>
               </Box>
             </Box>
             <Box sx={styles.bottomImage}>
