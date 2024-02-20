@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import TabSelector from './Selector';
+import TabSelector from './TabsSelector';
 
 export default function SavedData({ history }: { history: React.ReactNode }) {
   return (
