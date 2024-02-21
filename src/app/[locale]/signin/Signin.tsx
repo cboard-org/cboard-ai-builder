@@ -9,7 +9,7 @@ import OAuthButton from './OAuth/Button';
 import { getProviders } from 'next-auth/react';
 import InternalLink from '@/components/InternalLink/InternalLink';
 import Image from 'next/image';
-import LoginContainer from '@/app/[locale]/signin/Login/Container';
+import Login from '@/app/[locale]/signin/Login/Login';
 import Alert from '@mui/material/Alert';
 import {
   NextIntlClientProvider,
@@ -133,7 +133,7 @@ export default function Signin({
                   </Typography>
                 </Box>
 
-                <LoginContainer />
+                <Login />
 
                 <Button fullWidth variant="contained" size="large">
                   {t('signUpButton')}

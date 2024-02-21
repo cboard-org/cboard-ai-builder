@@ -5,7 +5,7 @@ import Dialog from './Dialog';
 import { useTranslations } from 'next-intl';
 import { styles } from './styles';
 
-export default function Container() {
+export default function Login() {
   const [open, setOpen] = useState(false);
   const t = useTranslations('SignIn');
   return (
