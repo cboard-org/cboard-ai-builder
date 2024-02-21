@@ -40,6 +40,7 @@ const sxStyles = {
 
 export default function Dashboard(props: {
   history: React.ReactNode;
+  savedBoards: React.ReactNode;
   children: React.ReactNode;
   navbar: React.ReactNode;
   promptForm: React.ReactNode;
@@ -58,7 +59,10 @@ export default function Dashboard(props: {
         <Box sx={sxStyles.sidebar}>
           <Box className={styles.controls}>{props.promptForm}</Box>
           <div className={styles.controls}>
-            <SavedData history={props.history} />
+            <SavedData
+              history={props.history}
+              savedBoards={props.savedBoards}
+            />
           </div>
         </Box>
         <Box pb={{ xs: xsSpacing, sm: 0 }} className={styles.board}>
