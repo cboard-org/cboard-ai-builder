@@ -33,5 +33,29 @@
   "SavedData": {
     "savedBoards": "Saved boards",
     "history": "History"
+  },
+  "SignIn": {
+    "cboardAi": "Cboard Ai",
+    "cbuilder": "CBuilder",
+    "sloganTitle": "Fast and intelligent",
+    "sloganSubtitle": "Create Tile boards in a simple way, just by typing what you need.",
+    "ai": "AI",
+    "errorMessage": "Something went wrong during signin",
+    "hola": "¡Hola!",
+    "welcome": "Welcome to AI Board Builder",
+    "loginButton": "LOGIN",
+    "signUpButton": "SIGN UP",
+    "signInWith": "Sign in with {provider}",
+    "privacyPolicy": "Privacy policy",
+    "terms": "Terms",
+    "LoginDialog": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "loginButton": "LOGIN",
+      "cancelButton": "CANCEL",
+      "forgotPassword": "FORGOT PASSWORD?",
+      "errorMessage": "Wrong email or password"
+    }
   }
 }
