@@ -3,6 +3,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useTranslations } from 'next-intl';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -26,7 +27,12 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function TabsSelector(props: { history: React.ReactNode }) {
+export default function TabsSelector(props: {
+  history: React.ReactNode;
+  savedBoards: React.ReactNode;
+}) {
+  const translations = useTranslations('SavedData');
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -43,15 +49,15 @@ export default function TabsSelector(props: { history: React.ReactNode }) {
         indicatorColor="secondary"
         textColor="secondary"
       >
-        <Tab label="History" />
-        <Tab label="Saved" />
+        <Tab label={translations('history')} />
+        <Tab label={translations('savedBoards')} />
       </Tabs>
       <Box>
         <TabPanel value={value} index={0}>
           {props.history}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          {props.savedBoards}
         </TabPanel>
       </Box>
     </Box>

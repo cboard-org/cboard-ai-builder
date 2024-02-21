@@ -30,6 +30,10 @@
       "exportToCboard": "Export to Cboard"
     }
   },
+  "SavedData": {
+    "savedBoards": "Saved boards",
+    "history": "History"
+  },
   "SignIn": {
     "cboardAi": "Cboard Ai",
     "cbuilder": "CBuilder",
