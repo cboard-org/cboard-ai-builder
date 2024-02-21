@@ -3,7 +3,7 @@ import authOptions from '@/lib/next-auth/config';
 import { redirect } from '@/navigation';
 import { getServerSession } from 'next-auth';
 import { DEFAULT_CALLBACK_URL } from './constants';
-import Container from './Container';
+import Signin from './Signin';
 
 export default async function Page({
   searchParams,
@@ -28,7 +28,5 @@ export default async function Page({
   if ('error' in searchParams && typeof searchParams['error'] == 'string') {
     errorMessage = searchParams['error'];
   }
-  return (
-    <Container errorMessage={errorMessage} authProviders={authProviders} />
-  );
+  return <Signin errorMessage={errorMessage} authProviders={authProviders} />;
 }

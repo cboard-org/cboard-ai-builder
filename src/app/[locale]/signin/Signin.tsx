@@ -21,7 +21,7 @@ import { styles } from './styles';
 import SvgIcon from '@mui/material/SvgIcon';
 import { BRAND_COLOR } from './constants';
 
-export default function Container({
+export default function Signin({
   errorMessage,
   authProviders,
 }: {
