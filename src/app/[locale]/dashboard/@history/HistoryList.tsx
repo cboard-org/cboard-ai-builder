@@ -21,5 +21,7 @@ export default function HistoryList({
     await removeHistoryData(historyToDelete);
   };
 
-  return <DataList list={histories} deleteItem={deleteHistoryData} />;
+  return (
+    <DataList<HistoryData> list={histories} deleteItem={deleteHistoryData} />
+  );
 }

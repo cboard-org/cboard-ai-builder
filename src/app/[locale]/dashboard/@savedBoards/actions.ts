@@ -2,7 +2,13 @@
 
 export type SavedBoardsData = {
   id: number | string;
-  prompt: string;
+  prompt: {
+    description: string;
+    rows: number;
+    columns: number;
+    colorScheme: string;
+    usePictonizer: boolean;
+  };
   date: Date | string;
 };
 
@@ -15,37 +21,79 @@ todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
 const fake_db = [
   {
     id: 1,
-    prompt: 'The real main prop',
+    prompt: {
+      description: 'pretty family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: todayMinsAgo.toISOString(),
   },
   {
     id: 2,
-    prompt: 'a big familly',
+    prompt: {
+      description: 'pretty family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: todayHoursAgo.toISOString(),
   },
   {
     id: 3,
-    prompt: 'an Arabic fa',
+    prompt: {
+      description: 'an arabic famm',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: yesterday.toISOString(),
   },
   {
     id: 4,
-    prompt: 'Little family in a camp with a cup',
+    prompt: {
+      description: 'pretty family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: yesterday.toISOString(),
   },
   {
     id: 2,
-    prompt: 'a big familly',
+    prompt: {
+      description: 'a big familly',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: todayHoursAgo.toISOString(),
   },
   {
     id: 3,
-    prompt: 'an Arabic fa',
+    prompt: {
+      description: 'a big famillyaaaa',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: yesterday.toISOString(),
   },
   {
     id: 4,
-    prompt: 'Little family in a camp with a cup',
+    prompt: {
+      description: 'a big familly',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      usePictonizer: true,
+    },
     date: yesterday.toISOString(),
   },
 ];
