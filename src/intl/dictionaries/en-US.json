@@ -6,7 +6,7 @@
     "title": "History"
   },
   "Navbar": {
-    "ai": "Ai",
+    "ai": "AI",
     "cbuilder": "CBuilder"
   },
   "PromptForm": {
@@ -20,7 +20,7 @@
   "Board": {
     "InitialContent": {
       "ai": "AI",
-      "createANewAiBoard": "Create a <b>New <br></br> Ai Board</b>",
+      "createANewAiBoard": "Create a <b>New <br></br> AI Board</b>",
       "examples": "Examples",
       "promptExample1": "A board encourages them to arrange these pictograms in a sequence to tell a magical and adventurous story.",
       "promptExample2": "I Want a board that describe a family of a mother, son and grandmother and all social interactions between them.",
@@ -35,7 +35,7 @@
     "history": "History"
   },
   "SignIn": {
-    "cboardAi": "Cboard Ai",
+    "cboardAi": "Cboard AI",
     "cbuilder": "CBuilder",
     "sloganTitle": "Fast and intelligent",
     "sloganSubtitle": "Create Tile boards in a simple way, just by typing what you need.",
