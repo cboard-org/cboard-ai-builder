@@ -22,7 +22,9 @@ export const PromptStoreProvider = ({ children }: React.PropsWithChildren) => {
   );
 };
 
-export const usePromptStore = <T,>(selector: (store: PromptStore) => T): T => {
+export const usePromptStore = <PromptStoreProps,>(
+  selector: (store: PromptStore) => PromptStoreProps,
+): PromptStoreProps => {
   const promptStoreContext = useContext(PromptStoreContext);
 
   if (!promptStoreContext) {
