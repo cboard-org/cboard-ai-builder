@@ -8,15 +8,10 @@ import { useFormatter } from 'next-intl';
 import { usePromptStore } from '@/providers/prompt-store-provider';
 
 import Box from '@mui/material/Box';
+import { Prompt } from '@/app/[locale]/dashboard/types';
 
 export type BaseDataItemType = {
-  prompt: {
-    description: string;
-    rows: number;
-    columns: number;
-    colorScheme: string;
-    usePictonizer: boolean;
-  };
+  prompt: Prompt;
   date: Date | string;
 };
 

@@ -1,14 +1,10 @@
 'use server';
 
+import { Prompt } from '../types';
+
 export type HistoryData = {
   id: number | string;
-  prompt: {
-    description: string;
-    rows: number;
-    columns: number;
-    colorScheme: string;
-    usePictonizer: boolean;
-  };
+  prompt: Prompt;
   date: Date | string;
 };
 
@@ -18,7 +14,7 @@ const todayMinsAgo = new Date();
 todayMinsAgo.setMinutes(todayMinsAgo.getMinutes() - 10);
 const todayHoursAgo = new Date();
 todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
-const fake_db = [
+const fake_db: HistoryData[] = [
   {
     id: 1,
     prompt: {
