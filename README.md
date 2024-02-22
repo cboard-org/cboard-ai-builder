@@ -30,3 +30,12 @@ This is a [Next.js v14](https://nextjs.org/) project bootstrapped with [`create-
 ## Developers
 
 For the transaltions we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, just add it on the file `en-US.json`.
+
+### State management
+
+For the manage of the state we use [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) folowing [this Article](https://docs.pmnd.rs/zustand/guides/nextjs).
+
+Take care about this recomendations:
+
+- No global stores - Because the store should not be shared across requests, it should not be defined as a global variable. Instead, the store should be created per request.
+- React Server Components should not read from or write to the store - RSCs cannot use hooks or context. They aren't meant to be stateful. Having an RSC read from or write values to a global store violates the architecture of Next.js.
