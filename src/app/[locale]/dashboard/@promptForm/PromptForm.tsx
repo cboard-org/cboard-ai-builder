@@ -1,6 +1,5 @@
 'use client';
 import * as React from 'react';
-import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useFormStatus } from 'react-dom';
 import { submit } from './actions';
@@ -22,7 +21,6 @@ import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
-import { usePromptStore } from '@/providers/prompt-store-provider';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -59,12 +57,6 @@ function SubmitButton({ text }: { text: string }) {
 }
 
 export function PromptForm() {
-  const prompt = usePromptStore((store) => store);
-
-  useEffect(() => {
-    //Render the prompt values here
-    console.log(prompt);
-  }, [prompt]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
   const message = useTranslations('PromptForm');
