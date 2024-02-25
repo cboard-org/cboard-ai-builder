@@ -11,7 +11,7 @@ The process of using Cboard AI Builder starts with users providing the theme of 
 
 ## Getting Started
 
-First, install the project dependecies and run the development server:
+First, install the project dependencies and run the development server:
 
 ```bash
 yarn install
@@ -29,4 +29,4 @@ This is a [Next.js v14](https://nextjs.org/) project bootstrapped with [`create-
 
 ## Developers
 
-For the transaltions we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, just add it on the file `en-US.json`.
+For the translations, we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, simply add them to the `en-US.json` file.
