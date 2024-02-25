@@ -35,6 +35,7 @@ const sxStyles = {
     flexDirection: 'column',
     overflow: 'auto',
     rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
+    borderRadius: '5px',
   },
 };
 
