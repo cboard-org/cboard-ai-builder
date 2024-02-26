@@ -7,8 +7,8 @@ const xsSpacing = 3;
 const mdSpacing = 2;
 const lgSpacing = 2;
 
-const xsMargin = 1;
-const mdMargin = 0;
+const xsPadding = 1;
+const mdPadding = 0;
 
 const menuBarHeight = 56;
 const sxStyles = {
@@ -58,7 +58,7 @@ export default function Dashboard(props: {
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        <Box py={{ xs: xsMargin, md: mdMargin }} className={styles.titleBox}>
+        <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
           {props.navbar}
         </Box>
         <Box sx={sxStyles.sidebar}>
@@ -70,7 +70,7 @@ export default function Dashboard(props: {
             />
           </div>
         </Box>
-        <Box pb={{ xs: xsMargin, md: mdMargin }} className={styles.board}>
+        <Box pb={{ xs: xsPadding, md: mdPadding }} className={styles.board}>
           {props.board}
         </Box>
         {props.children}
