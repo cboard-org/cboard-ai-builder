@@ -19,14 +19,14 @@ const sxStyles = {
     flexDirection: { xs: 'column' },
     gridTemplateColumns: { xs: '1fr', md: '1fr 2fr', lg: '1fr 3fr' },
     gridTemplateRows: {
-      xs: `max-content max-content calc(100% - ${menuBarHeight}px);`,
+      xs: `max-content calc(100% - ${menuBarHeight}px) max-content`,
       md: 'auto 1fr',
     },
 
     gridTemplateAreas: {
       xs: `"title"
-    "sidebar"
-    "board"`,
+    "board"
+    "sidebar"`,
       md: `"title board"
   "sidebar board"`,
     },
@@ -61,7 +61,7 @@ export default function Dashboard(props: {
         <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
           {props.navbar}
         </Box>
-        <Box sx={sxStyles.sidebar}>
+        <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
           <Box className={styles.controls}>{props.promptForm}</Box>
           <div className={styles.controls}>
             <SavedData
@@ -70,7 +70,7 @@ export default function Dashboard(props: {
             />
           </div>
         </Box>
-        <Box pb={{ xs: xsPadding, md: mdPadding }} className={styles.board}>
+        <Box pb={{ xs: xsSpacing, md: mdPadding }} className={styles.board}>
           {props.board}
         </Box>
         {props.children}
