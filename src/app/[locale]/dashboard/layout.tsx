@@ -3,9 +3,12 @@ import * as React from 'react';
 import styles from './styles.module.css';
 import SavedData from './SavedData/SavedData';
 
-const xsSpacing = 1;
+const xsSpacing = 3;
 const mdSpacing = 2;
-const lgSpacing = 3;
+const lgSpacing = 2;
+
+const xsMargin = 1;
+const mdMargin = 0;
 
 const menuBarHeight = 56;
 const sxStyles = {
@@ -28,11 +31,12 @@ const sxStyles = {
   "sidebar board"`,
     },
     columnGap: { xs: 0, md: mdSpacing, lg: lgSpacing },
-    rowGap: { xs: xsSpacing, md: mdSpacing, lg: lgSpacing },
+    rowGap: { xs: 0, md: mdSpacing, lg: lgSpacing },
   },
   sidebar: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     overflow: 'auto',
     rowGap: { xs: xsSpacing, md: mdSpacing, lg: lgSpacing },
     borderRadius: '5px',
@@ -54,7 +58,7 @@ export default function Dashboard(props: {
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        <Box py={{ xs: xsSpacing, md: 0 }} className={styles.titleBox}>
+        <Box py={{ xs: xsMargin, md: mdMargin }} className={styles.titleBox}>
           {props.navbar}
         </Box>
         <Box sx={sxStyles.sidebar}>
@@ -66,7 +70,7 @@ export default function Dashboard(props: {
             />
           </div>
         </Box>
-        <Box pb={{ xs: xsSpacing, md: 0 }} className={styles.board}>
+        <Box pb={{ xs: xsMargin, md: mdMargin }} className={styles.board}>
           {props.board}
         </Box>
         {props.children}
