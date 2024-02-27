@@ -446,7 +446,7 @@
         "label": "sad",
         "backgroundColor": "rgb( 200, 200, 200) ",
         "borderColor": "rgb(0, 0, 255)",
-        "image": "https://openclipart.org/image/300px/svg_to_png/145/PeterM_Sad_tiger_cat.png"
+        "image": "https://static.arasaac.org/pictograms/2314/2314_500.png"
       },
       {
         "id": "b3",
@@ -454,7 +454,7 @@
         "backgroundColor": "rgba(0, 0, 0, 0.1)",
         "borderColor": "rgba(255, 0, 0, 0.2)",
         "action": "+less",
-        "image": "https://openclipart.org/image/300px/svg_to_png/145/PeterM_Sad_tiger_cat.png"
+        "image": "https://static.arasaac.org/pictograms/26915/26915_300.png"
       },
       { "id": "b5", "label": "No way" },
       { "id": "b4", "label": "Clear Text", "action": ":clear" }
@@ -468,7 +468,7 @@
       "rows": 2,
       "columns": 3,
       "order": [
-        ["b1", "b5", "b3"],
+        ["b1", "b2", "b3"],
         ["b4", "b5", null]
       ]
     },

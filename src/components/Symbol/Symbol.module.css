@@ -1,0 +1,79 @@
+.Symbol {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Tile .Symbol {
+  padding-top: var(--folder-flap-height);
+  padding-bottom: 0.2em;
+}
+
+.SymbolSearchSuggestion > .Symbol {
+  position: unset;
+}
+
+.is-dark .liveInput {
+  color: black;
+  background-color: white;
+}
+
+.is-dark .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
+.is-dark .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: black;
+}
+
+.is-dark .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #78909c;
+}
+
+.SymbolImageContainer {
+  position: relative;
+  flex: 1;
+  width: 97%;
+  margin: auto;
+}
+
+.SymbolImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.Symbol .SymbolLabel {
+  width: 95%;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  display: table-cell;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  overflow: hidden;
+  color: rgb(0, 0, 0);
+}
+
+@media (min-width: 600px) {
+  .Symbol .SymbolLabel {
+    font-size: 1rem;
+    margin: 0 auto;
+  }
+}
+
+[dir='rtl'] .SymbolLabel {
+  direction: rtl;
+}

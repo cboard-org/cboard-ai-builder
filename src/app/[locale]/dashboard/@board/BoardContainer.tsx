@@ -5,41 +5,35 @@ import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
 import testBoard from './testBoard.json';
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from './types';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
-
-const renderTileFixedBoard = (item: {
-  id: string;
-  color: string;
-  label: string;
-  backgroundColor: string;
-}): ReactNode => {
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: item.backgroundColor,
-        borderRadius: '0.5rem',
-        border: '1px solid #ccc',
-        boxShadow: '0 0 5px #ccc',
-      }}
-    >
-      <Box sx={{ fontSize: '0.5rem', color: 'black' }}>{item.id}L</Box>
-    </Box>
-  );
-};
+import Tile from '@/components/Tile';
+import SelectTileMask from '@/components/SelectTileMask';
 
 export default function BoardContainer() {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useState<BoardRecord>(testBoard[0]);
+  const [board, setBoard] = useState<BoardRecord>(testBoard[1]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
+
+  const handleEditClick = () => {
+    setIsEditing((isEditing) => !isEditing);
+    setSelectedTiles([]);
+  };
+
+  const handleTileClick = (id: string) => {
+    if (!isEditing) return;
+
+    setSelectedTiles((selectedTiles) =>
+      selectedTiles.includes(id)
+        ? selectedTiles.filter((tileId) => tileId !== id)
+        : [...selectedTiles, id],
+    );
+  };
 
   const onTileDrop = (
     item: { id: string },
@@ -86,7 +80,7 @@ export default function BoardContainer() {
             <Box>Image</Box>
             <Box>| Board title</Box>
           </Box>
-          <Toolbar />
+          <Toolbar onEditClick={handleEditClick} />
         </Box>
         <Divider flexItem sx={{ my: '0.5rem' }} />
         <Grid
@@ -95,7 +89,13 @@ export default function BoardContainer() {
           columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
           dragAndDropEnabled={true} //{isSelecting}
-          renderItem={(item) => renderTileFixedBoard(item)}
+          renderItem={(item) => (
+            <Tile tile={item} handleTileClick={handleTileClick}>
+              {isEditing && (
+                <SelectTileMask isSelected={selectedTiles.includes(item.id)} />
+              )}
+            </Tile>
+          )}
           onItemDrop={onTileDrop}
         />
       </Box>
