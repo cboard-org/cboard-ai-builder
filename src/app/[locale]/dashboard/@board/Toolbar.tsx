@@ -34,7 +34,7 @@ export default function Toolbar({ onEditClick }: Props) {
       <IconButton onClick={toggleFullscreen}>
         {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
       </IconButton>
-      <IconButton onClick={() => onEditClick()}>
+      <IconButton onClick={onEditClick}>
         <EditIcon fontSize="small" />
       </IconButton>
       <IconButton>
