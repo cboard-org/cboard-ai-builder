@@ -7,11 +7,7 @@ import {
 } from './intl/intl.constants';
 import { withAuth } from 'next-auth/middleware';
 
-const publicPages = [
-  '/',
-  '/login-signup',
-  // (/secret requires auth)
-];
+const publicPages = ['/signin'];
 
 const intlMiddleware = createIntlMiddleware({
   locales: supportedLocales,
@@ -28,10 +24,9 @@ const authMiddleware = withAuth(
     callbacks: {
       authorized: ({ token }) => token != null,
     },
-    // pages: {
-    //   signIn: '/login-signup',
-    //   newUser: '/login-signup',
-    // },
+    pages: {
+      signIn: '/signin',
+    },
   },
 );
 // Taken from next-intl example: https://github.com/amannn/next-intl/blob/main/examples/example-app-router-next-auth/src/middleware.ts
