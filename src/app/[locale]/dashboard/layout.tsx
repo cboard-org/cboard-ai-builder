@@ -36,7 +36,6 @@ const sxStyles = {
   sidebar: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     overflow: 'auto',
     rowGap: { xs: xsSpacing, md: mdSpacing, lg: lgSpacing },
     borderRadius: '5px',
