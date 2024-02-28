@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Button from '@mui/material/Button';
-import styles from './Styles';
+import styles from './styles';
 
 const promptExampleMessagesKey = [
   'promptExample1',
