@@ -1,31 +1,22 @@
 import { createStore } from 'zustand';
-
-export type PromptState = {
-  description: string;
-  rows: number;
-  columns: number;
-  colorScheme: string;
-  usePictonizer: boolean;
-};
+import { Prompt } from '@/app/[locale]/dashboard/types';
 
 export type PromptActions = {
-  setPrompt: (prompt: PromptState) => void;
+  setPrompt: (prompt: Prompt) => void;
 };
 
-export type PromptStore = PromptState & PromptActions;
+export type PromptStore = Prompt & PromptActions;
 
-export const defaultPromptState: PromptState = {
+export const defaultPromptState: Prompt = {
   description: '',
   rows: 5,
   columns: 5,
   colorScheme: 'fitzgerald',
-  usePictonizer: true,
+  shouldUsePictonizer: true,
 };
 
-export const createPromptStore = (
-  initState: PromptState = defaultPromptState,
-) =>
+export const createPromptStore = (initState: Prompt = defaultPromptState) =>
   createStore<PromptStore>()((set) => ({
     ...initState,
-    setPrompt: (prompt: PromptState) => set(() => ({ ...prompt })),
+    setPrompt: (prompt: Prompt) => set(() => ({ ...prompt })),
   }));

@@ -24,7 +24,7 @@ export default function DataItem<DataType extends BaseDataItemType>({
   data,
   onDelete,
 }: Props<DataType>) {
-  const { description, rows, columns, colorScheme, usePictonizer } =
+  const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
   const { setPrompt } = usePromptStore((store) => store);
@@ -34,7 +34,7 @@ export default function DataItem<DataType extends BaseDataItemType>({
       rows,
       columns,
       colorScheme,
-      usePictonizer,
+      shouldUsePictonizer,
     });
   };
   return (
