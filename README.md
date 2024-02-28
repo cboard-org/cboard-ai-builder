@@ -33,9 +33,9 @@ For the translations, we are currently using [Next-intl](https://next-intl-docs.
 
 ### State management
 
-For the manage of the state we use [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) folowing [this Article](https://docs.pmnd.rs/zustand/guides/nextjs).
+To manage state, we use[Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) following the guidelines provided in [this Article](https://docs.pmnd.rs/zustand/guides/nextjs).
 
-Take care about this recomendations:
+Please consider these recommendations:
 
-- No global stores - Because the store should not be shared across requests, it should not be defined as a global variable. Instead, the store should be created per request.
-- React Server Components should not read from or write to the store - RSCs cannot use hooks or context. They aren't meant to be stateful. Having an RSC read from or write values to a global store violates the architecture of Next.js.
+- Avoid Global Stores: The store should not be shared across requests and, therefore, must not be defined as a global variable. It is recommended to create a store for each request to ensure isolation and prevent unintended data sharing.
+- React Server Components and Store Interaction: React Server Components (RSCs) should neither read from nor write to the store. RSCs are not designed to use hooks or context, as they are intended to be stateless. Interacting with a global store from an RSC violates the architectural principles of Next.js.
