@@ -42,10 +42,14 @@ export default function DataItem<DataType extends BaseDataItemType>({
       divider
       secondaryAction={
         <Box>
-          <IconButton onClick={() => onEdit()} size="small">
+          <IconButton aria-label="Edit" onClick={() => onEdit()} size="small">
             <EditOutlined fontSize="small" />
           </IconButton>
-          <IconButton onClick={() => onDelete(data)} size="small">
+          <IconButton
+            aria-label="Delete"
+            onClick={() => onDelete(data)}
+            size="small"
+          >
             <DeleteOutline fontSize="small" />
           </IconButton>
         </Box>

@@ -3,5 +3,5 @@ export type Prompt = {
   rows: number;
   columns: number;
   colorScheme: 'fitzgerald' | 'something-else' | 'foo';
-  usePictonizer: boolean;
+  shouldUsePictonizer: boolean;
 };
