@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import { grey } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
@@ -27,14 +28,14 @@ const PromptExamplesTextField = ({ message }: { message: string }) => {
         // id="prompt-text"
         // name="prompt-text"
         multiline
-        rows={5}
+        rows={4}
         aria-readonly
         value={message}
         InputProps={{
           inputComponent: 'textarea',
           readOnly: true,
           style: {
-            fontSize: '0.8rem',
+            width: '100%',
             color: 'black',
             backgroundColor: 'white',
             border: 'none',
@@ -118,7 +119,7 @@ export default function InitialContent() {
               display: 'flex',
               justifyContent: 'space-between',
               gap: '1rem',
-              pt: '1rem',
+              py: '1rem',
               overflowX: 'auto',
             }}
           >
@@ -126,7 +127,7 @@ export default function InitialContent() {
               return (
                 <Box
                   key={index}
-                  sx={{ flexShrink: 0, flexGrow: 1, flexBasis: 'content' }}
+                  sx={{ flexShrink: 0, flexGrow: 1, flexBasis: '250px' }}
                 >
                   <PromptExamplesTextField message={messages(key)} />
                 </Box>
