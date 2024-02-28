@@ -21,5 +21,10 @@ export default function SavedBoardsList({
     await removeSavedBoardsData(savedBoardToDelete);
   };
 
-  return <DataList list={savedBoards} deleteItem={deleteSavedBoardsData} />;
+  return (
+    <DataList<SavedBoardsData>
+      list={savedBoards}
+      deleteItem={deleteSavedBoardsData}
+    />
+  );
 }

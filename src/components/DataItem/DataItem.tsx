@@ -5,11 +5,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import { useFormatter } from 'next-intl';
+import { usePromptStore } from '@/providers/prompt-store-provider';
 
 import Box from '@mui/material/Box';
+import { Prompt } from '@/app/[locale]/dashboard/types';
 
 export type BaseDataItemType = {
-  prompt: string;
+  prompt: Prompt;
   date: Date | string;
 };
 
@@ -22,25 +24,40 @@ export default function DataItem<DataType extends BaseDataItemType>({
   data,
   onDelete,
 }: Props<DataType>) {
+  const { description, rows, columns, colorScheme, shouldUsePictonizer } =
+    data.prompt;
   const format = useFormatter();
-
+  const { setPrompt } = usePromptStore((store) => store);
+  const onEdit = () => {
+    setPrompt({
+      description,
+      rows,
+      columns,
+      colorScheme,
+      shouldUsePictonizer,
+    });
+  };
   return (
     <ListItem
       divider
       secondaryAction={
         <Box>
-          <IconButton size="small">
+          <IconButton aria-label="Edit" onClick={() => onEdit()} size="small">
             <EditOutlined fontSize="small" />
           </IconButton>
-          <IconButton onClick={() => onDelete(data)} size="small">
+          <IconButton
+            aria-label="Delete"
+            onClick={() => onDelete(data)}
+            size="small"
+          >
             <DeleteOutline fontSize="small" />
           </IconButton>
         </Box>
       }
     >
-      <Tooltip title={data.prompt} arrow>
+      <Tooltip title={description} arrow>
         <ListItemText
-          primary={data.prompt}
+          primary={description}
           primaryTypographyProps={{
             style: {
               whiteSpace: 'nowrap',
