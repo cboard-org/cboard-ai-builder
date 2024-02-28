@@ -1,7 +1,6 @@
 'use client';
 import * as React from 'react';
-import { useFormState } from 'react-dom';
-import { useFormStatus } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import { submit } from './actions';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
