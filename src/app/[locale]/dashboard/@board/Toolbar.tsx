@@ -9,7 +9,11 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-export default function Toolbar() {
+type Props = {
+  onEditClick: () => void;
+};
+
+export default function Toolbar({ onEditClick }: Props) {
   const [isFullscreen, setisFullscreen] = useState(false);
 
   const toggleFullscreen = () => {
@@ -30,7 +34,7 @@ export default function Toolbar() {
       <IconButton onClick={toggleFullscreen}>
         {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
       </IconButton>
-      <IconButton>
+      <IconButton onClick={onEditClick}>
         <EditIcon fontSize="small" />
       </IconButton>
       <IconButton>
