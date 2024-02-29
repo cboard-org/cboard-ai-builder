@@ -1,5 +1,5 @@
 import ComposeComponents from '@/utils/combineComponents';
-import { PromptStoreProvider } from './prompt-store-provider';
+import { PromptStoreProvider } from './PromptStoreProvider';
 import { BoardStoreProvider } from './BoardStoreProvider';
 
 export default function StoreProvider({
