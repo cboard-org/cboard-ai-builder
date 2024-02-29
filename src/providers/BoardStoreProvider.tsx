@@ -28,7 +28,7 @@ export const useBoardStore = <BoardStoreProps,>(
   const boardStoreContext = useContext(BoardStoreContext);
 
   if (!boardStoreContext) {
-    throw new Error(`usePromptStore must be use within PromptStoreProvider`);
+    throw new Error(`useBoardStore must be use within BoardStoreProvider`);
   }
 
   return useStore(boardStoreContext, selector);
