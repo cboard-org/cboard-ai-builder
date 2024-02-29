@@ -4,7 +4,7 @@ import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/theme';
-import { PromptStoreProvider } from '@/providers/prompt-store-provider';
+import StoreProvider from '@/providers/StoreProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <PromptStoreProvider>{children}</PromptStoreProvider>
+            <StoreProvider>{children}</StoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
