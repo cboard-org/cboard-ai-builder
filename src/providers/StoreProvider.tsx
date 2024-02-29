@@ -1,5 +1,6 @@
 import ComposeComponents from '@/utils/combineComponents';
 import { PromptStoreProvider } from './prompt-store-provider';
+import { BoardStoreProvider } from './BoardStoreProvider';
 
 export default function StoreProvider({
   children,
@@ -7,7 +8,7 @@ export default function StoreProvider({
   children: React.ReactNode;
 }) {
   return (
-    <ComposeComponents components={[PromptStoreProvider]}>
+    <ComposeComponents components={[PromptStoreProvider, BoardStoreProvider]}>
       {children}
     </ComposeComponents>
   );
