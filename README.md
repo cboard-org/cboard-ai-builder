@@ -11,7 +11,7 @@ The process of using Cboard AI Builder starts with users providing the theme of 
 
 ## Getting Started
 
-First, install the project dependecies and run the development server:
+First, install the project dependencies and run the development server:
 
 ```bash
 yarn install
@@ -29,4 +29,13 @@ This is a [Next.js v14](https://nextjs.org/) project bootstrapped with [`create-
 
 ## Developers
 
-For the transaltions we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, just add it on the file `en-US.json`.
+For the translations, we are currently using [Next-intl](https://next-intl-docs.vercel.app/). To add new messages to the project, simply add them to the `en-US.json` file.
+
+### State management
+
+To manage state, we use[Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) following the guidelines provided in [this Article](https://docs.pmnd.rs/zustand/guides/nextjs).
+
+Please consider these recommendations:
+
+- Avoid Global Stores: The store should not be shared across requests and, therefore, must not be defined as a global variable. It is recommended to create a store for each request to ensure isolation and prevent unintended data sharing.
+- React Server Components and Store Interaction: React Server Components (RSCs) should neither read from nor write to the store. RSCs are not designed to use hooks or context, as they are intended to be stateless. Interacting with a global store from an RSC violates the architectural principles of Next.js.

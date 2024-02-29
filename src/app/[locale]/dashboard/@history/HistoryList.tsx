@@ -1,10 +1,9 @@
-'use client';
+'use client'; // Check avoid using use optimistic. and use as server component
 
-import List from '@mui/material/List';
 import { useOptimistic } from 'react';
-import DataItem from '@/components/DataItem/DataItem';
 import { removeHistoryData } from './actions';
 import { HistoryData } from './actions';
+import DataList from '@/components/DataList/DataList';
 
 export default function HistoryList({
   initialHistories,
@@ -23,10 +22,6 @@ export default function HistoryList({
   };
 
   return (
-    <List>
-      {histories.map((data, index) => (
-        <DataItem data={data} key={index} onDelete={deleteHistoryData} />
-      ))}
-    </List>
+    <DataList<HistoryData> list={histories} deleteItem={deleteHistoryData} />
   );
 }

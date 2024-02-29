@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import { grey } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
@@ -6,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import Button from '@mui/material/Button';
+import styles from './styles';
 
 const promptExampleMessagesKey = [
   'promptExample1',
@@ -15,28 +18,32 @@ const promptExampleMessagesKey = [
 
 const PromptExamplesTextField = ({ message }: { message: string }) => {
   return (
-    <TextField
-      // id="prompt-text"
-      // name="prompt-text"
-      multiline
-      rows={5}
-      aria-readonly
-      value={message}
-      InputProps={{
-        inputComponent: 'textarea',
-        style: {
-          fontSize: '0.8rem',
-          color: 'black',
-          backgroundColor: 'white',
-        },
+    <Button
+      sx={styles.exampleButton}
+      onClick={() => {
+        console.log('clicked');
       }}
-      sx={{
-        backgroundColor: 'white',
-        fontSize: '0.5rem',
-        color: 'black',
-        width: '100%',
-      }}
-    />
+    >
+      <TextField
+        // id="prompt-text"
+        // name="prompt-text"
+        multiline
+        rows={4}
+        aria-readonly
+        value={message}
+        InputProps={{
+          inputComponent: 'textarea',
+          readOnly: true,
+          style: {
+            width: '100%',
+            color: 'black',
+            backgroundColor: 'white',
+            border: 'none',
+          },
+        }}
+        sx={styles.textArea}
+      />
+    </Button>
   );
 };
 
@@ -112,7 +119,7 @@ export default function InitialContent() {
               display: 'flex',
               justifyContent: 'space-between',
               gap: '1rem',
-              pt: '1rem',
+              py: '1rem',
               overflowX: 'auto',
             }}
           >
@@ -120,7 +127,7 @@ export default function InitialContent() {
               return (
                 <Box
                   key={index}
-                  sx={{ flexShrink: 0, flexGrow: 1, flexBasis: '188px' }}
+                  sx={{ flexShrink: 0, flexGrow: 1, flexBasis: '250px' }}
                 >
                   <PromptExamplesTextField message={messages(key)} />
                 </Box>

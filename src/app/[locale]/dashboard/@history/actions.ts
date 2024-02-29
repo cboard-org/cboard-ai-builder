@@ -1,8 +1,10 @@
 'use server';
 
+import { Prompt } from '../types';
+
 export type HistoryData = {
   id: number | string;
-  prompt: string;
+  prompt: Prompt;
   date: Date | string;
 };
 
@@ -12,25 +14,49 @@ const todayMinsAgo = new Date();
 todayMinsAgo.setMinutes(todayMinsAgo.getMinutes() - 10);
 const todayHoursAgo = new Date();
 todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
-const fake_db = [
+const fake_db: HistoryData[] = [
   {
     id: 1,
-    prompt: 'Little family in a camp with a cup',
+    prompt: {
+      description: 'Big family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      shouldUsePictonizer: true,
+    },
     date: todayMinsAgo.toISOString(),
   },
   {
     id: 2,
-    prompt: 'Little family in a camp with a cup',
+    prompt: {
+      description: 'small family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      shouldUsePictonizer: true,
+    },
     date: todayHoursAgo.toISOString(),
   },
   {
     id: 3,
-    prompt: 'Little family in a camp with a cup',
+    prompt: {
+      description: 'strange family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      shouldUsePictonizer: true,
+    },
     date: yesterday.toISOString(),
   },
   {
     id: 4,
-    prompt: 'Little family in a camp with a cup',
+    prompt: {
+      description: 'pretty family in a camp with a cup',
+      rows: 5,
+      columns: 5,
+      colorScheme: 'fitzgerald',
+      shouldUsePictonizer: true,
+    },
     date: yesterday.toISOString(),
   },
 ];

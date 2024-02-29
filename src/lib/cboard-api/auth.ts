@@ -7,6 +7,8 @@ import { User } from './types';
 // Basically no imports should come from something that's an external service
 // not related to cboard-api
 
+const LOGIN_ERROR_CODE = 'loginError';
+
 /**
  * Sign in a user with credentials
  * @throws Error on fetch error
@@ -24,10 +26,11 @@ export async function credentialsLogin(
     },
   });
   if (!apiResponse.ok) {
-    // TODO: error messages in UI
-    throw new Error('TODO: error messages in UI');
+    console.error(
+      `Credential login response: ${apiResponse.status} for account ${credentials.email}`,
+    );
+    throw new Error(LOGIN_ERROR_CODE);
   }
-
   const user = await apiResponse.json();
   return user;
 }
@@ -75,8 +78,10 @@ export async function oauthLogin(
     },
   );
   if (!apiResponse.ok) {
-    // TODO: error messages in UI
-    throw new Error('TODO: error messages in UI');
+    console.error(
+      `Something went wrong after oauth after calling login/oauth/${account.provider} in cboard API ${apiResponse.status}`,
+    );
+    throw new Error(LOGIN_ERROR_CODE);
   }
 
   const jsonResp = (await apiResponse.json()) as User;
