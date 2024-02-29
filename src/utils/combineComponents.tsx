@@ -1,9 +1,9 @@
-interface Props {
+type Props = {
   components: Array<
     React.JSXElementConstructor<React.PropsWithChildren<unknown>>
   >;
   children: React.ReactNode;
-}
+};
 
 export default function ComposeComponents(props: Props) {
   const { components = [], children } = props;
