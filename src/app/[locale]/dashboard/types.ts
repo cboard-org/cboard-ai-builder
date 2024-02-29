@@ -5,3 +5,9 @@ export type Prompt = {
   colorScheme: 'fitzgerald' | 'something-else' | 'foo';
   shouldUsePictonizer: boolean;
 };
+
+export type Board = {
+  id: string;
+  name: string;
+  tiles: object[];
+};
