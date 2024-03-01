@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import { useFormatter } from 'next-intl';
-import { usePromptStore } from '@/providers/prompt-store-provider';
+import { usePromptStore } from '@/providers/PromptStoreProvider';
 
 import Box from '@mui/material/Box';
 import { Prompt } from '@/app/[locale]/dashboard/types';
