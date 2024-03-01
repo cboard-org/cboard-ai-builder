@@ -1,6 +1,6 @@
 import { Grid } from './Grid/types';
 
-type TileRecord = {
+export type TileRecord = {
   id: string;
   nameKey?: string;
   label?: string;
