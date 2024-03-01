@@ -1,15 +1,17 @@
 import { createStore } from 'zustand';
 import { BoardRecord } from '@/dashboard/@board/types';
 
+export type BoardStoreRecord = BoardRecord | null;
+
 export type BoardActions = {
   /*
   See how to update deeply nested objects 
   for tile in zustand: https://docs.pmnd.rs/zustand/guides/updating-state#deeply-nested-object
   */
-  setBoard: (board: BoardRecord) => void;
+  setBoard: (board: BoardStoreRecord) => void;
 };
 
-export type BoardStore = { board: BoardRecord } & BoardActions;
+export type BoardStore = { board: BoardStoreRecord } & BoardActions;
 
 export const defaultBoardState: { board: BoardRecord } = {
   board: {
@@ -30,5 +32,9 @@ export const createBoardStore = (
 ) =>
   createStore<BoardStore>()((set) => ({
     ...initState,
-    setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
+    setBoard: (board: BoardRecord | null) =>
+      set(() => {
+        if (board) return { board: { ...board } };
+        return { board: null };
+      }),
   }));
