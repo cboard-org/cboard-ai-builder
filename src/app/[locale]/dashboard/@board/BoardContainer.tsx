@@ -56,6 +56,8 @@ export default function BoardContainer() {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: '#f8f8f8',
+        borderRadius: 1,
       }}
     >
       <Box
@@ -64,7 +66,6 @@ export default function BoardContainer() {
           flexDirection: 'column',
           height: '100%',
           p: '.5rem',
-          backgroundColor: '#f8f8f8',
           overflow: 'auto',
         }}
       >
@@ -104,8 +105,9 @@ export default function BoardContainer() {
           display: 'flex',
           justifyContent: 'end',
           alignItems: 'center',
-          pt: '0.5rem',
-          pb: { xs: '0.5rem', sm: '0' },
+          pt: { xs: '0.5rem', sm: 0 },
+          pr: { xs: 1, sm: 1 },
+          pb: { xs: 1, sm: 1 },
         }}
       >
         <Button
