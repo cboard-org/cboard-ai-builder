@@ -2,6 +2,9 @@
 
 //import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+import { create } from '@/db/services/Board/controller';
+import testBoard from '@/app/[locale]/dashboard/@board/testBoard.json';
+import { BoardRecord } from '../@board/types';
 
 const promptFormDataSchema = z.object({
   rows: z.coerce.number().int().min(1).max(12),
@@ -30,8 +33,15 @@ export async function submit(
     return { message: 'Failed to create todo' };
   }
 
-  await fetch('https://postman-echo.com/delay/2', {
-    cache: 'no-cache',
-  });
+  // await fetch('https://postman-echo.com/delay/2', {
+  //   cache: 'no-cache',
+  // });
+  try {
+    const board: BoardRecord = testBoard[1];
+    const response = await create(board);
+    console.log('response', response);
+  } catch (error) {
+    console.error('error', error);
+  }
   return { message: 'createTodo' };
 }
