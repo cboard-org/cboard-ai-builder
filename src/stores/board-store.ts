@@ -9,22 +9,26 @@ export type BoardActions = {
   setBoard: (board: BoardRecord) => void;
 };
 
-export type BoardStore = BoardRecord & BoardActions;
+export type BoardStore = { board: BoardRecord } & BoardActions;
 
-export const defaultBoardState: BoardRecord = {
-  id: '',
-  isPublic: false,
-  tiles: [],
-  isFixed: false,
-  author: '',
-  email: '',
-  lastEdited: '',
-  grid: { rows: 5, columns: 5, order: [] },
-  cellSize: '',
+export const defaultBoardState: { board: BoardRecord } = {
+  board: {
+    id: '',
+    isPublic: false,
+    tiles: [],
+    isFixed: false,
+    author: '',
+    email: '',
+    lastEdited: '',
+    grid: { rows: 5, columns: 5, order: [] },
+    cellSize: '',
+  },
 };
 
-export const createBoardStore = (initState: BoardRecord = defaultBoardState) =>
+export const createBoardStore = (
+  initState: { board: BoardRecord } = defaultBoardState,
+) =>
   createStore<BoardStore>()((set) => ({
     ...initState,
-    setBoard: (board: BoardRecord) => set(() => ({ ...board })),
+    setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
   }));
