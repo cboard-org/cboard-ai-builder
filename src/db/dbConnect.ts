@@ -8,9 +8,9 @@ declare global {
   };
 }
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGO_URL = process.env.MONGO_URL;
 
-if (!MONGODB_URI || MONGODB_URI.length === 0) {
+if (!MONGO_URL || MONGO_URL.length === 0) {
   throw new Error('Please add your MongoDB URI to .env.local');
 }
 
@@ -37,7 +37,7 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = connect(MONGODB_URI!, opts)
+    cached.promise = connect(MONGO_URL!, opts)
       .then((mongoose) => {
         console.log('✅ New connection established');
         return mongoose;
