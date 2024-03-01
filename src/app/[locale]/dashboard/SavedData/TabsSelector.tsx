@@ -40,7 +40,7 @@ export default function TabsSelector(props: {
   };
 
   return (
-    <Box>
+    <Box px={2}>
       <Tabs
         value={value}
         onChange={handleChange}

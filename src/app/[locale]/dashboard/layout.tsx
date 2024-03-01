@@ -3,38 +3,42 @@ import * as React from 'react';
 import styles from './styles.module.css';
 import SavedData from './SavedData/SavedData';
 
-const xsSpacing = 1;
-const smSpacing = 2;
-const mdSpacing = 3;
+const xsSpacing = 3;
+const mdSpacing = 2;
+const lgSpacing = 2;
+
+const xsPadding = 1;
+const mdPadding = 0;
 
 const menuBarHeight = 56;
 const sxStyles = {
   dashboardContainer: {
     display: 'grid',
-    overflowY: { xs: 'scroll', sm: 'unset' },
-    alignContent: { xs: 'flex-start', sm: 'inherit' },
+    overflowY: { xs: 'scroll', md: 'unset' },
+    alignContent: { xs: 'flex-start', md: 'inherit' },
     flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 2fr', md: '1fr 3fr' },
+    gridTemplateColumns: { xs: '1fr', md: '1fr 2fr', lg: '1fr 3fr' },
     gridTemplateRows: {
-      xs: `max-content max-content calc(100% - ${menuBarHeight}px);`,
-      sm: 'auto 1fr',
+      xs: `max-content calc(100% - ${menuBarHeight}px) max-content`,
+      md: 'auto 1fr',
     },
 
     gridTemplateAreas: {
       xs: `"title"
-    "sidebar"
-    "board"`,
-      sm: `"title board"
+    "board"
+    "sidebar"`,
+      md: `"title board"
   "sidebar board"`,
     },
-    columnGap: { xs: 0, sm: smSpacing, md: mdSpacing },
-    rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
+    columnGap: { xs: 0, md: mdSpacing, lg: lgSpacing },
+    rowGap: { xs: 0, md: mdSpacing, lg: lgSpacing },
   },
   sidebar: {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'auto',
-    rowGap: { xs: xsSpacing, sm: smSpacing, md: mdSpacing },
+    rowGap: { xs: xsSpacing, md: mdSpacing, lg: lgSpacing },
+    borderRadius: '5px',
   },
 };
 
@@ -47,16 +51,16 @@ export default function Dashboard(props: {
   board: React.ReactNode;
 }) {
   return (
-    <Box py={{ xs: 0, sm: 2, md: 3 }} className={styles.dashboardBox}>
+    <Box py={{ xs: 0, md: 2, lg: 3 }} className={styles.dashboardBox}>
       <Box
-        px={{ xs: 2, md: 4 }}
+        px={{ xs: 2, lg: 4 }}
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        <Box py={{ xs: xsSpacing, sm: 0 }} className={styles.titleBox}>
+        <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
           {props.navbar}
         </Box>
-        <Box sx={sxStyles.sidebar}>
+        <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
           <Box className={styles.controls}>{props.promptForm}</Box>
           <div className={styles.controls}>
             <SavedData
@@ -65,7 +69,7 @@ export default function Dashboard(props: {
             />
           </div>
         </Box>
-        <Box pb={{ xs: xsSpacing, sm: 0 }} className={styles.board}>
+        <Box pb={{ xs: xsSpacing, md: mdPadding }} className={styles.board}>
           {props.board}
         </Box>
         {props.children}

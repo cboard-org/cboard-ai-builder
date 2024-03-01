@@ -29,7 +29,7 @@ function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <Box sx={{ m: 1, position: 'relative' }}>
+    <Box sx={{ position: 'relative' }}>
       <Button
         variant="contained"
         type="submit"
@@ -217,16 +217,17 @@ export function PromptForm() {
               id="prompt-text"
               name="prompt-text"
               multiline
-              rows={5}
+              rows={3}
               required
               InputProps={{
                 inputComponent: 'textarea',
                 style: {
-                  fontSize: '0.8rem',
+                  fontSize: '1rem',
                   color: theme.palette.text.secondary,
+                  paddingTop: '0.5rem',
                 },
               }}
-              inputProps={{ minLength: 5, maxLength: 10 }}
+              inputProps={{ minLength: 5, maxLength: 60 }}
               sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
             />
           </Box>
@@ -237,7 +238,7 @@ export function PromptForm() {
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,
-              mt: '.5rem',
+              my: '.5rem',
             }}
           >
             <FormControlLabel
@@ -248,12 +249,13 @@ export function PromptForm() {
                 <Stack
                   spacing={1}
                   direction="row"
+                  justifyContent="center"
                   useFlexGap
                   flexWrap="nowrap"
                   sx={{
                     alignContent: 'center',
                     alignItems: 'center',
-                    mb: '0.3rem',
+                    justifyContent: 'center',
                   }}
                 >
                   <Typography fontSize={'0.7rem'}>
