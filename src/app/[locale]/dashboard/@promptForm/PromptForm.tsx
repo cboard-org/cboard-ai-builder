@@ -20,6 +20,7 @@ import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
+import { useBoardStore } from '@/providers/BoardStoreProvider';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -58,7 +59,11 @@ function SubmitButton({ text }: { text: string }) {
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
+  const { setBoard } = useBoardStore((state) => state);
   const message = useTranslations('PromptForm');
+  React.useEffect(() => {
+    if (state?.boardData) setBoard(state.boardData);
+  }, [state?.boardData, setBoard]);
 
   return (
     <form action={formAction}>
