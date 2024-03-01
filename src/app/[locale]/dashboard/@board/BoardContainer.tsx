@@ -4,7 +4,6 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
-import testBoard from './testBoard.json';
 import React, { useEffect, useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
@@ -15,12 +14,11 @@ import Tile from '@/components/Tile';
 import SelectTileMask from '@/components/SelectTileMask';
 import { useBoardStore } from '@/providers/BoardStoreProvider';
 
-export default function BoardContainer() {
+const BoardSection = ({ boardFromStore }: { boardFromStore: BoardRecord }) => {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useState<BoardRecord>(testBoard[1]);
+  const [board, setBoard] = useState<BoardRecord>(boardFromStore);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
-  const { board: boardFromStore } = useBoardStore((state) => state);
 
   useEffect(() => {
     setBoard(boardFromStore);
@@ -55,17 +53,8 @@ export default function BoardContainer() {
     };
     setBoard(newBoard);
   };
-
   return (
-    <Box
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#f8f8f8',
-        borderRadius: 1,
-      }}
-    >
+    <>
       <Box
         sx={{
           display: 'flex',
@@ -125,6 +114,26 @@ export default function BoardContainer() {
           {message('exportToCboard')}
         </Button>
       </Box>
+    </>
+  );
+};
+
+export default function BoardContainer() {
+  // should use board from store as truth
+  const { board: boardFromStore } = useBoardStore((state) => state);
+
+  return (
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#f8f8f8',
+        borderRadius: 1,
+      }}
+    >
+      {boardFromStore && <BoardSection boardFromStore={boardFromStore} />}
+      {!boardFromStore && <p>LOADING</p>}
     </Box>
   );
 }
