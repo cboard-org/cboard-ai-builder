@@ -2,7 +2,7 @@
 
 //import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
-import { create } from '@/db/services/Board/controller';
+import { create } from '@/db/services/Board/service';
 import testBoard from '@/app/[locale]/dashboard/@board/testBoard.json';
 import { BoardRecord } from '../@board/types';
 

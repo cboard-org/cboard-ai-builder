@@ -1,4 +1,4 @@
-import dbConnect from '@/db/dbConnect';
+import dbConnect from '@/lib/dbConnect';
 import { stringToObjectId } from '@/db/utils/helpers';
 import Board from './model';
 import { BoardRecord } from '@/app/[locale]/dashboard/@board/types';
