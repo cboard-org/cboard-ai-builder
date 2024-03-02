@@ -59,14 +59,14 @@ function SubmitButton({ text }: { text: string }) {
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
-  const { setBoard } = useBoardStore((state) => state);
+  const { setBoard, cleanBoard } = useBoardStore((state) => state);
   const message = useTranslations('PromptForm');
   React.useEffect(() => {
     if (state?.boardData) setBoard(state.boardData);
   }, [state?.boardData, setBoard]);
 
   return (
-    <form action={formAction}>
+    <form onSubmit={() => cleanBoard()} action={formAction}>
       <Grid p={3} container>
         <Grid item xs={12}>
           <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
