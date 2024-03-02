@@ -8,7 +8,8 @@ export type BoardActions = {
   See how to update deeply nested objects 
   for tile in zustand: https://docs.pmnd.rs/zustand/guides/updating-state#deeply-nested-object
   */
-  setBoard: (board: BoardStoreRecord) => void;
+  setBoard: (board: BoardRecord) => void;
+  cleanBoard: () => void;
 };
 
 export type BoardStore = { board: BoardStoreRecord } & BoardActions;
@@ -32,9 +33,9 @@ export const createBoardStore = (
 ) =>
   createStore<BoardStore>()((set) => ({
     ...initState,
-    setBoard: (board: BoardRecord | null) =>
-      set(() => {
-        if (board) return { board: { ...board } };
-        return { board: null };
-      }),
+    setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
+    cleanBoard: () => {
+      // Should show a confirmation dialog
+      set(() => ({ board: null }));
+    },
   }));
