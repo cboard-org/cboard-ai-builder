@@ -131,7 +131,19 @@ export default function BoardContainer() {
       }}
     >
       {boardFromStore && <BoardSection />}
-      {!boardFromStore && <p>LOADING</p>}
+      {!boardFromStore && (
+        <Box
+          sx={{
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <p>LOADING...</p>
+        </Box>
+      )}
     </Box>
   );
 }
