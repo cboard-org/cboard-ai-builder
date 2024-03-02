@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from './types';
@@ -14,15 +14,11 @@ import Tile from '@/components/Tile';
 import SelectTileMask from '@/components/SelectTileMask';
 import { useBoardStore } from '@/providers/BoardStoreProvider';
 
-const BoardSection = ({ boardFromStore }: { boardFromStore: BoardRecord }) => {
+const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useState<BoardRecord>(boardFromStore);
+  const { board, setBoard } = useBoardStore((state) => state);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
-
-  useEffect(() => {
-    setBoard(boardFromStore);
-  }, [boardFromStore]);
 
   const handleEditClick = () => {
     setIsEditing((isEditing) => !isEditing);
@@ -43,6 +39,7 @@ const BoardSection = ({ boardFromStore }: { boardFromStore: BoardRecord }) => {
     item: { id: string },
     position: { row: number; column: number },
   ) => {
+    if (!board) return;
     const newOrder = moveOrderItem(item.id, position, board.grid.order);
     const newBoard: BoardRecord = {
       ...board,
@@ -53,6 +50,7 @@ const BoardSection = ({ boardFromStore }: { boardFromStore: BoardRecord }) => {
     };
     setBoard(newBoard);
   };
+  if (!board) return null;
   return (
     <>
       <Box
@@ -132,7 +130,7 @@ export default function BoardContainer() {
         borderRadius: 1,
       }}
     >
-      {boardFromStore && <BoardSection boardFromStore={boardFromStore} />}
+      {boardFromStore && <BoardSection />}
       {!boardFromStore && <p>LOADING</p>}
     </Box>
   );
