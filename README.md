@@ -34,6 +34,7 @@ For the translations, we are currently using [Next-intl](https://next-intl-docs.
 ### State management
 
 To manage state, we use[Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) following the guidelines provided in [this Article](https://docs.pmnd.rs/zustand/guides/nextjs).
+The main store is divided into smaller individual stores using [Zustand Slices Pattern](https://docs.pmnd.rs/zustand/guides/slices-pattern) to achieve modularity.
 
 Please consider these recommendations:
 
