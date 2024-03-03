@@ -1,5 +1,6 @@
 import { createStore } from 'zustand';
 import { BoardRecord } from '@/dashboard/@board/types';
+import { devtools } from 'zustand/middleware';
 
 export type BoardActions = {
   /*
@@ -24,7 +25,10 @@ export const defaultBoardState: BoardRecord = {
 };
 
 export const createBoardStore = (initState: BoardRecord = defaultBoardState) =>
-  createStore<BoardStore>()((set) => ({
-    ...initState,
-    setBoard: (board: BoardRecord) => set(() => ({ ...board })),
-  }));
+  createStore<BoardStore>()(
+    devtools((set) => ({
+      ...initState,
+      setBoard: (board: BoardRecord) =>
+        set(() => ({ ...board }), false, { type: 'Board/setBoard', board }),
+    })),
+  );
