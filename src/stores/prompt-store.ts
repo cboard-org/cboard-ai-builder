@@ -1,5 +1,6 @@
 import { createStore } from 'zustand';
 import { Prompt } from '@/app/[locale]/dashboard/types';
+import { devtools } from 'zustand/middleware';
 
 export type PromptActions = {
   setPrompt: (prompt: Prompt) => void;
@@ -16,7 +17,10 @@ export const defaultPromptState: Prompt = {
 };
 
 export const createPromptStore = (initState: Prompt = defaultPromptState) =>
-  createStore<PromptStore>()((set) => ({
-    ...initState,
-    setPrompt: (prompt: Prompt) => set(() => ({ ...prompt })),
-  }));
+  createStore<PromptStore>()(
+    devtools((set) => ({
+      ...initState,
+      setPrompt: (prompt: Prompt) =>
+        set(() => ({ ...prompt }), false, { type: 'Prompt/setPompt', prompt }),
+    })),
+  );
