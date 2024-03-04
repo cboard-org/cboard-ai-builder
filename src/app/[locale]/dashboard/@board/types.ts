@@ -1,18 +1,5 @@
 import { Grid } from './Grid/types';
-
-type TileRecord = {
-  id: string;
-  nameKey?: string;
-  label?: string;
-  vocalization?: string;
-  type?: string;
-  backgroundColor?: string;
-  labelKey?: string;
-  image?: string;
-  loadBoard?: string;
-  sound?: string;
-  linkedBoard?: boolean;
-};
+import { TileRecord } from '@/components/Tile/types';
 
 export type BoardRecord = {
   id: string;
