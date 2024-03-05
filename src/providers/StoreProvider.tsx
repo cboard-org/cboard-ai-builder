@@ -12,10 +12,13 @@ export default function StoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<StoreApi<Store>>();
   if (!storeRef.current) {
     storeRef.current = createStore<Store>()(
-      devtools((...props) => ({
-        ...createPromptSlice(...props),
-        ...createBoardSlice(...props),
-      })),
+      devtools(
+        (...props) => ({
+          ...createPromptSlice(...props),
+          ...createBoardSlice(...props),
+        }),
+        { name: 'Cboard-AI-builder' },
+      ),
     );
   }
 
