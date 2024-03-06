@@ -1,7 +1,7 @@
 'use server';
-
 //import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+import testBoard from '@/dashboard/@board/testBoard.json';
 
 const promptFormDataSchema = z.object({
   rows: z.coerce.number().int().min(1).max(12),
@@ -33,5 +33,6 @@ export async function submit(
   await fetch('https://postman-echo.com/delay/2', {
     cache: 'no-cache',
   });
-  return { message: 'createTodo' };
+
+  return { message: 'created board with success', boardData: testBoard[1] };
 }
