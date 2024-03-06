@@ -19,7 +19,7 @@ const BoardSection = () => {
   const { board, setBoard } = useBoardStore((state) => state);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
-
+  if (!board) return null;
   const handleEditClick = () => {
     setIsEditing((isEditing) => !isEditing);
     setSelectedTiles([]);
@@ -39,7 +39,6 @@ const BoardSection = () => {
     item: { id: string },
     position: { row: number; column: number },
   ) => {
-    if (!board) return;
     const newOrder = moveOrderItem(item.id, position, board.grid.order);
     const newBoard: BoardRecord = {
       ...board,
@@ -50,7 +49,6 @@ const BoardSection = () => {
     };
     setBoard(newBoard);
   };
-  if (!board) return null;
   return (
     <>
       <Box
