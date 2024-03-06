@@ -2,7 +2,7 @@ import { createStore } from 'zustand';
 import { Prompt } from '@/app/[locale]/dashboard/types';
 
 export type PromptActions = {
-  setPrompt: (prompt: Prompt) => void;
+  setPrompt: (prompt: Partial<Prompt>) => void;
 };
 
 export type PromptStore = Prompt & PromptActions;
@@ -18,5 +18,6 @@ export const defaultPromptState: Prompt = {
 export const createPromptStore = (initState: Prompt = defaultPromptState) =>
   createStore<PromptStore>()((set) => ({
     ...initState,
-    setPrompt: (prompt: Prompt) => set(() => ({ ...prompt })),
+    setPrompt: (prompt: Partial<Prompt>) =>
+      set((state) => ({ ...state, ...prompt })),
   }));
