@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  cboard-ai-builder-web:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: cboard-ai-builder-web
+    depends_on:
+      - mongodb
+    env_file:
+      - ../.env.local
+    ports:
+      - '3000:3000'
+    networks:
+      - cboard-ai-builder-network
+  mongodb:
+    image: mongo:7.0
+    restart: always
+    env_file:
+      - ../.env.local
+    volumes:
+      - 'db-data:/data/db'
+    ports:
+      - '27017:27017'
+    networks:
+      - cboard-ai-builder-network
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  cboard-ai-builder-network:
+    driver: bridge
+volumes:
+  db-data:

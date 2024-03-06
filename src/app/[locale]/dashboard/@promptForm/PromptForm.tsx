@@ -22,6 +22,8 @@ import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
 import { usePromptStore } from '@/providers/PromptStoreProvider';
+import { useBoardStore } from '@/providers/BoardStoreProvider';
+
 const totalRows = 12;
 const totalColumns = 12;
 
@@ -76,11 +78,15 @@ const useBlink = (
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
+  const { setBoard, cleanBoard } = useBoardStore((state) => state);
   const message = useTranslations('PromptForm');
   const { description, setPrompt } = usePromptStore((state) => state);
   const [descriptionValue, setDescriptionValue] = React.useState('');
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    if (state?.boardData) setBoard(state.boardData);
+  }, [state?.boardData, setBoard]);
 
   const blink = useBlink(description, setDescriptionValue);
 
@@ -96,7 +102,7 @@ export function PromptForm() {
       }}
       ref={formRef}
     >
-      <form action={formAction}>
+      <form onSubmit={() => cleanBoard()} action={formAction}>
         <Grid p={3} container>
           <Grid item xs={12}>
             <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
