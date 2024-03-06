@@ -56,14 +56,10 @@ function SubmitButton({ text }: { text: string }) {
   );
 }
 
-export function PromptForm() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [state, formAction] = useFormState(submit, null);
-  const message = useTranslations('PromptForm');
-  const [descriptionValue, setDescriptionValue] = React.useState('');
-  const { description, setPrompt } = usePromptStore((state) => state);
-  const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
-  const formRef = React.useRef<HTMLElement>(null);
+const useBlink = (
+  description: string,
+  setDescriptionValue: React.Dispatch<React.SetStateAction<string>>,
+) => {
   const [blink, setBlink] = React.useState(true);
 
   React.useEffect(() => {
@@ -72,7 +68,21 @@ export function PromptForm() {
       setBlink(true);
       setDescriptionValue(description);
     }, 300);
-  }, [description]);
+  }, [description, setDescriptionValue]);
+
+  return blink;
+};
+
+export function PromptForm() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [state, formAction] = useFormState(submit, null);
+  const message = useTranslations('PromptForm');
+  const { description, setPrompt } = usePromptStore((state) => state);
+  const [descriptionValue, setDescriptionValue] = React.useState('');
+  const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
+  const formRef = React.useRef<HTMLElement>(null);
+
+  const blink = useBlink(description, setDescriptionValue);
 
   return (
     <Fade
