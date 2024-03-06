@@ -29,7 +29,7 @@ export const defaultBoardState: { board: BoardRecord } = {
 };
 
 export const createBoardStore = (
-  initState: { board: BoardRecord } = defaultBoardState,
+  initState: { board: BoardRecord } | { board: null } = { board: null },
 ) =>
   createStore<BoardStore>()((set) => ({
     ...initState,
