@@ -4,7 +4,6 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
-import testBoard from './testBoard.json';
 import React, { useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
@@ -13,13 +12,14 @@ import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';
 import SelectTileMask from '@/components/SelectTileMask';
+import { useBoundStore } from '@/providers/StoreProvider';
 
-export default function BoardContainer() {
+const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useState<BoardRecord>(testBoard[1]);
+  const { board, setBoard } = useBoundStore((state) => state);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
-
+  if (!board) return null;
   const handleEditClick = () => {
     setIsEditing((isEditing) => !isEditing);
     setSelectedTiles([]);
@@ -49,17 +49,8 @@ export default function BoardContainer() {
     };
     setBoard(newBoard);
   };
-
   return (
-    <Box
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#f8f8f8',
-        borderRadius: 1,
-      }}
-    >
+    <>
       <Box
         sx={{
           display: 'flex',
@@ -119,6 +110,38 @@ export default function BoardContainer() {
           {message('exportToCboard')}
         </Button>
       </Box>
+    </>
+  );
+};
+
+export default function BoardContainer() {
+  // should use board from store as truth
+  const { board: boardFromStore } = useBoundStore((state) => state);
+
+  return (
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#f8f8f8',
+        borderRadius: 1,
+      }}
+    >
+      {boardFromStore && <BoardSection />}
+      {!boardFromStore && (
+        <Box
+          sx={{
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <p>LOADING...</p>
+        </Box>
+      )}
     </Box>
   );
 }

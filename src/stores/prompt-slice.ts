@@ -3,7 +3,7 @@ import { Prompt } from '@/app/[locale]/dashboard/types';
 import { Store } from './../providers/StoreProvider';
 
 export type PromptActions = {
-  setPrompt: (prompt: Prompt) => void;
+  setPrompt: (prompt: Partial<Prompt>) => void;
 };
 
 export type PromptSlice = { prompt: Prompt } & PromptActions;
@@ -24,8 +24,8 @@ export const createPromptSlice: StateCreator<
 > = (set) => ({
   //check this initstate = defaultPromptState
   prompt: { ...defaultPromptState },
-  setPrompt: (prompt: Prompt) =>
-    set(() => ({ prompt: { ...prompt } }), false, {
+  setPrompt: (prompt: Partial<Prompt>) =>
+    set((state) => ({ prompt: { ...state.prompt, ...prompt } }), false, {
       type: 'Prompt/setPompt',
       prompt,
     }),
