@@ -1,5 +1,6 @@
-import { createStore } from 'zustand';
+import { StateCreator } from 'zustand';
 import { BoardRecord } from '@/dashboard/@board/types';
+import { Store } from './../providers/StoreProvider';
 
 export type BoardStoreRecord = BoardRecord | null;
 
@@ -11,8 +12,7 @@ export type BoardActions = {
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
 };
-
-export type BoardStore = { board: BoardStoreRecord } & BoardActions;
+export type BoardSlice = { board: BoardStoreRecord } & BoardActions;
 
 export const defaultBoardState: { board: BoardRecord } = {
   board: {
@@ -28,14 +28,16 @@ export const defaultBoardState: { board: BoardRecord } = {
   },
 };
 
-export const createBoardStore = (
-  initState: { board: BoardRecord } | { board: null } = { board: null },
-) =>
-  createStore<BoardStore>()((set) => ({
-    ...initState,
-    setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
-    cleanBoard: () => {
-      // Should show a confirmation dialog
-      set(() => ({ board: null }));
-    },
-  }));
+export const createBoardSlice: StateCreator<
+  Store,
+  [['zustand/devtools', never]],
+  [],
+  BoardSlice
+> = (set) => ({
+  board: null,
+  setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
+  cleanBoard: () => {
+    // Should show a confirmation dialog
+    set(() => ({ board: null }));
+  },
+});

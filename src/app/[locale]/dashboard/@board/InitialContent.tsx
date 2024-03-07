@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Button from '@mui/material/Button';
 import styles from './styles';
-import { usePromptStore } from '@/providers/PromptStoreProvider';
+import { useBoundStore } from '@/providers/StoreProvider';
 
 const promptExampleMessagesKey = [
   'promptExample1',
@@ -18,7 +18,7 @@ const promptExampleMessagesKey = [
 ] as const;
 
 const PromptExamplesTextField = ({ message }: { message: string }) => {
-  const { setPrompt } = usePromptStore((state) => state);
+  const { setPrompt } = useBoundStore((state) => state);
 
   return (
     <Button

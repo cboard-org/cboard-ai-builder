@@ -21,8 +21,7 @@ import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
-import { usePromptStore } from '@/providers/PromptStoreProvider';
-import { useBoardStore } from '@/providers/BoardStoreProvider';
+import { useBoundStore } from '@/providers/StoreProvider';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -78,9 +77,12 @@ const useBlink = (
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction] = useFormState(submit, null);
-  const { setBoard, cleanBoard } = useBoardStore((state) => state);
+  const { setBoard, cleanBoard } = useBoundStore((state) => state);
   const message = useTranslations('PromptForm');
-  const { description, setPrompt } = usePromptStore((state) => state);
+  const {
+    prompt: { description },
+    setPrompt,
+  } = useBoundStore((state) => state);
   const [descriptionValue, setDescriptionValue] = React.useState('');
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);

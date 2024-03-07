@@ -12,11 +12,11 @@ import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';
 import SelectTileMask from '@/components/SelectTileMask';
-import { useBoardStore } from '@/providers/BoardStoreProvider';
+import { useBoundStore } from '@/providers/StoreProvider';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const { board, setBoard } = useBoardStore((state) => state);
+  const { board, setBoard } = useBoundStore((state) => state);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
   if (!board) return null;
@@ -116,7 +116,7 @@ const BoardSection = () => {
 
 export default function BoardContainer() {
   // should use board from store as truth
-  const { board: boardFromStore } = useBoardStore((state) => state);
+  const { board: boardFromStore } = useBoundStore((state) => state);
 
   return (
     <Box
