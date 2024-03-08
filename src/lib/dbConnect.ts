@@ -1,6 +1,7 @@
 import _mongoose, { connect } from 'mongoose';
 
 declare global {
+  // This must be a var and not a let / const
   //eslint-disable-next-line
   var mongoose: {
     promise: ReturnType<typeof connect> | null;
