@@ -1,5 +1,4 @@
 'use server';
-
 //import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { create } from '@/db/services/Board/service';
@@ -43,5 +42,6 @@ export async function submit(
   } catch (error) {
     console.error('error', error);
   }
-  return { message: 'createTodo' };
+
+  return { message: 'created board with success', boardData: testBoard[1] };
 }

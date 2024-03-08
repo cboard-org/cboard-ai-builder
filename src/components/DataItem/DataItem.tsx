@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import { useFormatter } from 'next-intl';
-import { usePromptStore } from '@/providers/PromptStoreProvider';
+import { useBoundStore } from '@/providers/StoreProvider';
 
 import Box from '@mui/material/Box';
 import { Prompt } from '@/app/[locale]/dashboard/types';
@@ -27,7 +27,7 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const { setPrompt } = usePromptStore((store) => store);
+  const { setPrompt } = useBoundStore((store) => store);
   const onEdit = () => {
     setPrompt({
       description,

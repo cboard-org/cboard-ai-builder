@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Button from '@mui/material/Button';
 import styles from './styles';
+import { useBoundStore } from '@/providers/StoreProvider';
 
 const promptExampleMessagesKey = [
   'promptExample1',
@@ -17,11 +18,15 @@ const promptExampleMessagesKey = [
 ] as const;
 
 const PromptExamplesTextField = ({ message }: { message: string }) => {
+  const { setPrompt } = useBoundStore((state) => state);
+
   return (
     <Button
       sx={styles.exampleButton}
       onClick={() => {
-        console.log('clicked');
+        setPrompt({
+          description: message,
+        });
       }}
     >
       <TextField

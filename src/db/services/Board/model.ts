@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { BoardRecord } from '@/app/[locale]/dashboard/@board/types';
-import { TileRecord } from '@/app/[locale]/dashboard/@board/types';
+import { TileRecord } from '@/components/Tile/types';
 
 type Board = mongoose.Document & BoardRecord;
 
