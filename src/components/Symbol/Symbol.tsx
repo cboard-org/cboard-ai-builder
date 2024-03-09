@@ -10,8 +10,22 @@ type Props = {
 };
 
 export default function Symbol({ label, labelpos, image }: Props) {
-  const src = image;
+  const [src, setSrc] = React.useState('');
   const symbolClassName = style.Symbol;
+
+  React.useEffect(() => {
+    async function getSrc() {
+      if (image) {
+        if (image.startsWith('http')) {
+          setSrc(image);
+          return;
+        }
+        const blob = new Blob([image], { type: 'image/png' });
+        setSrc(URL.createObjectURL(blob));
+      }
+    }
+    getSrc();
+  }, [setSrc, image]);
 
   return (
     <div className={symbolClassName}>
