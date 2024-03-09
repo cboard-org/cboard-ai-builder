@@ -18,8 +18,9 @@ const toCboardTilesAdapter = async (
         for (const image of pictogram.images) {
           const generatedPictogram = image as AIImage;
           if (generatedPictogram.ok && generatedPictogram.blob) {
-            const url = await generatedPictogram.blob.text();
-            images.push(url);
+            const buffer = await generatedPictogram.blob.arrayBuffer();
+            const base64 = Buffer.from(buffer).toString('base64');
+            images.push(base64);
           }
           images.push('');
         }
