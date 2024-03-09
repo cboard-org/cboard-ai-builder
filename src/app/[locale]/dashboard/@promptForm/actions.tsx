@@ -85,7 +85,8 @@ export async function submit(
         boardData: generatedBoard,
       };
     } catch (error) {
-      return { message: 'Failed to create board', error };
+      console.log('Error: ', error);
+      return { message: 'Failed to create board' };
     }
   return { message: 'Failed to create board' };
 }
