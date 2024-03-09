@@ -70,4 +70,4 @@ workflows:
             - build
           filters:
             branches:
-              only: add-circleci
+              only: main
