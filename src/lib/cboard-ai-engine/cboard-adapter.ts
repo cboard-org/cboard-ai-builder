@@ -44,7 +44,6 @@ const toCboardTilesAdapter = async (
       image: images[0],
     });
   }
-  // console.log('cboardTiles', cboardTiles);
   return cboardTiles;
 };
 
@@ -74,7 +73,6 @@ export const toCboardAdapter = async ({
 
     return multidimensionalArray;
   };
-  console.log('tiles', tiles);
   const tilesIds = tiles.map((tile) => tile.id);
   const order = createMultidimensionalArray(tilesIds, columns);
   return {
