@@ -74,10 +74,22 @@ const useBlink = (
   return blink;
 };
 
+const useFormStateWatcher = () => {
+  const [state, formAction] = useFormState(submit, null);
+  const { setBoard, setErrorOnBoardGeneration } = useBoundStore(
+    (state) => state,
+  );
+
+  React.useEffect(() => {
+    if (state?.error) setErrorOnBoardGeneration();
+    if (state?.board) setBoard(state.board);
+  }, [state, setBoard, setErrorOnBoardGeneration]);
+  return formAction;
+};
+
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [state, formAction] = useFormState(submit, null);
-  const { setBoard, cleanBoard } = useBoundStore((state) => state);
+  const { cleanBoard } = useBoundStore((state) => state);
   const message = useTranslations('PromptForm');
   const {
     prompt: { description },
@@ -86,10 +98,8 @@ export function PromptForm() {
   const [descriptionValue, setDescriptionValue] = React.useState('');
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);
-  React.useEffect(() => {
-    if (state?.boardData) setBoard(state.boardData);
-  }, [state?.boardData, setBoard]);
 
+  const formAction = useFormStateWatcher();
   const blink = useBlink(description, setDescriptionValue);
 
   return (
