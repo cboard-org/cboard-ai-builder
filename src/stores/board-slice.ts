@@ -33,10 +33,16 @@ export const createBoardSlice: StateCreator<
   BoardSlice
 > = (set) => ({
   ...defaultBoardState,
-  setBoard: (board: BoardRecord) => set(() => ({ board: board })),
+  setBoard: (board: BoardRecord) =>
+    set(() => ({ board: board }), false, {
+      type: 'Board/setBoard',
+      board,
+    }),
   cleanBoard: () => {
     // Should show a confirmation dialog
-    set(() => defaultBoardState);
+    set(() => defaultBoardState, false, {
+      type: 'Board/cleanBoard',
+    });
   },
   setErrorOnBoardGeneration: () => {
     set(() => ({ errorOnBoardGeneration: true }), false, {
