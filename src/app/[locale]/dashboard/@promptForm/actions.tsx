@@ -39,8 +39,8 @@ const boardGenerator = initEngine({
 
 export async function submit(
   prevState: {
-    error?: { message: string } | undefined;
-    board?: BoardRecord | undefined;
+    error?: { message: string };
+    board?: BoardRecord;
   } | null,
   formData: FormData,
 ): Promise<{
