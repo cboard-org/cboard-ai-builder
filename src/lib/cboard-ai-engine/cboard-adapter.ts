@@ -4,14 +4,12 @@ import { TileRecord } from '@/components/Tile/types';
 import testBoard from '@/dashboard/@board/testBoard.json';
 import { Suggestion, AIImage } from 'cboard-ai-engine';
 
-const generateId = () => Math.floor(Math.random() * 1000000);
-
 const toCboardTilesAdapter = async (
   tiles: Suggestion[],
 ): Promise<TileRecord[]> => {
   const cboardTiles: TileRecord[] = [];
   for await (const tile of tiles) {
-    const id = generateId().toString();
+    const id = tile.id;
     const getTileImages = async (pictogram: Suggestion['pictogram']) => {
       if (pictogram.isAIGenerated) {
         const images: string[] = [];
