@@ -44,9 +44,9 @@ export default async function DashboardPage() {
           ml={0.5}
         >
           <Box component="span" fontWeight="bold">
-            {messages('ai')}
+            {messages('cboard')}
           </Box>
-          {' ' + messages('cbuilder')}
+          {' ' + messages('builder')}
         </Typography>
       </Box>
     </Box>

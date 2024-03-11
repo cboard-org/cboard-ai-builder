@@ -4,8 +4,8 @@
     "title": "History"
   },
   "Navbar": {
-    "ai": "AI",
-    "cbuilder": "CBuilder"
+    "cboard": "CBoard",
+    "builder": "Builder"
   },
   "PromptForm": {
     "rows": "Rows",
