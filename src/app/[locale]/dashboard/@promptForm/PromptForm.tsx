@@ -26,8 +26,19 @@ import { useBoundStore } from '@/providers/StoreProvider';
 const totalRows = 12;
 const totalColumns = 12;
 
+const useHideInitialBoard = (pending: boolean) => {
+  const { hideInitialBoard } = useBoundStore((state) => state);
+
+  React.useEffect(() => {
+    if (pending) {
+      hideInitialBoard();
+    }
+  }, [pending, hideInitialBoard]);
+};
+
 function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
+  useHideInitialBoard(pending);
 
   return (
     <Box sx={{ position: 'relative' }}>
