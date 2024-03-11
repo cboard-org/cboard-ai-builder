@@ -253,7 +253,7 @@ export function PromptForm() {
                   variant="body2"
                   component="label"
                 >
-                  {message('aiPrompt')}
+                  {message('prompt')}
                 </Typography>
                 <IconButton
                   aria-label="help"
@@ -330,7 +330,7 @@ export function PromptForm() {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton text={message('newAiBoard')} />
+            <SubmitButton text={message('newBoard')} />
           </Grid>
         </Grid>
       </form>

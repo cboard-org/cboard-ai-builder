@@ -11,9 +11,9 @@
     "rows": "Rows",
     "columns": "Columns",
     "colorScheme": "Color Scheme",
-    "aiPrompt": "AI Prompt",
+    "prompt": "Prompt",
     "useAiPictograms": "Use AI Pictograms",
-    "newAiBoard": "New ai board"
+    "newBoard": "New board"
   },
   "Board": {
     "InitialContent": {
