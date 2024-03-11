@@ -10,12 +10,12 @@ const toCboardTilesAdapter = async (
   tiles: Suggestion[],
 ): Promise<TileRecord[]> => {
   const cboardTiles: TileRecord[] = [];
-  for (const tile of tiles) {
+  for await (const tile of tiles) {
     const id = generateId().toString();
     const getTileImages = async (pictogram: Suggestion['pictogram']) => {
       if (pictogram.isAIGenerated) {
         const images: string[] = [];
-        for (const image of pictogram.images) {
+        for await (const image of pictogram.images) {
           const generatedPictogram = image as AIImage;
           if (generatedPictogram.ok && generatedPictogram.blob) {
             const buffer = await generatedPictogram.blob.arrayBuffer();
