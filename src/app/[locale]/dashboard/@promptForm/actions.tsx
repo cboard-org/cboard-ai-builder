@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { toCboardAdapter } from '@/lib/cboard-ai-engine/cboard-adapter';
 import { initEngine } from 'cboard-ai-engine';
 import { type PictonizerConfiguration } from 'cboard-ai-engine';
+import { BoardRecord } from '../@board/types';
 const apiKey = process.env.AZURE_OPENAI_API_KEY;
 
 const promptFormDataSchema = z.object({
@@ -38,10 +39,14 @@ const boardGenerator = initEngine({
 
 export async function submit(
   prevState: {
-    message: string;
+    error?: { message: string } | undefined;
+    board?: BoardRecord | undefined;
   } | null,
   formData: FormData,
-) {
+): Promise<{
+  error?: { message: string };
+  board?: BoardRecord;
+}> {
   const prompt = formData.get('prompt-text'),
     rows = Number(formData.get('rows')),
     columns = Number(formData.get('columns')),
@@ -54,17 +59,20 @@ export async function submit(
     prompt: prompt,
     isAiPictogram: isAiPictogram,
   });
+  const ERROR_RESPONSE_OBJECT = {
+    message: 'Failed to create board',
+  };
 
-  if (!validate.success) {
-    console.log('validate', validate.error);
-    return { message: 'Failed to create todo' };
-  }
-  if (
-    typeof prompt === 'string' &&
-    typeof rows === 'number' &&
-    typeof columns === 'number'
-  )
-    try {
+  try {
+    if (!validate.success) {
+      console.log('validate', validate.error);
+      throw Error('Invalid input');
+    }
+    if (
+      typeof prompt === 'string' &&
+      typeof rows === 'number' &&
+      typeof columns === 'number'
+    ) {
       const numberOfTiles = rows * columns;
       const suggestions =
         await boardGenerator.getSuggestionsAndProcessPictograms({
@@ -74,6 +82,10 @@ export async function submit(
           language: 'eng',
         });
 
+      if (!suggestions.length) {
+        throw new Error('No suggestions found');
+      }
+
       const generatedBoard = await toCboardAdapter({
         suggestions,
         columns,
@@ -81,12 +93,13 @@ export async function submit(
       });
 
       return {
-        message: 'created board with success',
-        boardData: generatedBoard,
+        board: generatedBoard,
       };
-    } catch (error) {
-      console.log('Error: ', error);
-      return { message: 'Failed to create board' };
     }
-  return { message: 'Failed to create board' };
+  } catch (error) {
+    console.error('Error: ', error);
+    //could return a more specific error also re try the request
+    //return { error: ERROR_RESPONSE_OBJECT };
+  }
+  return { error: ERROR_RESPONSE_OBJECT };
 }
