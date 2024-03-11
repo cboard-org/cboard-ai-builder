@@ -116,7 +116,9 @@ const BoardSection = () => {
 
 export default function BoardContainer() {
   // should use board from store as truth
-  const { board: boardFromStore } = useBoundStore((state) => state);
+  const { board: boardFromStore, errorOnBoardGeneration } = useBoundStore(
+    (state) => state,
+  );
 
   return (
     <Box
@@ -139,7 +141,11 @@ export default function BoardContainer() {
             alignItems: 'center',
           }}
         >
-          <p>LOADING...</p>
+          {errorOnBoardGeneration ? (
+            <p style={{ color: 'red' }}>ERROR!</p>
+          ) : (
+            <p>LOADING...</p>
+          )}
         </Box>
       )}
     </Box>

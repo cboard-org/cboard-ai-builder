@@ -39,7 +39,7 @@ export default function Tile({ tile, handleTileClick, children }: Props) {
       />
       <Symbol
         image={tile.image}
-        label={tile.id}
+        label={tile.label}
         labelpos={displaySettings.labelPosition}
       />
       {children}
