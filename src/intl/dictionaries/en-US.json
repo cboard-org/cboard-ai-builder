@@ -18,11 +18,11 @@
   "Board": {
     "InitialContent": {
       "ai": "AI",
-      "createANewAiBoard": "Create a <b>New <br></br> AI Board</b>",
+      "createANewBoard": "Create a <b>New <br></br> Board</b>",
       "examples": "Examples",
-      "promptExample1": "A board encourages them to arrange these pictograms in a sequence to tell a magical and adventurous story.",
-      "promptExample2": "I Want a board that describe a family of a mother, son and grandmother and all social interactions between them.",
-      "promptExample3": "Mix and match pictograms to craft imaginative stories about animal adventures and friendships"
+      "promptExample1": "Create a board with a sequence that tells a magical and adventurous story with sea animals.",
+      "promptExample2": "Show a family with a mother, son and grandmother in a house interacting.",
+      "promptExample3": "Illustrate imaginative stories about adventures and friendships between children and animals."
     },
     "BoardContainer": {
       "exportToCboard": "Export to Cboard"
