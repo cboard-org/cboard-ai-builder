@@ -88,7 +88,7 @@ export default function InitialContent() {
                 lineHeight: '56px',
               }}
             >
-              {messages.rich('createANewAiBoard', {
+              {messages.rich('createANewBoard', {
                 br: () => <br />,
                 b: (children) => <b>{children}</b>,
               })}
