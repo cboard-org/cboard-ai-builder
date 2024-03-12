@@ -126,7 +126,7 @@ export default function BoardContainer() {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#f8f8f8',
+        backgroundColor: 'rgb(240, 238, 238)',
         borderRadius: 1,
       }}
     >
