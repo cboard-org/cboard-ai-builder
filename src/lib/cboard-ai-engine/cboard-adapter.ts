@@ -4,6 +4,8 @@ import { TileRecord } from '@/components/Tile/types';
 import testBoard from '@/dashboard/@board/testBoard.json';
 import { Suggestion, AIImage } from 'cboard-ai-engine';
 
+const DEFAULT_TILE_BACKGROUND_COLOR = 'rgb(255, 241, 118)';
+
 const toCboardTilesAdapter = async (
   tiles: Suggestion[],
 ): Promise<TileRecord[]> => {
@@ -38,7 +40,7 @@ const toCboardTilesAdapter = async (
     cboardTiles.push({
       id: id,
       label: tile.label,
-      backgroundColor: 'rgb(200, 200, 200)',
+      backgroundColor: DEFAULT_TILE_BACKGROUND_COLOR,
       borderColor: 'rgb( 255, 0,  0) ',
       image: images[0],
     });
