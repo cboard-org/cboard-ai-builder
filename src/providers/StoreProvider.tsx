@@ -12,9 +12,20 @@ export const StoreContext = createContext<StoreApi<Store> | null>(null);
 export default function StoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<StoreApi<Store>>();
   if (!storeRef.current) {
+    const onRehydrateStorage = ({ showInitialContent }: Store) => {
+      return (state: Store | undefined, error: unknown) => {
+        if (error) {
+          console.error('an error happened during hydration', error);
+        } else {
+          if (!state?.board) showInitialContent();
+        }
+      };
+    };
+
     const persistConfig = {
       name: 'Cboard-AI-builder',
       storage: createJSONStorage(() => sessionStorage),
+      onRehydrateStorage: (state: Store) => onRehydrateStorage(state),
     };
 
     storeRef.current = createStore<Store>()(
