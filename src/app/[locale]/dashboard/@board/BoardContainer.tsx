@@ -103,7 +103,7 @@ const BoardSection = () => {
       >
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           startIcon={<NorthEast />}
           sx={{ fontSize: '0.7rem' }}
         >
