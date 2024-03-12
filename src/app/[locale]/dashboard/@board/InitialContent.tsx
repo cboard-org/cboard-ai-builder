@@ -55,7 +55,7 @@ const PromptExamplesTextField = ({ message }: { message: string }) => {
 export default function InitialContent() {
   const messages = useTranslations('Board.InitialContent');
   return (
-    <Box sx={{ height: '100%', backgroundColor: 'rgb(240, 238, 238)' }}>
+    <Box sx={{ height: '100%' }}>
       <Box
         sx={{
           display: 'flex',
