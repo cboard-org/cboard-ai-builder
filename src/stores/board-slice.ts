@@ -2,7 +2,11 @@ import { StateCreator } from 'zustand';
 import { BoardRecord } from '@/dashboard/@board/types';
 import { Store } from './../providers/StoreProvider';
 
-export type BoardStoreRecord = BoardRecord | null;
+export type BoardStoreRecord = {
+  board: BoardRecord | null;
+  errorOnBoardGeneration?: boolean;
+  showInitialContent: boolean;
+};
 
 export type BoardActions = {
   /*
@@ -11,22 +15,22 @@ export type BoardActions = {
   */
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
+  setErrorOnBoardGeneration: () => void;
+  hideInitialBoard: () => void;
 };
-export type BoardSlice = { board: BoardStoreRecord } & BoardActions;
+export type BoardSlice = BoardStoreRecord & BoardActions;
 
-export const defaultBoardState: { board: BoardRecord } = {
-  board: {
-    id: '',
-    isPublic: false,
-    tiles: [],
-    isFixed: false,
-    author: '',
-    email: '',
-    lastEdited: '',
-    grid: { rows: 5, columns: 5, order: [] },
-    cellSize: '',
-  },
+export const defaultBoardState: {
+  showInitialContent: boolean;
+  board: null;
+  errorOnBoardGeneration: boolean;
+} = {
+  showInitialContent: true,
+  board: null,
+  errorOnBoardGeneration: false,
 };
+
+const CLEAN_BOARD_STATE = { ...defaultBoardState, showInitialContent: false };
 
 export const createBoardSlice: StateCreator<
   Store,
@@ -34,10 +38,26 @@ export const createBoardSlice: StateCreator<
   [],
   BoardSlice
 > = (set) => ({
-  board: null,
-  setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
+  ...defaultBoardState,
+  setBoard: (board: BoardRecord) =>
+    set(() => ({ board: board }), false, {
+      type: 'Board/setBoard',
+      board,
+    }),
   cleanBoard: () => {
     // Should show a confirmation dialog
-    set(() => ({ board: null }));
+    set(() => CLEAN_BOARD_STATE, false, {
+      type: 'Board/cleanBoard',
+    });
+  },
+  setErrorOnBoardGeneration: () => {
+    set(() => ({ errorOnBoardGeneration: true }), false, {
+      type: 'Board/setErrorOnBoardGeneration',
+    });
+  },
+  hideInitialBoard: () => {
+    set(() => ({ showInitialContent: false }), false, {
+      type: 'Board/HideInitialBoard',
+    });
   },
 });
