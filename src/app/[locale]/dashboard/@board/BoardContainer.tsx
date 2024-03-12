@@ -103,7 +103,7 @@ const BoardSection = () => {
       >
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           startIcon={<NorthEast />}
           sx={{ fontSize: '0.7rem' }}
         >
@@ -126,7 +126,6 @@ export default function BoardContainer() {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#f8f8f8',
         borderRadius: 1,
       }}
     >
