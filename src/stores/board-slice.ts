@@ -5,7 +5,7 @@ import { Store } from './../providers/StoreProvider';
 export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
-  displayInitialContent: boolean;
+  shouldDisplayInitialContent: boolean;
 };
 
 export type BoardActions = {
@@ -21,11 +21,11 @@ export type BoardActions = {
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
 export const defaultBoardState: {
-  displayInitialContent: boolean;
+  shouldDisplayInitialContent: boolean;
   board: null;
   errorOnBoardGeneration: boolean;
 } = {
-  displayInitialContent: false,
+  shouldDisplayInitialContent: false,
   board: null,
   errorOnBoardGeneration: false,
 };
@@ -54,7 +54,7 @@ export const createBoardSlice: StateCreator<
     });
   },
   showInitialContent: () => {
-    set(() => ({ displayInitialContent: true }), false, {
+    set(() => ({ shouldDisplayInitialContent: true }), false, {
       type: 'Board/showInitialContent',
     });
   },
