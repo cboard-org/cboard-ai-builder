@@ -24,7 +24,7 @@ export default function StoreProvider({ children }: React.PropsWithChildren) {
 
     const persistConfig = {
       name: 'Cboard-AI-builder',
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: (state: Store) => onRehydrateStorage(state),
     };
 
