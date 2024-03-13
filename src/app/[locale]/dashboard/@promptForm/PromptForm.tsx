@@ -87,6 +87,21 @@ const useFormStateWatcher = () => {
   return formAction;
 };
 
+const useSetDescriptionValueDebounce = ({
+  description,
+  setDescriptionValue,
+}: {
+  description: string;
+  setDescriptionValue: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  React.useEffect(() => {
+    const debounce = setTimeout(() => {
+      setDescriptionValue(description);
+    }, 2000);
+    return () => clearTimeout(debounce);
+  }, [description, setDescriptionValue]);
+};
+
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { cleanBoard } = useBoundStore((state) => state);
@@ -101,10 +116,20 @@ export function PromptForm() {
 
   const formAction = useFormStateWatcher();
   const blink = useBlink(description, setDescriptionValue);
+  useSetDescriptionValueDebounce({ description, setDescriptionValue });
+
+  const formSubmitAction = async (formData: FormData) => {
+    const descriptionOnForm = formData.get('prompt-text')?.toString() || '';
+    if (descriptionOnForm) {
+      setDescriptionValue(descriptionOnForm);
+      setPrompt({ description: descriptionOnForm });
+    }
+    formAction(formData);
+  };
 
   return (
     <Fade
-      appear={false}
+      appear={true}
       in={blink}
       addEndListener={() => {
         if (blink) {
@@ -114,7 +139,7 @@ export function PromptForm() {
       }}
       ref={formRef}
     >
-      <form onSubmit={() => cleanBoard()} action={formAction}>
+      <form onSubmit={() => cleanBoard()} action={formSubmitAction}>
         <Grid p={3} container>
           <Grid item xs={12}>
             <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
@@ -281,10 +306,11 @@ export function PromptForm() {
                 sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
                 inputRef={descriptionTextFieldRef}
                 onChange={(e) => {
-                  description && setPrompt({ description: '' });
                   setDescriptionValue(e.target.value);
                 }}
-                value={descriptionValue}
+                value={
+                  descriptionValue?.length === 0 ? undefined : descriptionValue
+                }
               />
             </Box>
           </Grid>
