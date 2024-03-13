@@ -4,6 +4,7 @@ import { StoreApi, createStore, useStore } from 'zustand';
 import { PromptSlice, createPromptSlice } from '@/stores/prompt-slice';
 import { BoardSlice, createBoardSlice } from '@/stores/board-slice';
 import { devtools } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 export type Store = PromptSlice & BoardSlice;
 export const StoreContext = createContext<StoreApi<Store> | null>(null);
@@ -11,13 +12,34 @@ export const StoreContext = createContext<StoreApi<Store> | null>(null);
 export default function StoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<StoreApi<Store>>();
   if (!storeRef.current) {
+    const onRehydrateStorage = ({ showInitialContent }: Store) => {
+      return (state: Store | undefined, error: unknown) => {
+        if (error) {
+          console.error('an error happened during hydration', error);
+        } else {
+          if (!state?.board) showInitialContent();
+        }
+      };
+    };
+
+    const persistConfig = {
+      name: 'Cboard-AI-builder',
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: (state: Store) => onRehydrateStorage(state),
+    };
+
     storeRef.current = createStore<Store>()(
       devtools(
-        (...props) => ({
-          ...createPromptSlice(...props),
-          ...createBoardSlice(...props),
-        }),
-        { name: 'Cboard-AI-builder' },
+        persist(
+          (...props) => ({
+            ...createPromptSlice(...props),
+            ...createBoardSlice(...props),
+          }),
+          persistConfig,
+        ),
+        {
+          name: 'Cboard-AI-builder',
+        },
       ),
     );
   }
