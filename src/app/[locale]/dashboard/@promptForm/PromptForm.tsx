@@ -22,6 +22,7 @@ import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
+import { Prompt } from '../types';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -58,18 +59,18 @@ function SubmitButton({ text }: { text: string }) {
 }
 
 const useBlink = (
-  description: string,
-  setDescriptionValue: React.Dispatch<React.SetStateAction<string>>,
+  prompt: Prompt,
+  setPromptValue: React.Dispatch<React.SetStateAction<Prompt>>,
 ) => {
   const [blink, setBlink] = React.useState(true);
 
   React.useEffect(() => {
-    if (description) setBlink(false);
+    if (prompt) setBlink(false);
     setTimeout(() => {
       setBlink(true);
-      setDescriptionValue(description);
+      setPromptValue(prompt);
     }, 300);
-  }, [description, setDescriptionValue]);
+  }, [prompt, setPromptValue]);
 
   return blink;
 };
@@ -87,50 +88,75 @@ const useFormStateWatcher = () => {
   return formAction;
 };
 
-const useSetDescriptionValueDebounce = ({
-  description,
-  setDescriptionValue,
+const useSetPromptValueDebounce = ({
+  prompt,
+  setPromptValue,
 }: {
-  description: string;
-  setDescriptionValue: React.Dispatch<React.SetStateAction<string>>;
+  prompt: Prompt;
+  setPromptValue: React.Dispatch<React.SetStateAction<Prompt>>;
 }) => {
   React.useEffect(() => {
     const debounce = setTimeout(() => {
-      setDescriptionValue(description);
+      setPromptValue(prompt);
     }, 2000);
     return () => clearTimeout(debounce);
-  }, [description, setDescriptionValue]);
+  }, [prompt, setPromptValue]);
 };
 
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { cleanBoard } = useBoundStore((state) => state);
   const message = useTranslations('PromptForm');
-  const {
-    prompt: { description },
-    setPrompt,
-  } = useBoundStore((state) => state);
-  const [descriptionValue, setDescriptionValue] = React.useState('');
+  const { prompt, setPrompt } = useBoundStore((state) => state);
+
+  const initialPromptValue: Prompt = {
+    description: '',
+    rows: 5,
+    columns: 5,
+    colorScheme: 'fitzgerald',
+    shouldUsePictonizer: true,
+  };
+
+  const [promptValue, setPromptValue]: [
+    Prompt,
+    React.Dispatch<React.SetStateAction<Prompt>>,
+  ] = React.useState(initialPromptValue);
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);
 
   const formAction = useFormStateWatcher();
-  const blink = useBlink(description, setDescriptionValue);
-  useSetDescriptionValueDebounce({ description, setDescriptionValue });
+
+  const blink = useBlink(prompt, setPromptValue);
+  const [preventBlink, setPreventBlink] = React.useState(false);
+  useSetPromptValueDebounce({ prompt, setPromptValue });
 
   const formSubmitAction = async (formData: FormData) => {
-    const descriptionOnForm = formData.get('prompt-text')?.toString() || '';
-    if (descriptionOnForm) {
-      setDescriptionValue(descriptionOnForm);
-      setPrompt({ description: descriptionOnForm });
-    }
+    // const promptFromForm: {
+    //   description: string;
+    //   colorScheme: 'fitzgerald';
+    //   rows: number;
+    //   columns: number;
+    //   shouldUsePictonizer: boolean;
+    // } = {
+    //   description: formData.get('prompt-text')?.toString() || '',
+    //   rows: Number(formData.get('rows')),
+    //   columns: Number(formData.get('columns')),
+    //   colorScheme: 'fitzgerald', //formData.get('color-scheme')?.toString() || '',
+    //   shouldUsePictonizer: formData.get('use-ai-pictograms') === 'true',
+    // };
+
+    // if (promptFromForm !== prompt) {
+    //   setPromptValue(promptFromForm);
+    //   setPrompt(promptFromForm);
+    //   setPreventBlink(false);
+    // }
     formAction(formData);
   };
 
   return (
     <Fade
       appear={true}
-      in={blink}
+      in={!preventBlink ? blink : true}
       addEndListener={() => {
         if (blink) {
           formRef.current?.scrollIntoView(false);
@@ -139,7 +165,17 @@ export function PromptForm() {
       }}
       ref={formRef}
     >
-      <form onSubmit={() => cleanBoard()} action={formSubmitAction}>
+      <form
+        onSubmit={() => {
+          setPreventBlink(true);
+          cleanBoard();
+          if (promptValue) {
+            setPromptValue(promptValue);
+            setPrompt(promptValue);
+          }
+        }}
+        action={formSubmitAction}
+      >
         <Grid p={3} container>
           <Grid item xs={12}>
             <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
@@ -168,6 +204,13 @@ export function PromptForm() {
                     labelId="rows-label"
                     totalItems={totalRows}
                     initialValue={5}
+                    onChange={(e) => {
+                      setPromptValue({
+                        ...promptValue,
+                        rows: Number(e.target.value),
+                      });
+                    }}
+                    value={promptValue.rows}
                   />
                 </FormControl>
               </Box>
@@ -200,6 +243,13 @@ export function PromptForm() {
                     labelId="columns-label"
                     totalItems={totalColumns}
                     initialValue={5}
+                    onChange={(e) => {
+                      setPromptValue({
+                        ...promptValue,
+                        columns: Number(e.target.value),
+                      });
+                    }}
+                    value={promptValue.columns}
                   />
                 </FormControl>
               </Box>
@@ -306,10 +356,15 @@ export function PromptForm() {
                 sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
                 inputRef={descriptionTextFieldRef}
                 onChange={(e) => {
-                  setDescriptionValue(e.target.value);
+                  setPromptValue({
+                    ...promptValue,
+                    description: e.target.value,
+                  });
                 }}
                 value={
-                  descriptionValue?.length === 0 ? undefined : descriptionValue
+                  promptValue.description.length === 0
+                    ? undefined
+                    : promptValue.description
                 }
               />
             </Box>
