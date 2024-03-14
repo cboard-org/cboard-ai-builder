@@ -279,7 +279,7 @@ export function PromptForm() {
                   id="color-scheme"
                   name="color-scheme"
                   labelId="color-scheme-label"
-                  defaultValue="default"
+                  defaultValue="fitzgerald"
                   displayEmpty
                   inputProps={{ 'aria-label': 'Without label' }}
                   sx={{ backgroundColor: 'white' }}
@@ -287,16 +287,18 @@ export function PromptForm() {
                     setControlledPromptValue({
                       ...controlledPromptValue,
                       colorScheme:
-                        e.target.value ===
-                        ('fitzgerald' || 'something-else' || 'foo')
+                        e.target.value === 'fitzgerald' ||
+                        e.target.value === 'something-else' ||
+                        e.target.value === 'foo'
                           ? e.target.value
                           : 'fitzgerald',
                     });
                   }}
+                  value={controlledPromptValue.colorScheme}
                 >
                   <MenuItem value="fitzgerald">Fitzgerald</MenuItem>
-                  <MenuItem value="something-else">Dark</MenuItem>
-                  <MenuItem value="foo">Light</MenuItem>
+                  <MenuItem value="something-else">something-else</MenuItem>
+                  <MenuItem value="foo">foo</MenuItem>
                 </Select>
               </FormControl>
             </Box>
