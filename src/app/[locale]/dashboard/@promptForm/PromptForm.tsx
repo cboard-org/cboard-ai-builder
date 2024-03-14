@@ -137,10 +137,6 @@ export function PromptForm() {
 
   const blink = usePromptBlinkAnimation(prompt, setPromptValue);
 
-  const formSubmitAction = (formData: FormData) => {
-    formAction(formData);
-  };
-
   return (
     <Fade
       appear={true}
@@ -161,7 +157,7 @@ export function PromptForm() {
             setPrompt(promptValue);
           }
         }}
-        action={formSubmitAction}
+        action={formAction}
       >
         <Grid p={3} container>
           <Grid item xs={12}>
