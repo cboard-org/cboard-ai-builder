@@ -58,19 +58,35 @@ function SubmitButton({ text }: { text: string }) {
   );
 }
 
-const useBlink = (
+const usePromptBlinkAnimation = (
   prompt: Prompt,
   setPromptValue: React.Dispatch<React.SetStateAction<Prompt>>,
 ) => {
   const [blink, setBlink] = React.useState(true);
-
-  React.useEffect(() => {
+  const trigAnimation = React.useCallback(() => {
     if (prompt) setBlink(false);
     setTimeout(() => {
       setBlink(true);
       setPromptValue(prompt);
     }, 300);
   }, [prompt, setPromptValue]);
+
+  const useTrigAnimationOnPromptChange = ({
+    prompt,
+    trigAnimation,
+  }: {
+    prompt: Prompt;
+    trigAnimation: () => void;
+  }) => {
+    const prevPrompt = usePrevious(prompt);
+    React.useEffect(() => {
+      const promptIsUpdated =
+        JSON.stringify(prevPrompt) !== JSON.stringify(prompt);
+      if (promptIsUpdated) trigAnimation();
+    }, [prompt, trigAnimation, prevPrompt]);
+  };
+
+  useTrigAnimationOnPromptChange({ prompt, trigAnimation });
 
   return blink;
 };
@@ -88,19 +104,12 @@ const useFormStateWatcher = () => {
   return formAction;
 };
 
-const useSetPromptValueDebounce = ({
-  prompt,
-  setPromptValue,
-}: {
-  prompt: Prompt;
-  setPromptValue: React.Dispatch<React.SetStateAction<Prompt>>;
-}) => {
+const usePrevious = <T,>(value: T): T | undefined => {
+  const ref = React.useRef<T>();
   React.useEffect(() => {
-    const debounce = setTimeout(() => {
-      setPromptValue(prompt);
-    }, 2000);
-    return () => clearTimeout(debounce);
-  }, [prompt, setPromptValue]);
+    ref.current = value;
+  });
+  return ref.current;
 };
 
 export function PromptForm() {
@@ -126,37 +135,16 @@ export function PromptForm() {
 
   const formAction = useFormStateWatcher();
 
-  const blink = useBlink(prompt, setPromptValue);
-  const [preventBlink, setPreventBlink] = React.useState(false);
-  useSetPromptValueDebounce({ prompt, setPromptValue });
+  const blink = usePromptBlinkAnimation(prompt, setPromptValue);
 
-  const formSubmitAction = async (formData: FormData) => {
-    // const promptFromForm: {
-    //   description: string;
-    //   colorScheme: 'fitzgerald';
-    //   rows: number;
-    //   columns: number;
-    //   shouldUsePictonizer: boolean;
-    // } = {
-    //   description: formData.get('prompt-text')?.toString() || '',
-    //   rows: Number(formData.get('rows')),
-    //   columns: Number(formData.get('columns')),
-    //   colorScheme: 'fitzgerald', //formData.get('color-scheme')?.toString() || '',
-    //   shouldUsePictonizer: formData.get('use-ai-pictograms') === 'true',
-    // };
-
-    // if (promptFromForm !== prompt) {
-    //   setPromptValue(promptFromForm);
-    //   setPrompt(promptFromForm);
-    //   setPreventBlink(false);
-    // }
+  const formSubmitAction = (formData: FormData) => {
     formAction(formData);
   };
 
   return (
     <Fade
       appear={true}
-      in={!preventBlink ? blink : true}
+      in={blink}
       addEndListener={() => {
         if (blink) {
           formRef.current?.scrollIntoView(false);
@@ -167,7 +155,6 @@ export function PromptForm() {
     >
       <form
         onSubmit={() => {
-          setPreventBlink(true);
           cleanBoard();
           if (promptValue) {
             setPromptValue(promptValue);
