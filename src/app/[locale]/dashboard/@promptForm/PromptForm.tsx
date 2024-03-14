@@ -356,11 +356,7 @@ export function PromptForm() {
                     description: e.target.value,
                   });
                 }}
-                value={
-                  controlledPromptValue.description.length === 0
-                    ? undefined
-                    : controlledPromptValue.description
-                }
+                value={controlledPromptValue.description}
               />
             </Box>
           </Grid>
