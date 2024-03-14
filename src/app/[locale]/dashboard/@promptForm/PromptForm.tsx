@@ -283,10 +283,20 @@ export function PromptForm() {
                   displayEmpty
                   inputProps={{ 'aria-label': 'Without label' }}
                   sx={{ backgroundColor: 'white' }}
+                  onChange={(e) => {
+                    setControlledPromptValue({
+                      ...controlledPromptValue,
+                      colorScheme:
+                        e.target.value ===
+                        ('fitzgerald' || 'something-else' || 'foo')
+                          ? e.target.value
+                          : 'fitzgerald',
+                    });
+                  }}
                 >
-                  <MenuItem value="default">Default</MenuItem>
-                  <MenuItem value="dark">Dark</MenuItem>
-                  <MenuItem value="light">Light</MenuItem>
+                  <MenuItem value="fitzgerald">Fitzgerald</MenuItem>
+                  <MenuItem value="something-else">Dark</MenuItem>
+                  <MenuItem value="foo">Light</MenuItem>
                 </Select>
               </FormControl>
             </Box>
