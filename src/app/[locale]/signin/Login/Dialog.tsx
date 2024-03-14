@@ -8,7 +8,6 @@ import MUIButton from '@mui/material/Button';
 import { useState } from 'react';
 import DialogActions from '@mui/material/DialogActions';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import Alert from '@mui/material/Alert';
 import { useTranslations } from 'next-intl';
 import { styles } from './styles';
@@ -22,7 +21,6 @@ export default function Dialog({
   const t = useTranslations('SignIn.LoginDialog');
   const [error, setError] = useState<string | false>(false);
   const [loading, setLoading] = useState(false);
-  const { refresh } = useRouter();
   return (
     <MUIDialog
       open={open}
@@ -39,11 +37,7 @@ export default function Dialog({
             password: formData.get('password') as string,
             callbackUrl: '/dashboard',
           });
-          if (response?.ok) {
-            // parent Page will do a redirect if user is logged-in to the callback url
-            refresh();
-            return;
-          }
+          if (response?.ok) return;
           if (response?.error) {
             setError(t('errorMessage'));
           }
