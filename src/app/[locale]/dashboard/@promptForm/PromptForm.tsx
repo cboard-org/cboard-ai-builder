@@ -347,7 +347,7 @@ export function PromptForm() {
                     paddingTop: '0.5rem',
                   },
                 }}
-                inputProps={{ minLength: 5, maxLength: 60 }}
+                inputProps={{ minLength: 5, maxLength: 180 }}
                 sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
                 inputRef={descriptionTextFieldRef}
                 onChange={(e) => {
