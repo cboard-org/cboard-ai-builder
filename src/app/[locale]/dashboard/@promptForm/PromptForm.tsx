@@ -60,16 +60,16 @@ function SubmitButton({ text }: { text: string }) {
 
 const usePromptBlinkAnimation = (
   prompt: Prompt,
-  setPromptValue: React.Dispatch<React.SetStateAction<Prompt>>,
+  setControlledPromptValue: React.Dispatch<React.SetStateAction<Prompt>>,
 ) => {
   const [blink, setBlink] = React.useState(true);
   const trigAnimation = React.useCallback(() => {
     if (prompt) setBlink(false);
     setTimeout(() => {
       setBlink(true);
-      setPromptValue(prompt);
+      setControlledPromptValue(prompt);
     }, 300);
-  }, [prompt, setPromptValue]);
+  }, [prompt, setControlledPromptValue]);
 
   const useTrigAnimationOnPromptChange = ({
     prompt,
@@ -126,7 +126,7 @@ export function PromptForm() {
     shouldUsePictonizer: true,
   };
 
-  const [promptValue, setPromptValue]: [
+  const [controlledPromptValue, setControlledPromptValue]: [
     Prompt,
     React.Dispatch<React.SetStateAction<Prompt>>,
   ] = React.useState(initialPromptValue);
@@ -135,7 +135,7 @@ export function PromptForm() {
 
   const formAction = useFormStateWatcher();
 
-  const blink = usePromptBlinkAnimation(prompt, setPromptValue);
+  const blink = usePromptBlinkAnimation(prompt, setControlledPromptValue);
 
   return (
     <Fade
@@ -152,9 +152,9 @@ export function PromptForm() {
       <form
         onSubmit={() => {
           cleanBoard();
-          if (promptValue) {
-            setPromptValue(promptValue);
-            setPrompt(promptValue);
+          if (controlledPromptValue) {
+            setControlledPromptValue(controlledPromptValue);
+            setPrompt(controlledPromptValue);
           }
         }}
         action={formAction}
@@ -188,12 +188,12 @@ export function PromptForm() {
                     totalItems={totalRows}
                     initialValue={5}
                     onChange={(e) => {
-                      setPromptValue({
-                        ...promptValue,
+                      setControlledPromptValue({
+                        ...controlledPromptValue,
                         rows: Number(e.target.value),
                       });
                     }}
-                    value={promptValue.rows}
+                    value={controlledPromptValue.rows}
                   />
                 </FormControl>
               </Box>
@@ -227,12 +227,12 @@ export function PromptForm() {
                     totalItems={totalColumns}
                     initialValue={5}
                     onChange={(e) => {
-                      setPromptValue({
-                        ...promptValue,
+                      setControlledPromptValue({
+                        ...controlledPromptValue,
                         columns: Number(e.target.value),
                       });
                     }}
-                    value={promptValue.columns}
+                    value={controlledPromptValue.columns}
                   />
                 </FormControl>
               </Box>
@@ -339,15 +339,15 @@ export function PromptForm() {
                 sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
                 inputRef={descriptionTextFieldRef}
                 onChange={(e) => {
-                  setPromptValue({
-                    ...promptValue,
+                  setControlledPromptValue({
+                    ...controlledPromptValue,
                     description: e.target.value,
                   });
                 }}
                 value={
-                  promptValue.description.length === 0
+                  controlledPromptValue.description.length === 0
                     ? undefined
-                    : promptValue.description
+                    : controlledPromptValue.description
                 }
               />
             </Box>
