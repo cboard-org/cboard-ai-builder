@@ -4,8 +4,7 @@ import BoardContainer from './BoardContainer';
 import { useBoundStore } from '@/providers/StoreProvider';
 
 export default function BoardPage() {
-  const { showInitialContent } = useBoundStore((state) => state);
+  const { shouldDisplayInitialContent } = useBoundStore((state) => state);
 
-  //return <InitialContent />;
-  return showInitialContent ? <InitialContent /> : <BoardContainer />;
+  return shouldDisplayInitialContent ? <InitialContent /> : <BoardContainer />;
 }

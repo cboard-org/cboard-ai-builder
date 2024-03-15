@@ -5,7 +5,7 @@ import { Store } from './../providers/StoreProvider';
 export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
-  showInitialContent: boolean;
+  shouldDisplayInitialContent: boolean;
 };
 
 export type BoardActions = {
@@ -16,21 +16,19 @@ export type BoardActions = {
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
-  hideInitialBoard: () => void;
+  showInitialContent: () => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
 export const defaultBoardState: {
-  showInitialContent: boolean;
+  shouldDisplayInitialContent: boolean;
   board: null;
   errorOnBoardGeneration: boolean;
 } = {
-  showInitialContent: true,
+  shouldDisplayInitialContent: false,
   board: null,
   errorOnBoardGeneration: false,
 };
-
-const CLEAN_BOARD_STATE = { ...defaultBoardState, showInitialContent: false };
 
 export const createBoardSlice: StateCreator<
   Store,
@@ -46,7 +44,7 @@ export const createBoardSlice: StateCreator<
     }),
   cleanBoard: () => {
     // Should show a confirmation dialog
-    set(() => CLEAN_BOARD_STATE, false, {
+    set(() => defaultBoardState, false, {
       type: 'Board/cleanBoard',
     });
   },
@@ -55,9 +53,9 @@ export const createBoardSlice: StateCreator<
       type: 'Board/setErrorOnBoardGeneration',
     });
   },
-  hideInitialBoard: () => {
-    set(() => ({ showInitialContent: false }), false, {
-      type: 'Board/HideInitialBoard',
+  showInitialContent: () => {
+    set(() => ({ shouldDisplayInitialContent: true }), false, {
+      type: 'Board/showInitialContent',
     });
   },
 });
