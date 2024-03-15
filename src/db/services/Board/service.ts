@@ -1,42 +1,24 @@
 import dbConnect from '@/lib/dbConnect';
 import { stringToObjectId } from '@/db/utils/helpers';
-import Board from './model';
-import { BoardRecord } from '@/app/[locale]/dashboard/@board/types';
+import Board, { type DbBoardRecord } from './model';
 
-export async function create(board: BoardRecord) {
-  try {
-    await dbConnect();
+export async function create(board: DbBoardRecord) {
+  await dbConnect();
 
-    const newBoard = await Board.create({ ...board });
+  const dbBoard = new Board(board);
+  const savedBoard = await dbBoard.save();
 
-    return {
-      newBoard,
-    };
-  } catch (error) {
-    return { error };
-  }
+  return savedBoard;
 }
 
 export async function get(id: string) {
-  try {
-    await dbConnect();
+  await dbConnect();
 
-    const parsedId = stringToObjectId(id);
+  const parsedId = stringToObjectId(id);
+  if (!parsedId) throw new Error('Please provide a valid board id');
 
-    if (!parsedId) {
-      return { error: 'Board not found' };
-    }
+  const board = await Board.findById(parsedId).lean().exec();
+  if (board) return board;
 
-    const board = await Board.findById(parsedId).lean().exec();
-
-    if (board) {
-      return {
-        board,
-      };
-    } else {
-      return { error: 'Board not found' };
-    }
-  } catch (error) {
-    return { error };
-  }
+  return null;
 }
