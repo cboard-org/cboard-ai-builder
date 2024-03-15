@@ -1,11 +1,10 @@
 'use server';
-
 import { z } from 'zod';
 import { toCboardAdapter } from '@/lib/cboard-ai-engine/cboard-adapter';
 import { initEngine } from 'cboard-ai-engine';
 import { type PictonizerConfiguration } from 'cboard-ai-engine';
 import { BoardRecord } from '../@board/types';
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = process.env.AZURE_OPENAI_API_KEY;
 
 const promptFormDataSchema = z.object({
   rows: z.coerce.number().int().min(1).max(12),
