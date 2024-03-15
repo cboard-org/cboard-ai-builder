@@ -1,13 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { BoardRecord } from '@/app/[locale]/dashboard/@board/types';
 import { TileRecord } from '@/components/Tile/types';
 
-type Board = mongoose.Document & BoardRecord;
+export type DbBoardRecord = BoardRecord & {
+  userId: string;
+};
 
-const BoardSchema = new mongoose.Schema<Board>({
-  id: {
+const BoardSchema = new Schema<DbBoardRecord>({
+  userId: {
     type: String,
-    required: [true, 'Please provide an id for this board.'],
+    required: [true, 'Please provide a userId for this board.'],
+    index: true,
+  },
+  promptId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Prompt',
+    required: false,
   },
   isPublic: {
     type: Boolean,
@@ -69,5 +77,7 @@ const BoardSchema = new mongoose.Schema<Board>({
   },
 });
 
-export default mongoose.models.Board ||
-  mongoose.model<Board>('Board', BoardSchema);
+const Board: mongoose.Model<DbBoardRecord> =
+  mongoose.models.Board || mongoose.model<DbBoardRecord>('Board', BoardSchema);
+
+export default Board;
