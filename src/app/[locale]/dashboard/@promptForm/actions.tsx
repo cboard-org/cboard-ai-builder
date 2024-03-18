@@ -4,6 +4,10 @@ import { toCboardAdapter } from '@/lib/cboard-ai-engine/cboard-adapter';
 import { initEngine } from 'cboard-ai-engine';
 import { type PictonizerConfiguration } from 'cboard-ai-engine';
 import { BoardRecord } from '../@board/types';
+import { getServerSession } from 'next-auth/next';
+import authConfig from '@/lib/next-auth/config';
+import { create as savePrompt } from '@/db/services/Prompt/service';
+
 const apiKey = process.env.AZURE_OPENAI_API_KEY;
 
 const promptFormDataSchema = z.object({
@@ -46,6 +50,11 @@ export async function submit(
   error?: { message: string };
   board?: BoardRecord;
 }> {
+  const session = await getServerSession(authConfig);
+  if (!session) {
+    throw new Error('User not authenticated');
+  }
+
   const prompt = formData.get('prompt-text'),
     rows = Number(formData.get('rows')),
     columns = Number(formData.get('columns')),
@@ -90,6 +99,19 @@ export async function submit(
         columns,
         rows,
       });
+
+      const savedPrompt = await savePrompt({
+        userId: session.cboard_user.id,
+        prompt: {
+          rows: validate.data.rows,
+          columns: validate.data.columns,
+          colorScheme: 'fitzgerald', // TODO: remove this hardcode
+          description: validate.data.prompt,
+          shouldUsePictonizer: validate.data.isAiPictogram,
+        },
+      });
+
+      if (savedPrompt) generatedBoard.promptId = savedPrompt._id.toString();
 
       return {
         board: generatedBoard,
