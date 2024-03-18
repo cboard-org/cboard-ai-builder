@@ -1,5 +1,5 @@
 import { StateCreator } from 'zustand';
-import { BoardRecord } from '@/dashboard/@board/types';
+import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
 
 export type BoardStoreRecord = {

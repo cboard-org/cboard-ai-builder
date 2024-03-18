@@ -1,4 +1,4 @@
-import { Grid } from './Grid/types';
+import { Grid } from '../app/[locale]/dashboard/@board/Grid/types';
 import { TileRecord } from '@/components/Tile/types';
 
 export type BoardRecord = {

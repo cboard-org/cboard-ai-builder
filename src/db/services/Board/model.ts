@@ -1,12 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
-import { BoardRecord } from '@/app/[locale]/dashboard/@board/types';
+import { BoardRecord } from '@/commonTypes/Board';
 import { TileRecord } from '@/components/Tile/types';
 
 export type DbBoardRecord = BoardRecord & {
   userId: string;
 };
 
-const BoardSchema = new Schema<DbBoardRecord>({
+const BoardRecord = new Schema<DbBoardRecord>({
   userId: {
     type: String,
     required: [true, 'Please provide a userId for this board.'],
@@ -78,6 +78,6 @@ const BoardSchema = new Schema<DbBoardRecord>({
 });
 
 const Board: mongoose.Model<DbBoardRecord> =
-  mongoose.models.Board || mongoose.model<DbBoardRecord>('Board', BoardSchema);
+  mongoose.models.Board || mongoose.model<DbBoardRecord>('Board', BoardRecord);
 
 export default Board;
