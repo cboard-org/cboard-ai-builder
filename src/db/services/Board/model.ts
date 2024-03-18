@@ -19,31 +19,31 @@ const BoardSchema = new Schema<DbBoardRecord>({
   },
   isPublic: {
     type: Boolean,
-    required: [true, 'Please specify if this board is public.'],
+    required: true,
   },
   tiles: {
     type: Array<TileRecord>(),
-    required: [true, 'Please provide tiles for this board.'],
+    required: true,
   },
   isFixed: {
     type: Boolean,
-    required: [true, 'Please specify if this board is fixed.'],
+    required: true,
   },
   author: {
     type: String,
-    required: [true, 'Please provide an author for this board.'],
+    required: true,
   },
   email: {
     type: String,
-    required: [true, 'Please provide an email for this board.'],
+    required: true,
   },
   lastEdited: {
     type: String,
-    required: [true, 'Please provide the last edited date for this board.'],
+    required: true,
   },
   grid: {
     type: Object,
-    required: [true, 'Please provide a grid for this board.'],
+    required: true,
   },
   cellSize: {
     type: String,

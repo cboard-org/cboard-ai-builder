@@ -10,20 +10,20 @@ const PromptSchema = new Schema<DbPromptRecord>({
   userId: {
     type: String,
     index: true,
-    required: [true, 'Please provide an userId for this Prompt.'],
+    required: true,
   },
   description: {
     type: String,
-    required: [true, 'Please provide a description for this Prompt.'],
+    required: true,
   },
-  rows: { type: Number, required: [true, 'Please provide a number of rows.'] },
+  rows: { type: Number, required: true },
   columns: {
     type: Number,
-    required: [true, 'Please provide a number of columns.'],
+    required: true,
   },
   shouldUsePictonizer: {
     type: Boolean,
-    required: [true, 'Please provide a boolean value for shouldUsePictonizer.'],
+    required: true,
   },
   colorScheme: { type: String },
   createdDate: {
