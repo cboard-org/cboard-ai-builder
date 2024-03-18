@@ -10,23 +10,44 @@ import { useTranslations } from 'next-intl';
 import Button from '@mui/material/Button';
 import styles from './styles';
 import { useBoundStore } from '@/providers/StoreProvider';
+import { Prompt } from '../types';
 
 const promptExampleMessagesKey = [
-  'promptExample1',
-  'promptExample2',
-  'promptExample3',
+  {
+    description: 'promptExample1',
+    columns: 5,
+    rows: 4,
+    colorScheme: 'fitzgerald',
+    shouldUsePictonizer: true,
+  },
+  {
+    description: 'promptExample2',
+    columns: 5,
+    rows: 4,
+    colorScheme: 'fitzgerald',
+    shouldUsePictonizer: true,
+  },
+  {
+    description: 'promptExample3',
+    columns: 5,
+    rows: 4,
+    colorScheme: 'fitzgerald',
+    shouldUsePictonizer: true,
+  },
 ] as const;
 
-const PromptExamplesTextField = ({ message }: { message: string }) => {
+const PromptExamplesTextField = ({
+  promptValues,
+}: {
+  promptValues: Prompt;
+}) => {
   const { setPrompt } = useBoundStore((state) => state);
 
   return (
     <Button
       sx={styles.exampleButton}
       onClick={() => {
-        setPrompt({
-          description: message,
-        });
+        setPrompt(promptValues);
       }}
     >
       <TextField
@@ -35,7 +56,7 @@ const PromptExamplesTextField = ({ message }: { message: string }) => {
         multiline
         rows={4}
         aria-readonly
-        value={message}
+        value={promptValues.description}
         InputProps={{
           inputComponent: 'textarea',
           readOnly: true,
@@ -55,7 +76,7 @@ const PromptExamplesTextField = ({ message }: { message: string }) => {
 export default function InitialContent() {
   const messages = useTranslations('Board.InitialContent');
   return (
-    <Box sx={{ height: '100%', backgroundColor: '#f8f8f8' }}>
+    <Box sx={{ height: '100%' }}>
       <Box
         sx={{
           display: 'flex',
@@ -88,7 +109,7 @@ export default function InitialContent() {
                 lineHeight: '56px',
               }}
             >
-              {messages.rich('createANewAiBoard', {
+              {messages.rich('createANewBoard', {
                 br: () => <br />,
                 b: (children) => <b>{children}</b>,
               })}
@@ -134,7 +155,12 @@ export default function InitialContent() {
                   key={index}
                   sx={{ flexShrink: 0, flexGrow: 1, flexBasis: '250px' }}
                 >
-                  <PromptExamplesTextField message={messages(key)} />
+                  <PromptExamplesTextField
+                    promptValues={{
+                      ...key,
+                      description: messages(key.description),
+                    }}
+                  />
                 </Box>
               );
             })}

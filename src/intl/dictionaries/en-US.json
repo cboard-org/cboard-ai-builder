@@ -1,30 +1,28 @@
 {
-  "Dashboard": {
-    "menu": "Tu vieja y el menu"
-  },
+  "Dashboard": {},
   "History": {
     "title": "History"
   },
   "Navbar": {
-    "ai": "AI",
-    "cbuilder": "CBuilder"
+    "cboard": "CBoard",
+    "builder": "Builder"
   },
   "PromptForm": {
     "rows": "Rows",
     "columns": "Columns",
     "colorScheme": "Color Scheme",
-    "aiPrompt": "AI Prompt",
+    "prompt": "Prompt",
     "useAiPictograms": "Use AI Pictograms",
-    "newAiBoard": "New ai board"
+    "newBoard": "New board"
   },
   "Board": {
     "InitialContent": {
       "ai": "AI",
-      "createANewAiBoard": "Create a <b>New <br></br> AI Board</b>",
+      "createANewBoard": "Create a <b>New <br></br> Board</b>",
       "examples": "Examples",
-      "promptExample1": "A board encourages them to arrange these pictograms in a sequence to tell a magical and adventurous story.",
-      "promptExample2": "I Want a board that describe a family of a mother, son and grandmother and all social interactions between them.",
-      "promptExample3": "Mix and match pictograms to craft imaginative stories about animal adventures and friendships"
+      "promptExample1": "Create a board with a sequence that tells a magical and adventurous story with sea animals.",
+      "promptExample2": "Show a family with a mother, son and grandmother in a house interacting.",
+      "promptExample3": "Illustrate imaginative stories about adventures and friendships between children and animals."
     },
     "BoardContainer": {
       "exportToCboard": "Export to Cboard"
@@ -35,14 +33,14 @@
     "history": "History"
   },
   "SignIn": {
-    "cboardAi": "Cboard AI",
-    "cbuilder": "CBuilder",
+    "cboard": "CBoard",
+    "builder": "Builder",
     "sloganTitle": "Fast and intelligent",
-    "sloganSubtitle": "Create Tile boards in a simple way, just by typing what you need.",
+    "sloganSubtitle": "Create tile boards by just typing what you need.",
     "ai": "AI",
-    "errorMessage": "Something went wrong during signin",
-    "hola": "¡Hola!",
-    "welcome": "Welcome to AI Board Builder",
+    "errorMessage": "Something went wrong during sign in",
+    "hello": "¡Hello!",
+    "welcome": "Welcome to the Communication Board Builder",
     "loginButton": "LOGIN",
     "signUpButton": "SIGN UP",
     "signInWith": "Sign in with {provider}",

@@ -103,7 +103,7 @@ const BoardSection = () => {
       >
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           startIcon={<NorthEast />}
           sx={{ fontSize: '0.7rem' }}
         >
@@ -116,7 +116,9 @@ const BoardSection = () => {
 
 export default function BoardContainer() {
   // should use board from store as truth
-  const { board: boardFromStore } = useBoundStore((state) => state);
+  const { board: boardFromStore, errorOnBoardGeneration } = useBoundStore(
+    (state) => state,
+  );
 
   return (
     <Box
@@ -124,7 +126,6 @@ export default function BoardContainer() {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#f8f8f8',
         borderRadius: 1,
       }}
     >
@@ -139,7 +140,11 @@ export default function BoardContainer() {
             alignItems: 'center',
           }}
         >
-          <p>LOADING...</p>
+          {errorOnBoardGeneration ? (
+            <p style={{ color: 'red' }}>ERROR!</p>
+          ) : (
+            <p>LOADING...</p>
+          )}
         </Box>
       )}
     </Box>

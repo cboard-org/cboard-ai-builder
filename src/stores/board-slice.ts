@@ -2,7 +2,11 @@ import { StateCreator } from 'zustand';
 import { BoardRecord } from '@/dashboard/@board/types';
 import { Store } from './../providers/StoreProvider';
 
-export type BoardStoreRecord = BoardRecord | null;
+export type BoardStoreRecord = {
+  board: BoardRecord | null;
+  errorOnBoardGeneration?: boolean;
+  shouldDisplayInitialContent: boolean;
+};
 
 export type BoardActions = {
   /*
@@ -11,21 +15,19 @@ export type BoardActions = {
   */
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
+  setErrorOnBoardGeneration: () => void;
+  showInitialContent: () => void;
 };
-export type BoardSlice = { board: BoardStoreRecord } & BoardActions;
+export type BoardSlice = BoardStoreRecord & BoardActions;
 
-export const defaultBoardState: { board: BoardRecord } = {
-  board: {
-    id: '',
-    isPublic: false,
-    tiles: [],
-    isFixed: false,
-    author: '',
-    email: '',
-    lastEdited: '',
-    grid: { rows: 5, columns: 5, order: [] },
-    cellSize: '',
-  },
+export const defaultBoardState: {
+  shouldDisplayInitialContent: boolean;
+  board: null;
+  errorOnBoardGeneration: boolean;
+} = {
+  shouldDisplayInitialContent: false,
+  board: null,
+  errorOnBoardGeneration: false,
 };
 
 export const createBoardSlice: StateCreator<
@@ -34,10 +36,26 @@ export const createBoardSlice: StateCreator<
   [],
   BoardSlice
 > = (set) => ({
-  board: null,
-  setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
+  ...defaultBoardState,
+  setBoard: (board: BoardRecord) =>
+    set(() => ({ board: board }), false, {
+      type: 'Board/setBoard',
+      board,
+    }),
   cleanBoard: () => {
     // Should show a confirmation dialog
-    set(() => ({ board: null }));
+    set(() => defaultBoardState, false, {
+      type: 'Board/cleanBoard',
+    });
+  },
+  setErrorOnBoardGeneration: () => {
+    set(() => ({ errorOnBoardGeneration: true }), false, {
+      type: 'Board/setErrorOnBoardGeneration',
+    });
+  },
+  showInitialContent: () => {
+    set(() => ({ shouldDisplayInitialContent: true }), false, {
+      type: 'Board/showInitialContent',
+    });
   },
 });

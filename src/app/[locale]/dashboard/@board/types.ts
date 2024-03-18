@@ -20,4 +20,5 @@ export type BoardRecord = {
   name?: string;
   prevId?: string;
   focusedTileId?: string;
+  promptId?: string;
 };
