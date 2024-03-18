@@ -7,7 +7,6 @@ jobs:
         auth:
           username: cboardci
           password: $DOCKERHUB_PASSWORD
-      - image: circleci/mongo:4.0
     working_directory: ~/repo
     steps:
       - checkout
