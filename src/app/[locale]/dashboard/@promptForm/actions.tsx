@@ -52,9 +52,8 @@ export async function submit(
   board?: BoardRecord;
 }> {
   const session = await getServerSession(authConfig);
-
   if (!session) {
-    return { error: { message: 'Failed to get session, please log in' } }; //redirect to login
+    throw new Error('User not authenticated');
   }
 
   const prompt = formData.get('prompt-text'),
