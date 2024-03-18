@@ -3,7 +3,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { Store } from './../providers/StoreProvider';
 
 export type PromptActions = {
-  setPrompt: (prompt: Partial<PromptRecord>) => void;
+  setPrompt: (prompt: PromptRecord) => void;
 };
 
 export type PromptSlice = { prompt: PromptRecord } & PromptActions;
@@ -24,8 +24,8 @@ export const createPromptSlice: StateCreator<
 > = (set) => ({
   //check this initstate = defaultPromptState
   prompt: { ...defaultPromptState },
-  setPrompt: (prompt: Partial<PromptRecord>) =>
-    set((state) => ({ prompt: { ...state.prompt, ...prompt } }), false, {
+  setPrompt: (prompt: PromptRecord) =>
+    set(() => ({ prompt: { ...prompt } }), false, {
       type: 'Prompt/setPompt',
       prompt,
     }),
