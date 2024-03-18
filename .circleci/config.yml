@@ -19,7 +19,7 @@ jobs:
             - yarn-packages-v1-
       # Install and save node_modules to cache
       - run:
-          name: Install dependencias 
+          name: Install dependencias
           command: |
             yarn install --cache-folder ~/.cache/yarn
       - save_cache:
@@ -31,7 +31,7 @@ jobs:
       - image: cimg/node:18.18.1
         auth:
           username: cboardci
-          password: $DOCKERHUB_PASSWORD 
+          password: $DOCKERHUB_PASSWORD
     working_directory: ~/repo
     steps:
       - checkout
@@ -49,12 +49,12 @@ jobs:
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       # Build Docker Image
       # https://circleci.com/docs/2.0/building-docker-images/#overview
-      - setup_remote_docker:   # (2)
-          docker_layer_caching: false  # (3)
+      - setup_remote_docker: # (2)
+          docker_layer_caching: false # (3)
       # build and push Docker image
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t cboard/cboard-ai-builder:$TAG -t cboard/cboard-ai-builder:latest .
+          docker build -t cboard/cboard-ai-builder:$TAG -t cboard/cboard-ai-builder:latest -f ./docker/Dockerfile .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push cboard/cboard-ai-builder:latest
           docker push cboard/cboard-ai-builder:$TAG
