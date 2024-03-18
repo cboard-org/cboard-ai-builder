@@ -22,6 +22,7 @@ import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
+import { Prompt } from '../types';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -57,19 +58,35 @@ function SubmitButton({ text }: { text: string }) {
   );
 }
 
-const useBlink = (
-  description: string,
-  setDescriptionValue: React.Dispatch<React.SetStateAction<string>>,
+const usePromptBlinkAnimation = (
+  prompt: Prompt,
+  setControlledPromptValue: React.Dispatch<React.SetStateAction<Prompt>>,
 ) => {
   const [blink, setBlink] = React.useState(true);
-
-  React.useEffect(() => {
-    if (description) setBlink(false);
+  const trigAnimation = React.useCallback(() => {
+    if (prompt) setBlink(false);
     setTimeout(() => {
       setBlink(true);
-      setDescriptionValue(description);
+      setControlledPromptValue(prompt);
     }, 300);
-  }, [description, setDescriptionValue]);
+  }, [prompt, setControlledPromptValue]);
+
+  const useTrigAnimationOnPromptChange = ({
+    prompt,
+    trigAnimation,
+  }: {
+    prompt: Prompt;
+    trigAnimation: () => void;
+  }) => {
+    const prevPrompt = usePrevious(prompt);
+    React.useEffect(() => {
+      const promptIsUpdated =
+        JSON.stringify(prevPrompt) !== JSON.stringify(prompt);
+      if (promptIsUpdated) trigAnimation();
+    }, [prompt, trigAnimation, prevPrompt]);
+  };
+
+  useTrigAnimationOnPromptChange({ prompt, trigAnimation });
 
   return blink;
 };
@@ -87,45 +104,38 @@ const useFormStateWatcher = () => {
   return formAction;
 };
 
-const useSetDescriptionValueDebounce = ({
-  description,
-  setDescriptionValue,
-}: {
-  description: string;
-  setDescriptionValue: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+const usePrevious = <T,>(value: T): T | undefined => {
+  const ref = React.useRef<T>();
   React.useEffect(() => {
-    const debounce = setTimeout(() => {
-      setDescriptionValue(description);
-    }, 2000);
-    return () => clearTimeout(debounce);
-  }, [description, setDescriptionValue]);
+    ref.current = value;
+  });
+  return ref.current;
 };
 
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { cleanBoard } = useBoundStore((state) => state);
   const message = useTranslations('PromptForm');
-  const {
-    prompt: { description },
-    setPrompt,
-  } = useBoundStore((state) => state);
-  const [descriptionValue, setDescriptionValue] = React.useState('');
+  const { prompt, setPrompt } = useBoundStore((state) => state);
+
+  const initialPromptValue: Prompt = {
+    description: '',
+    rows: 5,
+    columns: 5,
+    colorScheme: 'fitzgerald',
+    shouldUsePictonizer: true,
+  };
+
+  const [controlledPromptValue, setControlledPromptValue]: [
+    Prompt,
+    React.Dispatch<React.SetStateAction<Prompt>>,
+  ] = React.useState(initialPromptValue);
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);
 
   const formAction = useFormStateWatcher();
-  const blink = useBlink(description, setDescriptionValue);
-  useSetDescriptionValueDebounce({ description, setDescriptionValue });
 
-  const formSubmitAction = async (formData: FormData) => {
-    const descriptionOnForm = formData.get('prompt-text')?.toString() || '';
-    if (descriptionOnForm) {
-      setDescriptionValue(descriptionOnForm);
-      setPrompt({ description: descriptionOnForm });
-    }
-    formAction(formData);
-  };
+  const blink = usePromptBlinkAnimation(prompt, setControlledPromptValue);
 
   return (
     <Fade
@@ -139,7 +149,16 @@ export function PromptForm() {
       }}
       ref={formRef}
     >
-      <form onSubmit={() => cleanBoard()} action={formSubmitAction}>
+      <form
+        onSubmit={() => {
+          cleanBoard();
+          if (controlledPromptValue) {
+            setControlledPromptValue(controlledPromptValue);
+            setPrompt(controlledPromptValue);
+          }
+        }}
+        action={formAction}
+      >
         <Grid p={3} container>
           <Grid item xs={12}>
             <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
@@ -168,6 +187,13 @@ export function PromptForm() {
                     labelId="rows-label"
                     totalItems={totalRows}
                     initialValue={5}
+                    onChange={(e) => {
+                      setControlledPromptValue({
+                        ...controlledPromptValue,
+                        rows: Number(e.target.value),
+                      });
+                    }}
+                    value={controlledPromptValue.rows}
                   />
                 </FormControl>
               </Box>
@@ -200,6 +226,13 @@ export function PromptForm() {
                     labelId="columns-label"
                     totalItems={totalColumns}
                     initialValue={5}
+                    onChange={(e) => {
+                      setControlledPromptValue({
+                        ...controlledPromptValue,
+                        columns: Number(e.target.value),
+                      });
+                    }}
+                    value={controlledPromptValue.columns}
                   />
                 </FormControl>
               </Box>
@@ -246,14 +279,26 @@ export function PromptForm() {
                   id="color-scheme"
                   name="color-scheme"
                   labelId="color-scheme-label"
-                  defaultValue="default"
+                  defaultValue="fitzgerald"
                   displayEmpty
                   inputProps={{ 'aria-label': 'Without label' }}
                   sx={{ backgroundColor: 'white' }}
+                  onChange={(e) => {
+                    setControlledPromptValue({
+                      ...controlledPromptValue,
+                      colorScheme:
+                        e.target.value === 'fitzgerald' ||
+                        e.target.value === 'something-else' ||
+                        e.target.value === 'foo'
+                          ? e.target.value
+                          : 'fitzgerald',
+                    });
+                  }}
+                  value={controlledPromptValue.colorScheme}
                 >
-                  <MenuItem value="default">Default</MenuItem>
-                  <MenuItem value="dark">Dark</MenuItem>
-                  <MenuItem value="light">Light</MenuItem>
+                  <MenuItem value="fitzgerald">Fitzgerald</MenuItem>
+                  <MenuItem value="something-else">something-else</MenuItem>
+                  <MenuItem value="foo">foo</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -302,15 +347,16 @@ export function PromptForm() {
                     paddingTop: '0.5rem',
                   },
                 }}
-                inputProps={{ minLength: 5, maxLength: 60 }}
+                inputProps={{ minLength: 5, maxLength: 180 }}
                 sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
                 inputRef={descriptionTextFieldRef}
                 onChange={(e) => {
-                  setDescriptionValue(e.target.value);
+                  setControlledPromptValue({
+                    ...controlledPromptValue,
+                    description: e.target.value,
+                  });
                 }}
-                value={
-                  descriptionValue?.length === 0 ? undefined : descriptionValue
-                }
+                value={controlledPromptValue.description}
               />
             </Box>
           </Grid>
