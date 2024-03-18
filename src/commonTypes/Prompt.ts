@@ -1,4 +1,4 @@
-export type Prompt = {
+export type PromptRecord = {
   description: string;
   rows: number;
   columns: number;
