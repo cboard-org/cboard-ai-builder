@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
-import { LabelPositionRecord } from '../Tile/types';
+import { LabelPositionRecord } from '../../commonTypes/Tile';
 
 type Props = {
   label: string | undefined;

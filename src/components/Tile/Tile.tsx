@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
-import { TileRecord, LabelPositionRecord } from './types';
+import { TileRecord, LabelPositionRecord } from '../../commonTypes/Tile';
 
 type Props = {
   children?: ReactNode;

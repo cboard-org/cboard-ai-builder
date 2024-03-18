@@ -1,5 +1,5 @@
 import { Grid } from '../app/[locale]/dashboard/@board/Grid/types';
-import { TileRecord } from '@/components/Tile/types';
+import { TileRecord } from '@/commonTypes/Tile';
 
 export type BoardRecord = {
   id: string;

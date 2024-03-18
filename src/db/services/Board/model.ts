@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { BoardRecord } from '@/commonTypes/Board';
-import { TileRecord } from '@/components/Tile/types';
+import { TileRecord } from '@/commonTypes/Tile';
 
 export type DbBoardRecord = BoardRecord & {
   userId: string;

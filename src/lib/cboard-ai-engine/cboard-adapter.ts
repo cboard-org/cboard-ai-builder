@@ -1,6 +1,6 @@
 'use server';
 import { BoardRecord } from '@/commonTypes/Board';
-import { TileRecord } from '@/components/Tile/types';
+import { TileRecord } from '@/commonTypes/Tile';
 import testBoard from '@/dashboard/@board/testBoard.json';
 import { Suggestion, AIImage } from 'cboard-ai-engine';
 
