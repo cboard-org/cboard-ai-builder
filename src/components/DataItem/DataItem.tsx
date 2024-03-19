@@ -9,10 +9,12 @@ import { useBoundStore } from '@/providers/StoreProvider';
 
 import Box from '@mui/material/Box';
 import { Prompt } from '@/app/[locale]/dashboard/types';
+import { BoardRecord } from '@/dashboard/@board/types';
 
 export type BaseDataItemType = {
   prompt: Prompt;
   date: Date | string;
+  board?: BoardRecord;
 };
 
 type Props<DataType extends BaseDataItemType> = {
@@ -27,8 +29,9 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const { setPrompt } = useBoundStore((store) => store);
+  const { setPrompt, changeBoard } = useBoundStore((store) => store);
   const onEdit = () => {
+    if (data.board) changeBoard(data.board);
     setPrompt({
       description,
       rows,
