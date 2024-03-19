@@ -5,8 +5,9 @@ import { PromptSlice, createPromptSlice } from '@/stores/prompt-slice';
 import { BoardSlice, createBoardSlice } from '@/stores/board-slice';
 import { devtools } from 'zustand/middleware';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { DashboardSlice, createDashboardSlice } from '@/stores/dashboard-slice';
 
-export type Store = PromptSlice & BoardSlice;
+export type Store = PromptSlice & BoardSlice & DashboardSlice;
 export const StoreContext = createContext<StoreApi<Store> | null>(null);
 
 export default function StoreProvider({ children }: React.PropsWithChildren) {
@@ -34,6 +35,7 @@ export default function StoreProvider({ children }: React.PropsWithChildren) {
           (...props) => ({
             ...createPromptSlice(...props),
             ...createBoardSlice(...props),
+            ...createDashboardSlice(...props),
           }),
           persistConfig,
         ),
