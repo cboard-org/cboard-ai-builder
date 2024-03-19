@@ -1,6 +1,6 @@
 import dbConnect from '@/lib/dbConnect';
 import PromptModel from './model';
-import { type Prompt } from '@/app/[locale]/dashboard/types';
+import { type PromptRecord } from '@/commonTypes/Prompt';
 import { stringToObjectId } from '@/db/utils/helpers';
 
 export async function create({
@@ -8,7 +8,7 @@ export async function create({
   prompt,
 }: {
   userId: string;
-  prompt: Prompt;
+  prompt: PromptRecord;
 }) {
   await dbConnect();
 

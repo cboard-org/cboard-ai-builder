@@ -8,10 +8,10 @@ import { useFormatter } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 
 import Box from '@mui/material/Box';
-import { Prompt } from '@/app/[locale]/dashboard/types';
+import { PromptRecord } from '@/commonTypes/Prompt';
 
 export type BaseDataItemType = {
-  prompt: Prompt;
+  prompt: PromptRecord;
   date: Date | string;
 };
 

@@ -1,5 +1,5 @@
-import { Grid } from './Grid/types';
-import { TileRecord } from '@/components/Tile/types';
+import { Grid } from '@/commonTypes/Grid';
+import { TileRecord } from '@/commonTypes/Tile';
 
 export type BoardRecord = {
   id: string;
