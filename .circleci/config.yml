@@ -4,9 +4,6 @@ jobs:
   build:
     docker:
       - image: cimg/node:18.18.1
-        auth:
-          username: cboardci
-          password: $DOCKERHUB_PASSWORD
     working_directory: ~/repo
     steps:
       - checkout
