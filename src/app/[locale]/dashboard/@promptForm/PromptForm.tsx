@@ -29,6 +29,10 @@ const totalColumns = 12;
 
 function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
+  const { setGenerationPending } = useBoundStore((state) => state);
+  React.useEffect(() => {
+    setGenerationPending(pending);
+  }, [pending, setGenerationPending]);
 
   return (
     <Box sx={{ position: 'relative' }}>
