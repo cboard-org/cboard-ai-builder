@@ -6,6 +6,7 @@ export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
   shouldDisplayInitialContent: boolean;
+  boardId?: string;
 };
 
 export type BoardActions = {
@@ -17,6 +18,7 @@ export type BoardActions = {
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
   showInitialContent: () => void;
+  changeBoard: (nextBoard: BoardRecord) => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
@@ -58,4 +60,29 @@ export const createBoardSlice: StateCreator<
       type: 'Board/showInitialContent',
     });
   },
+  changeBoard: (nextBoard: BoardRecord) =>
+    set(
+      ({ setBoard, cleanBoard }: Store) => {
+        const updateDashboardUI = () => {
+          cleanBoard();
+          setBoard(nextBoard);
+          const pathname = location.pathname;
+
+          const newPath = pathname.includes('dashboard/')
+            ? pathname.replace(/dashboard\/\w+/, `dashboard/${nextBoard.id}`)
+            : `${pathname}/${nextBoard.id}`;
+
+          window.history.pushState(null, '', `${newPath}`);
+        };
+
+        updateDashboardUI();
+
+        return { boardId: nextBoard.id };
+      },
+      false,
+      {
+        type: 'Board/changeBoard',
+        nextBoard,
+      },
+    ),
 });
