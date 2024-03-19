@@ -31,11 +31,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      # Build Docker Image
       # https://circleci.com/docs/2.0/building-docker-images/#overview
-      - setup_remote_docker: # (2)
-          docker_layer_caching: false # (3)
-      # build and push Docker image
+      - setup_remote_docker:
+          docker_layer_caching: false
       - run:
           name: Build Docker image
           command: |
