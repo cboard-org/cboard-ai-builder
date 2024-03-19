@@ -1,6 +1,7 @@
 'use client';
 import React, { ReactNode } from 'react';
-import { Item, GridOrder } from './types';
+import { Item } from './types';
+import { GridOrder } from '@/commonTypes/Grid';
 import styles from './Grid.module.css';
 import * as utils from './gridManipulation';
 import Row from './Row/Row';

@@ -1,7 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 //TODO refactor to avoid using any
 
-import { Grid, GridOrder } from './types';
+import { Grid, GridOrder } from '@/commonTypes/Grid';
 
 export function createGrid(rows: number = 2, columns: number = 2): Grid {
   const order = createMatrix(rows, columns);

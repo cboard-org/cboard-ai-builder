@@ -1,10 +1,13 @@
 'use server';
 
-import { Prompt } from '../types';
+import { PromptRecord } from '@/commonTypes/Prompt';
+import { BoardRecord } from '@/commonTypes/Board';
+import testBoard from '../@board/testBoard.json';
 
 export type SavedBoardsData = {
   id: number | string;
-  prompt: Prompt;
+  board: BoardRecord;
+  prompt: PromptRecord;
   date: Date | string;
 };
 
@@ -17,6 +20,7 @@ todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
 const fake_db: SavedBoardsData[] = [
   {
     id: 1,
+    board: testBoard[0],
     prompt: {
       description: 'pretty family in a camp with a cup',
       rows: 5,
@@ -28,6 +32,7 @@ const fake_db: SavedBoardsData[] = [
   },
   {
     id: 2,
+    board: testBoard[1],
     prompt: {
       description: 'pretty family in a camp with a cup',
       rows: 5,
@@ -39,6 +44,7 @@ const fake_db: SavedBoardsData[] = [
   },
   {
     id: 3,
+    board: testBoard[1],
     prompt: {
       description: 'an arabic famm',
       rows: 5,
@@ -50,41 +56,9 @@ const fake_db: SavedBoardsData[] = [
   },
   {
     id: 4,
+    board: testBoard[1],
     prompt: {
       description: 'pretty family in a camp with a cup',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: yesterday.toISOString(),
-  },
-  {
-    id: 2,
-    prompt: {
-      description: 'a big familly',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: todayHoursAgo.toISOString(),
-  },
-  {
-    id: 3,
-    prompt: {
-      description: 'a big famillyaaaa',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: yesterday.toISOString(),
-  },
-  {
-    id: 4,
-    prompt: {
-      description: 'a big familly',
       rows: 5,
       columns: 5,
       colorScheme: 'fitzgerald',

@@ -1,8 +1,13 @@
 import { StateCreator } from 'zustand';
-import { BoardRecord } from '@/dashboard/@board/types';
+import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
 
-export type BoardStoreRecord = BoardRecord | null;
+export type BoardStoreRecord = {
+  board: BoardRecord | null;
+  errorOnBoardGeneration?: boolean;
+  shouldDisplayInitialContent: boolean;
+  boardId?: string;
+};
 
 export type BoardActions = {
   /*
@@ -11,21 +16,20 @@ export type BoardActions = {
   */
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
+  setErrorOnBoardGeneration: () => void;
+  showInitialContent: () => void;
+  changeBoard: (nextBoard: BoardRecord) => void;
 };
-export type BoardSlice = { board: BoardStoreRecord } & BoardActions;
+export type BoardSlice = BoardStoreRecord & BoardActions;
 
-export const defaultBoardState: { board: BoardRecord } = {
-  board: {
-    id: '',
-    isPublic: false,
-    tiles: [],
-    isFixed: false,
-    author: '',
-    email: '',
-    lastEdited: '',
-    grid: { rows: 5, columns: 5, order: [] },
-    cellSize: '',
-  },
+export const defaultBoardState: {
+  shouldDisplayInitialContent: boolean;
+  board: null;
+  errorOnBoardGeneration: boolean;
+} = {
+  shouldDisplayInitialContent: false,
+  board: null,
+  errorOnBoardGeneration: false,
 };
 
 export const createBoardSlice: StateCreator<
@@ -34,10 +38,51 @@ export const createBoardSlice: StateCreator<
   [],
   BoardSlice
 > = (set) => ({
-  board: null,
-  setBoard: (board: BoardRecord) => set(() => ({ board: { ...board } })),
+  ...defaultBoardState,
+  setBoard: (board: BoardRecord) =>
+    set(() => ({ board: board }), false, {
+      type: 'Board/setBoard',
+      board,
+    }),
   cleanBoard: () => {
     // Should show a confirmation dialog
-    set(() => ({ board: null }));
+    set(() => defaultBoardState, false, {
+      type: 'Board/cleanBoard',
+    });
   },
+  setErrorOnBoardGeneration: () => {
+    set(() => ({ errorOnBoardGeneration: true }), false, {
+      type: 'Board/setErrorOnBoardGeneration',
+    });
+  },
+  showInitialContent: () => {
+    set(() => ({ shouldDisplayInitialContent: true }), false, {
+      type: 'Board/showInitialContent',
+    });
+  },
+  changeBoard: (nextBoard: BoardRecord) =>
+    set(
+      ({ setBoard, cleanBoard }: Store) => {
+        cleanBoard();
+        setBoard(nextBoard);
+
+        // Update the URL without refreshing the page. Implement when
+        // implement this when add the [id] param to the dashboard route
+        // const updateURL = () => {
+        // const pathname = location.pathname;
+        // const newPath = pathname.includes('dashboard/')
+        //   ? pathname.replace(/dashboard\/\w+/, `dashboard/${nextBoard.id}`)
+        //   : `${pathname}/${nextBoard.id}`;
+        //   window.history.pushState(null, '', `${newPath}`);
+        // };
+        // updateURL();
+
+        return { boardId: nextBoard.id };
+      },
+      false,
+      {
+        type: 'Board/changeBoard',
+        nextBoard,
+      },
+    ),
 });

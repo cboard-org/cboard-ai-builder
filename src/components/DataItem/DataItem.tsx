@@ -8,11 +8,13 @@ import { useFormatter } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 
 import Box from '@mui/material/Box';
-import { Prompt } from '@/app/[locale]/dashboard/types';
+import { PromptRecord } from '@/commonTypes/Prompt';
+import { BoardRecord } from '@/commonTypes/Board';
 
 export type BaseDataItemType = {
-  prompt: Prompt;
+  prompt: PromptRecord;
   date: Date | string;
+  board?: BoardRecord;
 };
 
 type Props<DataType extends BaseDataItemType> = {
@@ -27,8 +29,11 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const { setPrompt } = useBoundStore((store) => store);
+  const { setPrompt, changeBoard, isGenerationPending } = useBoundStore(
+    (store) => store,
+  );
   const onEdit = () => {
+    if (data.board) changeBoard(data.board);
     setPrompt({
       description,
       rows,
@@ -42,7 +47,12 @@ export default function DataItem<DataType extends BaseDataItemType>({
       divider
       secondaryAction={
         <Box>
-          <IconButton aria-label="Edit" onClick={() => onEdit()} size="small">
+          <IconButton
+            disabled={isGenerationPending}
+            aria-label="Edit"
+            onClick={() => onEdit()}
+            size="small"
+          >
             <EditOutlined fontSize="small" />
           </IconButton>
           <IconButton

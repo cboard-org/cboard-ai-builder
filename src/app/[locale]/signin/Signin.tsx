@@ -53,9 +53,9 @@ export default function Signin({
                     color={'#000000'}
                     //sx={{ fontWeight: 'bold', fontSize: '26px' }}
                   >
-                    {t('cboardAi')}
+                    {t('cboard')}
                   </Typography>{' '}
-                  {t('cbuilder')}
+                  {t('builder')}
                 </Typography>
               </Stack>
               <Box
@@ -119,15 +119,15 @@ export default function Signin({
                       fontSize={16}
                       fontWeight={800}
                     >
-                      {t('cboardAi')}
+                      {t('cboard')}
                     </Typography>{' '}
-                    {t('cbuilder')}
+                    {t('builder')}
                   </Typography>
                 </Stack>
               </Box>
               <Box sx={styles.mainContainer}>
                 <Box sx={styles.welcomeTextContainer}>
-                  <Typography sx={styles.holaText}>{t('hola')}</Typography>
+                  <Typography sx={styles.holaText}>{t('hello')}</Typography>
                   <Typography sx={styles.welcomeText}>
                     {t('welcome')}
                   </Typography>
