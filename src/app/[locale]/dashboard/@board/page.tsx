@@ -1,10 +1,13 @@
-'use client';
-import InitialContent from './InitialContent';
-import BoardContainer from './BoardContainer';
-import { useBoundStore } from '@/providers/StoreProvider';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import BoardDisplayed from './BoardPage';
+import pick from 'lodash.pick';
 
-export default function BoardPage() {
-  const { shouldDisplayInitialContent } = useBoundStore((state) => state);
+export default function Page() {
+  const messages = useMessages();
 
-  return shouldDisplayInitialContent ? <InitialContent /> : <BoardContainer />;
+  return (
+    <NextIntlClientProvider messages={pick(messages, 'Board')}>
+      <BoardDisplayed />
+    </NextIntlClientProvider>
+  );
 }

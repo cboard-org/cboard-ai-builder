@@ -7,7 +7,7 @@ import Grid from './Grid';
 import React, { useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
-import { BoardRecord } from './types';
+import { BoardRecord } from '@/commonTypes/Board';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';

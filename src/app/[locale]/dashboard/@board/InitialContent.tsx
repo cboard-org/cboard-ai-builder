@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import Button from '@mui/material/Button';
 import styles from './styles';
 import { useBoundStore } from '@/providers/StoreProvider';
-import { Prompt } from '../types';
+import { PromptRecord } from '@/commonTypes/Prompt';
 
 const promptExampleMessagesKey = [
   {
@@ -39,7 +39,7 @@ const promptExampleMessagesKey = [
 const PromptExamplesTextField = ({
   promptValues,
 }: {
-  promptValues: Prompt;
+  promptValues: PromptRecord;
 }) => {
   const { setPrompt } = useBoundStore((state) => state);
 

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { type Prompt as PromptRecord } from '@/app/[locale]/dashboard/types';
+import { PromptRecord } from '@/commonTypes/Prompt';
 
 export type DbPromptRecord = PromptRecord & {
   userId: string;

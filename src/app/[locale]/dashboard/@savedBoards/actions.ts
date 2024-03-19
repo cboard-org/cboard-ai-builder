@@ -1,13 +1,13 @@
 'use server';
 
-import { BoardRecord } from '../@board/types';
-import { Prompt } from '../types';
+import { PromptRecord } from '@/commonTypes/Prompt';
+import { BoardRecord } from '@/commonTypes/Board';
 import testBoard from '../@board/testBoard.json';
 
 export type SavedBoardsData = {
   id: number | string;
   board: BoardRecord;
-  prompt: Prompt;
+  prompt: PromptRecord;
   date: Date | string;
 };
 

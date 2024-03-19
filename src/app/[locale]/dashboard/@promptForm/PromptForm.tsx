@@ -22,7 +22,7 @@ import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
-import { Prompt } from '../types';
+import { PromptRecord } from '@/commonTypes/Prompt';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -59,8 +59,8 @@ function SubmitButton({ text }: { text: string }) {
 }
 
 const usePromptBlinkAnimation = (
-  prompt: Prompt,
-  setControlledPromptValue: React.Dispatch<React.SetStateAction<Prompt>>,
+  prompt: PromptRecord,
+  setControlledPromptValue: React.Dispatch<React.SetStateAction<PromptRecord>>,
 ) => {
   const [blink, setBlink] = React.useState(true);
   const trigAnimation = React.useCallback(() => {
@@ -75,7 +75,7 @@ const usePromptBlinkAnimation = (
     prompt,
     trigAnimation,
   }: {
-    prompt: Prompt;
+    prompt: PromptRecord;
     trigAnimation: () => void;
   }) => {
     const prevPrompt = usePrevious(prompt);
@@ -118,7 +118,7 @@ export function PromptForm() {
   const message = useTranslations('PromptForm');
   const { prompt, setPrompt } = useBoundStore((state) => state);
 
-  const initialPromptValue: Prompt = {
+  const initialPromptValue: PromptRecord = {
     description: '',
     rows: 5,
     columns: 5,
@@ -127,8 +127,8 @@ export function PromptForm() {
   };
 
   const [controlledPromptValue, setControlledPromptValue]: [
-    Prompt,
-    React.Dispatch<React.SetStateAction<Prompt>>,
+    PromptRecord,
+    React.Dispatch<React.SetStateAction<PromptRecord>>,
   ] = React.useState(initialPromptValue);
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);

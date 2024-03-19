@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { toCboardAdapter } from '@/lib/cboard-ai-engine/cboard-adapter';
 import { initEngine } from 'cboard-ai-engine';
 import { type PictonizerConfiguration } from 'cboard-ai-engine';
-import { BoardRecord } from '../@board/types';
+import { BoardRecord } from '@/commonTypes/Board';
 import { getServerSession } from 'next-auth/next';
 import authConfig from '@/lib/next-auth/config';
 import { create as savePrompt } from '@/db/services/Prompt/service';

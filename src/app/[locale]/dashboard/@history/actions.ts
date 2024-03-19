@@ -1,10 +1,10 @@
 'use server';
 
-import { Prompt } from '../types';
+import { PromptRecord } from '@/commonTypes/Prompt';
 
 export type HistoryData = {
   id: number | string;
-  prompt: Prompt;
+  prompt: PromptRecord;
   date: Date | string;
 };
 
