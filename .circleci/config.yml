@@ -10,15 +10,13 @@ jobs:
       - run:
           name: Install dependencias
           command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            echo 'TAG'
-            echo 'export TAG=$TAG' >> $BASH_ENV
+            echo 'export TAG=0.1.$CIRCLE_BUILD_NUM' >> $BASH_ENV
+            echo '$TAG'
             yarn install --cache-folder ~/.cache/yarn
       - run:
           name: Run tests
           command: |
             echo $TAG
-            echo $BASH_ENV
             echo "HOLA:$TAG"
   image:
     docker:
