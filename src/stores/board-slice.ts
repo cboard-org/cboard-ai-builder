@@ -63,19 +63,19 @@ export const createBoardSlice: StateCreator<
   changeBoard: (nextBoard: BoardRecord) =>
     set(
       ({ setBoard, cleanBoard }: Store) => {
-        const updateDashboardUI = () => {
-          cleanBoard();
-          setBoard(nextBoard);
-          const pathname = location.pathname;
+        cleanBoard();
+        setBoard(nextBoard);
 
-          const newPath = pathname.includes('dashboard/')
-            ? pathname.replace(/dashboard\/\w+/, `dashboard/${nextBoard.id}`)
-            : `${pathname}/${nextBoard.id}`;
-
-          window.history.pushState(null, '', `${newPath}`);
-        };
-
-        updateDashboardUI();
+        // Update the URL without refreshing the page. Implement when
+        // implement this when add the [id] param to the dashboard route
+        // const updateURL = () => {
+        // const pathname = location.pathname;
+        // const newPath = pathname.includes('dashboard/')
+        //   ? pathname.replace(/dashboard\/\w+/, `dashboard/${nextBoard.id}`)
+        //   : `${pathname}/${nextBoard.id}`;
+        //   window.history.pushState(null, '', `${newPath}`);
+        // };
+        // updateURL();
 
         return { boardId: nextBoard.id };
       },
