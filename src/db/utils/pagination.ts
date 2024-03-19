@@ -1,41 +1,47 @@
-import { Model, Document, FilterQuery } from 'mongoose';
+import { Model, FilterQuery } from 'mongoose';
 
-type QueryType<T extends Document> = FilterQuery<T>;
-
-type PaginationOptions<T extends Document> = {
-  query?: QueryType<T>;
-  populate?: string[];
-  page?: number;
+interface PaginationOptions<Item> {
+  query?: FilterQuery<Item>;
+  actualPage?: number;
   limit?: number;
-};
+  itemsPerPage?: number;
+}
 
-type PaginatedData<T extends Document> = {
-  total: number;
-  page: number;
+interface PaginatedData<Item> {
+  totalItems: number;
+  totalPages: number;
+  actualPage: number;
   limit: number;
-  data: T[];
-};
+  data: Item[];
+}
 
-const paginationResponse = async <T extends Document>(
-  model: Model<T>,
-  { query = {}, page = 1, limit = 10 }: PaginationOptions<T> = {},
-): Promise<PaginatedData<T>> => {
-  let total = 0;
-  let data: T[] = [];
+const paginationResponse = async <Item>(
+  model: Model<Item>,
+  {
+    query = {},
+    actualPage = 1,
+    limit = 10,
+    itemsPerPage = 2,
+  }: PaginationOptions<Item> = {},
+): Promise<PaginatedData<Item>> => {
+  let totalItems = 0;
+  let data: Item[] = [];
 
-  const skip = (page - 1) * limit;
+  const skip = (actualPage - 1) * limit;
   const queryModel = model.find(query).skip(skip).limit(limit);
 
   try {
     data = await queryModel.exec();
-    total = await model.countDocuments(query).exec();
+    totalItems = await model.countDocuments(query).exec();
   } catch (e) {
     console.error('Error fetching paginated data:', e);
   }
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return {
-    total,
-    page,
+    totalItems,
+    totalPages,
+    actualPage,
     limit,
     data,
   };
