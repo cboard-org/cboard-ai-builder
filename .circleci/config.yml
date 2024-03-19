@@ -35,10 +35,13 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
+          name: Set Docker image TAG
+          command: |
+            TAG="0.1.$CIRCLE_BUILD_NUM"
+            echo "export TAG=\"$TAG\"" >> $BASH_ENV
+      - run:
           name: Build Docker image
           command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            echo 'export TAG=$TAG' >> "$BASH_ENV"
             docker build -t cboard/cboard-ai-builder:$TAG -t cboard/cboard-ai-builder:latest -f ./docker/Dockerfile .
       - run:
           name: Push Docker image
