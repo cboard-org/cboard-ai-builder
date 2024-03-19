@@ -1,0 +1,64 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.18.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v1-{{ .Branch }}-
+            - yarn-packages-v1-
+      # Install and save node_modules to cache
+      - run:
+          name: Install dependencias
+          command: |
+            yarn install --cache-folder ~/.cache/yarn
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+  image:
+    docker:
+      - image: cimg/node:18.18.1
+        auth:
+          username: cboardci
+          password: $DOCKERHUB_PASSWORD
+    working_directory: ~/repo
+    steps:
+      - checkout
+      # https://circleci.com/docs/2.0/building-docker-images/#overview
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Set Docker image TAG
+          command: |
+            TAG="0.1.$CIRCLE_BUILD_NUM"
+            echo "export TAG=\"$TAG\"" >> $BASH_ENV
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t cboard/cboard-ai-builder:$TAG -t cboard/cboard-ai-builder:latest -f ./docker/Dockerfile .
+      - run:
+          name: Push Docker image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push cboard/cboard-ai-builder:latest
+            docker push cboard/cboard-ai-builder:$TAG
+workflows:
+  version: 2
+  build_test_image:
+    jobs:
+      - build:
+          context: google-auth
+      - image:
+          context: google-auth
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
