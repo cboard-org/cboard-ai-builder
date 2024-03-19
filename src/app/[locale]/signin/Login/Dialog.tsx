@@ -11,6 +11,7 @@ import { signIn } from 'next-auth/react';
 import Alert from '@mui/material/Alert';
 import { useTranslations } from 'next-intl';
 import { styles } from './styles';
+import { DEFAULT_CALLBACK_URL } from '../constants';
 export default function Dialog({
   open,
   handleClose,
@@ -35,7 +36,7 @@ export default function Dialog({
           const response = await signIn('credentials', {
             email: formData.get('email') as string,
             password: formData.get('password') as string,
-            callbackUrl: '/dashboard',
+            callbackUrl: DEFAULT_CALLBACK_URL,
           });
           if (response?.ok) return;
           if (response?.error) {
