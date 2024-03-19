@@ -97,14 +97,14 @@ const usePromptBlinkAnimation = (
 
 const useFormStateWatcher = () => {
   const [state, formAction] = useFormState(submit, null);
-  const { setBoard, setErrorOnBoardGeneration } = useBoundStore(
+  const { changeBoard, setErrorOnBoardGeneration } = useBoundStore(
     (state) => state,
   );
 
   React.useEffect(() => {
     if (state?.error) setErrorOnBoardGeneration();
-    if (state?.board) setBoard(state.board);
-  }, [state, setBoard, setErrorOnBoardGeneration]);
+    if (state?.board) changeBoard(state.board);
+  }, [state, changeBoard, setErrorOnBoardGeneration]);
   return formAction;
 };
 
