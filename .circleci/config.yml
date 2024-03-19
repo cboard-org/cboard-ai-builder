@@ -38,6 +38,7 @@ jobs:
           name: Build Docker image
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
+            echo 'export TAG=$TAG' >> "$BASH_ENV"
             docker build -t cboard/cboard-ai-builder:$TAG -t cboard/cboard-ai-builder:latest -f ./docker/Dockerfile .
       - run:
           name: Push Docker image
