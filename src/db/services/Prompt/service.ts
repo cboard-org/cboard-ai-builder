@@ -1,7 +1,9 @@
 import dbConnect from '@/lib/dbConnect';
-import PromptModel from './model';
+import PromptModel, { DbPromptRecord } from './model';
 import { type PromptRecord } from '@/commonTypes/Prompt';
 import { stringToObjectId } from '@/db/utils/helpers';
+import paginationResponse from '@/db/utils/pagination';
+import { SortOrder } from 'mongoose';
 
 export async function create({
   userId,
@@ -33,4 +35,35 @@ export async function get(id: string) {
   if (dbPrompt) return dbPrompt;
 
   return null;
+}
+
+export async function getPromptHistoryList({
+  userId,
+  actualPage,
+  limitPages,
+  itemsPerPage,
+}: {
+  userId: string;
+  actualPage: number;
+  limitPages: number;
+  itemsPerPage: number;
+}) {
+  await dbConnect();
+  const query = { userId };
+  const sort: Record<string, SortOrder> = { createdDate: 'desc' };
+  const promptHistoryList = await paginationResponse<DbPromptRecord>(
+    PromptModel,
+    {
+      query,
+      sort,
+      actualPage,
+      limitPages,
+      itemsPerPage,
+    },
+  );
+  const promptHistoryListToJSON = {
+    ...promptHistoryList,
+    data: promptHistoryList.data.map((prompt) => prompt.toJSON()),
+  };
+  return promptHistoryListToJSON;
 }
