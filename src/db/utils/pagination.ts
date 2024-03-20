@@ -1,7 +1,8 @@
-import { Model, FilterQuery, HydratedDocument } from 'mongoose';
+import { Model, FilterQuery, HydratedDocument, SortOrder } from 'mongoose';
 
 interface PaginationOptions<Item> {
   query?: FilterQuery<Item>;
+  sort?: Record<string, SortOrder> | string;
   actualPage?: number;
   limitPages?: number;
   itemsPerPage?: number;
@@ -19,6 +20,7 @@ const paginationResponse = async <Item>(
   model: Model<Item>,
   {
     query = {},
+    sort = { _id: 'desc' },
     actualPage = 1,
     limitPages = 4,
     itemsPerPage = 2,
@@ -40,11 +42,7 @@ const paginationResponse = async <Item>(
     skip,
   );
 
-  const queryModel = model
-    .find(query)
-    .sort({ createdDate: -1 })
-    .skip(skip)
-    .limit(limit);
+  const queryModel = model.find(query).sort(sort).skip(skip).limit(limit);
 
   try {
     data = await queryModel.exec();
