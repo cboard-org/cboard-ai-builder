@@ -1,9 +1,9 @@
-import { Model, FilterQuery } from 'mongoose';
+import { Model, FilterQuery, HydratedDocument } from 'mongoose';
 
 interface PaginationOptions<Item> {
   query?: FilterQuery<Item>;
   actualPage?: number;
-  limit?: number;
+  limitPages?: number;
   itemsPerPage?: number;
 }
 
@@ -11,8 +11,8 @@ interface PaginatedData<Item> {
   totalItems: number;
   totalPages: number;
   actualPage: number;
-  limit: number;
-  data: Item[];
+  totalRetrievedPages?: number;
+  data: HydratedDocument<Item>[];
 }
 
 const paginationResponse = async <Item>(
@@ -20,15 +20,31 @@ const paginationResponse = async <Item>(
   {
     query = {},
     actualPage = 1,
-    limit = 10,
+    limitPages = 4,
     itemsPerPage = 2,
   }: PaginationOptions<Item> = {},
 ): Promise<PaginatedData<Item>> => {
   let totalItems = 0;
-  let data: Item[] = [];
+  let data: HydratedDocument<Item>[] = [];
 
-  const skip = (actualPage - 1) * limit;
-  const queryModel = model.find(query).skip(skip).limit(limit);
+  const limit = itemsPerPage * limitPages;
+  const skip = (actualPage - 1) * itemsPerPage;
+  console.log(
+    'query',
+    query,
+    'actualPage',
+    actualPage,
+    'limit',
+    limit,
+    'skip',
+    skip,
+  );
+
+  const queryModel = model
+    .find(query)
+    .sort({ createdDate: -1 })
+    .skip(skip)
+    .limit(limit);
 
   try {
     data = await queryModel.exec();
@@ -37,12 +53,13 @@ const paginationResponse = async <Item>(
     console.error('Error fetching paginated data:', e);
   }
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalRetrievedPages = Math.ceil(data.length / itemsPerPage);
 
   return {
     totalItems,
     totalPages,
     actualPage,
-    limit,
+    totalRetrievedPages,
     data,
   };
 };
