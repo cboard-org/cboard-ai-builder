@@ -12,7 +12,7 @@ interface PaginatedData<Item> {
   totalItems: number;
   totalPages: number;
   actualPage: number;
-  totalRetrievedPages?: number;
+  totalRetrievedPages: number;
   data: HydratedDocument<Item>[];
 }
 
