@@ -48,7 +48,7 @@ const paginationResponse = async <Item>(
     data = await queryModel.exec();
     totalItems = await model.countDocuments(query).exec();
   } catch (e) {
-    console.error('Error fetching paginated data:', e);
+    throw new Error('Error fetching paginated data: ' + e);
   }
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalRetrievedPages = Math.ceil(data.length / itemsPerPage);
