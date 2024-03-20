@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <IntlWrapperForAsync propertyName="Board">
-      <BoardDisplayed board={board} />;
+      <BoardDisplayed board={board} />
     </IntlWrapperForAsync>
   );
 }
