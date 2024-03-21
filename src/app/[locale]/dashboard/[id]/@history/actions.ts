@@ -39,11 +39,11 @@ export async function getHistoryData({
 
   const promptHistoryList = await getPromptHistoryList({
     userId: session.cboard_user.id,
-    actualPage: 1,
-    limitPages: 3,
-    itemsPerPage: 2,
+    actualPage,
+    limitPages,
+    itemsPerPage,
   });
-  return promptHistoryList.data.map((prompt) => {
+  const historyData: HistoryData[] = promptHistoryList.data.map((prompt) => {
     return {
       id: prompt._id.toString(),
       prompt: {
@@ -56,6 +56,15 @@ export async function getHistoryData({
       date: prompt.createdDate.toISOString(),
     };
   });
+  return {
+    data: historyData,
+    pagination: {
+      totalPages: promptHistoryList.totalPages,
+      actualPage,
+      itemsPerPage,
+      totalRetrievedPages: promptHistoryList.totalRetrievedPages,
+    },
+  };
 }
 
 export async function removeHistoryData(data: HistoryData) {
