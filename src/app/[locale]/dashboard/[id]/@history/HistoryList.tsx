@@ -5,13 +5,14 @@ import { removeHistoryData } from './actions';
 import { HistoryData } from './actions';
 import DataList from '@/components/DataList/DataList';
 import { getHistoryData } from './actions';
+import usePagination from '@/hooks/usePagination';
 
 export default function HistoryList({
   initialHistories,
-  pagination,
+  initialPagination,
 }: {
   initialHistories: HistoryData[];
-  pagination: {
+  initialPagination: {
     totalPages: number;
     actualPage: number;
     itemsPerPage: number;
@@ -24,6 +25,13 @@ export default function HistoryList({
       return histories.filter((h) => h.id != historyToDelete.id);
     },
   );
+
+  const { handleChange, paginationCount, items } = usePagination<HistoryData>(
+    histories,
+    initialPagination,
+    getHistoryData,
+  );
+
   const deleteHistoryData = async (historyToDelete: HistoryData) => {
     deleteHistory(historyToDelete);
     await removeHistoryData(historyToDelete);
@@ -31,10 +39,14 @@ export default function HistoryList({
 
   return (
     <DataList<HistoryData>
-      list={histories}
+      list={items}
       deleteItem={deleteHistoryData}
-      pagination={pagination}
-      fetchItems={getHistoryData}
+      pagination={{
+        totalPages: paginationCount,
+        initialPage: initialPagination.actualPage,
+        itemsPerPage: initialPagination.itemsPerPage,
+      }}
+      handleChange={handleChange}
     />
   );
 }
