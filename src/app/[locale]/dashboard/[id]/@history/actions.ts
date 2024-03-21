@@ -15,6 +15,7 @@ export type GetPaginatedHistoryDataResponse = {
   data: HistoryData[];
   pagination: {
     totalPages: number;
+    totalItems: number;
     actualPage: number;
     itemsPerPage: number;
     totalRetrievedPages: number;
@@ -60,6 +61,7 @@ export async function getHistoryData({
     data: historyData,
     pagination: {
       totalPages: promptHistoryList.totalPages,
+      totalItems: promptHistoryList.totalItems,
       actualPage,
       itemsPerPage,
       totalRetrievedPages: promptHistoryList.totalRetrievedPages,
