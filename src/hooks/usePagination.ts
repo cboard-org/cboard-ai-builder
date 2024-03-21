@@ -18,36 +18,43 @@ export default function usePagination<DataItemType>(
   list: DataItemType[],
   pagination: {
     totalPages: number;
+    totalItems: number;
     actualPage: number;
     itemsPerPage: number;
-    totalRetrievedPages: number;
   },
   fetchItems: FetchPaginateData<DataItemType>,
 ) {
-  const { totalPages, actualPage, itemsPerPage } = pagination;
+  const { totalPages, totalItems, actualPage, itemsPerPage } = pagination;
   const [page, setPage] = useState(actualPage);
+
   const [fetchingMoreItems, setFetchingMoreItems] = useState(false);
-  const [items, setItems] = useState(list);
+  const [items, setItems] = useState<(DataItemType | null)[]>(
+    new Array(totalItems).fill(null).map((_, idx) => list[idx] || null),
+  );
 
-  function fillArrayStartingAtIndex(
-    arr: DataItemType[],
-    startIdx: number,
-    objects: DataItemType[],
-  ) {
-    for (let i = 0; i < objects.length; i++) {
-      arr[startIdx + i] = objects[i];
-    }
-    return arr;
-  }
-
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-    if (items[(value - 1) * itemsPerPage] === undefined) {
+  const handleChange = (
+    event: React.ChangeEvent<unknown>,
+    actualPage: number,
+  ) => {
+    setPage(actualPage);
+    const actualItemIndex = (actualPage - 1) * itemsPerPage;
+    if (items[actualItemIndex] === null) {
       setFetchingMoreItems(true);
     }
   };
 
   useEffect(() => {
+    function fillArrayStartingAtIndex(
+      arr: (DataItemType | null)[],
+      startIdx: number,
+      objects: DataItemType[],
+    ) {
+      for (let i = 0; i < objects.length; i++) {
+        arr[startIdx + i] = objects[i];
+      }
+      return arr;
+    }
+
     if (fetchingMoreItems) {
       const fetchMoreItems = async () => {
         try {
@@ -56,15 +63,11 @@ export default function usePagination<DataItemType>(
             limitPages: 2,
             itemsPerPage: itemsPerPage,
           });
-          // await new Promise((resolve) => setTimeout(resolve, 2000));
-          const array = [...items];
-          fillArrayStartingAtIndex(array, (page - 1) * itemsPerPage, data);
+
+          const actualItemIndex = (page - 1) * itemsPerPage;
+
           setItems((prevItems) =>
-            fillArrayStartingAtIndex(
-              [...prevItems],
-              (page - 1) * itemsPerPage,
-              data,
-            ),
+            fillArrayStartingAtIndex([...prevItems], actualItemIndex, data),
           );
           console.log('fetchMoreItems', data);
           setFetchingMoreItems(false);
@@ -74,7 +77,7 @@ export default function usePagination<DataItemType>(
       };
       fetchMoreItems();
     }
-  }, [fetchingMoreItems, pagination]);
+  }, [fetchingMoreItems, fetchItems, page, itemsPerPage]);
 
   const paginationCount = pagination.totalPages
     ? totalPages
