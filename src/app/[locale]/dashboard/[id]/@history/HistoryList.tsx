@@ -14,6 +14,7 @@ export default function HistoryList({
   initialHistories: HistoryData[];
   initialPagination: {
     totalPages: number;
+    totalItems: number;
     actualPage: number;
     itemsPerPage: number;
     totalRetrievedPages: number;
