@@ -24,7 +24,7 @@ export default function usePagination<DataItemType>(
   },
   fetchItems: FetchPaginateData<DataItemType>,
 ) {
-  const { totalPages, totalItems, actualPage, itemsPerPage } = pagination;
+  const { totalItems, actualPage, itemsPerPage } = pagination;
   const [page, setPage] = useState(actualPage);
 
   const [fetchingMoreItems, setFetchingMoreItems] = useState(false);
@@ -69,7 +69,6 @@ export default function usePagination<DataItemType>(
           setItems((prevItems) =>
             fillArrayStartingAtIndex([...prevItems], actualItemIndex, data),
           );
-          console.log('fetchMoreItems', data);
           setFetchingMoreItems(false);
         } catch (e) {
           console.error(e);
@@ -79,9 +78,5 @@ export default function usePagination<DataItemType>(
     }
   }, [fetchingMoreItems, fetchItems, page, itemsPerPage]);
 
-  const paginationCount = pagination.totalPages
-    ? totalPages
-    : Math.ceil(pagination.totalPages / itemsPerPage);
-
-  return { handleChange, paginationCount, items };
+  return { handleChange, items };
 }

@@ -27,7 +27,7 @@ export default function HistoryList({
     },
   );
 
-  const { handleChange, paginationCount, items } = usePagination<HistoryData>(
+  const { handleChange, items } = usePagination<HistoryData>(
     histories,
     initialPagination,
     getHistoryData,
@@ -43,7 +43,7 @@ export default function HistoryList({
       list={items}
       deleteItem={deleteHistoryData}
       pagination={{
-        totalPages: paginationCount,
+        totalPages: initialPagination.totalPages,
         initialPage: initialPagination.actualPage,
         itemsPerPage: initialPagination.itemsPerPage,
       }}
