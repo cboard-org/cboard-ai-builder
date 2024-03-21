@@ -11,7 +11,27 @@ export type HistoryData = {
   date: Date | string;
 };
 
-export async function getHistoryData(): Promise<HistoryData[]> {
+export type GetPaginatedHistoryDataResponse = {
+  data: HistoryData[];
+  pagination: {
+    totalPages: number;
+    actualPage: number;
+    itemsPerPage: number;
+    totalRetrievedPages: number;
+  };
+};
+
+export type GetPaginatedHistoryDataParameters = {
+  actualPage: number;
+  limitPages: number;
+  itemsPerPage: number;
+};
+
+export async function getHistoryData({
+  actualPage = 1,
+  limitPages = 3,
+  itemsPerPage = 2,
+}: GetPaginatedHistoryDataParameters): Promise<GetPaginatedHistoryDataResponse> {
   const session = await getServerSession(authConfig);
   if (!session) {
     throw new Error('No session found');
