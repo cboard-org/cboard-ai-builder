@@ -10,16 +10,14 @@ import Skeleton from '@mui/material/Skeleton';
 import { useState } from 'react';
 
 const getTruncatedItems = <DataItemType extends BaseDataItemType>(
-  items: DataItemType[],
+  items: (DataItemType | null)[],
   actualPage: number,
   itemsPerPage: number,
 ) => {
   const start = (actualPage - 1) * itemsPerPage;
-  const truncated: (DataItemType | undefined)[] = items.slice(
-    start,
-    start + itemsPerPage,
-  );
-  return truncated.includes(undefined) ? [] : (truncated as DataItemType[]);
+  const truncated = items.slice(start, start + itemsPerPage);
+  console.log('truncated.includes(null)', truncated.includes(null), truncated);
+  return truncated.includes(null) ? [] : (truncated as DataItemType[]);
 };
 
 export default function DataList<DataItemType extends BaseDataItemType>({
@@ -32,7 +30,7 @@ export default function DataList<DataItemType extends BaseDataItemType>({
   },
   handleChange,
 }: {
-  list: DataItemType[];
+  list: (DataItemType | null)[];
   deleteItem: (data: DataItemType) => void;
   pagination: {
     totalPages: number;
