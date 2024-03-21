@@ -4,11 +4,19 @@ import { useOptimistic } from 'react';
 import { removeHistoryData } from './actions';
 import { HistoryData } from './actions';
 import DataList from '@/components/DataList/DataList';
+import { getHistoryData } from './actions';
 
 export default function HistoryList({
   initialHistories,
+  pagination,
 }: {
   initialHistories: HistoryData[];
+  pagination: {
+    totalPages: number;
+    actualPage: number;
+    itemsPerPage: number;
+    totalRetrievedPages: number;
+  };
 }) {
   const [histories, deleteHistory] = useOptimistic(
     initialHistories,
@@ -22,6 +30,11 @@ export default function HistoryList({
   };
 
   return (
-    <DataList<HistoryData> list={histories} deleteItem={deleteHistoryData} />
+    <DataList<HistoryData>
+      list={histories}
+      deleteItem={deleteHistoryData}
+      pagination={pagination}
+      fetchItems={getHistoryData}
+    />
   );
 }
