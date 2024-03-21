@@ -12,7 +12,7 @@ export default async function Page() {
     <NextIntlClientProvider>
       <HistoryList
         initialHistories={initialHistories}
-        pagination={pagination}
+        initialPagination={pagination}
       />
     </NextIntlClientProvider>
   );
