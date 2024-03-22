@@ -36,14 +36,7 @@ export async function get(id: string) {
   return null;
 }
 
-export async function getPromptHistoryList({
-  userId,
-}: {
-  userId: string;
-  actualPage: number;
-  limitPages: number;
-  itemsPerPage: number;
-}) {
+export async function getPromptHistoryList({ userId }: { userId: string }) {
   await dbConnect();
   const query = { userId };
   const sort: Record<string, SortOrder> = { createdDate: 'desc' };
