@@ -11,7 +11,7 @@ export type HistoryData = {
   date: Date | string;
 };
 
-export async function getHistoryData(): Promise<HistoryData[]> {
+export async function getPromptHistoryData(): Promise<HistoryData[]> {
   const session = await getServerSession(authConfig);
   if (!session) {
     throw new Error('No session found');
