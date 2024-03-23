@@ -23,6 +23,7 @@ import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
+import { STASHED_CONTENT_ID } from '../constants';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -97,16 +98,19 @@ const usePromptBlinkAnimation = (
 
 const useFormStateWatcher = () => {
   const [state, formAction] = useFormState(submit, null);
-  const { changeBoard, setErrorOnBoardGeneration, stashDashboard } =
+  const { changeDashboard, setErrorOnBoardGeneration, stashDashboard } =
     useBoundStore((state) => state);
 
   React.useEffect(() => {
     if (state?.error) setErrorOnBoardGeneration();
     if (state?.board) {
-      changeBoard(state.board);
+      changeDashboard({
+        nextBoard: state.board,
+        nextDashboardId: STASHED_CONTENT_ID,
+      });
       stashDashboard();
     }
-  }, [state, changeBoard, setErrorOnBoardGeneration, stashDashboard]);
+  }, [state, changeDashboard, setErrorOnBoardGeneration, stashDashboard]);
   return formAction;
 };
 
