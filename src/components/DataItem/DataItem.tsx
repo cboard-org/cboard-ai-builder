@@ -12,6 +12,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { BoardRecord } from '@/commonTypes/Board';
 
 export type BaseDataItemType = {
+  id: string;
   prompt: PromptRecord;
   date: Date | string;
   board?: BoardRecord;
@@ -29,11 +30,12 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const { setPrompt, changeBoard, isGenerationPending } = useBoundStore(
+  const { setPrompt, changeDashboard, isGenerationPending } = useBoundStore(
     (store) => store,
   );
   const onEdit = () => {
-    if (data.board) changeBoard(data.board);
+    if (data.id && data.board)
+      changeDashboard({ nextDashboardId: data.id, nextBoard: data.board });
     setPrompt({
       description,
       rows,
