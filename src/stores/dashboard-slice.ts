@@ -17,6 +17,13 @@ export type DashboardActions = {
   setGenerationPending: (pending: boolean) => void;
   setDashboardId: (id: string) => void;
   stashDashboard: () => void;
+  changeDashboard: ({
+    nextBoard,
+    nextDashboardId,
+  }: {
+    nextBoard: BoardRecord;
+    nextDashboardId?: string;
+  }) => void;
 };
 export type DashboardSlice = DashboardStoreRecord & DashboardActions;
 
@@ -60,4 +67,33 @@ export const createDashboardSlice: StateCreator<
       },
     );
   },
+  changeDashboard: ({
+    nextBoard,
+    nextDashboardId,
+  }: {
+    nextBoard: BoardRecord;
+    nextDashboardId?: string;
+  }) =>
+    set(
+      ({ setBoard, cleanBoard }: Store) => {
+        cleanBoard();
+        setBoard(nextBoard);
+
+        // Update the URL without refreshing the page.
+        const updateURL = () => {
+          const pathname = location.pathname;
+          const newPath = pathname.includes('dashboard/')
+            ? pathname.replace(/dashboard\/\w+/, `dashboard/${nextDashboardId}`)
+            : `${pathname}/${nextDashboardId}`;
+          window.history.pushState(null, '', `${newPath}`);
+        };
+        updateURL();
+        return { dashboardId: nextDashboardId };
+      },
+      false,
+      {
+        type: 'Dashboard/change',
+        nextBoard,
+      },
+    ),
 });
