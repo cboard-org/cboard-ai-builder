@@ -5,13 +5,13 @@ import { removeHistoryData } from './actions';
 import { HistoryData } from './actions';
 import DataList from '@/components/DataList/DataList';
 
-export default function HistoryList({
-  initialHistories,
+export default function History({
+  initialData,
 }: {
-  initialHistories: HistoryData[];
+  initialData: HistoryData[];
 }) {
   const [histories, deleteHistory] = useOptimistic(
-    initialHistories,
+    initialData,
     (histories, historyToDelete: HistoryData) => {
       return histories.filter((h) => h.id != historyToDelete.id);
     },
