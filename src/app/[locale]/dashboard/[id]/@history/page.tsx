@@ -1,9 +1,9 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getHistoryData } from './actions';
+import { getPromptHistoryData } from './actions';
 import HistoryList from './HistoryList';
 
 export default async function Page() {
-  const historyData = await getHistoryData();
+  const historyData = await getPromptHistoryData();
   return (
     <NextIntlClientProvider>
       <HistoryList initialHistories={historyData} />

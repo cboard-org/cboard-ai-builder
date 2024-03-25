@@ -2,6 +2,7 @@ import dbConnect from '@/lib/dbConnect';
 import PromptModel from './model';
 import { type PromptRecord } from '@/commonTypes/Prompt';
 import { stringToObjectId } from '@/db/utils/helpers';
+import { SortOrder } from 'mongoose';
 
 export async function create({
   userId,
@@ -33,4 +34,16 @@ export async function get(id: string) {
   if (dbPrompt) return dbPrompt;
 
   return null;
+}
+
+export async function getPromptHistoryList({ userId }: { userId: string }) {
+  await dbConnect();
+  const query = { userId };
+  const sort: Record<string, SortOrder> = { createdDate: 'desc' };
+  const promptHistoryList = await PromptModel.find(query)
+    .sort(sort)
+    .lean()
+    .exec();
+
+  return promptHistoryList;
 }
