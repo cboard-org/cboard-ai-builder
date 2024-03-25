@@ -5,7 +5,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import testBoard from '../@board/testBoard.json';
 
 export type SavedBoardsData = {
-  id: number | string;
+  id: string;
   board: BoardRecord;
   prompt: PromptRecord;
   date: Date | string;
@@ -19,7 +19,7 @@ const todayHoursAgo = new Date();
 todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
 const fake_db: SavedBoardsData[] = [
   {
-    id: 1,
+    id: '1',
     board: testBoard[0],
     prompt: {
       description: 'pretty family in a camp with a cup',
@@ -31,7 +31,7 @@ const fake_db: SavedBoardsData[] = [
     date: todayMinsAgo.toISOString(),
   },
   {
-    id: 2,
+    id: '2',
     board: testBoard[1],
     prompt: {
       description: 'pretty family in a camp with a cup',
@@ -43,7 +43,7 @@ const fake_db: SavedBoardsData[] = [
     date: todayHoursAgo.toISOString(),
   },
   {
-    id: 3,
+    id: '3',
     board: testBoard[1],
     prompt: {
       description: 'an arabic famm',
@@ -55,7 +55,7 @@ const fake_db: SavedBoardsData[] = [
     date: yesterday.toISOString(),
   },
   {
-    id: 4,
+    id: '4',
     board: testBoard[1],
     prompt: {
       description: 'pretty family in a camp with a cup',
