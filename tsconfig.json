@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
-      "@/dashboard/*": ["./src/app/[locale]/dashboard/*"]
+      "@/dashboard/*": ["./src/app/[locale]/dashboard/[id]/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
