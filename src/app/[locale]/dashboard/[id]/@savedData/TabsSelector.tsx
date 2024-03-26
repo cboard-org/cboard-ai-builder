@@ -6,8 +6,12 @@ import Box from '@mui/material/Box';
 import { useTranslations } from 'next-intl';
 import SavedBoardsList from '../savedBoards/SavedBoardList';
 import { SavedBoardsData } from '../savedBoards/actions';
+import { useBoundStore } from '@/providers/StoreProvider';
+import { useEffect } from 'react';
+import { STASHED_CONTENT_ID } from '@/dashboard/constants';
 import { HistoryData } from '../history/actions';
 import History from '../history/History';
+import { useShallow } from 'zustand/react/shallow';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -31,7 +35,45 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function TabsSelector(props: {
+const useSetBoardOnDashboardIdChange = (savedDashboards: SavedBoardsData[]) => {
+  const [stashedDashboard, setBoard, dashboardId, hydrated] = useBoundStore(
+    useShallow((state) => [
+      state.stashedDashboard,
+      state.setBoard,
+      state.dashboardId,
+      state.hydrated,
+    ]),
+  );
+  const hasRun = React.useRef(false);
+  useEffect(() => {
+    if (hydrated) {
+      if (hasRun.current) {
+        if (
+          dashboardId === STASHED_CONTENT_ID &&
+          stashedDashboard.board &&
+          stashedDashboard.prompt
+        ) {
+          return setBoard(stashedDashboard.board);
+        }
+        if (dashboardId !== STASHED_CONTENT_ID) {
+          const nextDashboard = savedDashboards.find(
+            (dashboard) => dashboard.id === dashboardId,
+          );
+          if (nextDashboard) {
+            return setBoard(nextDashboard.board);
+          }
+          console.error('board not found');
+        }
+      }
+      hasRun.current = true;
+    }
+  }, [dashboardId, setBoard, stashedDashboard, savedDashboards, hydrated]);
+};
+
+export default function TabsSelector({
+  initialHistory,
+  initialSavedBoards,
+}: {
   initialHistory: HistoryData[];
   initialSavedBoards: SavedBoardsData[];
 }) {
@@ -42,6 +84,8 @@ export default function TabsSelector(props: {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useSetBoardOnDashboardIdChange(initialSavedBoards);
 
   return (
     <Box px={2}>
@@ -58,10 +102,10 @@ export default function TabsSelector(props: {
       </Tabs>
       <Box>
         <TabPanel value={value} index={0}>
-          <History initialData={props.initialHistory} />
+          <History initialData={initialHistory} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <SavedBoardsList initialData={props.initialSavedBoards} />
+          <SavedBoardsList initialData={initialSavedBoards} />
         </TabPanel>
       </Box>
     </Box>
