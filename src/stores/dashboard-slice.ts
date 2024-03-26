@@ -4,6 +4,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { BoardRecord } from '@/commonTypes/Board';
 
 export type DashboardStoreRecord = {
+  hydrated: boolean;
   isGenerationPending: boolean;
   dashboardId: string;
   stashedDashboard: {
@@ -14,6 +15,7 @@ export type DashboardStoreRecord = {
 };
 
 export type DashboardActions = {
+  setHydrated: () => void;
   setGenerationPending: (pending: boolean) => void;
   setDashboardId: (id: string) => void;
   stashDashboard: () => void;
@@ -28,6 +30,7 @@ export type DashboardActions = {
 export type DashboardSlice = DashboardStoreRecord & DashboardActions;
 
 export const defaultDashboardState: DashboardStoreRecord = {
+  hydrated: false,
   isGenerationPending: false,
   dashboardId: 'create',
   stashedDashboard: {
@@ -44,6 +47,11 @@ export const createDashboardSlice: StateCreator<
   DashboardSlice
 > = (set) => ({
   ...defaultDashboardState,
+  setHydrated: () => {
+    set(() => ({ hydrated: true }), false, {
+      type: 'Dashboard/setHydrated',
+    });
+  },
   setGenerationPending: (pending: boolean) => {
     set(() => ({ isGenerationPending: pending }), false, {
       type: 'Dashboard/setPending',

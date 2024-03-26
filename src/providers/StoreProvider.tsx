@@ -17,16 +17,19 @@ export default function StoreProvider({ children }: React.PropsWithChildren) {
     const onRehydrateStorage = ({
       showInitialContent,
       stashDashboard,
+      setHydrated,
     }: Store) => {
       return (state: Store | undefined, error: unknown) => {
         if (error) {
           console.error('an error happened during hydration', error);
         } else {
-          if (state)
+          setHydrated();
+          if (state) {
             if (state.dashboardId === STASHED_CONTENT_ID) {
               stashDashboard();
             }
-          if (!state?.board) showInitialContent();
+            if (!state?.board) showInitialContent();
+          }
         }
       };
     };
