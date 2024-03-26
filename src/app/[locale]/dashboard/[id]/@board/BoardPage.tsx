@@ -9,14 +9,19 @@ import { useShallow } from 'zustand/react/shallow';
 type RemoteInitialBoard = BoardRecord | null;
 
 const useSetInitialBoard = (remoteInitialBoard: RemoteInitialBoard) => {
-  const { setBoard, stashedDashboard } = useBoundStore((state) => state);
+  const [setBoard, stashedDashboard] = useBoundStore(
+    useShallow((state) => [state.setBoard, state.stashedDashboard]),
+  );
 
   useEffect(() => {
     if (remoteInitialBoard) {
       return setBoard(remoteInitialBoard);
     }
-    if (stashedDashboard.board) return setBoard(stashedDashboard.board);
-  }, [remoteInitialBoard, setBoard, , stashedDashboard]);
+  }, [setBoard, remoteInitialBoard]);
+  useEffect(() => {
+    if (!remoteInitialBoard && stashedDashboard.board)
+      return setBoard(stashedDashboard.board);
+  }, [stashedDashboard, setBoard, remoteInitialBoard]);
 };
 export default function BoardPage({
   remoteInitialBoard,
