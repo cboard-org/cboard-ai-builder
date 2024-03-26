@@ -23,13 +23,16 @@ import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
+import { useShallow } from 'zustand/react/shallow';
 
 const totalRows = 12;
 const totalColumns = 12;
 
 function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
-  const { setGenerationPending } = useBoundStore((state) => state);
+  const setGenerationPending = useBoundStore(
+    useShallow((state) => state.setGenerationPending),
+  );
   React.useEffect(() => {
     setGenerationPending(pending);
   }, [pending, setGenerationPending]);
@@ -97,8 +100,8 @@ const usePromptBlinkAnimation = (
 
 const useFormStateWatcher = () => {
   const [state, formAction] = useFormState(submit, null);
-  const { changeBoard, setErrorOnBoardGeneration } = useBoundStore(
-    (state) => state,
+  const [changeBoard, setErrorOnBoardGeneration] = useBoundStore(
+    useShallow((state) => [state.changeBoard, state.setErrorOnBoardGeneration]),
   );
 
   React.useEffect(() => {
@@ -118,9 +121,10 @@ const usePrevious = <T,>(value: T): T | undefined => {
 
 export function PromptForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { cleanBoard } = useBoundStore((state) => state);
+  const [cleanBoard, prompt, setPrompt] = useBoundStore(
+    useShallow((state) => [state.cleanBoard, state.prompt, state.setPrompt]),
+  );
   const message = useTranslations('PromptForm');
-  const { prompt, setPrompt } = useBoundStore((state) => state);
 
   const initialPromptValue: PromptRecord = {
     description: '',

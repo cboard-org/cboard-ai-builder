@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import styles from './styles';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
+import { useShallow } from 'zustand/react/shallow';
 
 const promptExampleMessagesKey = [
   {
@@ -41,7 +42,7 @@ const PromptExamplesTextField = ({
 }: {
   promptValues: PromptRecord;
 }) => {
-  const { setPrompt } = useBoundStore((state) => state);
+  const setPrompt = useBoundStore(useShallow((state) => state.setPrompt));
 
   return (
     <Button

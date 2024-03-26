@@ -13,10 +13,13 @@ import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';
 import SelectTileMask from '@/components/SelectTileMask';
 import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const { board, setBoard } = useBoundStore((state) => state);
+  const [board, setBoard] = useBoundStore(
+    useShallow((state) => [state.board, state.setBoard]),
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
   if (!board) return null;
@@ -116,8 +119,8 @@ const BoardSection = () => {
 
 export default function BoardContainer() {
   // should use board from store as truth
-  const { board: boardFromStore, errorOnBoardGeneration } = useBoundStore(
-    (state) => state,
+  const [boardFromStore, errorOnBoardGeneration] = useBoundStore(
+    useShallow((state) => [state.board, state.errorOnBoardGeneration]),
   );
 
   return (
