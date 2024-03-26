@@ -10,6 +10,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { BoardRecord } from '@/commonTypes/Board';
+import { useShallow } from 'zustand/react/shallow';
 
 export type BaseDataItemType = {
   id: string;
@@ -30,9 +31,14 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const { setPrompt, changeDashboard, isGenerationPending } = useBoundStore(
-    (store) => store,
+  const [setPrompt, changeDashboard, isGenerationPending] = useBoundStore(
+    useShallow((state) => [
+      state.setPrompt,
+      state.changeDashboard,
+      state.isGenerationPending,
+    ]),
   );
+
   const onEdit = () => {
     if (data.id && data.board)
       changeDashboard({ nextDashboardId: data.id, nextBoard: data.board });
