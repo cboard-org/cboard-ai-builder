@@ -42,8 +42,6 @@ const sxStyles = {
 };
 
 export default function Dashboard(props: {
-  history: React.ReactNode;
-  savedBoards: React.ReactNode;
   children: React.ReactNode;
   navbar: React.ReactNode;
   promptForm: React.ReactNode;
