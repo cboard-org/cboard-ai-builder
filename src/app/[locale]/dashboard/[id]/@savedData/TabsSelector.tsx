@@ -47,10 +47,9 @@ const useSetBoardOnDashboardIdChange = (
       state.hydrated,
     ]),
   );
-  const hasRun = React.useRef(false);
   useEffect(() => {
     if (hydrated) {
-      if (hasRun.current && !preventSetBoardOnDashboardIdChange.current) {
+      if (!preventSetBoardOnDashboardIdChange.current) {
         if (
           dashboardId === STASHED_CONTENT_ID &&
           stashedDashboard.board &&
@@ -68,7 +67,6 @@ const useSetBoardOnDashboardIdChange = (
           console.error('board not found');
         }
       }
-      hasRun.current = true;
       preventSetBoardOnDashboardIdChange.current = false;
     }
   }, [
@@ -95,7 +93,7 @@ export default function TabsSelector({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  const preventSetBoardOnDashboardIdChange = React.useRef(false);
+  const preventSetBoardOnDashboardIdChange = React.useRef(true);
 
   useSetBoardOnDashboardIdChange(
     initialSavedBoards,
