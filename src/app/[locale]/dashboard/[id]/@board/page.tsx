@@ -13,10 +13,17 @@ export default async function Page({
 
   const preventFetch = id === INITIAL_CONTENT_ID || id === STASHED_CONTENT_ID;
   if (!preventFetch) {
-    await fetch('https://postman-echo.com/delay/2', {
-      cache: 'no-cache',
-    });
-    board = testBoards[1];
+    try {
+      await fetch('https://postman-echo.com/delay/2', {
+        cache: 'no-cache',
+      });
+      board = testBoards[Number(id)];
+      if (!board) {
+        throw new Error('board not found');
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (
