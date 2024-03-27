@@ -22,11 +22,13 @@ export type BaseDataItemType = {
 type Props<DataType extends BaseDataItemType> = {
   data: DataType;
   onDelete: (dataRow: DataType) => void;
+  onEditClick?: () => void;
 };
 
 export default function DataItem<DataType extends BaseDataItemType>({
   data,
   onDelete,
+  onEditClick,
 }: Props<DataType>) {
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
@@ -40,8 +42,10 @@ export default function DataItem<DataType extends BaseDataItemType>({
   );
 
   const onEdit = () => {
-    if (data.id && data.board)
+    if (data.id && data.board) {
       changeDashboard({ nextDashboardId: data.id, nextBoard: data.board });
+      if (onEditClick) onEditClick();
+    }
     setPrompt({
       description,
       rows,
