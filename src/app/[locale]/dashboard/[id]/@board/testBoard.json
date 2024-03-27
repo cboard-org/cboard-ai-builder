@@ -3,432 +3,50 @@
     "isPublic": false,
     "tiles": [
       {
-        "labelKey": "symbol.pronouns.friend",
-        "image": "/symbols/arasaac/friend.png",
+        "label": "waa",
+        "labelKey": "",
+        "vocalization": "",
+        "image": "https://www.educaciontrespuntocero.com/wp-content/uploads/2020/04/mejores-bancos-de-imagenes-gratis.jpg",
         "loadBoard": "",
         "sound": "",
         "type": "button",
         "backgroundColor": "#fff176",
         "linkedBoard": false,
-        "id": "Bc4bk1-GX"
+        "id": "B1PJXRcTm5tW"
       },
       {
-        "labelKey": "cboard.board.home",
-        "image": "/symbols/arasaac/home.png",
-        "loadBoard": "jjmlUcQs19",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": true,
-        "id": "caGWf2ZO_"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.categories",
-        "image": "/symbols/arasaac/categories.png",
-        "loadBoard": "22NGG3QTHX",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": true,
-        "id": "hhi7g42aw"
-      },
-      {
-        "labelKey": "cboard.symbol.actions",
-        "image": "/symbols/mulberry/verbs_collective.svg",
-        "loadBoard": "zxah1D5mr4",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": true,
-        "id": "TP3VfIeRL"
-      },
-      {
-        "labelKey": "cboard.symbol.describe",
-        "image": "/symbols/arasaac/describe.png",
-        "loadBoard": "1R4sFwAYCC",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": true,
-        "id": "5Xr-IMFrQ"
-      },
-      {
-        "labelKey": "cboard.symbol.people",
-        "image": "/symbols/arasaac/people.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": false,
-        "id": "xvPcYvwAo"
-      },
-      {
-        "labelKey": "symbol.pronouns.me",
-        "image": "/symbols/arasaac/me.png",
+        "label": "tra",
+        "vocalization": "",
+        "image": "https://static.arasaac.org/pictograms/3224/3224_hair-A65E26_skin-F5E5DE_500.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
         "backgroundColor": "#fff176",
         "linkedBoard": false,
-        "id": "I0PG7wU9Z"
-      },
-      {
-        "labelKey": "symbol.pronouns.anybody",
-        "image": "/symbols/arasaac/anybody.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "QrlSZdkvJ"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.mum",
-        "image": "/symbols/arasaac/mum.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "OT4WUICNO"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.dad",
-        "image": "/symbols/arasaac/dad.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "BWnqRFsG-"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.sister",
-        "image": "/symbols/arasaac/sister.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "8IyuP2kR2"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.brother",
-        "image": "/symbols/arasaac/brother.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "pOByyEcHe"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.grandmother",
-        "image": "/symbols/arasaac/grandmother.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "i6G14YDX2"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.grandfather",
-        "image": "/symbols/arasaac/grandfather.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "znB8dkzR2"
-      },
-      {
-        "labelKey": "symbol.pronouns.everybody",
-        "image": "/symbols/arasaac/everybody.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "8vg063hjU"
-      },
-      {
-        "labelKey": "symbol.pronouns.nobody",
-        "image": "/symbols/arasaac/nobody.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "oiOL4zxAu"
-      },
-      {
-        "labelKey": "symbol.pronouns.us",
-        "image": "/symbols/arasaac/us.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "XYrcCq_3U"
-      },
-      {
-        "labelKey": "symbol.pronouns.mine",
-        "image": "/symbols/arasaac/mine.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "C0OLkBaiw"
-      },
-      {
-        "labelKey": "symbol.pronouns.them",
-        "image": "/symbols/arasaac/them.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "BezxZyCYV"
-      },
-      {
-        "labelKey": "symbol.pronouns.their",
-        "image": "/symbols/arasaac/their.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "jqoR7pdq_"
-      },
-      {
-        "labelKey": "symbol.pronouns.him",
-        "image": "/symbols/arasaac/him.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "mER73m0k4"
-      },
-      {
-        "labelKey": "symbol.pronouns.his",
-        "image": "/symbols/arasaac/his.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "NWvChb_1g"
-      },
-      {
-        "labelKey": "symbol.pronouns.her",
-        "image": "/symbols/arasaac/her.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "JDI2TJx7B"
-      },
-      {
-        "labelKey": "symbol.pronouns.hers",
-        "image": "/symbols/arasaac/hers.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "GStv5XN12"
-      },
-      {
-        "labelKey": "symbol.pronouns.girl",
-        "image": "/symbols/arasaac/girl.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "JJ6ADD-ym"
-      },
-      {
-        "labelKey": "symbol.pronouns.whoever",
-        "image": "/symbols/arasaac/whoever.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "mWV4cj3LL"
-      },
-      {
-        "labelKey": "symbol.pronouns.boy",
-        "image": "/symbols/arasaac/boy.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "xsq8ZI7RV"
-      },
-      {
-        "labelKey": "symbol.peopleDescriptive.baby",
-        "image": "/symbols/arasaac/baby.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "gPZ1vjs6a"
-      },
-      {
-        "labelKey": "symbol.pronouns.children",
-        "image": "/symbols/arasaac/children.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "fPdLr_KA0"
-      },
-      {
-        "labelKey": "symbol.pronouns.kids",
-        "image": "/symbols/arasaac/kids.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "JapqX_28O"
-      },
-      {
-        "labelKey": "symbol.pronouns.our",
-        "image": "/symbols/arasaac/our.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "h-4ww5L0L"
-      },
-      {
-        "labelKey": "cboard.symbol.your",
-        "image": "/symbols/arasaac/your.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "COQ1s1MyS"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.parents",
-        "image": "/symbols/arasaac/parents.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "ZAOQ6sUNt"
+        "id": "RHor9WSmsm"
       }
     ],
     "cellSize": "medium",
-    "locale": "en-US",
+    "locale": "es-ES",
     "format": "cboard",
     "description": "",
     "isFixed": true,
-    "nameKey": "cboard.symbol.people",
-    "author": "cboard team",
-    "email": "support@cboard.io",
-    "caption": "/symbols/arasaac/people.png",
-    "lastEdited": "2022-11-28T17:09:51-03:00",
+    "author": "Tomas",
+    "email": "tomivm98@gmail.com",
+    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "name": "clothingAccessoriesexport",
+    "lastEdited": "2024-03-25T17:22:26-03:00",
+    "id": "65710d7d7a287c00122cdd2a",
     "grid": {
-      "rows": 6,
-      "columns": 11,
+      "rows": 2,
+      "columns": 2,
       "order": [
-        [
-          null,
-          "oiOL4zxAu",
-          null,
-          "OT4WUICNO",
-          "BWnqRFsG-",
-          "8IyuP2kR2",
-          "pOByyEcHe",
-          "i6G14YDX2",
-          "znB8dkzR2",
-          "c1F2Yvl9I",
-          "SBU5Dnf_A"
-        ],
-        [
-          null,
-          "I0PG7wU9Z",
-          "mER73m0k4",
-          "JDI2TJx7B",
-          "GStv5XN12",
-          "JJ6ADD-ym",
-          null,
-          null,
-          null,
-          "fPdLr_KA0",
-          null
-        ],
-        [
-          "F2a_iOWz2",
-          "C0OLkBaiw",
-          "NWvChb_1g",
-          null,
-          "Bc4bk1-GX",
-          null,
-          null,
-          null,
-          null,
-          null,
-          "xLs5zAL4l"
-        ],
-        [
-          null,
-          "BezxZyCYV",
-          "jqoR7pdq_",
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "ZAOQ6sUNt",
-          "M0TmCQ-6B"
-        ],
-        [
-          null,
-          "COQ1s1MyS",
-          "h-4ww5L0L",
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "BqPuvZKcs"
-        ],
-        [
-          "caGWf2ZO_",
-          "xvPcYvwAo",
-          "XYrcCq_3U",
-          "TP3VfIeRL",
-          null,
-          null,
-          null,
-          "5Xr-IMFrQ",
-          null,
-          null,
-          "hhi7g42aw"
-        ]
+        ["B1PJXRcTm5tW", "Syd1XRc67cFb"],
+        ["By3k7RcaXcYW", "HkTJXRc675K-"]
       ]
     },
-    "id": "twTE1_zkPv",
-    "hidden": true
+    "focusedTileId": "SkFeQCcaXqK-",
+    "hidden": false
   },
   {
     "isPublic": false,
@@ -481,1014 +99,150 @@
     "focusedTileId": "b4"
   },
   {
-    "id": "root",
-    "name": "Cboard Classic Home",
-    "nameKey": "cboard.board.home",
-    "author": "Cboard",
-    "description": "rootBoardDescription",
-    "email": "support@cboard.io",
-    "isPublic": true,
-    "hidden": false,
+    "isPublic": false,
     "tiles": [
       {
-        "labelKey": "cboard.symbol.yes",
-        "image": "/symbols/mulberry/correct.svg",
-        "id": "HJVQMR9pX5F-",
-        "backgroundColor": "rgb(255, 241, 118)"
+        "label": "waa",
+        "labelKey": "",
+        "vocalization": "",
+        "image": "https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg",
+        "loadBoard": "",
+        "sound": "",
+        "type": "button",
+        "backgroundColor": "#fff176",
+        "linkedBoard": false,
+        "id": "-2JZGgYL_"
       },
       {
-        "labelKey": "symbol.descriptiveState.no",
-        "image": "/symbols/mulberry/no.svg",
-        "id": "SkBQMRqpX5t-",
-        "backgroundColor": "rgb(255, 241, 118)"
-      },
-      {
-        "labelKey": "cboard.symbol.quickChat",
-        "image": "/symbols/cboard/speech_bubble.svg",
-        "loadBoard": "BJgYav2vp-",
-        "id": "S1LQGA9p7qK-",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.time",
-        "image": "/symbols/mulberry/clock.svg",
-        "loadBoard": "BJRtpPnP6b",
-        "id": "H1w7M096m5Kb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "symbol.foodBreadsAndBaking.food",
-        "image": "/symbols/mulberry/food.svg",
-        "loadBoard": "r1-FTvnvaW",
-        "id": "rk_mf0c6Q9FZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "symbol.drinkDescription.drinks",
-        "image": "/symbols/mulberry/drinks.svg",
-        "loadBoard": "HJmKTw2vT-",
-        "id": "HJt7zAcTXqtb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.snacks",
-        "image": "/symbols/mulberry/jelly_beans.svg",
-        "loadBoard": "HkBY6DhwTW",
-        "id": "SJcmMRqpQcKZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.activities",
-        "image": "/symbols/cboard/activities.svg",
-        "loadBoard": "BkmeFaw3DpZ",
-        "id": "HJCmMR96XcYZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.emotions",
-        "image": "/symbols/cboard/emotions.svg",
-        "loadBoard": "HkYF6DnP6-",
-        "id": "ByomfA5am5tb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.body",
-        "image": "/symbols/mulberry/body_outline.svg",
-        "loadBoard": "rJ3FTw2D6b",
-        "id": "S127zA5TQ5Fb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.clothing",
-        "image": "/symbols/mulberry/generic_clothes.svg",
-        "loadBoard": "BJ5KawhwTZ",
-        "id": "SJTmf05a75YW",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.people",
-        "image": "/symbols/cboard/people.svg",
-        "loadBoard": "SkUlYTw3wT-",
-        "id": "HkJNz0c6QqtZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.describe",
-        "image": "/symbols/mulberry/shapesorter.svg",
-        "loadBoard": "HkclK6DnDTb",
-        "id": "S1lVGRqTQ9KW",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.kitchen",
-        "image": "/symbols/cboard/kitchen_items.svg",
-        "loadBoard": "BJ2lK6v3DaZ",
-        "id": "ry-EM0caXqY-",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "symbol.buildingSchool.school",
-        "image": "/symbols/mulberry/school.svg",
-        "loadBoard": "S1VlYTPnwTZ",
-        "id": "HJzEf09pmqYZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.animals",
-        "image": "/symbols/cboard/animals.svg",
-        "loadBoard": "ry1eFpwhDp-",
-        "id": "S1X4MA5pmqYW",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "symbol.electricalGeneral.technology",
-        "image": "/symbols/mulberry/technology.svg",
-        "loadBoard": "rypgFTD3wT-",
-        "id": "H1ENGA9amqtW",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.weather",
-        "image": "/symbols/cboard/weather.svg",
-        "loadBoard": "H1y-FaPnvaW",
-        "id": "rkBEf05pXctZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.plants",
-        "image": "/symbols/cboard/plants.svg",
-        "loadBoard": "Bye-FTD2vpZ",
-        "id": "SJ8NGAq675K-",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.sports",
-        "image": "/symbols/cboard/sports.svg",
-        "loadBoard": "Hy-bFTw3vT-",
-        "id": "HyvEGA5pm5Kb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.transport",
-        "image": "/symbols/mulberry/travel.svg",
-        "loadBoard": "HJfWFav3vp-",
-        "id": "SyuVzRc675K-",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.places",
-        "image": "/symbols/mulberry/globe.svg",
-        "loadBoard": "S1uxKpvhPpb",
-        "id": "SJFNzA96X9tZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.position",
-        "image": "/symbols/cboard/position.svg",
-        "loadBoard": "SkNbtaP3vaZ",
-        "id": "rkcVM0q6m5tb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "symbol.leisureToys.toys",
-        "image": "/symbols/mulberry/toys.svg",
-        "loadBoard": "HkslFaD3PTZ",
-        "id": "rysVGCcaX5t-",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.actions",
-        "image": "/symbols/cboard/actions.svg",
-        "loadBoard": "SywlK6Phv6Z",
-        "id": "Bk2EzA5amqFb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.questions",
-        "image": "/symbols/mulberry/ask_,_to.svg",
-        "loadBoard": "B1SWKaDhPpZ",
-        "id": "B1TNzCcp79Y-",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "symbol.buildingFurniture.furniture",
-        "image": "/symbols/mulberry/furniture.svg",
-        "loadBoard": "Syc-KawhDa-",
-        "id": "rkR4fRcam5Fb",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.hygiene",
-        "image": "/symbols/cboard/personal_hygiene.svg",
-        "loadBoard": "H1iZY6DnvT-",
-        "id": "BykSMA5TmcKZ",
-        "backgroundColor": "rgb(187, 222, 251)"
-      },
-      {
-        "labelKey": "cboard.symbol.numbers",
-        "image": "/symbols/mulberry/count_,_to.svg",
-        "loadBoard": "H1bgYTD2DaW",
-        "id": "r1xSzC9T7qYW",
-        "backgroundColor": "rgb(187, 222, 251)"
+        "label": "tra",
+        "vocalization": "",
+        "image": "https://static.arasaac.org/pictograms/3224/3224_hair-A65E26_skin-F5E5DE_500.png",
+        "loadBoard": "",
+        "sound": "",
+        "type": "button",
+        "backgroundColor": "#fff176",
+        "linkedBoard": false,
+        "id": "RHor9WSmsm"
       }
     ],
-    "caption": "/symbols/cboard/cboardRoot.png",
+    "cellSize": "medium",
+    "locale": "es-ES",
+    "format": "cboard",
+    "description": "",
     "isFixed": true,
+    "author": "Tomas",
+    "email": "tomivm98@gmail.com",
+    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "name": "clothingAccessoriesexport",
+    "lastEdited": "2024-03-25T17:22:26-03:00",
+    "id": "65710d7d7a287c00122cdd2a",
     "grid": {
-      "rows": 5,
-      "columns": 5,
+      "rows": 2,
+      "columns": 2,
       "order": [
-        [
-          "HJVQMR9pX5F-",
-          "SkBQMRqpX5t-",
-          "S1LQGA9p7qK-",
-          "H1w7M096m5Kb",
-          "rk_mf0c6Q9FZ"
-        ],
-        [
-          "HJt7zAcTXqtb",
-          "SJcmMRqpQcKZ",
-          "HJCmMR96XcYZ",
-          "ByomfA5am5tb",
-          "S127zA5TQ5Fb"
-        ],
-        [
-          "SJTmf05a75YW",
-          "HkJNz0c6QqtZ",
-          "S1lVGRqTQ9KW",
-          "ry-EM0caXqY-",
-          "HJzEf09pmqYZ"
-        ],
-        [
-          "S1X4MA5pmqYW",
-          "H1ENGA9amqtW",
-          "rkBEf05pXctZ",
-          "SJ8NGAq675K-",
-          "HyvEGA5pm5Kb"
-        ],
-        [
-          "SyuVzRc675K-",
-          "SJFNzA96X9tZ",
-          "rkcVM0q6m5tb",
-          "rysVGCcaX5t-",
-          "Bk2EzA5amqFb"
-        ]
+        ["-2JZGgYL_", "Syd1XRc67cFb"],
+        ["By3k7RcaXcYW", "HkTJXRc675K-"]
       ]
     },
-    "lastEdited": "2024-01-31T21:03:29-03:00"
+    "focusedTileId": "SkFeQCcaXqK-",
+    "hidden": false
   },
   {
     "isPublic": false,
     "tiles": [
       {
-        "labelKey": "cboard.symbol.yes",
-        "image": "/symbols/arasaac/yes.png",
-        "id": "HJVQMR9pX5F-",
-        "backgroundColor": "#E57373"
-      },
-      {
-        "labelKey": "symbol.descriptiveState.no",
-        "image": "/symbols/arasaac/no.png",
-        "id": "SkBQMRqpX5t-",
-        "backgroundColor": "#E57373"
-      },
-      {
-        "labelKey": "symbol.pronouns.I",
-        "image": "/symbols/arasaac/I.png",
+        "label": "waa",
+        "labelKey": "",
+        "vocalization": "",
+        "image": "https://img.freepik.com/foto-gratis/papel-pintado-gatito-lindo-fantasia_1409-6188.jpg?w=2000&t=st=1711401194~exp=1711401794~hmac=d56a05438ba04684eb6af7db57b2d7097cf73142ea1e35d9cdd768cffc99bbf6",
         "loadBoard": "",
         "sound": "",
         "type": "button",
         "backgroundColor": "#fff176",
         "linkedBoard": false,
-        "id": "mzXteqFL4"
+        "id": "B1PJXRcTm5tW"
       },
       {
-        "labelKey": "symbol.electricalComputer.computerKeyboard",
-        "image": "/symbols/arasaac/computerKeyboard.png",
-        "loadBoard": "bMmp7j1Iof",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": true,
-        "id": "5pPCdhOzO"
-      },
-      {
-        "labelKey": "cboard.symbol.my",
-        "image": "/symbols/arasaac/my.png",
+        "label": "tra",
+        "vocalization": "",
+        "image": "https://static.arasaac.org/pictograms/3224/3224_hair-A65E26_skin-F5E5DE_500.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
         "backgroundColor": "#fff176",
         "linkedBoard": false,
-        "id": "F26Sq95Oe"
-      },
-      {
-        "labelKey": "symbol.pronouns.it",
-        "image": "/symbols/arasaac/it.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "KewWcHM8c"
-      },
-      {
-        "labelKey": "symbol.pronouns.you",
-        "image": "/symbols/arasaac/you.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "3nOTlKxFY"
-      },
-      {
-        "labelKey": "symbol.pronouns.we",
-        "image": "/symbols/arasaac/we.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "MYbutBJMB"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toGive",
-        "image": "/symbols/arasaac/toGive.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "2T1rO-Qwr"
-      },
-      {
-        "labelKey": "symbol.pronouns.who",
-        "image": "/symbols/arasaac/who.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "MK_xQmDso"
-      },
-      {
-        "labelKey": "symbol.question.why",
-        "image": "/symbols/arasaac/why.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "--e37npaD"
-      },
-      {
-        "labelKey": "symbol.question.where",
-        "image": "/symbols/mulberry/where_1.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "kTO4hHUtp"
-      },
-      {
-        "labelKey": "symbol.question.when",
-        "image": "/symbols/mulberry/when.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "vtTwAm7xz"
-      },
-      {
-        "labelKey": "symbol.foodFeedingAndEating.toEat",
-        "image": "/symbols/arasaac/toEat.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "1WT-qWx7y"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.large",
-        "image": "/symbols/arasaac/large.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "eelpWxHej"
-      },
-      {
-        "labelKey": "symbol.connectors.to",
-        "image": "/symbols/arasaac/to.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "ytKz-Q0Rl"
-      },
-      {
-        "labelKey": "symbol.connectors.is",
-        "image": "/symbols/arasaac/is.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "_3FN7-iwJ"
-      },
-      {
-        "labelKey": "symbol.pronouns.they",
-        "image": "/symbols/arasaac/they.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "s61GZFxmx"
-      },
-      {
-        "labelKey": "symbol.pronouns.he",
-        "image": "/symbols/arasaac/he.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "Tk81dualh"
-      },
-      {
-        "labelKey": "symbol.pronouns.she",
-        "image": "/symbols/arasaac/she.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "36CH6m6Cd"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toThink",
-        "image": "/symbols/arasaac/toThink.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "rDrXGXOt3"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toShout",
-        "image": "/symbols/arasaac/toShout.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "xCLiX2AeP"
-      },
-      {
-        "labelKey": "symbol.descriptiveDirection.up",
-        "image": "/symbols/mulberry/up.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "gFeciDY0G"
-      },
-      {
-        "labelKey": "symbol.descriptiveDirection.down",
-        "image": "/symbols/mulberry/down.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "Qiidy4cBG"
-      },
-      {
-        "labelKey": "symbol.connectors.was",
-        "image": "/symbols/arasaac/was.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "RGsJ9J7a1"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.little",
-        "image": "/symbols/arasaac/little.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "W_RaISILm"
-      },
-      {
-        "labelKey": "symbol.descriptiveDirection.right",
-        "image": "/symbols/mulberry/right.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "7Tt0h9WMc"
-      },
-      {
-        "labelKey": "symbol.descriptiveDirection.left",
-        "image": "/symbols/mulberry/left.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "A-zgo3kag"
-      },
-      {
-        "labelKey": "symbol.pronouns.that",
-        "image": "/symbols/arasaac/that.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "Ji-FlNVaJ"
-      },
-      {
-        "labelKey": "symbol.descriptivePosition.in",
-        "image": "/symbols/mulberry/in.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "hPLBJ38nf"
-      },
-      {
-        "labelKey": "symbol.communicationConversation.toTalk",
-        "image": "/symbols/arasaac/toTalk.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "V-Hgt4pgh"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toWait",
-        "image": "/symbols/arasaac/toWait.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "iiMiBtxhX"
-      },
-      {
-        "labelKey": "symbol.descriptiveDirection.out",
-        "image": "/symbols/mulberry/out.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "ybPVdKXX8"
-      },
-      {
-        "labelKey": "symbol.question.what",
-        "image": "/symbols/mulberry/what.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "saCEBv8ef"
-      },
-      {
-        "labelKey": "cboard.symbol.and",
-        "image": "/symbols/arasaac/and.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "3SgQU5dfL"
-      },
-      {
-        "labelKey": "symbol.peopleRelationship.family",
-        "image": "/symbols/arasaac/family.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#fff176",
-        "linkedBoard": false,
-        "id": "AZKHLA_tb"
-      },
-      {
-        "labelKey": "symbol.drinkType.drink",
-        "image": "/symbols/arasaac/drink.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "-Z9AVTabI"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toGo",
-        "image": "/symbols/arasaac/toGo.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "Vaf4Kdcvy"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toGet",
-        "image": "/symbols/arasaac/toGet.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "-8BG5_ixx"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toCome",
-        "image": "/symbols/arasaac/toCome.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "fE2q0pOUp"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.more",
-        "image": "/symbols/arasaac/more.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "YqvrHappN"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.fast",
-        "image": "/symbols/mulberry/fast_2.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "No49jhuLA"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.slow",
-        "image": "/symbols/arasaac/slow.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "aP9FKgU3F"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toRest",
-        "image": "/symbols/arasaac/toRest.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "ZzQBMrj1Z"
-      },
-      {
-        "labelKey": "symbol.connectors.with",
-        "image": "/symbols/arasaac/with.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "mA9RsuRzX"
-      },
-      {
-        "labelKey": "symbol.connectors.for",
-        "image": "/symbols/arasaac/for.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#ffffff",
-        "linkedBoard": false,
-        "id": "ZS4TX83K7"
-      },
-      {
-        "labelKey": "symbol.buildingContents.bathroom",
-        "image": "/symbols/arasaac/bathroom.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#bbdefb",
-        "linkedBoard": false,
-        "id": "L5VX5Oso8"
-      },
-      {
-        "labelKey": "symbol.drinkType.water",
-        "image": "/symbols/arasaac/water.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#bbdefb",
-        "linkedBoard": false,
-        "id": "9GaY2OuLR"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toMake",
-        "image": "/symbols/arasaac/toMake.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "EAYRkwcjT"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toMove",
-        "image": "/symbols/arasaac/toMove.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "bGh9_tzGa"
-      },
-      {
-        "labelKey": "symbol.descriptiveState.good",
-        "image": "/symbols/mulberry/good.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "ODo5TSnJA"
-      },
-      {
-        "labelKey": "symbol.leisureToys.toys",
-        "image": "/symbols/mulberry/toys.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#bbdefb",
-        "linkedBoard": false,
-        "id": "VX9lwPUyc4"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toWatch",
-        "image": "/symbols/arasaac/toWatch.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "LkBBKE3Nh"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toOpen",
-        "image": "/symbols/arasaac/toOpen.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "7Mzj-msC4"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.different",
-        "image": "/symbols/arasaac/different.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "mw2p5ForT"
-      },
-      {
-        "labelKey": "cboard.symbol.toWatchTv",
-        "image": "/symbols/arasaac/toWatchTv.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "ygm4POQVl7"
-      },
-      {
-        "labelKey": "symbol.peopleActions.toPut",
-        "image": "/symbols/mulberry/put_,_to.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#4CAF50",
-        "linkedBoard": false,
-        "id": "4yCImgKPT"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.same",
-        "image": "/symbols/mulberry/same.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "RnuuQKM0a"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.every",
-        "image": "/symbols/arasaac/every.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "stoPXZlEq"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.some",
-        "image": "/symbols/arasaac/some.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "r3b5jVpjw"
-      },
-      {
-        "labelKey": "symbol.foodBreadsAndBaking.food",
-        "image": "/symbols/mulberry/food.svg",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#bbdefb",
-        "linkedBoard": false,
-        "id": "SfR5ZGcNL"
-      },
-      {
-        "labelKey": "symbol.descriptiveState.bad",
-        "image": "/symbols/arasaac/bad.png",
-        "loadBoard": "",
-        "sound": "",
-        "type": "button",
-        "backgroundColor": "#CE93D8",
-        "linkedBoard": false,
-        "id": "gPEgLGZqT"
-      },
-      {
-        "labelKey": "cboard.symbol.people",
-        "image": "/symbols/arasaac/people.png",
-        "loadBoard": "twTE1_zkPv",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": false,
-        "id": "TusH1MeZt"
-      },
-      {
-        "labelKey": "cboard.symbol.actions",
-        "image": "/symbols/mulberry/verbs_collective.svg",
-        "loadBoard": "zxah1D5mr4",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": false,
-        "id": "c2nmrUdvg"
-      },
-      {
-        "labelKey": "cboard.symbol.describe",
-        "image": "/symbols/arasaac/describe.png",
-        "loadBoard": "1R4sFwAYCC",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": false,
-        "id": "0QOOOLCBf"
-      },
-      {
-        "labelKey": "symbol.descriptiveQuantity.categories",
-        "image": "/symbols/arasaac/categories.png",
-        "loadBoard": "22NGG3QTHX",
-        "sound": "",
-        "type": "folder",
-        "backgroundColor": "#2196F3",
-        "linkedBoard": false,
-        "id": "TQYkVjtOQ"
+        "id": "RHor9WSmsm"
       }
     ],
     "cellSize": "medium",
-    "locale": "en-US",
+    "locale": "es-ES",
     "format": "cboard",
-    "description": "picSeePalBoardDescription",
+    "description": "",
     "isFixed": true,
-    "name": "Universal Core 11x6",
-    "author": "cboard team",
-    "email": "support@cboard.io",
-    "caption": "/symbols/cboard/picseepal.png",
+    "author": "Tomas",
+    "email": "tomivm98@gmail.com",
+    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "name": "clothingAccessoriesexport",
+    "lastEdited": "2024-03-25T17:22:26-03:00",
+    "id": "65710d7d7a287c00122cdd2a",
     "grid": {
-      "rows": 6,
-      "columns": 11,
+      "rows": 2,
+      "columns": 2,
       "order": [
-        [
-          "MK_xQmDso",
-          "HJVQMR9pX5F-",
-          "AZKHLA_tb",
-          "rDrXGXOt3",
-          "xCLiX2AeP",
-          "-Z9AVTabI",
-          "3SgQU5dfL",
-          "ODo5TSnJA",
-          "gPEgLGZqT",
-          "hPLBJ38nf",
-          null
-        ],
-        [
-          "saCEBv8ef",
-          "mzXteqFL4",
-          "Tk81dualh",
-          "1WT-qWx7y",
-          "fE2q0pOUp",
-          "-8BG5_ixx",
-          "ZS4TX83K7",
-          "eelpWxHej",
-          "W_RaISILm",
-          "ybPVdKXX8",
-          "VX9lwPUyc4"
-        ],
-        [
-          "kTO4hHUtp",
-          "F26Sq95Oe",
-          "36CH6m6Cd",
-          "Vaf4Kdcvy",
-          "iiMiBtxhX",
-          "V-Hgt4pgh",
-          "_3FN7-iwJ",
-          "stoPXZlEq",
-          "r3b5jVpjw",
-          "7Tt0h9WMc",
-          "L5VX5Oso8"
-        ],
-        [
-          "--e37npaD",
-          "KewWcHM8c",
-          "Ji-FlNVaJ",
-          "2T1rO-Qwr",
-          "EAYRkwcjT",
-          "bGh9_tzGa",
-          "ytKz-Q0Rl",
-          "No49jhuLA",
-          "aP9FKgU3F",
-          "A-zgo3kag",
-          "SfR5ZGcNL"
-        ],
-        [
-          "vtTwAm7xz",
-          "3nOTlKxFY",
-          "s61GZFxmx",
-          "ygm4POQVl7",
-          "4yCImgKPT",
-          "ZzQBMrj1Z",
-          "RGsJ9J7a1",
-          "RnuuQKM0a",
-          "mw2p5ForT",
-          "gFeciDY0G",
-          "9GaY2OuLR"
-        ],
-        [
-          "5pPCdhOzO",
-          "TusH1MeZt",
-          "MYbutBJMB",
-          "c2nmrUdvg",
-          null,
-          "LkBBKE3Nh",
-          "mA9RsuRzX",
-          "S1lVGRqTQ9KW",
-          "YqvrHappN",
-          "Qiidy4cBG",
-          "08DeOEUhQ"
-        ]
+        ["fefrrg", "B1PJXRcTm5tW"],
+        ["By3k7RcaXcYW", "HkTJXRc675K-"]
       ]
     },
-    "lastEdited": "2022-11-28T17:09:50-03:00",
-    "id": "jjmlUcQs19",
-    "hidden": false,
-    "focusedTileId": "c2nmrUdvg"
+    "focusedTileId": "SkFeQCcaXqK-",
+    "hidden": false
+  },
+  {
+    "isPublic": false,
+    "tiles": [
+      {
+        "label": "waa",
+        "labelKey": "",
+        "vocalization": "",
+        "image": "https://img.freepik.com/foto-gratis/papel-pintado-gatito-lindo-fantasia_1409-6188.jpg?w=2000&t=st=1711401194~exp=1711401794~hmac=d56a05438ba04684eb6af7db57b2d7097cf73142ea1e35d9cdd768cffc99bbf6",
+        "loadBoard": "",
+        "sound": "",
+        "type": "button",
+        "backgroundColor": "#fff176",
+        "linkedBoard": false,
+        "id": "B1PJXRcTm5tW"
+      },
+      {
+        "label": "tra",
+        "vocalization": "",
+        "image": "https://img.freepik.com/foto-gratis/papel-pintado-cute-cat-in-scifi-space_1409-6912.jpg?w=2000&t=st=1711401294~exp=1711401894~hmac=8d388952aa81b2fd2afaaafd34e826251540b6b25708d0c87097aa2a018eab8b",
+        "loadBoard": "",
+        "sound": "",
+        "type": "button",
+        "backgroundColor": "#fff176",
+        "linkedBoard": false,
+        "id": "RHor9WSmsm"
+      }
+    ],
+    "cellSize": "medium",
+    "locale": "es-ES",
+    "format": "cboard",
+    "description": "",
+    "isFixed": true,
+    "author": "Tomas",
+    "email": "tomivm98@gmail.com",
+    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "name": "clothingAccessoriesexport",
+    "lastEdited": "2024-03-25T17:22:26-03:00",
+    "id": "65710d7d7a287c00122cdd2a",
+    "grid": {
+      "rows": 2,
+      "columns": 2,
+      "order": [
+        ["fefrrg", "B1PJXRcTm5tW"],
+        ["By3k7RcaXcYW", "HkTJXRc675K-"]
+      ]
+    },
+    "focusedTileId": "SkFeQCcaXqK-",
+    "hidden": false
   }
 ]
