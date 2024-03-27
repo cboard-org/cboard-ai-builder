@@ -35,14 +35,14 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-const useSetBoardOnDashboardIdChange = (
+const useSetDashboardOnDashboardIdChange = (
   savedDashboards: SavedBoardsData[],
   preventSetBoardOnDashboardIdChange: React.MutableRefObject<boolean>,
 ) => {
-  const [stashedDashboard, setBoard, dashboardId, hydrated] = useBoundStore(
+  const [stashedDashboard, setDashboard, dashboardId, hydrated] = useBoundStore(
     useShallow((state) => [
       state.stashedDashboard,
-      state.setBoard,
+      state.setDashboard,
       state.dashboardId,
       state.hydrated,
     ]),
@@ -55,14 +55,14 @@ const useSetBoardOnDashboardIdChange = (
           stashedDashboard.board &&
           stashedDashboard.prompt
         ) {
-          return setBoard(stashedDashboard.board);
+          return setDashboard(stashedDashboard);
         }
         if (dashboardId !== STASHED_CONTENT_ID) {
           const nextDashboard = savedDashboards.find(
             (dashboard) => dashboard.id === dashboardId,
           );
           if (nextDashboard) {
-            return setBoard(nextDashboard.board);
+            return setDashboard(nextDashboard);
           }
           console.error('board not found');
         }
@@ -71,7 +71,7 @@ const useSetBoardOnDashboardIdChange = (
     }
   }, [
     dashboardId,
-    setBoard,
+    setDashboard,
     stashedDashboard,
     savedDashboards,
     hydrated,
@@ -95,12 +95,12 @@ export default function TabsSelector({
   };
   const preventSetBoardOnDashboardIdChange = React.useRef(true);
 
-  useSetBoardOnDashboardIdChange(
+  useSetDashboardOnDashboardIdChange(
     initialSavedBoards,
     preventSetBoardOnDashboardIdChange,
   );
 
-  const preventUseSetBoardOnDashboardIdChange = () => {
+  const preventUseSetDashboardOnDashboardIdChange = () => {
     preventSetBoardOnDashboardIdChange.current = true;
   };
 
@@ -124,7 +124,7 @@ export default function TabsSelector({
         <TabPanel value={value} index={1}>
           <SavedBoardsList
             initialData={initialSavedBoards}
-            onEditClick={preventUseSetBoardOnDashboardIdChange}
+            onEditClick={preventUseSetDashboardOnDashboardIdChange}
           />
         </TabPanel>
       </Box>
