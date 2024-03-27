@@ -39,7 +39,7 @@ export const createBoardSlice: StateCreator<
 > = (set) => ({
   ...defaultBoardState,
   setBoard: (board: BoardRecord) =>
-    set(() => ({ board: board }), false, {
+    set(() => ({ board: board, shouldDisplayInitialContent: false }), false, {
       type: 'Board/setBoard',
       board,
     }),

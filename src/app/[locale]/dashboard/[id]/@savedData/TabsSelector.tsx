@@ -8,7 +8,7 @@ import SavedBoardsList from '../savedBoards/SavedBoardList';
 import { SavedBoardsData } from '../savedBoards/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useEffect } from 'react';
-import { STASHED_CONTENT_ID } from '@/dashboard/constants';
+import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '@/dashboard/constants';
 import { HistoryData } from '../history/actions';
 import History from '../history/History';
 import { useShallow } from 'zustand/react/shallow';
@@ -39,12 +39,19 @@ const useSetDashboardOnDashboardIdChange = (
   savedDashboards: SavedBoardsData[],
   preventSetBoardOnDashboardIdChange: React.MutableRefObject<boolean>,
 ) => {
-  const [stashedDashboard, setDashboard, dashboardId, hydrated] = useBoundStore(
+  const [
+    stashedDashboard,
+    setDashboard,
+    dashboardId,
+    hydrated,
+    showInitialContent,
+  ] = useBoundStore(
     useShallow((state) => [
       state.stashedDashboard,
       state.setDashboard,
       state.dashboardId,
       state.hydrated,
+      state.showInitialContent,
     ]),
   );
   useEffect(() => {
@@ -57,6 +64,8 @@ const useSetDashboardOnDashboardIdChange = (
         ) {
           return setDashboard(stashedDashboard);
         }
+        if (dashboardId === INITIAL_CONTENT_ID) return showInitialContent();
+
         if (dashboardId !== STASHED_CONTENT_ID) {
           const nextDashboard = savedDashboards.find(
             (dashboard) => dashboard.id === dashboardId,
@@ -76,6 +85,7 @@ const useSetDashboardOnDashboardIdChange = (
     savedDashboards,
     hydrated,
     preventSetBoardOnDashboardIdChange,
+    showInitialContent,
   ]);
 };
 
