@@ -3,21 +3,24 @@ import { Store } from './../providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { BoardRecord } from '@/commonTypes/Board';
 
+type DashboardRecord = {
+  id: string;
+  prompt: PromptRecord | null;
+  board: BoardRecord | null;
+};
+
 export type DashboardStoreRecord = {
   hydrated: boolean;
   isGenerationPending: boolean;
   dashboardId: string;
-  stashedDashboard: {
-    id: string;
-    prompt: PromptRecord | null;
-    board: BoardRecord | null;
-  };
+  stashedDashboard: DashboardRecord;
 };
 
 export type DashboardActions = {
   setHydrated: () => void;
   setGenerationPending: (pending: boolean) => void;
   setDashboardId: (id: string) => void;
+  setDashboard: (dashboard: DashboardRecord) => void;
   stashDashboard: () => void;
   changeDashboard: ({
     nextBoard,
@@ -63,6 +66,20 @@ export const createDashboardSlice: StateCreator<
       type: 'Dashboard/setId',
       id,
     });
+  },
+  setDashboard: (dashboard: DashboardRecord) => {
+    set(
+      ({ setBoard, setPrompt }) => {
+        if (dashboard.board) setBoard(dashboard.board);
+        if (dashboard.prompt) setPrompt(dashboard.prompt);
+        return { dashboardId: dashboard.id };
+      },
+      false,
+      {
+        type: 'Dashboard/set',
+        dashboard,
+      },
+    );
   },
   stashDashboard: () => {
     set(
