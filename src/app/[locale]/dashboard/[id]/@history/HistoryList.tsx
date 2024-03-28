@@ -1,27 +1,26 @@
-'use client'; // Check avoid using use optimistic. and use as server component
+'use client';
 
-import { useOptimistic } from 'react';
 import { removeHistoryData } from './actions';
 import { HistoryData } from './actions';
 import DataList from '@/components/DataList/DataList';
+import { useTransition } from 'react';
 
 export default function HistoryList({
-  initialHistories,
+  histories,
 }: {
-  initialHistories: HistoryData[];
+  histories: HistoryData[];
 }) {
-  const [histories, deleteHistory] = useOptimistic(
-    initialHistories,
-    (histories, historyToDelete: HistoryData) => {
-      return histories.filter((h) => h.id != historyToDelete.id);
-    },
-  );
+  const [isPending, startTransition] = useTransition();
   const deleteHistoryData = async (historyToDelete: HistoryData) => {
-    deleteHistory(historyToDelete);
-    await removeHistoryData(historyToDelete);
+    startTransition(async () => {
+      await removeHistoryData(historyToDelete.id);
+    });
   };
 
   return (
-    <DataList<HistoryData> list={histories} deleteItem={deleteHistoryData} />
+    <DataList<HistoryData>
+      list={histories}
+      deleteItem={{ deleteHistoryData, isDeleting: isPending }}
+    />
   );
 }
