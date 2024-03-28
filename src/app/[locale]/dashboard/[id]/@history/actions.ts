@@ -7,7 +7,7 @@ import authConfig from '@/lib/next-auth/config';
 import { revalidatePath } from 'next/cache';
 
 export type HistoryData = {
-  id: number | string;
+  id: string;
   prompt: PromptRecord;
   date: Date | string;
 };
@@ -34,7 +34,6 @@ export async function getPromptHistoryData(): Promise<HistoryData[]> {
       date: prompt.createdDate.toISOString(),
     };
   });
-  // revalidatePath('/');
   return historyData;
 }
 
