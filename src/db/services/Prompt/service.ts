@@ -16,6 +16,7 @@ export async function create({
   const dbPrompt = new PromptModel({
     userId: userId,
     createdDate: new Date(),
+    deletedDate: null,
     ...prompt,
   });
 
