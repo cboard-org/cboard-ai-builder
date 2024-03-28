@@ -16,6 +16,7 @@ export async function create({
   const dbPrompt = new PromptModel({
     userId: userId,
     createdDate: new Date(),
+    deletedDate: null,
     ...prompt,
   });
 
@@ -38,7 +39,7 @@ export async function get(id: string) {
 
 export async function getPromptHistoryList({ userId }: { userId: string }) {
   await dbConnect();
-  const query = { userId };
+  const query = { userId, deletedDate: { $eq: null } };
   const sort: Record<string, SortOrder> = { createdDate: 'desc' };
   const promptHistoryList = await PromptModel.find(query)
     .sort(sort)
@@ -46,4 +47,22 @@ export async function getPromptHistoryList({ userId }: { userId: string }) {
     .exec();
 
   return promptHistoryList;
+}
+
+export async function softDelete(userId: string, promptId: string) {
+  await dbConnect();
+
+  const parsedUserId = stringToObjectId(userId);
+  if (!parsedUserId) throw new Error('Please provide a valid user id');
+  const parsedPromptId = stringToObjectId(promptId);
+  if (!parsedPromptId) throw new Error('Please provide a valid prompt id');
+
+  const dbPrompt = await PromptModel.findOneAndUpdate(
+    {
+      _id: parsedPromptId,
+      userId: parsedUserId,
+    },
+    { deletedDate: new Date() },
+  ).exec();
+  return !!dbPrompt;
 }

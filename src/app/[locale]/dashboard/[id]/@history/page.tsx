@@ -6,7 +6,7 @@ export default async function Page() {
   const historyData = await getPromptHistoryData();
   return (
     <NextIntlClientProvider>
-      <HistoryList initialHistories={historyData} />
+      <HistoryList histories={historyData} />
     </NextIntlClientProvider>
   );
 }

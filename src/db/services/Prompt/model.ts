@@ -4,6 +4,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 export type DbPromptRecord = PromptRecord & {
   userId: string;
   createdDate: Date;
+  deletedDate: Date | null;
 };
 
 const PromptSchema = new Schema<DbPromptRecord>({
@@ -29,6 +30,10 @@ const PromptSchema = new Schema<DbPromptRecord>({
   createdDate: {
     type: Date,
     default: Date.now,
+  },
+  deletedDate: {
+    type: Date,
+    default: null,
   },
 });
 

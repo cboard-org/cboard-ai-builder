@@ -1,12 +1,13 @@
 'use server';
 
 import { PromptRecord } from '@/commonTypes/Prompt';
-import { getPromptHistoryList } from '@/db/services/Prompt/service';
+import { getPromptHistoryList, softDelete } from '@/db/services/Prompt/service';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
+import { revalidatePath } from 'next/cache';
 
 export type HistoryData = {
-  id: number | string;
+  id: string;
   prompt: PromptRecord;
   date: Date | string;
 };
@@ -36,10 +37,12 @@ export async function getPromptHistoryData(): Promise<HistoryData[]> {
   return historyData;
 }
 
-export async function removeHistoryData(data: HistoryData) {
-  // Fetching with a 2 seconds delay to test loading state
-  await fetch('https://postman-echo.com/delay/2', {
-    cache: 'no-cache',
-  });
-  console.log('removing ', data);
+export async function removeHistoryData(promptId: string) {
+  const session = await getServerSession(authConfig);
+  if (!session) {
+    throw new Error('No session found');
+  }
+  const response = await softDelete(session.cboard_user.id, promptId);
+  revalidatePath('/');
+  return response;
 }
