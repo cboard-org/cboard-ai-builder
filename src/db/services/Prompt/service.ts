@@ -39,7 +39,7 @@ export async function get(id: string) {
 
 export async function getPromptHistoryList({ userId }: { userId: string }) {
   await dbConnect();
-  const query = { userId };
+  const query = { userId, deletedDate: { $eq: null } };
   const sort: Record<string, SortOrder> = { createdDate: 'desc' };
   const promptHistoryList = await PromptModel.find(query)
     .sort(sort)
