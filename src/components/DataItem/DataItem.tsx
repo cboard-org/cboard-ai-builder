@@ -21,14 +21,14 @@ export type BaseDataItemType = {
 type Props<DataType extends BaseDataItemType> = {
   data: DataType;
   deleteItem: {
-    deleteHistoryData: (data: DataType) => void;
+    deleteData: (data: DataType) => void;
     isDeleting: boolean;
   };
 };
 
 export default function DataItem<DataType extends BaseDataItemType>({
   data,
-  deleteItem: { deleteHistoryData, isDeleting },
+  deleteItem: { deleteData, isDeleting },
 }: Props<DataType>) {
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
@@ -67,7 +67,7 @@ export default function DataItem<DataType extends BaseDataItemType>({
           <IconButton
             disabled={isDeleting}
             aria-label="Delete"
-            onClick={() => deleteHistoryData(data)}
+            onClick={() => deleteData(data)}
             size="small"
           >
             <DeleteOutline fontSize="small" />

@@ -16,7 +16,7 @@ export default function DataList<DataItemType extends BaseDataItemType>({
 }: {
   list: DataItemType[];
   deleteItem: {
-    deleteHistoryData: (data: DataItemType) => void;
+    deleteData: (data: DataItemType) => void;
     isDeleting: boolean;
   };
 }) {

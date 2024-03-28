@@ -20,7 +20,7 @@ export default function HistoryList({
   return (
     <DataList<HistoryData>
       list={histories}
-      deleteItem={{ deleteHistoryData, isDeleting: isPending }}
+      deleteItem={{ deleteData: deleteHistoryData, isDeleting: isPending }}
     />
   );
 }
