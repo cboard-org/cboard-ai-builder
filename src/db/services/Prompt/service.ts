@@ -48,3 +48,21 @@ export async function getPromptHistoryList({ userId }: { userId: string }) {
 
   return promptHistoryList;
 }
+
+export async function softDelete(userId: string, promptId: string) {
+  await dbConnect();
+
+  const parsedUserId = stringToObjectId(userId);
+  if (!parsedUserId) throw new Error('Please provide a valid user id');
+  const parsedPromptId = stringToObjectId(promptId);
+  if (!parsedPromptId) throw new Error('Please provide a valid prompt id');
+
+  const dbPrompt = await PromptModel.findOneAndUpdate(
+    {
+      _id: parsedPromptId,
+      userId: parsedUserId,
+    },
+    { deletedDate: new Date() },
+  ).exec();
+  return !!dbPrompt;
+}
