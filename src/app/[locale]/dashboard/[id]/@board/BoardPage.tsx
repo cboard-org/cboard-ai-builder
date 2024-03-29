@@ -2,7 +2,7 @@
 import InitialContent from './InitialContent';
 import BoardContainer from './BoardContainer';
 import { useBoundStore } from '@/providers/StoreProvider';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BoardRecord } from '@/commonTypes/Board';
 import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
@@ -13,33 +13,40 @@ const useSetInitialBoard = (
   remoteInitialBoard: RemoteInitialBoard,
   id: string,
 ) => {
-  const [setBoard, stashedDashboard, showInitialContent, cleanBoard] =
-    useBoundStore(
-      useShallow((state) => [
-        state.setBoard,
-        state.stashedDashboard,
-        state.showInitialContent,
-        state.cleanBoard,
-      ]),
-    );
+  const [setBoard, stashedDashboard, showInitialContent] = useBoundStore(
+    useShallow((state) => [
+      state.setBoard,
+      state.stashedDashboard,
+      state.showInitialContent,
+    ]),
+  );
 
   useEffect(() => {
     if (remoteInitialBoard) {
       return setBoard(remoteInitialBoard);
     }
   }, [setBoard, remoteInitialBoard]);
+
+  const [initialStashedBoard, setInitialStashedBoard] =
+    useState<BoardRecord | null>(null);
+
   useEffect(() => {
-    if (!remoteInitialBoard && stashedDashboard.board) {
-      if (id === STASHED_CONTENT_ID) return setBoard(stashedDashboard.board);
+    if (stashedDashboard.board !== null && initialStashedBoard === null) {
+      setInitialStashedBoard(stashedDashboard.board);
+    }
+  }, [stashedDashboard.board, initialStashedBoard]);
+
+  useEffect(() => {
+    if (!remoteInitialBoard && initialStashedBoard) {
+      if (id === STASHED_CONTENT_ID) return setBoard(initialStashedBoard);
       if (id === INITIAL_CONTENT_ID) return showInitialContent();
     }
   }, [
-    stashedDashboard,
     setBoard,
     remoteInitialBoard,
     id,
     showInitialContent,
-    cleanBoard,
+    initialStashedBoard,
   ]);
 };
 export default function BoardPage({
