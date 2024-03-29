@@ -24,7 +24,7 @@ import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
-import { STASHED_CONTENT_ID } from '../constants';
+import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -38,12 +38,15 @@ function SubmitButton({ text }: { text: string }) {
     setGenerationPending(pending);
   }, [pending, setGenerationPending]);
 
+  const dashboardId = useBoundStore((state) => state.dashboardId);
+  const isOnCreateView = dashboardId === INITIAL_CONTENT_ID;
+
   return (
     <Box sx={{ position: 'relative' }}>
       <Button
         variant="contained"
         type="submit"
-        disabled={pending}
+        disabled={pending || !isOnCreateView}
         sx={{ width: '100%' }}
       >
         <Typography variant="body2" component="div">
