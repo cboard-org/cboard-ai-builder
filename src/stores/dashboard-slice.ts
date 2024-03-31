@@ -26,8 +26,8 @@ export type DashboardActions = {
     nextBoard,
     nextDashboardId,
   }: {
-    nextBoard: BoardRecord;
-    nextDashboardId?: string;
+    nextBoard?: BoardRecord;
+    nextDashboardId: string;
   }) => void;
 };
 export type DashboardSlice = DashboardStoreRecord & DashboardActions;
@@ -96,13 +96,13 @@ export const createDashboardSlice: StateCreator<
     nextBoard,
     nextDashboardId,
   }: {
-    nextBoard: BoardRecord;
-    nextDashboardId?: string;
+    nextBoard?: BoardRecord;
+    nextDashboardId: string;
   }) =>
     set(
       ({ setBoard, cleanBoard }: Store) => {
         cleanBoard();
-        setBoard(nextBoard);
+        if (nextBoard) setBoard(nextBoard);
 
         // Update the URL without refreshing the page.
         const updateURL = () => {

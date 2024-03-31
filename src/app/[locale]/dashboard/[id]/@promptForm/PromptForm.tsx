@@ -163,7 +163,9 @@ export function PromptForm() {
   const formAction = useFormStateWatcher();
 
   const blink = usePromptBlinkAnimation(prompt, setControlledPromptValue);
-  const dashboardId = useBoundStore((state) => state.dashboardId);
+  const [dashboardId, changeDashboard] = useBoundStore(
+    useShallow((state) => [state.dashboardId, state.changeDashboard]),
+  );
   const isInitialContentView = dashboardId === INITIAL_CONTENT_ID;
 
   return (
@@ -171,7 +173,9 @@ export function PromptForm() {
       expanded={isInitialContentView}
       sx={{ backgroundColor: 'transparent' }}
       onClick={() => {
-        console.log('navigate');
+        if (!isInitialContentView) {
+          changeDashboard({ nextDashboardId: INITIAL_CONTENT_ID });
+        }
       }}
     >
       {!isInitialContentView && (
