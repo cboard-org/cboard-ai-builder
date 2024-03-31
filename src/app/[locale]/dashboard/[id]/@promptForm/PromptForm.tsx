@@ -167,11 +167,20 @@ export function PromptForm() {
     useShallow((state) => [state.dashboardId, state.changeDashboard]),
   );
   const isInitialContentView = dashboardId === INITIAL_CONTENT_ID;
+  const accordionStyles = {
+    backgroundColor: 'transparent',
+    '&:hover': {
+      boxShadow: 3,
+      backgroundColor: isInitialContentView
+        ? 'transparent'
+        : 'rgba(0, 0, 0, 0.04)',
+    },
+  };
 
   return (
     <Accordion
       expanded={isInitialContentView}
-      sx={{ backgroundColor: 'transparent' }}
+      sx={accordionStyles}
       onClick={() => {
         if (!isInitialContentView) {
           changeDashboard({ nextDashboardId: INITIAL_CONTENT_ID });
