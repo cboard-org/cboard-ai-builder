@@ -76,6 +76,7 @@ function SubmitButton({ text }: { text: string }) {
 const usePromptBlinkAnimation = (
   prompt: PromptRecord,
   setControlledPromptValue: React.Dispatch<React.SetStateAction<PromptRecord>>,
+  preventBlink: React.MutableRefObject<boolean>,
 ) => {
   const [blink, setBlink] = React.useState(true);
   const trigAnimation = React.useCallback(() => {
@@ -97,7 +98,10 @@ const usePromptBlinkAnimation = (
     React.useEffect(() => {
       const promptIsUpdated =
         JSON.stringify(prevPrompt) !== JSON.stringify(prompt);
-      if (promptIsUpdated) trigAnimation();
+      if (promptIsUpdated && !preventBlink.current) {
+        trigAnimation();
+      }
+      if (preventBlink.current) preventBlink.current = false;
     }, [prompt, trigAnimation, prevPrompt]);
   };
 
@@ -162,7 +166,12 @@ export function PromptForm() {
 
   const formAction = useFormStateWatcher();
 
-  const blink = usePromptBlinkAnimation(prompt, setControlledPromptValue);
+  const preventBlinkAnimation = React.useRef(false);
+  const blink = usePromptBlinkAnimation(
+    prompt,
+    setControlledPromptValue,
+    preventBlinkAnimation,
+  );
   const [dashboardId, changeDashboard] = useBoundStore(
     useShallow((state) => [state.dashboardId, state.changeDashboard]),
   );
@@ -212,6 +221,7 @@ export function PromptForm() {
         >
           <form
             onSubmit={() => {
+              preventBlinkAnimation.current = true;
               cleanBoard();
               if (controlledPromptValue) {
                 setControlledPromptValue(controlledPromptValue);
