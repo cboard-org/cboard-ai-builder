@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord } from '@/commonTypes/Tile';
+import Image from 'next/image';
 
 type Props = {
   label: string | undefined;
@@ -59,7 +60,12 @@ export default function Symbol({ label, labelpos, image }: Props) {
       )}
       {src && (
         <div className={style.SymbolImageContainer}>
-          <img className={style.SymbolImage} src={src} alt={label} />
+          <Image
+            className={style.SymbolImage}
+            src={src}
+            alt={label || ''}
+            fill={true}
+          />
           {/* TODO: Use Image component from next to optimize images - TechDebt */}
         </div>
       )}
