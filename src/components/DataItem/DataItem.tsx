@@ -13,6 +13,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { useShallow } from 'zustand/react/shallow';
 
 export type BaseDataItemType = {
+  id: string;
   prompt: PromptRecord;
   date: Date | string;
   board?: BoardRecord;
@@ -21,25 +22,30 @@ export type BaseDataItemType = {
 type Props<DataType extends BaseDataItemType> = {
   data: DataType;
   onDelete: (dataRow: DataType) => void;
+  onEditClick?: () => void;
 };
 
 export default function DataItem<DataType extends BaseDataItemType>({
   data,
   onDelete,
+  onEditClick,
 }: Props<DataType>) {
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const [setPrompt, changeBoard, isGenerationPending] = useBoundStore(
+  const [setPrompt, changeDashboard, isGenerationPending] = useBoundStore(
     useShallow((state) => [
       state.setPrompt,
-      state.changeBoard,
+      state.changeDashboard,
       state.isGenerationPending,
     ]),
   );
 
   const onEdit = () => {
-    if (data.board) changeBoard(data.board);
+    if (data.id && data.board) {
+      changeDashboard({ nextDashboardId: data.id, nextBoard: data.board });
+      if (onEditClick) onEditClick();
+    }
     setPrompt({
       description,
       rows,

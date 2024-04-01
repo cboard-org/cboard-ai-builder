@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
 
 export type HistoryData = {
-  id: number | string;
+  id: string;
   prompt: PromptRecord;
   date: Date | string;
 };
