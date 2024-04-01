@@ -5,12 +5,13 @@ import { HistoryData } from './actions';
 import DataList from '@/components/DataList/DataList';
 import { useTransition } from 'react';
 
-export default function HistoryList({
-  histories,
+export default function History({
+  initialData: histories,
 }: {
-  histories: HistoryData[];
+  initialData: HistoryData[];
 }) {
   const [isPending, startTransition] = useTransition();
+
   const deleteHistoryData = async (historyToDelete: HistoryData) => {
     startTransition(async () => {
       await removeHistoryData(historyToDelete.id);
