@@ -4,6 +4,7 @@ import { Store } from './../providers/StoreProvider';
 
 export type PromptActions = {
   setPrompt: (prompt: PromptRecord) => void;
+  cleanPrompt: () => void;
 };
 
 export type PromptSlice = { prompt: PromptRecord } & PromptActions;
@@ -29,4 +30,9 @@ export const createPromptSlice: StateCreator<
       type: 'Prompt/setPompt',
       prompt,
     }),
+  cleanPrompt: () => {
+    set(() => ({ prompt: { ...defaultPromptState } }), false, {
+      type: 'Prompt/cleanPrompt',
+    });
+  },
 });

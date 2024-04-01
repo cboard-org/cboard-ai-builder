@@ -172,8 +172,12 @@ export function PromptForm() {
     setControlledPromptValue,
     preventBlinkAnimation,
   );
-  const [dashboardId, changeDashboard] = useBoundStore(
-    useShallow((state) => [state.dashboardId, state.changeDashboard]),
+  const [dashboardId, changeDashboard, cleanPrompt] = useBoundStore(
+    useShallow((state) => [
+      state.dashboardId,
+      state.changeDashboard,
+      state.cleanPrompt,
+    ]),
   );
   const isInitialContentView = dashboardId === INITIAL_CONTENT_ID;
   const accordionStyles = {
@@ -192,6 +196,7 @@ export function PromptForm() {
       sx={accordionStyles}
       onClick={() => {
         if (!isInitialContentView) {
+          cleanPrompt();
           changeDashboard({ nextDashboardId: INITIAL_CONTENT_ID });
         }
       }}
