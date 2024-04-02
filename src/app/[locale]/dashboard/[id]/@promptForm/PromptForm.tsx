@@ -29,6 +29,9 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AddIcon from '@mui/icons-material/Add';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import { useRouter } from '@/navigation';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -112,25 +115,22 @@ const usePromptBlinkAnimation = (
 
 const useFormStateWatcher = () => {
   const [state, formAction] = useFormState(submit, null);
-  const [changeDashboard, setErrorOnBoardGeneration, stashDashboard] =
-    useBoundStore(
-      useShallow((state) => [
-        state.changeDashboard,
-        state.setErrorOnBoardGeneration,
-        state.stashDashboard,
-      ]),
-    );
-
+  const [setBoard, setErrorOnBoardGeneration, stashDashboard] = useBoundStore(
+    useShallow((state) => [
+      state.setBoard,
+      state.setErrorOnBoardGeneration,
+      state.stashDashboard,
+    ]),
+  );
+  const router = useRouter();
   React.useEffect(() => {
     if (state?.error) setErrorOnBoardGeneration();
     if (state?.board) {
-      changeDashboard({
-        nextBoard: state.board,
-        nextDashboardId: STASHED_CONTENT_ID,
-      });
+      setBoard(state.board);
       stashDashboard();
+      router.push(`/dashboard/${STASHED_CONTENT_ID}`);
     }
-  }, [state, changeDashboard, setErrorOnBoardGeneration, stashDashboard]);
+  }, [state, setErrorOnBoardGeneration, stashDashboard, router, setBoard]);
   return formAction;
 };
 
@@ -172,14 +172,13 @@ export function PromptForm() {
     setControlledPromptValue,
     preventBlinkAnimation,
   );
-  const [dashboardId, changeDashboard, cleanPrompt] = useBoundStore(
-    useShallow((state) => [
-      state.dashboardId,
-      state.changeDashboard,
-      state.cleanPrompt,
-    ]),
+  const [cleanPrompt] = useBoundStore(
+    useShallow((state) => [state.cleanPrompt]),
   );
-  const isInitialContentView = dashboardId === INITIAL_CONTENT_ID;
+  const id = useParams().id;
+
+  const isInitialContentView = id === INITIAL_CONTENT_ID;
+
   const accordionStyles = {
     backgroundColor: 'transparent',
     '&:hover': {
@@ -189,7 +188,6 @@ export function PromptForm() {
         : 'rgba(0, 0, 0, 0.04)',
     },
   };
-
   return (
     <Accordion
       expanded={isInitialContentView}
@@ -197,20 +195,21 @@ export function PromptForm() {
       onClick={() => {
         if (!isInitialContentView) {
           cleanPrompt();
-          changeDashboard({ nextDashboardId: INITIAL_CONTENT_ID });
         }
       }}
     >
       {!isInitialContentView && (
-        <AccordionSummary
-          expandIcon={<AddIcon />}
-          aria-controls="panel1-content"
-          id="panel1-header"
-        >
-          <Typography variant="subtitle1" component="h2">
-            New Board
-          </Typography>
-        </AccordionSummary>
+        <Link href={`/dashboard/${INITIAL_CONTENT_ID}`}>
+          <AccordionSummary
+            expandIcon={<AddIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <Typography variant="subtitle1" component="h2">
+              New Board
+            </Typography>
+          </AccordionSummary>
+        </Link>
       )}
       <AccordionDetails sx={{ p: 0 }}>
         <Fade

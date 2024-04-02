@@ -13,11 +13,9 @@ const ITEMS_PER_PAGE = 2;
 export default function DataList<DataItemType extends BaseDataItemType>({
   list,
   deleteItem,
-  onEditClick,
 }: {
   list: DataItemType[];
   deleteItem: (data: DataItemType) => void;
-  onEditClick?: () => void;
 }) {
   const [page, setPage] = useState(1);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -31,12 +29,7 @@ export default function DataList<DataItemType extends BaseDataItemType>({
     <Stack sx={styles.stack}>
       <List sx={styles.list}>
         {truncatedItems.map((data, index) => (
-          <DataItem
-            data={data}
-            key={index}
-            onDelete={deleteItem}
-            onEditClick={onEditClick}
-          />
+          <DataItem data={data} key={index} onDelete={deleteItem} />
         ))}
       </List>
       <Pagination

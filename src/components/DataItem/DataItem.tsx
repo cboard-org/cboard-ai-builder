@@ -11,7 +11,8 @@ import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { BoardRecord } from '@/commonTypes/Board';
 import { useShallow } from 'zustand/react/shallow';
-
+import { Link } from '@/navigation';
+import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 export type BaseDataItemType = {
   id: string;
   prompt: PromptRecord;
@@ -22,30 +23,20 @@ export type BaseDataItemType = {
 type Props<DataType extends BaseDataItemType> = {
   data: DataType;
   onDelete: (dataRow: DataType) => void;
-  onEditClick?: () => void;
 };
 
 export default function DataItem<DataType extends BaseDataItemType>({
   data,
   onDelete,
-  onEditClick,
 }: Props<DataType>) {
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const [setPrompt, changeDashboard, isGenerationPending] = useBoundStore(
-    useShallow((state) => [
-      state.setPrompt,
-      state.changeDashboard,
-      state.isGenerationPending,
-    ]),
+  const [setPrompt, isGenerationPending] = useBoundStore(
+    useShallow((state) => [state.setPrompt, state.isGenerationPending]),
   );
 
   const onEdit = () => {
-    if (data.id && data.board) {
-      changeDashboard({ nextDashboardId: data.id, nextBoard: data.board });
-      if (onEditClick) onEditClick();
-    }
     setPrompt({
       description,
       rows,
@@ -59,14 +50,22 @@ export default function DataItem<DataType extends BaseDataItemType>({
       divider
       secondaryAction={
         <Box>
-          <IconButton
-            disabled={isGenerationPending}
-            aria-label="Edit"
-            onClick={() => onEdit()}
-            size="small"
+          <Link
+            href={
+              data.board //Replace this with boardId
+                ? `/dashboard/${data.id}`
+                : `/dashboard/${INITIAL_CONTENT_ID}`
+            }
           >
-            <EditOutlined fontSize="small" />
-          </IconButton>
+            <IconButton
+              disabled={isGenerationPending}
+              aria-label="Edit"
+              onClick={() => onEdit()}
+              size="small"
+            >
+              <EditOutlined fontSize="small" />
+            </IconButton>
+          </Link>
           <IconButton
             aria-label="Delete"
             onClick={() => onDelete(data)}

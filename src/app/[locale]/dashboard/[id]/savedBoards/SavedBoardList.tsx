@@ -7,10 +7,8 @@ import DataList from '@/components/DataList/DataList';
 
 export default function SavedBoardsList({
   initialData,
-  onEditClick,
 }: {
   initialData: SavedBoardsData[];
-  onEditClick: () => void;
 }) {
   const [savedBoards, deletesavedBoard] = useOptimistic(
     initialData,
@@ -27,7 +25,6 @@ export default function SavedBoardsList({
     <DataList<SavedBoardsData>
       list={savedBoards}
       deleteItem={deleteSavedBoardsData}
-      onEditClick={onEditClick}
     />
   );
 }
