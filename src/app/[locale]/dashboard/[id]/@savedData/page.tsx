@@ -1,15 +1,14 @@
 import TabSelector from './TabsSelector';
 import IntlWrapperForAsync from '@/components/IntlWrapperForAsync/IntlWrapperForAsync';
-import { getSavedBoardsData } from '../savedBoards/actions';
-import { getPromptHistoryData } from '../history/actions';
+import { SavedBoardsData } from '../savedBoards/actions';
+import History from '../history/History';
 
 export default async function SavedData() {
-  const initialHistory = await getPromptHistoryData();
-  const initialSavedBoards = await getSavedBoardsData();
+  const initialSavedBoards: SavedBoardsData[] = [];
   return (
     <IntlWrapperForAsync propertyName={'SavedData'}>
       <TabSelector
-        initialHistory={initialHistory}
+        history={<History />}
         initialSavedBoards={initialSavedBoards}
       />
     </IntlWrapperForAsync>

@@ -9,8 +9,6 @@ import { SavedBoardsData } from '../savedBoards/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useEffect } from 'react';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '@/dashboard/constants';
-import { HistoryData } from '../history/actions';
-import History from '../history/History';
 import { useShallow } from 'zustand/react/shallow';
 
 interface TabPanelProps {
@@ -90,10 +88,10 @@ const useSetDashboardOnDashboardIdChange = (
 };
 
 export default function TabsSelector({
-  initialHistory,
+  history,
   initialSavedBoards,
 }: {
-  initialHistory: HistoryData[];
+  history: React.ReactNode;
   initialSavedBoards: SavedBoardsData[];
 }) {
   const translations = useTranslations('SavedData');
@@ -129,7 +127,7 @@ export default function TabsSelector({
       </Tabs>
       <Box>
         <TabPanel value={value} index={0}>
-          <History initialData={initialHistory} />
+          <>{history}</>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SavedBoardsList
