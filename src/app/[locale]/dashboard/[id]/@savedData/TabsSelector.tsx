@@ -4,7 +4,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTranslations } from 'next-intl';
-import SavedBoardsList from '../savedBoards/SavedBoardList';
 import { SavedBoardsData } from '../savedBoards/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useEffect } from 'react';
@@ -89,10 +88,10 @@ const useSetDashboardOnDashboardIdChange = (
 
 export default function TabsSelector({
   history,
-  initialSavedBoards,
+  savedBoard,
 }: {
   history: React.ReactNode;
-  initialSavedBoards: SavedBoardsData[];
+  savedBoard: React.ReactNode;
 }) {
   const translations = useTranslations('SavedData');
 
@@ -103,14 +102,7 @@ export default function TabsSelector({
   };
   const preventSetBoardOnDashboardIdChange = React.useRef(true);
 
-  useSetDashboardOnDashboardIdChange(
-    initialSavedBoards,
-    preventSetBoardOnDashboardIdChange,
-  );
-
-  const preventUseSetDashboardOnDashboardIdChange = () => {
-    preventSetBoardOnDashboardIdChange.current = true;
-  };
+  useSetDashboardOnDashboardIdChange([], preventSetBoardOnDashboardIdChange);
 
   return (
     <Box px={2}>
@@ -130,10 +122,7 @@ export default function TabsSelector({
           <>{history}</>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <SavedBoardsList
-            initialData={initialSavedBoards}
-            onEditClick={preventUseSetDashboardOnDashboardIdChange}
-          />
+          <>{savedBoard}</>
         </TabPanel>
       </Box>
     </Box>
