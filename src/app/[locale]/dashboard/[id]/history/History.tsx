@@ -1,27 +1,7 @@
-'use client'; // Check avoid using use optimistic. and use as server component
+import { getPromptHistoryData } from './actions';
+import HistoryList from './HistoryList';
 
-import { useOptimistic } from 'react';
-import { removeHistoryData } from './actions';
-import { HistoryData } from './actions';
-import DataList from '@/components/DataList/DataList';
-
-export default function History({
-  initialData,
-}: {
-  initialData: HistoryData[];
-}) {
-  const [histories, deleteHistory] = useOptimistic(
-    initialData,
-    (histories, historyToDelete: HistoryData) => {
-      return histories.filter((h) => h.id != historyToDelete.id);
-    },
-  );
-  const deleteHistoryData = async (historyToDelete: HistoryData) => {
-    deleteHistory(historyToDelete);
-    await removeHistoryData(historyToDelete);
-  };
-
-  return (
-    <DataList<HistoryData> list={histories} deleteItem={deleteHistoryData} />
-  );
+export default async function History() {
+  const initialData = await getPromptHistoryData();
+  return <HistoryList initialData={initialData} />;
 }

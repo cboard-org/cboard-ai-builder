@@ -26,7 +26,7 @@ export default function SavedBoardsList({
   return (
     <DataList<SavedBoardsData>
       list={savedBoards}
-      deleteItem={deleteSavedBoardsData}
+      deleteItem={{ deleteData: deleteSavedBoardsData, isDeleting: false }}
       onEditClick={onEditClick}
     />
   );

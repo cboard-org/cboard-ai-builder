@@ -16,7 +16,10 @@ export default function DataList<DataItemType extends BaseDataItemType>({
   onEditClick,
 }: {
   list: DataItemType[];
-  deleteItem: (data: DataItemType) => void;
+  deleteItem: {
+    deleteData: (data: DataItemType) => void;
+    isDeleting: boolean;
+  };
   onEditClick?: () => void;
 }) {
   const [page, setPage] = useState(1);
@@ -34,7 +37,7 @@ export default function DataList<DataItemType extends BaseDataItemType>({
           <DataItem
             data={data}
             key={index}
-            onDelete={deleteItem}
+            deleteItem={deleteItem}
             onEditClick={onEditClick}
           />
         ))}
