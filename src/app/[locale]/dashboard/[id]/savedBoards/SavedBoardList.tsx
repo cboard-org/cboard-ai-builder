@@ -10,7 +10,7 @@ export default function SavedBoardsList({
   onEditClick,
 }: {
   initialData: SavedBoardsData[];
-  onEditClick: () => void;
+  onEditClick?: () => void;
 }) {
   const [savedBoards, deletesavedBoard] = useOptimistic(
     initialData,
