@@ -6,7 +6,6 @@ import { BoardSlice, createBoardSlice } from '@/stores/board-slice';
 import { devtools } from 'zustand/middleware';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { DashboardSlice, createDashboardSlice } from '@/stores/dashboard-slice';
-import { STASHED_CONTENT_ID } from '@/dashboard/constants';
 
 export type Store = PromptSlice & BoardSlice & DashboardSlice;
 export const StoreContext = createContext<StoreApi<Store> | null>(null);
@@ -14,20 +13,13 @@ export const StoreContext = createContext<StoreApi<Store> | null>(null);
 export default function StoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<StoreApi<Store>>();
   if (!storeRef.current) {
-    const onRehydrateStorage = ({
-      showInitialContent,
-      stashDashboard,
-      setHydrated,
-    }: Store) => {
+    const onRehydrateStorage = ({ showInitialContent, setHydrated }: Store) => {
       return (state: Store | undefined, error: unknown) => {
         if (error) {
           console.error('an error happened during hydration', error);
         } else {
           setHydrated();
           if (state) {
-            if (state.dashboardId === STASHED_CONTENT_ID) {
-              stashDashboard();
-            }
             if (!state?.board) showInitialContent();
           }
         }
