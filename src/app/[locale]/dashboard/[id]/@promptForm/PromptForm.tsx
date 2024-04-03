@@ -45,15 +45,12 @@ function SubmitButton({ text }: { text: string }) {
     setGenerationPending(pending);
   }, [pending, setGenerationPending]);
 
-  const dashboardId = useBoundStore((state) => state.dashboardId);
-  const isOnCreateView = dashboardId === INITIAL_CONTENT_ID;
-
   return (
     <Box sx={{ position: 'relative' }}>
       <Button
         variant="contained"
         type="submit"
-        disabled={pending || !isOnCreateView}
+        disabled={pending}
         sx={{ width: '100%' }}
       >
         <Typography variant="body2" component="div">
