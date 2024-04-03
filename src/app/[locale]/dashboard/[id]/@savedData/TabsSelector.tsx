@@ -6,8 +6,6 @@ import Box from '@mui/material/Box';
 import { useTranslations } from 'next-intl';
 import SavedBoardsList from '../savedBoards/SavedBoardList';
 import { SavedBoardsData } from '../savedBoards/actions';
-import { HistoryData } from '../history/actions';
-import History from '../history/History';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -32,10 +30,10 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function TabsSelector({
-  initialHistory,
+  history,
   initialSavedBoards,
 }: {
-  initialHistory: HistoryData[];
+  history: React.ReactNode;
   initialSavedBoards: SavedBoardsData[];
 }) {
   const translations = useTranslations('SavedData');
@@ -61,7 +59,7 @@ export default function TabsSelector({
       </Tabs>
       <Box>
         <TabPanel value={value} index={0}>
-          <History initialData={initialHistory} />
+          <>{history}</>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SavedBoardsList initialData={initialSavedBoards} />
