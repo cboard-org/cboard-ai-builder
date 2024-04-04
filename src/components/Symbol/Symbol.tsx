@@ -65,7 +65,9 @@ export default function Symbol({ label, labelpos, image }: Props) {
               className={style.SymbolImage}
               src={src}
               alt={label || ''}
-              fill
+              height={355}
+              width={355}
+              priority
             />
           )}
         </div>
