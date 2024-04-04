@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function Symbol({ label, labelpos, image }: Props) {
-  const [src, setSrc] = React.useState('');
+  const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
 
   React.useEffect(() => {
@@ -60,13 +60,14 @@ export default function Symbol({ label, labelpos, image }: Props) {
       )}
       {src && (
         <div className={style.SymbolImageContainer}>
-          <Image
-            className={style.SymbolImage}
-            src={src}
-            alt={label || ''}
-            fill={true}
-          />
-          {/* TODO: Use Image component from next to optimize images - TechDebt */}
+          {src && (
+            <Image
+              className={style.SymbolImage}
+              src={src}
+              alt={label || ''}
+              fill
+            />
+          )}
         </div>
       )}
       {labelpos === 'Below' && (
