@@ -24,6 +24,14 @@ import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
+import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AddIcon from '@mui/icons-material/Add';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { useRouter } from '@/navigation';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -104,14 +112,22 @@ const usePromptBlinkAnimation = (
 
 const useFormStateWatcher = () => {
   const [state, formAction] = useFormState(submit, null);
-  const [changeBoard, setErrorOnBoardGeneration] = useBoundStore(
-    useShallow((state) => [state.changeBoard, state.setErrorOnBoardGeneration]),
+  const [setBoard, setErrorOnBoardGeneration, stashDashboard] = useBoundStore(
+    useShallow((state) => [
+      state.setBoard,
+      state.setErrorOnBoardGeneration,
+      state.stashDashboard,
+    ]),
   );
-
+  const router = useRouter();
   React.useEffect(() => {
     if (state?.error) setErrorOnBoardGeneration();
-    if (state?.board) changeBoard(state.board);
-  }, [state, changeBoard, setErrorOnBoardGeneration]);
+    if (state?.board) {
+      setBoard(state.board);
+      stashDashboard();
+      router.push(`/dashboard/${STASHED_CONTENT_ID}`);
+    }
+  }, [state, setErrorOnBoardGeneration, stashDashboard, router, setBoard]);
   return formAction;
 };
 
@@ -153,258 +169,178 @@ export function PromptForm() {
     setControlledPromptValue,
     preventBlinkAnimation,
   );
+  const [cleanPrompt] = useBoundStore(
+    useShallow((state) => [state.cleanPrompt]),
+  );
+  const id = useParams().id;
+
+  const isInitialContentView = id === INITIAL_CONTENT_ID;
+
+  const accordionStyles = {
+    backgroundColor: 'transparent',
+    '&:hover': {
+      boxShadow: 3,
+      backgroundColor: isInitialContentView
+        ? 'transparent'
+        : 'rgba(0, 0, 0, 0.04)',
+    },
+  };
   return (
-    <Fade
-      appear={true}
-      in={blink}
-      addEndListener={() => {
-        if (blink) {
-          formRef.current?.scrollIntoView(false);
-          descriptionTextFieldRef.current?.focus();
+    <Accordion
+      expanded={isInitialContentView}
+      sx={accordionStyles}
+      onClick={() => {
+        if (!isInitialContentView) {
+          cleanPrompt();
         }
       }}
-      ref={formRef}
     >
-      <form
-        onSubmit={() => {
-          preventBlinkAnimation.current = true;
-          cleanBoard();
-          if (controlledPromptValue) {
-            setControlledPromptValue(controlledPromptValue);
-            setPrompt(controlledPromptValue);
-          }
-        }}
-        action={formAction}
-      >
-        <Grid p={3} container>
-          <Grid item xs={12}>
-            <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flex: '1 1 0',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    mb: '0.3rem',
-                  }}
-                >
-                  <RowsIcon fontSize="small" />
-                  <Typography id="rows-label" variant="body2" component="label">
-                    {message('rows')}
-                  </Typography>
-                </Box>
-                <FormControl size="small">
-                  <GridSizeSelect
-                    name="rows"
-                    labelId="rows-label"
-                    totalItems={totalRows}
-                    initialValue={5}
-                    onChange={(e) => {
-                      setControlledPromptValue({
-                        ...controlledPromptValue,
-                        rows: Number(e.target.value),
-                      });
+      {!isInitialContentView && (
+        <Link href={`/dashboard/${INITIAL_CONTENT_ID}`}>
+          <AccordionSummary
+            expandIcon={<AddIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <Typography variant="subtitle1" component="h2">
+              New Board
+            </Typography>
+          </AccordionSummary>
+        </Link>
+      )}
+      <AccordionDetails sx={{ p: 0 }}>
+        <Fade
+          appear={true}
+          in={blink}
+          addEndListener={() => {
+            if (blink) {
+              formRef.current?.scrollIntoView(false);
+              descriptionTextFieldRef.current?.focus();
+            }
+          }}
+          ref={formRef}
+        >
+          <form
+            onSubmit={() => {
+              preventBlinkAnimation.current = true;
+              cleanBoard();
+              if (controlledPromptValue) {
+                setControlledPromptValue(controlledPromptValue);
+                setPrompt(controlledPromptValue);
+              }
+            }}
+            action={formAction}
+          >
+            <Grid p={3} container>
+              <Grid item xs={12}>
+                <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      flex: '1 1 0',
                     }}
-                    value={controlledPromptValue.rows}
-                  />
-                </FormControl>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flex: '1 1 0',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    mb: '0.3rem',
-                  }}
-                >
-                  <ColumnsIcon fontSize="small" />
-                  <Typography
-                    id="columns-label"
-                    variant="body2"
-                    component="label"
                   >
-                    {message('columns')}
-                  </Typography>
-                </Box>
-                <FormControl size="small">
-                  <GridSizeSelect
-                    name="columns"
-                    labelId="columns-label"
-                    totalItems={totalColumns}
-                    initialValue={5}
-                    onChange={(e) => {
-                      setControlledPromptValue({
-                        ...controlledPromptValue,
-                        columns: Number(e.target.value),
-                      });
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mb: '0.3rem',
+                      }}
+                    >
+                      <RowsIcon fontSize="small" />
+                      <Typography
+                        id="rows-label"
+                        variant="body2"
+                        component="label"
+                      >
+                        {message('rows')}
+                      </Typography>
+                    </Box>
+                    <FormControl size="small">
+                      <GridSizeSelect
+                        name="rows"
+                        labelId="rows-label"
+                        totalItems={totalRows}
+                        initialValue={5}
+                        onChange={(e) => {
+                          setControlledPromptValue({
+                            ...controlledPromptValue,
+                            rows: Number(e.target.value),
+                          });
+                        }}
+                        value={controlledPromptValue.rows}
+                      />
+                    </FormControl>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      flex: '1 1 0',
                     }}
-                    value={controlledPromptValue.columns}
-                  />
-                </FormControl>
-              </Box>
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1,
-                mt: '0.5rem',
-                mb: '0.3rem',
-              }}
-            >
-              <Stack
-                spacing={1}
-                direction="row"
-                useFlexGap
-                flexWrap="nowrap"
-                sx={{
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  mb: '0.3rem',
-                }}
-              >
-                <Typography
-                  id="color-scheme-label"
-                  variant="body2"
-                  component="label"
-                >
-                  {message('colorScheme')}
-                </Typography>
-                <IconButton
-                  aria-label="help"
-                  sx={{ fontSize: 'inherit' }}
-                  size="small"
-                >
-                  <HelpOutlineIcon fontSize="inherit" />
-                </IconButton>
-              </Stack>
-              <FormControl size="small">
-                <Select
-                  id="color-scheme"
-                  name="color-scheme"
-                  labelId="color-scheme-label"
-                  defaultValue="fitzgerald"
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  sx={{ backgroundColor: 'white' }}
-                  onChange={(e) => {
-                    setControlledPromptValue({
-                      ...controlledPromptValue,
-                      colorScheme:
-                        e.target.value === 'fitzgerald' ||
-                        e.target.value === 'something-else' ||
-                        e.target.value === 'foo'
-                          ? e.target.value
-                          : 'fitzgerald',
-                    });
+                  >
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mb: '0.3rem',
+                      }}
+                    >
+                      <ColumnsIcon fontSize="small" />
+                      <Typography
+                        id="columns-label"
+                        variant="body2"
+                        component="label"
+                      >
+                        {message('columns')}
+                      </Typography>
+                    </Box>
+                    <FormControl size="small">
+                      <GridSizeSelect
+                        name="columns"
+                        labelId="columns-label"
+                        totalItems={totalColumns}
+                        initialValue={5}
+                        onChange={(e) => {
+                          setControlledPromptValue({
+                            ...controlledPromptValue,
+                            columns: Number(e.target.value),
+                          });
+                        }}
+                        value={controlledPromptValue.columns}
+                      />
+                    </FormControl>
+                  </Box>
+                </Stack>
+              </Grid>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1,
+                    mt: '0.5rem',
+                    mb: '0.3rem',
                   }}
-                  value={controlledPromptValue.colorScheme}
                 >
-                  <MenuItem value="fitzgerald">Fitzgerald</MenuItem>
-                  <MenuItem value="something-else">something-else</MenuItem>
-                  <MenuItem value="foo">foo</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', mt: '0.3rem' }}
-            >
-              <Stack
-                spacing={1}
-                direction="row"
-                useFlexGap
-                flexWrap="nowrap"
-                sx={{
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  mb: '0.3rem',
-                }}
-              >
-                <Typography
-                  id="color-scheme-label"
-                  variant="body2"
-                  component="label"
-                >
-                  {message('prompt')}
-                </Typography>
-                <IconButton
-                  aria-label="help"
-                  sx={{ fontSize: 'inherit' }}
-                  size="small"
-                >
-                  <HelpOutlineIcon fontSize="inherit" />
-                </IconButton>
-              </Stack>
-              <TextField
-                id="prompt-text"
-                name="prompt-text"
-                multiline
-                rows={3}
-                required
-                InputProps={{
-                  inputComponent: 'textarea',
-                  style: {
-                    fontSize: '1rem',
-                    color: theme.palette.text.secondary,
-                    paddingTop: '0.5rem',
-                  },
-                }}
-                inputProps={{ minLength: 5, maxLength: 180 }}
-                sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
-                inputRef={descriptionTextFieldRef}
-                onChange={(e) => {
-                  setControlledPromptValue({
-                    ...controlledPromptValue,
-                    description: e.target.value,
-                  });
-                }}
-                value={controlledPromptValue.description}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1,
-                my: '.5rem',
-              }}
-            >
-              <FormControlLabel
-                id="use-ai-pictograms"
-                name="use-ai-pictograms"
-                control={<Switch defaultChecked />}
-                label={
                   <Stack
                     spacing={1}
                     direction="row"
-                    justifyContent="center"
                     useFlexGap
                     flexWrap="nowrap"
                     sx={{
                       alignContent: 'center',
                       alignItems: 'center',
-                      justifyContent: 'center',
+                      mb: '0.3rem',
                     }}
                   >
-                    <Typography fontSize={'0.7rem'}>
-                      {message('useAiPictograms')}
+                    <Typography
+                      id="color-scheme-label"
+                      variant="body2"
+                      component="label"
+                    >
+                      {message('colorScheme')}
                     </Typography>
                     <IconButton
                       aria-label="help"
@@ -414,15 +350,144 @@ export function PromptForm() {
                       <HelpOutlineIcon fontSize="inherit" />
                     </IconButton>
                   </Stack>
-                }
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <SubmitButton text={message('newBoard')} />
-          </Grid>
-        </Grid>
-      </form>
-    </Fade>
+                  <FormControl size="small">
+                    <Select
+                      id="color-scheme"
+                      name="color-scheme"
+                      labelId="color-scheme-label"
+                      defaultValue="fitzgerald"
+                      displayEmpty
+                      inputProps={{ 'aria-label': 'Without label' }}
+                      sx={{ backgroundColor: 'white' }}
+                      onChange={(e) => {
+                        setControlledPromptValue({
+                          ...controlledPromptValue,
+                          colorScheme:
+                            e.target.value === 'fitzgerald' ||
+                            e.target.value === 'something-else' ||
+                            e.target.value === 'foo'
+                              ? e.target.value
+                              : 'fitzgerald',
+                        });
+                      }}
+                      value={controlledPromptValue.colorScheme}
+                    >
+                      <MenuItem value="fitzgerald">Fitzgerald</MenuItem>
+                      <MenuItem value="something-else">something-else</MenuItem>
+                      <MenuItem value="foo">foo</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    mt: '0.3rem',
+                  }}
+                >
+                  <Stack
+                    spacing={1}
+                    direction="row"
+                    useFlexGap
+                    flexWrap="nowrap"
+                    sx={{
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      mb: '0.3rem',
+                    }}
+                  >
+                    <Typography
+                      id="color-scheme-label"
+                      variant="body2"
+                      component="label"
+                    >
+                      {message('prompt')}
+                    </Typography>
+                    <IconButton
+                      aria-label="help"
+                      sx={{ fontSize: 'inherit' }}
+                      size="small"
+                    >
+                      <HelpOutlineIcon fontSize="inherit" />
+                    </IconButton>
+                  </Stack>
+                  <TextField
+                    id="prompt-text"
+                    name="prompt-text"
+                    multiline
+                    rows={3}
+                    required
+                    InputProps={{
+                      inputComponent: 'textarea',
+                      style: {
+                        fontSize: '1rem',
+                        color: theme.palette.text.secondary,
+                        paddingTop: '0.5rem',
+                      },
+                    }}
+                    inputProps={{ minLength: 5, maxLength: 180 }}
+                    sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
+                    inputRef={descriptionTextFieldRef}
+                    onChange={(e) => {
+                      setControlledPromptValue({
+                        ...controlledPromptValue,
+                        description: e.target.value,
+                      });
+                    }}
+                    value={controlledPromptValue.description}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1,
+                    my: '.5rem',
+                  }}
+                >
+                  <FormControlLabel
+                    id="use-ai-pictograms"
+                    name="use-ai-pictograms"
+                    control={<Switch defaultChecked />}
+                    label={
+                      <Stack
+                        spacing={1}
+                        direction="row"
+                        justifyContent="center"
+                        useFlexGap
+                        flexWrap="nowrap"
+                        sx={{
+                          alignContent: 'center',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Typography fontSize={'0.7rem'}>
+                          {message('useAiPictograms')}
+                        </Typography>
+                        <IconButton
+                          aria-label="help"
+                          sx={{ fontSize: 'inherit' }}
+                          size="small"
+                        >
+                          <HelpOutlineIcon fontSize="inherit" />
+                        </IconButton>
+                      </Stack>
+                    }
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <SubmitButton text={message('newBoard')} />
+              </Grid>
+            </Grid>
+          </form>
+        </Fade>
+      </AccordionDetails>
+    </Accordion>
   );
 }

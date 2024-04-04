@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import styles from './styles.module.css';
-import SavedData from './SavedData/SavedData';
 
 const xsSpacing = 3;
 const mdSpacing = 2;
@@ -43,12 +42,11 @@ const sxStyles = {
 };
 
 export default function Dashboard(props: {
-  history: React.ReactNode;
-  savedBoards: React.ReactNode;
   children: React.ReactNode;
   navbar: React.ReactNode;
   promptForm: React.ReactNode;
   board: React.ReactNode;
+  savedData: React.ReactNode;
 }) {
   return (
     <Box py={{ xs: 0, md: 2, lg: 3 }} className={styles.dashboardBox}>
@@ -62,12 +60,7 @@ export default function Dashboard(props: {
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
           <Box className={styles.controls}>{props.promptForm}</Box>
-          <div className={styles.controls}>
-            <SavedData
-              history={props.history}
-              savedBoards={props.savedBoards}
-            />
-          </div>
+          <div className={styles.controls}>{props.savedData}</div>
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }} className={styles.board}>
           {props.board}
