@@ -60,14 +60,12 @@ export default function Symbol({ label, labelpos, image }: Props) {
       )}
       {src && (
         <div className={style.SymbolImageContainer}>
-          {src && (
-            <Image
-              className={style.SymbolImage}
-              src={src}
-              alt={label || ''}
-              fill
-            />
-          )}
+          <Image
+            className={style.SymbolImage}
+            src={src}
+            alt={label || ''}
+            fill
+          />
         </div>
       )}
       {labelpos === 'Below' && (
