@@ -6,7 +6,7 @@
         "label": "waa",
         "labelKey": "",
         "vocalization": "",
-        "image": "https://static.arasaac.org/pictograms/30522/30522_hair-A65E26_skin-F5E5DE_500.png",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -17,7 +17,7 @@
       {
         "label": "tra",
         "vocalization": "",
-        "image": "https://static.arasaac.org/pictograms/3224/3224_hair-A65E26_skin-F5E5DE_500.png",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -33,7 +33,7 @@
     "isFixed": true,
     "author": "Tomas",
     "email": "tomivm98@gmail.com",
-    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "caption": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
     "name": "clothingAccessoriesexport",
     "lastEdited": "2024-03-25T17:22:26-03:00",
     "id": "65710d7d7a287c00122cdd2a",
@@ -57,14 +57,14 @@
         "backgroundColor": "rgb(200, 200, 200)",
         "borderColor": "rgb( 255, 0,  0) ",
         "vocalization": "I am happy, yo",
-        "image": "https://cboardgroupdiag483.blob.core.windows.net/cblob/_1706743513_b773a5a77b24_i9"
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png"
       },
       {
         "id": "b2",
         "label": "sad",
         "backgroundColor": "rgb( 200, 200, 200) ",
         "borderColor": "rgb(0, 0, 255)",
-        "image": "https://static.arasaac.org/pictograms/2314/2314_500.png"
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png"
       },
       {
         "id": "b3",
@@ -72,7 +72,7 @@
         "backgroundColor": "rgba(0, 0, 0, 0.1)",
         "borderColor": "rgba(255, 0, 0, 0.2)",
         "action": "+less",
-        "image": "https://static.arasaac.org/pictograms/26915/26915_300.png"
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png"
       },
       { "id": "b5", "label": "No way" },
       { "id": "b4", "label": "Clear Text", "action": ":clear" }
@@ -105,7 +105,7 @@
         "label": "waa",
         "labelKey": "",
         "vocalization": "",
-        "image": "https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/23825/17_23826_b057d21f-027b-4e82-abeb-1f000e56b467.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -116,7 +116,7 @@
       {
         "label": "tra",
         "vocalization": "",
-        "image": "https://static.arasaac.org/pictograms/3224/3224_hair-A65E26_skin-F5E5DE_500.png",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -132,7 +132,7 @@
     "isFixed": true,
     "author": "Tomas",
     "email": "tomivm98@gmail.com",
-    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "caption": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
     "name": "clothingAccessoriesexport",
     "lastEdited": "2024-03-25T17:22:26-03:00",
     "id": "65710d7d7a287c00122cdd2a",
@@ -154,7 +154,7 @@
         "label": "waa",
         "labelKey": "",
         "vocalization": "",
-        "image": "https://img.freepik.com/foto-gratis/papel-pintado-gatito-lindo-fantasia_1409-6188.jpg?w=2000&t=st=1711401194~exp=1711401794~hmac=d56a05438ba04684eb6af7db57b2d7097cf73142ea1e35d9cdd768cffc99bbf6",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/23825/17_23826_b057d21f-027b-4e82-abeb-1f000e56b467.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -165,7 +165,7 @@
       {
         "label": "tra",
         "vocalization": "",
-        "image": "https://static.arasaac.org/pictograms/3224/3224_hair-A65E26_skin-F5E5DE_500.png",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -181,7 +181,7 @@
     "isFixed": true,
     "author": "Tomas",
     "email": "tomivm98@gmail.com",
-    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "caption": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
     "name": "clothingAccessoriesexport",
     "lastEdited": "2024-03-25T17:22:26-03:00",
     "id": "65710d7d7a287c00122cdd2a",
@@ -203,7 +203,7 @@
         "label": "waa",
         "labelKey": "",
         "vocalization": "",
-        "image": "https://img.freepik.com/foto-gratis/papel-pintado-gatito-lindo-fantasia_1409-6188.jpg?w=2000&t=st=1711401194~exp=1711401794~hmac=d56a05438ba04684eb6af7db57b2d7097cf73142ea1e35d9cdd768cffc99bbf6",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/23304/17_23305_b0ccd369-be8f-4ca4-b8b3-cf72c81cf8cc.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -214,7 +214,7 @@
       {
         "label": "tra",
         "vocalization": "",
-        "image": "https://static.arasaac.org/pictograms/30522/30522_hair-A65E26_skin-F5E5DE_500.png",
+        "image": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
         "loadBoard": "",
         "sound": "",
         "type": "button",
@@ -230,7 +230,7 @@
     "isFixed": true,
     "author": "Tomas",
     "email": "tomivm98@gmail.com",
-    "caption": "https://cboardgroupdiag483.blob.core.windows.net/cblob/1536763583_9b1b336c1684_clothing%20accessories.png",
+    "caption": "https://globalsymbols.com/uploads/production/image/imagefile/14535/17_14536_88b4dc3e-fd8b-45e3-8133-ea15893a67b4.png",
     "name": "clothingAccessoriesexport",
     "lastEdited": "2024-03-25T17:22:26-03:00",
     "id": "65710d7d7a287c00122cdd2a",
