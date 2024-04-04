@@ -4,6 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { useRouter, usePathname } from '@/navigation';
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -35,10 +37,19 @@ export default function TabsSelector({
 }) {
   const translations = useTranslations('SavedData');
 
-  const [value, setValue] = React.useState(0);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [value, setValue] = React.useState(
+    parseInt(searchParams.get('tab') ?? '0'),
+  );
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set('tab', newValue.toString());
+    router.replace(`${pathname}?${newParams.toString()}`);
   };
 
   return (
