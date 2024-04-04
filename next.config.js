@@ -5,13 +5,13 @@ const withNextIntl = require('next-intl/plugin')('./src/intl/i18n.ts');
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: [
-      //only for allow use test boards
-      'cboardgroupdiag483.blob.core.windows.net',
-      'static.arasaac.org',
-      'globalsymbols.com',
-    ],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'globalsymbols.com',
+        port: '',
+        pathname: '/**',
+      },
       {
         protocol: 'https',
         hostname: 'source.unsplash.com',
