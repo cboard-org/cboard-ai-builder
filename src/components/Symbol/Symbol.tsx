@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord } from '@/commonTypes/Tile';
+import Image from 'next/image';
 
 type Props = {
   label: string | undefined;
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function Symbol({ label, labelpos, image }: Props) {
-  const [src, setSrc] = React.useState('');
+  const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
 
   React.useEffect(() => {
@@ -48,6 +49,7 @@ export default function Symbol({ label, labelpos, image }: Props) {
         const url = URL.createObjectURL(blob);
         setSrc(url);
       }
+      setSrc(null);
     }
     getSrc();
   }, [setSrc, image]);
@@ -57,12 +59,18 @@ export default function Symbol({ label, labelpos, image }: Props) {
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {src && (
-        <div className={style.SymbolImageContainer}>
-          <img className={style.SymbolImage} src={src} alt={label} />
-          {/* TODO: Use Image component from next to optimize images - TechDebt */}
-        </div>
-      )}
+      <div className={style.SymbolImageContainer}>
+        {src && (
+          <Image
+            className={style.SymbolImage}
+            src={src}
+            alt={label || ''}
+            height={355}
+            width={355}
+            priority
+          />
+        )}
+      </div>
       {labelpos === 'Below' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
