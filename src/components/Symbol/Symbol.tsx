@@ -49,6 +49,7 @@ export default function Symbol({ label, labelpos, image }: Props) {
         const url = URL.createObjectURL(blob);
         setSrc(url);
       }
+      setSrc(null);
     }
     getSrc();
   }, [setSrc, image]);
