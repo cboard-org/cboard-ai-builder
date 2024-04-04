@@ -58,20 +58,18 @@ export default function Symbol({ label, labelpos, image }: Props) {
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {src && (
-        <div className={style.SymbolImageContainer}>
-          {src && (
-            <Image
-              className={style.SymbolImage}
-              src={src}
-              alt={label || ''}
-              height={355}
-              width={355}
-              priority
-            />
-          )}
-        </div>
-      )}
+      <div className={style.SymbolImageContainer}>
+        {src && (
+          <Image
+            className={style.SymbolImage}
+            src={src}
+            alt={label || ''}
+            height={355}
+            width={355}
+            priority
+          />
+        )}
+      </div>
       {labelpos === 'Below' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
