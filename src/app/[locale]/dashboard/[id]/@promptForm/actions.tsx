@@ -83,13 +83,12 @@ export async function submit(
       typeof columns === 'number'
     ) {
       const numberOfTiles = rows * columns;
-      const suggestions =
-        await boardGenerator.getSuggestionsAndProcessPictograms({
-          prompt: prompt,
-          maxSuggestions: numberOfTiles,
-          symbolSet: 'arasaac',
-          language: 'eng',
-        });
+      const suggestions = await boardGenerator.getSuggestions({
+        prompt: prompt,
+        maxSuggestions: numberOfTiles,
+        symbolSet: 'arasaac',
+        language: 'eng',
+      });
 
       if (!suggestions.length) {
         throw new Error('No suggestions found');
