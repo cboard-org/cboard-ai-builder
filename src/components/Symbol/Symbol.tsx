@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord } from '@/commonTypes/Tile';
@@ -14,12 +14,27 @@ type Props = {
   tileId: string;
 };
 
+const useUpdateTileImage = (
+  tileId: string,
+  image: string = '',
+  generatedPicto: string,
+) => {
+  const updateTileImage = useBoundStore((state) => state.updateTileImage);
+  useEffect(() => {
+    if (image === '') {
+      updateTileImage(tileId, generatedPicto);
+    }
+  }, [updateTileImage, image, generatedPicto, tileId]);
+};
+
 export default function Symbol({ label, labelpos, image, tileId }: Props) {
   const [src, setSrc] = React.useState('');
   const [updateTileImage, stashDashboard] = useBoundStore(
     useShallow((state) => [state.updateTileImage, state.stashDashboard]),
   );
   const symbolClassName = style.Symbol;
+  const [generatedPicto, setGeneratedPicto] = React.useState('');
+
   React.useEffect(() => {
     let ignore = false;
     const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
@@ -56,30 +71,42 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
           setSrc(url);
         }
       }
-
-      if (image === '' && label) {
-        const description = label;
-        try {
-          console.log('Creating picto for', description, 'ignore', ignore);
-          const generatedPicto = await createPicto(description);
-          console.log('Generated picto', generatedPicto);
-          if (!ignore) {
-            updateTileImage(tileId, generatedPicto.url);
-            stashDashboard();
-            setSrc(generatedPicto.url);
-          }
-        } catch (e) {
-          console.error('Error aca' + e);
-        }
-      }
     }
     getSrc();
+
     return () => {
-      console.log('cleanup', ignore);
       ignore = true;
+      console.log('cleanup', ignore);
     };
   }, [setSrc, image, label, tileId, updateTileImage, stashDashboard]);
 
+  const generatePicto = useCallback(async () => {
+    const description = label;
+    if (!description) return;
+
+    try {
+      console.log('Creating picto for', description, 'ignore');
+
+      const generatedPicto = await createPicto(description);
+      setGeneratedPicto(generatedPicto.url);
+
+      console.log('Generated picto', generatedPicto, 'ignore');
+
+      //updateTileImage(tileId, generatedPicto.url);
+      //stashDashboard();
+      //setSrc(generatedPicto.url);
+    } catch (e) {
+      console.error('Error aca' + e);
+    }
+  }, [label]);
+
+  useEffect(() => {
+    if (image === '') {
+      generatePicto();
+    }
+  }, [image, generatePicto]);
+
+  useUpdateTileImage(tileId, image, generatedPicto);
   // const onClick = () => {
   //   if (image === '' && label && !isPending) {
   //     console.log('Generating picto for', label);
