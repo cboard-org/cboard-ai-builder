@@ -19,24 +19,24 @@ const useUpdateTileImage = (
   image: string = '',
   generatedPicto: string,
 ) => {
-  const updateTileImage = useBoundStore((state) => state.updateTileImage);
+  const [updateTileImage, stashDashboard] = useBoundStore(
+    useShallow((state) => [state.updateTileImage, state.stashDashboard]),
+  );
   useEffect(() => {
     if (image === '') {
       updateTileImage(tileId, generatedPicto);
+      stashDashboard();
     }
-  }, [updateTileImage, image, generatedPicto, tileId]);
+  }, [updateTileImage, image, generatedPicto, tileId, stashDashboard]);
 };
 
 export default function Symbol({ label, labelpos, image, tileId }: Props) {
   const [src, setSrc] = React.useState('');
-  const [updateTileImage, stashDashboard] = useBoundStore(
-    useShallow((state) => [state.updateTileImage, state.stashDashboard]),
-  );
+
   const symbolClassName = style.Symbol;
   const [generatedPicto, setGeneratedPicto] = React.useState('');
 
-  React.useEffect(() => {
-    let ignore = false;
+  useEffect(() => {
     const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
       const byteCharacters = atob(b64Data);
       const byteArrays = [];
@@ -73,28 +73,15 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
       }
     }
     getSrc();
-
-    return () => {
-      ignore = true;
-      console.log('cleanup', ignore);
-    };
-  }, [setSrc, image, label, tileId, updateTileImage, stashDashboard]);
+  }, [setSrc, image, label, tileId]);
 
   const generatePicto = useCallback(async () => {
     const description = label;
     if (!description) return;
 
     try {
-      console.log('Creating picto for', description, 'ignore');
-
       const generatedPicto = await createPicto(description);
       setGeneratedPicto(generatedPicto.url);
-
-      console.log('Generated picto', generatedPicto, 'ignore');
-
-      //updateTileImage(tileId, generatedPicto.url);
-      //stashDashboard();
-      //setSrc(generatedPicto.url);
     } catch (e) {
       console.error('Error aca' + e);
     }
