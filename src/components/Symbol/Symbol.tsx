@@ -6,6 +6,7 @@ import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
+import Image from 'next/image';
 
 type Props = {
   label: string | undefined;
@@ -13,7 +14,6 @@ type Props = {
   image: string | undefined;
   tileId: string;
 };
-
 const useUpdateTileImage = (
   tileId: string,
   image: string = '',
@@ -31,8 +31,7 @@ const useUpdateTileImage = (
 };
 
 export default function Symbol({ label, labelpos, image, tileId }: Props) {
-  const [src, setSrc] = React.useState('');
-
+  const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
   const [generatedPicto, setGeneratedPicto] = React.useState('');
 
@@ -71,6 +70,7 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
           setSrc(url);
         }
       }
+      setSrc(null);
     }
     getSrc();
   }, [setSrc, image, label, tileId]);
@@ -119,8 +119,7 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-
-      {!image ? (
+      {!src ? (
         <div className={style.SymbolLoadingContainer}>
           <CircularProgress
             sx={{
@@ -131,7 +130,14 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
         </div>
       ) : (
         <div className={style.SymbolImageContainer}>
-          <img className={style.SymbolImage} src={src} alt={label} />
+          <Image
+            className={style.SymbolImage}
+            src={src}
+            alt={label || ''}
+            height={355}
+            width={355}
+            priority
+          />
         </div>
       )}
       {labelpos === 'Below' && (
