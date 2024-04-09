@@ -120,18 +120,20 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
 
-      <div className={style.SymbolImageContainer}>
-        {!image ? (
+      {!image ? (
+        <div className={style.SymbolLoadingContainer}>
           <CircularProgress
             sx={{
-              justifyContent: 'center',
-              alignContent: 'space-around',
+              justifySelf: 'center',
+              alignSelf: 'space-around',
             }}
           />
-        ) : (
+        </div>
+      ) : (
+        <div className={style.SymbolImageContainer}>
           <img className={style.SymbolImage} src={src} alt={label} />
-        )}
-      </div>
+        </div>
+      )}
       {labelpos === 'Below' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
