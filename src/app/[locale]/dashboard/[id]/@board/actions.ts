@@ -8,7 +8,7 @@ const client = new Midjourney({
   SalaiToken: <string>process.env.PICTO_SALAI_TOKEN,
   Debug: false,
   Ws: true,
-  MaxWait: 10000,
+  MaxWait: 100000,
 });
 
 async function initClient() {
