@@ -56,9 +56,6 @@ export default function BoardPage({
   remoteInitialBoard: RemoteInitialBoard;
   id: string;
 }) {
-  const shouldDisplayInitialContent = useBoundStore(
-    useShallow((state) => state.shouldDisplayInitialContent),
-  );
   useSetInitialBoard(remoteInitialBoard, id);
-  return shouldDisplayInitialContent ? <InitialContent /> : <BoardContainer />;
+  return id === INITIAL_CONTENT_ID ? <InitialContent /> : <BoardContainer />;
 }
