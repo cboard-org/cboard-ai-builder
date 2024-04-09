@@ -76,6 +76,8 @@ export const createBoardSlice: StateCreator<
       false,
       {
         type: 'Board/updateTileImage',
+        tileId,
+        image,
       },
     );
   },
