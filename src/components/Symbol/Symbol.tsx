@@ -64,11 +64,12 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
       if (image) {
         if (image.startsWith('http')) {
           setSrc(image);
-        } else {
-          const blob = b64toBlob(image, 'image/jpg');
-          const url = URL.createObjectURL(blob);
-          setSrc(url);
+          return;
         }
+        const blob = b64toBlob(image, 'image/jpg');
+        const url = URL.createObjectURL(blob);
+        setSrc(url);
+        return;
       }
       setSrc(null);
     }
