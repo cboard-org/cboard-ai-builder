@@ -6,7 +6,6 @@ import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
-import Image from 'next/image';
 
 type Props = {
   label: string | undefined;
@@ -131,14 +130,8 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
         </div>
       ) : (
         <div className={style.SymbolImageContainer}>
-          <Image
-            className={style.SymbolImage}
-            src={src}
-            alt={label || ''}
-            height={355}
-            width={355}
-            priority
-          />
+          <img className={style.SymbolImage} src={src} alt={label} />
+          {/* TODO: Use Image component from next to optimize images - TechDebt */}
         </div>
       )}
       {labelpos === 'Below' && (
