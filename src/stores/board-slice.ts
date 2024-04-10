@@ -5,7 +5,6 @@ import { Store } from './../providers/StoreProvider';
 export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
-  shouldDisplayInitialContent: boolean;
   boardId?: string;
 };
 
@@ -17,16 +16,14 @@ export type BoardActions = {
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
-  showInitialContent: () => void;
+  updateTileImage: (tileId: string, image: string) => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
 export const defaultBoardState: {
-  shouldDisplayInitialContent: boolean;
   board: null;
   errorOnBoardGeneration: boolean;
 } = {
-  shouldDisplayInitialContent: false,
   board: null,
   errorOnBoardGeneration: false,
 };
@@ -39,7 +36,7 @@ export const createBoardSlice: StateCreator<
 > = (set) => ({
   ...defaultBoardState,
   setBoard: (board: BoardRecord) =>
-    set(() => ({ board: board, shouldDisplayInitialContent: false }), false, {
+    set(() => ({ board: board }), false, {
       type: 'Board/setBoard',
       board,
     }),
@@ -54,9 +51,25 @@ export const createBoardSlice: StateCreator<
       type: 'Board/setErrorOnBoardGeneration',
     });
   },
-  showInitialContent: () => {
-    set(() => ({ shouldDisplayInitialContent: true }), false, {
-      type: 'Board/showInitialContent',
-    });
+  updateTileImage: (tileId: string, image: string) => {
+    set(
+      (state) => {
+        if (!state.board) {
+          return state;
+        }
+        const nextTiles = state.board.tiles.map((tile) =>
+          tile.id === tileId ? { ...tile, image: image } : tile,
+        );
+        return {
+          board: { ...state.board, tiles: nextTiles },
+        };
+      },
+      false,
+      {
+        type: 'Board/updateTileImage',
+        tileId,
+        image,
+      },
+    );
   },
 });

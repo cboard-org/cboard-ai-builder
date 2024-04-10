@@ -34,10 +34,18 @@
   border-color: #78909c;
 }
 
+.SymbolLoadingContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .SymbolImageContainer {
   position: relative;
-  flex: 1;
   width: 97%;
+  height: 80%;
   margin: auto;
 }
 

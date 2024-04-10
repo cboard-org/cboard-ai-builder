@@ -13,15 +13,12 @@ export const StoreContext = createContext<StoreApi<Store> | null>(null);
 export default function StoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<StoreApi<Store>>();
   if (!storeRef.current) {
-    const onRehydrateStorage = ({ showInitialContent, setHydrated }: Store) => {
+    const onRehydrateStorage = ({ setHydrated }: Store) => {
       return (state: Store | undefined, error: unknown) => {
         if (error) {
           console.error('an error happened during hydration', error);
         } else {
           setHydrated();
-          if (state) {
-            if (!state?.board) showInitialContent();
-          }
         }
       };
     };
