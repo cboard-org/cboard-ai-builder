@@ -23,7 +23,6 @@ export const getBoard = async (id: string) => {
   const savedBoard = await get(id);
   return savedBoard;
 };
-('use server');
 
 const client = new Midjourney({
   ServerId: <string>process.env.PICTO_SERVER_ID,
