@@ -38,12 +38,6 @@ const totalColumns = 12;
 
 function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
-  const setGenerationPending = useBoundStore(
-    useShallow((state) => state.setGenerationPending),
-  );
-  React.useEffect(() => {
-    setGenerationPending(pending);
-  }, [pending, setGenerationPending]);
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -140,9 +134,13 @@ const usePrevious = <T,>(value: T): T | undefined => {
 };
 
 export function PromptForm() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cleanBoard, prompt, setPrompt] = useBoundStore(
-    useShallow((state) => [state.cleanBoard, state.prompt, state.setPrompt]),
+  const [cleanBoard, prompt, setPrompt, setGenerationPending] = useBoundStore(
+    useShallow((state) => [
+      state.cleanBoard,
+      state.prompt,
+      state.setPrompt,
+      state.setGenerationPending,
+    ]),
   );
   const message = useTranslations('PromptForm');
 
@@ -222,6 +220,7 @@ export function PromptForm() {
         >
           <form
             onSubmit={() => {
+              setGenerationPending(true);
               preventBlinkAnimation.current = true;
               cleanBoard();
               if (controlledPromptValue) {
