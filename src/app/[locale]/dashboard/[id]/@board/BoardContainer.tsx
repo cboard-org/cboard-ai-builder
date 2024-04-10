@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from '@/commonTypes/Board';
@@ -14,6 +14,8 @@ import Tile from '@/components/Tile';
 import SelectTileMask from '@/components/SelectTileMask';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
+import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
+import { useRouter } from '@/navigation';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
@@ -117,11 +119,54 @@ const BoardSection = () => {
   );
 };
 
-export default function BoardContainer() {
+const useSetInitialBoard = ({
+  remoteBoard,
+  id,
+}: {
+  remoteBoard: BoardRecord | null;
+  id: string;
+}) => {
+  const [setBoard, stashedDashboard, hydrated] = useBoundStore(
+    useShallow((state) => [
+      state.setBoard,
+      state.stashedDashboard,
+      state.hydrated,
+    ]),
+  );
+  useEffect(() => {
+    if (remoteBoard) {
+      setBoard(remoteBoard);
+    }
+  }, [remoteBoard, setBoard]);
+
+  const stashedBoard = stashedDashboard.board;
+  const router = useRouter();
+  useEffect(() => {
+    if (stashedBoard)
+      if (id === STASHED_CONTENT_ID) return setBoard(stashedBoard);
+    if (id === STASHED_CONTENT_ID && !stashedBoard && hydrated)
+      router.push(`/dashboard/${INITIAL_CONTENT_ID}`);
+  }, [id, setBoard, stashedBoard, router, hydrated]);
+
+  return;
+};
+export default function BoardContainer({
+  id,
+  remoteBoard,
+}: {
+  id: string;
+  remoteBoard: BoardRecord | null;
+}) {
   // should use board from store as truth
   const [boardFromStore, errorOnBoardGeneration] = useBoundStore(
-    useShallow((state) => [state.board, state.errorOnBoardGeneration]),
+    useShallow((state) => [
+      state.board,
+      state.errorOnBoardGeneration,
+      state.setBoard,
+    ]),
   );
+
+  useSetInitialBoard({ remoteBoard, id });
 
   return (
     <Box

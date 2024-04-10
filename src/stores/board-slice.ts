@@ -5,7 +5,6 @@ import { Store } from './../providers/StoreProvider';
 export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
-  shouldDisplayInitialContent: boolean;
   boardId?: string;
 };
 
@@ -17,17 +16,14 @@ export type BoardActions = {
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
-  showInitialContent: () => void;
   updateTileImage: (tileId: string, image: string) => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
 export const defaultBoardState: {
-  shouldDisplayInitialContent: boolean;
   board: null;
   errorOnBoardGeneration: boolean;
 } = {
-  shouldDisplayInitialContent: false,
   board: null,
   errorOnBoardGeneration: false,
 };
@@ -40,7 +36,7 @@ export const createBoardSlice: StateCreator<
 > = (set) => ({
   ...defaultBoardState,
   setBoard: (board: BoardRecord) =>
-    set(() => ({ board: board, shouldDisplayInitialContent: false }), false, {
+    set(() => ({ board: board }), false, {
       type: 'Board/setBoard',
       board,
     }),
@@ -53,11 +49,6 @@ export const createBoardSlice: StateCreator<
   setErrorOnBoardGeneration: () => {
     set(() => ({ errorOnBoardGeneration: true }), false, {
       type: 'Board/setErrorOnBoardGeneration',
-    });
-  },
-  showInitialContent: () => {
-    set(() => ({ shouldDisplayInitialContent: true }), false, {
-      type: 'Board/showInitialContent',
     });
   },
   updateTileImage: (tileId: string, image: string) => {
