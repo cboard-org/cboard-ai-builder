@@ -41,6 +41,7 @@ export default function Tile({ tile, handleTileClick, children }: Props) {
         image={tile.image}
         label={tile.label}
         labelpos={displaySettings.labelPosition}
+        tileId={tile.id}
       />
       {children}
     </button>

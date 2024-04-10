@@ -18,6 +18,7 @@ export type BoardActions = {
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
   showInitialContent: () => void;
+  updateTileImage: (tileId: string, image: string) => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
@@ -58,5 +59,26 @@ export const createBoardSlice: StateCreator<
     set(() => ({ shouldDisplayInitialContent: true }), false, {
       type: 'Board/showInitialContent',
     });
+  },
+  updateTileImage: (tileId: string, image: string) => {
+    set(
+      (state) => {
+        if (!state.board) {
+          return state;
+        }
+        const nextTiles = state.board.tiles.map((tile) =>
+          tile.id === tileId ? { ...tile, image: image } : tile,
+        );
+        return {
+          board: { ...state.board, tiles: nextTiles },
+        };
+      },
+      false,
+      {
+        type: 'Board/updateTileImage',
+        tileId,
+        image,
+      },
+    );
   },
 });
