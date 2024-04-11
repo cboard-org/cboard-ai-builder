@@ -407,7 +407,17 @@ export function PromptForm() {
                   <FormControlLabel
                     id="use-ai-pictograms"
                     name="use-ai-pictograms"
-                    control={<Switch defaultChecked />}
+                    control={
+                      <Switch
+                        checked={controlledPromptValue.shouldUsePictonizer}
+                        onChange={(e) => {
+                          setControlledPromptValue({
+                            ...controlledPromptValue,
+                            shouldUsePictonizer: e.target.checked,
+                          });
+                        }}
+                      />
+                    }
                     label={
                       <Stack
                         spacing={1}
