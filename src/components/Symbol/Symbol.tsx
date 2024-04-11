@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord } from '@/commonTypes/Tile';
+import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
+import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
+import CircularProgress from '@mui/material/CircularProgress';
 
 type Props = {
   label: string | undefined;
   labelpos: LabelPositionRecord;
   image: string | undefined;
+  tileId: string;
+};
+const useUpdateTileImage = (
+  tileId: string,
+  image: string = '',
+  generatedPicto: string,
+) => {
+  const [updateTileImage, stashDashboard] = useBoundStore(
+    useShallow((state) => [state.updateTileImage, state.stashDashboard]),
+  );
+  useEffect(() => {
+    if (image === '') {
+      updateTileImage(tileId, generatedPicto);
+      stashDashboard();
+    }
+  }, [updateTileImage, image, generatedPicto, tileId, stashDashboard]);
 };
 
-export default function Symbol({ label, labelpos, image }: Props) {
-  const [src, setSrc] = React.useState('');
+export default function Symbol({ label, labelpos, image, tileId }: Props) {
+  const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
+  const [generatedPicto, setGeneratedPicto] = React.useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
       const byteCharacters = atob(b64Data);
       const byteArrays = [];
@@ -47,17 +68,67 @@ export default function Symbol({ label, labelpos, image }: Props) {
         const blob = b64toBlob(image, 'image/jpg');
         const url = URL.createObjectURL(blob);
         setSrc(url);
+        return;
       }
+      setSrc(null);
     }
     getSrc();
-  }, [setSrc, image]);
+  }, [setSrc, image, label, tileId]);
+
+  const generatePicto = useCallback(async () => {
+    const description = label;
+    if (!description) return;
+
+    try {
+      const generatedPicto = await createPicto(description);
+      setGeneratedPicto(generatedPicto.url);
+    } catch (e) {
+      console.error('Error aca' + e);
+    }
+  }, [label]);
+
+  useEffect(() => {
+    if (image === '') {
+      generatePicto();
+    }
+  }, [image, generatePicto]);
+
+  useUpdateTileImage(tileId, image, generatedPicto);
+  // const onClick = () => {
+  //   if (image === '' && label && !isPending) {
+  //     console.log('Generating picto for', label);
+  //     startTransition(async () => {
+  //       const description = label;
+  //       try {
+  //         console.log('Creating picto for', description);
+  //         const generatedPicto = await createPicto(description);
+  //         console.log('Generated picto', generatedPicto);
+  //         //setSrc(generatedPicto.url);
+  //         updateTileImage(tileId, generatedPicto.url);
+  //         setSrc(generatedPicto.url);
+  //       } catch (e) {
+  //         console.error('Error aca' + e.message);
+  //       }
+  //     });
+  //   }
+  // };
 
   return (
     <div className={symbolClassName}>
+      {/* <div onClick={onClick}>clickme</div> */}
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {src && (
+      {!src ? (
+        <div className={style.SymbolLoadingContainer}>
+          <CircularProgress
+            sx={{
+              justifySelf: 'center',
+              alignSelf: 'space-around',
+            }}
+          />
+        </div>
+      ) : (
         <div className={style.SymbolImageContainer}>
           <img className={style.SymbolImage} src={src} alt={label} />
           {/* TODO: Use Image component from next to optimize images - TechDebt */}

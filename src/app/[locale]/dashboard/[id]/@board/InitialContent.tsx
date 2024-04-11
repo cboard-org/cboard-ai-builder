@@ -12,6 +12,7 @@ import styles from './styles';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
+import { useEffect } from 'react';
 
 const promptExampleMessagesKey = [
   {
@@ -74,8 +75,57 @@ const PromptExamplesTextField = ({
   );
 };
 
-export default function InitialContent() {
+export default function InitialContent({
+  newBoard = false,
+}: {
+  newBoard?: boolean;
+}) {
   const messages = useTranslations('Board.InitialContent');
+  const [
+    isGenerationPending,
+    errorOnBoardGeneration,
+    setGenerationPending,
+    cleanBoard,
+  ] = useBoundStore(
+    useShallow((state) => [
+      state.isGenerationPending,
+      state.errorOnBoardGeneration,
+      state.setGenerationPending,
+      state.cleanBoard,
+    ]),
+  );
+
+  useEffect(() => {
+    if (newBoard) setGenerationPending(false);
+  }, [newBoard, setGenerationPending]);
+
+  useEffect(() => {
+    if (errorOnBoardGeneration) {
+      setTimeout(() => {
+        setGenerationPending(false);
+        cleanBoard();
+      }, 2000);
+    }
+  }, [errorOnBoardGeneration, cleanBoard, setGenerationPending]);
+  if (isGenerationPending || errorOnBoardGeneration)
+    return (
+      <Box
+        sx={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {errorOnBoardGeneration ? (
+          <p style={{ color: 'red' }}>ERROR!</p>
+        ) : (
+          <p>LOADING...</p>
+        )}
+      </Box>
+    );
+
   return (
     <Box sx={{ height: '100%' }}>
       <Box

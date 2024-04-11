@@ -32,18 +32,13 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { useRouter } from '@/navigation';
 import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import usePromptBlinkAnimation from './usePromptBlinkAnimation';
 
 const totalRows = 12;
 const totalColumns = 12;
 
 function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
-  const setGenerationPending = useBoundStore(
-    useShallow((state) => state.setGenerationPending),
-  );
-  React.useEffect(() => {
-    setGenerationPending(pending);
-  }, [pending, setGenerationPending]);
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -72,43 +67,6 @@ function SubmitButton({ text }: { text: string }) {
     </Box>
   );
 }
-
-const usePromptBlinkAnimation = (
-  prompt: PromptRecord,
-  setControlledPromptValue: React.Dispatch<React.SetStateAction<PromptRecord>>,
-  preventBlink: React.MutableRefObject<boolean>,
-) => {
-  const [blink, setBlink] = React.useState(true);
-  const trigAnimation = React.useCallback(() => {
-    if (prompt) setBlink(false);
-    setTimeout(() => {
-      setBlink(true);
-      setControlledPromptValue(prompt);
-    }, 300);
-  }, [prompt, setControlledPromptValue]);
-
-  const useTrigAnimationOnPromptChange = ({
-    prompt,
-    trigAnimation,
-  }: {
-    prompt: PromptRecord;
-    trigAnimation: () => void;
-  }) => {
-    const prevPrompt = usePrevious(prompt);
-    React.useEffect(() => {
-      const promptIsUpdated =
-        JSON.stringify(prevPrompt) !== JSON.stringify(prompt);
-      if (promptIsUpdated && !preventBlink.current) {
-        trigAnimation();
-      }
-      if (preventBlink.current) preventBlink.current = false;
-    }, [prompt, trigAnimation, prevPrompt]);
-  };
-
-  useTrigAnimationOnPromptChange({ prompt, trigAnimation });
-
-  return blink;
-};
 
 const useFormStateWatcher = () => {
   const [state, formAction] = useFormState(submit, null);
@@ -141,18 +99,14 @@ const useFormStateWatcher = () => {
   return formAction;
 };
 
-const usePrevious = <T,>(value: T): T | undefined => {
-  const ref = React.useRef<T>();
-  React.useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-};
-
 export function PromptForm() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cleanBoard, prompt, setPrompt] = useBoundStore(
-    useShallow((state) => [state.cleanBoard, state.prompt, state.setPrompt]),
+  const [cleanBoard, prompt, setPrompt, setGenerationPending] = useBoundStore(
+    useShallow((state) => [
+      state.cleanBoard,
+      state.prompt,
+      state.setPrompt,
+      state.setGenerationPending,
+    ]),
   );
   const message = useTranslations('PromptForm');
 
@@ -235,6 +189,7 @@ export function PromptForm() {
         >
           <form
             onSubmit={() => {
+              setGenerationPending(true);
               preventBlinkAnimation.current = true;
               cleanBoard();
               if (controlledPromptValue) {

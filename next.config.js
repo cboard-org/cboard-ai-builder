@@ -8,9 +8,21 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'globalsymbols.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'source.unsplash.com',
         port: '',
         pathname: '/random',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.discordapp.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
