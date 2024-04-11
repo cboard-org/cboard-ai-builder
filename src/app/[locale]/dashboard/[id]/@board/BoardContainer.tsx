@@ -126,18 +126,21 @@ const useSetInitialBoard = ({
   remoteBoard: BoardRecord | null;
   id: string;
 }) => {
-  const [setBoard, stashedDashboard, hydrated] = useBoundStore(
-    useShallow((state) => [
-      state.setBoard,
-      state.stashedDashboard,
-      state.hydrated,
-    ]),
-  );
+  const [setBoard, stashedDashboard, hydrated, setBoardIsUpToDate] =
+    useBoundStore(
+      useShallow((state) => [
+        state.setBoard,
+        state.stashedDashboard,
+        state.hydrated,
+        state.setBoardIsUpToDate,
+      ]),
+    );
   useEffect(() => {
     if (remoteBoard) {
       setBoard(remoteBoard);
+      setBoardIsUpToDate();
     }
-  }, [remoteBoard, setBoard]);
+  }, [remoteBoard, setBoard, setBoardIsUpToDate]);
 
   const stashedBoard = stashedDashboard.board;
   const router = useRouter();

@@ -2,7 +2,7 @@ import { Grid } from '@/commonTypes/Grid';
 import { TileRecord } from '@/commonTypes/Tile';
 
 export type BoardRecord = {
-  id: string;
+  _id: string;
   isPublic: boolean;
   tiles: TileRecord[];
   isFixed: boolean;

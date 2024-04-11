@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -8,11 +8,13 @@ import PrintIcon from '@mui/icons-material/Print';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import { saveBoard } from './actions';
+import { saveBoard, updateBoard } from './actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { BoardRecord } from '@/commonTypes/Board';
 import { useRouter } from '@/navigation';
+import { usePathname } from '@/navigation';
+import { STASHED_CONTENT_ID } from '../constants';
 
 type Props = {
   onEditClick: () => void;
@@ -34,10 +36,14 @@ export default function Toolbar({ onEditClick }: Props) {
     }
   };
   const router = useRouter();
-  const onSaveBoard = async (board: BoardRecord) => {
+  const onSaveBoard = async (board: BoardRecord, isNewBoard: boolean) => {
     try {
       setisSaving(true);
-      const savedBoard = await saveBoard(board);
+
+      const savedBoard = isNewBoard
+        ? await saveBoard(board)
+        : await updateBoard(board);
+      setBoardIsUpToDate();
       router.push(`/dashboard/${savedBoard._id}`);
     } catch (err) {
       console.error(err);
@@ -45,8 +51,25 @@ export default function Toolbar({ onEditClick }: Props) {
     setisSaving(false);
   };
 
-  const [board] = useBoundStore(useShallow((state) => [state.board]));
+  const [board, isOutdated, setBoardIsUpToDate] = useBoundStore(
+    useShallow((state) => [
+      state.board,
+      state.isOutdated,
+      state.setBoardIsUpToDate,
+    ]),
+  );
+  const pathname = usePathname();
+
+  const isNewBoard = useMemo(() => {
+    const parts = pathname.split('/');
+    const boardId = parts[parts.length - 1];
+    return boardId === STASHED_CONTENT_ID;
+  }, [pathname]);
+
   if (!board) return null;
+
+  const isBoardOutdated = isOutdated || isNewBoard;
+
   return (
     <Box sx={{ display: 'flex' }}>
       <IconButton onClick={toggleFullscreen}>
@@ -62,7 +85,10 @@ export default function Toolbar({ onEditClick }: Props) {
         <PrintIcon fontSize="small" />
       </IconButton>
       <Divider orientation="vertical" flexItem />
-      <IconButton disabled={isSaving} onClick={() => onSaveBoard(board)}>
+      <IconButton
+        disabled={isSaving || !isBoardOutdated}
+        onClick={() => onSaveBoard(board, isNewBoard)}
+      >
         <BookmarkBorderIcon fontSize="small" />
       </IconButton>
     </Box>
