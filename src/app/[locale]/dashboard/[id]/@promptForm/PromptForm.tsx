@@ -30,7 +30,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AddIcon from '@mui/icons-material/Add';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { useRouter } from '@/navigation';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import usePromptBlinkAnimation from './usePromptBlinkAnimation';
 
@@ -78,14 +78,24 @@ const useFormStateWatcher = () => {
     ]),
   );
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   React.useEffect(() => {
     if (state?.error) setErrorOnBoardGeneration();
     if (state?.board) {
       setBoard(state.board);
       stashDashboard();
-      router.push(`/dashboard/${STASHED_CONTENT_ID}`);
+      const stashedContentRoute = `/dashboard/${STASHED_CONTENT_ID}?${searchParams.toString()}`;
+      router.push(stashedContentRoute);
     }
-  }, [state, setErrorOnBoardGeneration, stashDashboard, router, setBoard]);
+  }, [
+    state,
+    setErrorOnBoardGeneration,
+    stashDashboard,
+    router,
+    setBoard,
+    searchParams,
+  ]);
   return formAction;
 };
 
@@ -139,6 +149,7 @@ export function PromptForm() {
         : 'rgba(0, 0, 0, 0.04)',
     },
   };
+  const searchParams = useSearchParams();
   return (
     <Accordion
       expanded={isInitialContentView}
@@ -150,7 +161,9 @@ export function PromptForm() {
       }}
     >
       {!isInitialContentView && (
-        <Link href={`/dashboard/${INITIAL_CONTENT_ID}`}>
+        <Link
+          href={`/dashboard/${INITIAL_CONTENT_ID}?${searchParams.toString()}`}
+        >
           <AccordionSummary
             expandIcon={<AddIcon />}
             aria-controls="panel1-content"

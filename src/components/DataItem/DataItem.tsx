@@ -13,6 +13,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { useShallow } from 'zustand/react/shallow';
 import { Link } from '@/navigation';
 import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
+import { useSearchParams } from 'next/navigation';
 export type BaseDataItemType = {
   id: string;
   prompt: PromptRecord;
@@ -48,6 +49,8 @@ export default function DataItem<DataType extends BaseDataItemType>({
       shouldUsePictonizer,
     });
   };
+
+  const searchParams = useSearchParams();
   return (
     <ListItem
       divider
@@ -56,8 +59,8 @@ export default function DataItem<DataType extends BaseDataItemType>({
           <Link
             href={
               data.board //Replace this with boardId
-                ? `/dashboard/${data.id}`
-                : `/dashboard/${INITIAL_CONTENT_ID}`
+                ? `/dashboard/${data.id}?${searchParams.toString()}`
+                : `/dashboard/${INITIAL_CONTENT_ID}?${searchParams.toString()}`
             }
           >
             <IconButton
