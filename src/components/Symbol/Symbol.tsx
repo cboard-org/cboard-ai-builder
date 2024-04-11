@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord } from '@/commonTypes/Tile';
-import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -75,12 +74,29 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
     getSrc();
   }, [setSrc, image, label, tileId]);
 
+  const controlerRef = useRef(new AbortController());
+
   const generatePicto = useCallback(async () => {
     const description = label;
     if (!description) return;
 
     try {
-      const generatedPicto = await createPicto(description);
+      const res = await fetch('/api/create-picto', {
+        method: 'POST',
+        signal: controlerRef.current.signal,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-RapidAPI-Key':
+            '74cc79460fmsh3c6d0abcb93703cp140eb4jsn8975796733b1',
+          'X-RapidAPI-Host': 'textapis.p.rapidapi.com',
+        },
+        body: JSON.stringify({
+          description: description,
+        }),
+      });
+      const generatedPicto = await res.json();
+      console.log('res picto', res);
+      console.log('Generated picto', generatedPicto);
       setGeneratedPicto(generatedPicto.url);
     } catch (e) {
       console.error('Error aca' + e);
