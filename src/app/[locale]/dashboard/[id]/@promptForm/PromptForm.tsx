@@ -143,7 +143,7 @@ export function PromptForm() {
     <Accordion
       expanded={isInitialContentView}
       sx={accordionStyles}
-      onClick={() => {
+      onChange={() => {
         if (!isInitialContentView) {
           cleanPrompt();
         }
