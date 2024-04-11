@@ -6,6 +6,8 @@ import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
+import { usePathname } from '@/navigation';
+import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 
 type Props = {
   label: string | undefined;
@@ -21,18 +23,44 @@ const useUpdateTileImage = (
   const [updateTileImage, stashDashboard] = useBoundStore(
     useShallow((state) => [state.updateTileImage, state.stashDashboard]),
   );
+  const { isStashedContentView, isPictoGenerationActive } =
+    useGeneratePictoActive();
+
   useEffect(() => {
-    if (image === '') {
+    if (image === '' && isPictoGenerationActive) {
       updateTileImage(tileId, generatedPicto);
-      stashDashboard();
+      if (isStashedContentView) stashDashboard();
     }
-  }, [updateTileImage, image, generatedPicto, tileId, stashDashboard]);
+  }, [
+    updateTileImage,
+    image,
+    generatedPicto,
+    tileId,
+    stashDashboard,
+    isStashedContentView,
+    isPictoGenerationActive,
+  ]);
+};
+
+const useGeneratePictoActive = () => {
+  const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
+  const pathname = usePathname();
+  const isStashedContentView = pathname.includes(
+    `/dashboard/${STASHED_CONTENT_ID}`,
+  );
+  const isShouldUsePictonizer = prompt.shouldUsePictonizer;
+  return {
+    isPictoGenerationActive: isShouldUsePictonizer && isStashedContentView,
+    isStashedContentView,
+    isShouldUsePictonizer,
+  };
 };
 
 export default function Symbol({ label, labelpos, image, tileId }: Props) {
   const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
   const [generatedPicto, setGeneratedPicto] = React.useState('');
+  const { isPictoGenerationActive } = useGeneratePictoActive();
 
   useEffect(() => {
     const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
@@ -88,10 +116,10 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
   }, [label]);
 
   useEffect(() => {
-    if (image === '') {
+    if (image === '' && isPictoGenerationActive) {
       generatePicto();
     }
-  }, [image, generatePicto]);
+  }, [image, generatePicto, isPictoGenerationActive]);
 
   useUpdateTileImage(tileId, image, generatedPicto);
   // const onClick = () => {
@@ -119,7 +147,7 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {!src ? (
+      {!src && isPictoGenerationActive && (
         <div className={style.SymbolLoadingContainer}>
           <CircularProgress
             sx={{
@@ -128,7 +156,15 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
             }}
           />
         </div>
-      ) : (
+      )}
+      {!src && !isPictoGenerationActive && (
+        <div className={style.SymbolEmptyImageContainer}>
+          <Typography color={'red'} sx={{ justifySelf: 'center' }}>
+            NO IMAGE
+          </Typography>
+        </div>
+      )}
+      {src && (
         <div className={style.SymbolImageContainer}>
           <img className={style.SymbolImage} src={src} alt={label} />
           {/* TODO: Use Image component from next to optimize images - TechDebt */}
