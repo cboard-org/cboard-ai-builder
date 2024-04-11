@@ -1,12 +1,11 @@
 'use server';
 
 import { PromptRecord } from '@/commonTypes/Prompt';
-import { BoardRecord } from '@/commonTypes/Board';
 import testBoard from '../@board/testBoard.json';
 
 export type SavedBoardsData = {
   id: string;
-  board: BoardRecord;
+  isSavedBoard: boolean;
   prompt: PromptRecord;
   date: Date | string;
 };
@@ -19,8 +18,8 @@ const todayHoursAgo = new Date();
 todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
 const fake_db: SavedBoardsData[] = [
   {
-    id: '0',
-    board: testBoard[0],
+    id: testBoard[0].id,
+    isSavedBoard: true,
     prompt: {
       description: 'pretty family in a camp with a cup',
       rows: 5,
@@ -31,8 +30,8 @@ const fake_db: SavedBoardsData[] = [
     date: todayMinsAgo.toISOString(),
   },
   {
-    id: '1',
-    board: testBoard[1],
+    id: testBoard[1].id,
+    isSavedBoard: true,
     prompt: {
       description: 'pretty family in a camp with a cup',
       rows: 5,
@@ -44,7 +43,7 @@ const fake_db: SavedBoardsData[] = [
   },
   {
     id: '2',
-    board: testBoard[2],
+    isSavedBoard: true,
     prompt: {
       description: 'an arabic famm',
       rows: 5,
@@ -55,8 +54,8 @@ const fake_db: SavedBoardsData[] = [
     date: yesterday.toISOString(),
   },
   {
-    id: '3',
-    board: testBoard[3],
+    id: testBoard[3].id,
+    isSavedBoard: true,
     prompt: {
       description: 'pretty family in a camp with a cup',
       rows: 5,
