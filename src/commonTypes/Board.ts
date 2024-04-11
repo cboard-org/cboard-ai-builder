@@ -1,8 +1,9 @@
 import { Grid } from '@/commonTypes/Grid';
 import { TileRecord } from '@/commonTypes/Tile';
+import { PromptRecord } from './Prompt';
 
 export type BoardRecord = {
-  _id: string;
+  _id?: string;
   isPublic: boolean;
   tiles: TileRecord[];
   isFixed: boolean;
@@ -21,4 +22,5 @@ export type BoardRecord = {
   prevId?: string;
   focusedTileId?: string;
   promptId?: string;
+  prompt?: PromptRecord;
 };
