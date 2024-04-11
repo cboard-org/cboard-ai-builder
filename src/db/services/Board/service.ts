@@ -7,8 +7,7 @@ export async function create(board: DbBoardRecord) {
 
   const dbBoard = new Board(board);
   const savedBoard = await dbBoard.save();
-
-  return savedBoard;
+  return savedBoard.toJSON();
 }
 
 export async function get(id: string) {
