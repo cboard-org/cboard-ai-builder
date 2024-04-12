@@ -16,14 +16,16 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
+import useSaveOnSetBoard from './useSaveOnSetBoard';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useBoundStore(
+  const [board] = useBoundStore(
     useShallow((state) => [state.board, state.setBoard]),
   );
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
+  const [updateBoard, isSaving] = useSaveOnSetBoard();
   if (!board) return null;
   const handleEditClick = () => {
     setIsEditing((isEditing) => !isEditing);
@@ -40,7 +42,7 @@ const BoardSection = () => {
     );
   };
 
-  const onTileDrop = (
+  const onTileDrop = async (
     item: { id: string },
     position: { row: number; column: number },
   ) => {
@@ -52,7 +54,7 @@ const BoardSection = () => {
         order: newOrder,
       },
     };
-    setBoard(newBoard);
+    updateBoard(newBoard);
   };
   return (
     <>
@@ -77,7 +79,7 @@ const BoardSection = () => {
             <Box>Image</Box>
             <Box>| Board title</Box>
           </Box>
-          <Toolbar onEditClick={handleEditClick} />
+          <Toolbar onEditClick={handleEditClick} isSavingChange={isSaving} />
         </Box>
         <Divider flexItem sx={{ my: '0.5rem' }} />
         <Grid
@@ -162,11 +164,7 @@ export default function BoardContainer({
 }) {
   // should use board from store as truth
   const [boardFromStore, errorOnBoardGeneration] = useBoundStore(
-    useShallow((state) => [
-      state.board,
-      state.errorOnBoardGeneration,
-      state.setBoard,
-    ]),
+    useShallow((state) => [state.board, state.errorOnBoardGeneration]),
   );
 
   useSetInitialBoard({ remoteBoard, id });

@@ -5,7 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { saveBoard, updateBoard } from './actions';
@@ -15,12 +16,15 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { useRouter } from '@/navigation';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '../constants';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useTheme } from '@mui/material';
 
 type Props = {
   onEditClick: () => void;
+  isSavingChange: boolean;
 };
 
-export default function Toolbar({ onEditClick }: Props) {
+export default function Toolbar({ onEditClick, isSavingChange }: Props) {
   const [isFullscreen, setisFullscreen] = useState(false);
   const [isSaving, setisSaving] = useState(false);
   const toggleFullscreen = () => {
@@ -36,6 +40,7 @@ export default function Toolbar({ onEditClick }: Props) {
     }
   };
   const router = useRouter();
+  const setBoardIsUpToDate = useBoundStore((state) => state.setBoardIsUpToDate);
   const onSaveBoard = async (board: BoardRecord, isNewBoard: boolean) => {
     try {
       setisSaving(true);
@@ -44,19 +49,15 @@ export default function Toolbar({ onEditClick }: Props) {
         ? await saveBoard(board)
         : await updateBoard(board);
       setBoardIsUpToDate();
-      router.push(`/dashboard/${savedBoard._id}`);
+      if (isNewBoard) router.push(`/dashboard/${savedBoard._id}`);
     } catch (err) {
       console.error(err);
     }
     setisSaving(false);
   };
 
-  const [board, isOutdated, setBoardIsUpToDate] = useBoundStore(
-    useShallow((state) => [
-      state.board,
-      state.isOutdated,
-      state.setBoardIsUpToDate,
-    ]),
+  const [board, isOutdated] = useBoundStore(
+    useShallow((state) => [state.board, state.isOutdated]),
   );
   const pathname = usePathname();
 
@@ -65,6 +66,8 @@ export default function Toolbar({ onEditClick }: Props) {
     const boardId = parts[parts.length - 1];
     return boardId === STASHED_CONTENT_ID;
   }, [pathname]);
+
+  const theme = useTheme();
 
   if (!board) return null;
 
@@ -86,10 +89,22 @@ export default function Toolbar({ onEditClick }: Props) {
       </IconButton>
       <Divider orientation="vertical" flexItem />
       <IconButton
-        disabled={isSaving || !isBoardOutdated}
+        disabled={isSavingChange || isSaving || !isBoardOutdated}
         onClick={() => onSaveBoard(board, isNewBoard)}
+        color={'error'}
+        sx={{
+          '&.Mui-disabled': {
+            color: theme.palette.success.main,
+          },
+        }}
       >
-        <BookmarkBorderIcon fontSize="small" />
+        {isSavingChange || isSaving ? (
+          <CircularProgress size={20} />
+        ) : isBoardOutdated ? (
+          <BookmarkIcon fontSize="small" />
+        ) : (
+          <BookmarkAddedIcon fontSize="small" />
+        )}
       </IconButton>
     </Box>
   );
