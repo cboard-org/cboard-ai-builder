@@ -8,6 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
+import GenerateButton from './GenerateButton';
 
 type Props = {
   label: string | undefined;
@@ -159,9 +160,7 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
       )}
       {!src && !isPictoGenerationActive && (
         <div className={style.SymbolEmptyImageContainer}>
-          <Typography color={'red'} sx={{ justifySelf: 'center' }}>
-            NO IMAGE
-          </Typography>
+          <GenerateButton />
         </div>
       )}
       {src && (
