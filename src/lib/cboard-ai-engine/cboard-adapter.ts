@@ -78,6 +78,8 @@ export const toCboardAdapter = async ({
   const order = createMultidimensionalArray(tilesIds, columns);
   return {
     ...testBoard[1],
+    createdAt: '',
+    updatedAt: '',
     tiles,
     grid: { order, rows, columns },
   };

@@ -31,12 +31,16 @@ export async function getSavedBoardsData(): Promise<SavedBoardsData[]> {
       colorScheme: prompt?.colorScheme ?? 'fitzgerald',
       shouldUsePictonizer: prompt?.shouldUsePictonizer ?? false,
     };
+    const createdAt =
+      typeof board.createdAt !== 'string'
+        ? board.createdAt.toISOString()
+        : board.createdAt;
 
     return {
       id: board._id.toString(),
       isSavedBoard: true,
       prompt: promptItem,
-      date: board.lastEdited,
+      date: createdAt,
     };
   });
   return savedBoardsList;

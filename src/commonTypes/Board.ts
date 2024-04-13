@@ -3,7 +3,7 @@ import { TileRecord } from '@/commonTypes/Tile';
 import { PromptRecord } from './Prompt';
 
 export type BoardRecord = {
-  _id?: string;
+  id: string;
   isPublic: boolean;
   tiles: TileRecord[];
   isFixed: boolean;
@@ -23,4 +23,6 @@ export type BoardRecord = {
   focusedTileId?: string;
   promptId?: string;
   prompt?: PromptRecord;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };

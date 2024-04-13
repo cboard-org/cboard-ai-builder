@@ -1,21 +1,23 @@
 import dbConnect from '@/lib/dbConnect';
 import { stringToObjectId } from '@/db/utils/helpers';
-import Board, { type DbBoardRecord } from './model';
+import Board from './model';
 import { BoardRecord } from '@/commonTypes/Board';
 import Prompt from '../Prompt/model';
+import { SortOrder } from 'mongoose';
 
-export async function create(board: DbBoardRecord) {
+export async function create(board: BoardRecord & { userId: string }) {
   await dbConnect();
 
-  const dbBoard = new Board(board);
-  const savedBoard = await dbBoard.save();
+  const savedBoard = await Board.create(board);
+  savedBoard.promptId = board.promptId;
+  delete savedBoard.__v;
   return savedBoard.toJSON();
 }
 
 export async function update(board: BoardRecord) {
   await dbConnect();
 
-  const filter = { _id: board._id };
+  const filter = { _id: board.id };
   const updatedBoard = await Board.findOneAndUpdate(filter, board);
   if (!updatedBoard) throw new Error('Board not found');
   return updatedBoard.toJSON();
@@ -35,12 +37,13 @@ export async function get(id: string) {
 
 export async function getUserBoards({ userId }: { userId: string }) {
   await dbConnect();
-  console.log('get boards');
+  const sort: Record<string, SortOrder> = { createdAt: 'desc' };
 
   const boards = await Board.find(
     { userId },
-    { _id: 1, promptId: 1, lastEdited: 1 },
+    { _id: 1, promptId: 1, createdAt: 1 },
   )
+    .sort(sort)
     .lean()
     .exec();
   //populate every board with the prompt using the promptId
@@ -56,12 +59,10 @@ export async function getUserBoards({ userId }: { userId: string }) {
     const prompt = await Prompt.findById(promptId, frontEndRequirement)
       .lean()
       .exec();
-    console.log('prompt', prompt);
     if (prompt) {
       board.prompt = prompt;
     }
     delete board.promptId;
   }
-  console.log('boards', boards);
   return boards;
 }

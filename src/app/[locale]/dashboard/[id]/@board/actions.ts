@@ -43,9 +43,9 @@ export const getBoard = async (id: string) => {
   if (typeof board.updatedAt !== 'string')
     board.updatedAt = board.updatedAt.toISOString();
   board.promptId = board.promptId?.toString();
-  return savedBoard;
-};
 
+  return board;
+};
 const client = new Midjourney({
   ServerId: <string>process.env.PICTO_SERVER_ID,
   ChannelId: <string>process.env.PICTO_CHANNEL_ID,
