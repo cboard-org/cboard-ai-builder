@@ -35,6 +35,14 @@ export const getBoard = async (id: string) => {
     throw new Error('User not authenticated');
   }
   const savedBoard = await get(id);
+  if (!savedBoard) throw new Error('Board not found');
+  const { _id, ...board } = savedBoard;
+  board.id = _id.toString();
+  if (typeof board.createdAt !== 'string')
+    board.createdAt = board.createdAt.toISOString();
+  if (typeof board.updatedAt !== 'string')
+    board.updatedAt = board.updatedAt.toISOString();
+  board.promptId = board.promptId?.toString();
   return savedBoard;
 };
 
