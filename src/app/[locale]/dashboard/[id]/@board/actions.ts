@@ -12,7 +12,12 @@ export const saveBoard = async (board: BoardRecord) => {
     throw new Error('User not authenticated');
   }
   const savedBoard = await create({ ...board, userId: session.cboard_user.id });
-  return savedBoard;
+
+  return {
+    ...savedBoard,
+    id: savedBoard._id.toString(),
+    promptId: savedBoard.promptId?.toString(),
+  };
 };
 
 export const updateBoard = async (board: BoardRecord) => {
