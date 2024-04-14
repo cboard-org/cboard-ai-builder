@@ -42,7 +42,7 @@ const BoardSection = () => {
     );
   };
 
-  const onTileDrop = async (
+  const onTileDrop = (
     item: { id: string },
     position: { row: number; column: number },
   ) => {
