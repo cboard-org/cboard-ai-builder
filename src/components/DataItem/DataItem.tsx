@@ -15,6 +15,7 @@ import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import useIsInitialContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsInitialContentView';
+import { usePathname } from 'next/navigation';
 
 export type BaseDataItemType = {
   id: string;
@@ -44,8 +45,14 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const [isRedirecting, setIsRedirecting] = useState(false);
   const isInitialContentView = useIsInitialContentView();
 
+  const pathname = usePathname();
+
   const onEdit = () => {
-    if (!isInitialContentView || data.isSavedBoard) setIsRedirecting(true);
+    if (
+      (!isInitialContentView || data.isSavedBoard) &&
+      !pathname.includes(data.id)
+    )
+      setIsRedirecting(true);
     setPrompt({
       description,
       rows,
