@@ -9,6 +9,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // import FullscreenIcon from '@mui/icons-material/Fullscreen';
 // import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import EditingToolbar from './EditingToolbar';
+import styles from './styles';
 
 type Props = {
   isEditing: boolean;
@@ -16,7 +17,7 @@ type Props = {
 
 export default function Toolbar({ isEditing }: Props) {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+    <Box sx={styles.toolbar}>
       {!isEditing ? <DefaultToolbar /> : <EditingToolbar />}
 
       <Divider orientation="vertical" flexItem />
