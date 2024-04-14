@@ -60,7 +60,7 @@ export async function submit(
     rows = Number(formData.get('rows')),
     columns = Number(formData.get('columns')),
     colorScheme = formData.get('color-scheme'),
-    isAiPictogram = formData.get('use-ai-pictogram');
+    isAiPictogram = formData.get('use-ai-pictograms');
   const validate = promptFormDataSchema.safeParse({
     rows: rows,
     columns: columns,
