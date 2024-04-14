@@ -18,6 +18,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 1.5,
+    px: 2,
     mb: 0.5,
   },
   headerLeftSide: {
