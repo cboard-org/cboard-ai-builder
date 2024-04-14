@@ -128,15 +128,21 @@ const useSetInitialBoard = ({
   remoteBoard: BoardRecord | null;
   id: string;
 }) => {
-  const [setBoard, stashedDashboard, hydrated, setBoardIsUpToDate] =
-    useBoundStore(
-      useShallow((state) => [
-        state.setBoard,
-        state.stashedDashboard,
-        state.hydrated,
-        state.setBoardIsUpToDate,
-      ]),
-    );
+  const [
+    setBoard,
+    stashedDashboard,
+    hydrated,
+    setBoardIsUpToDate,
+    setGenerationPending,
+  ] = useBoundStore(
+    useShallow((state) => [
+      state.setBoard,
+      state.stashedDashboard,
+      state.hydrated,
+      state.setBoardIsUpToDate,
+      state.setGenerationPending,
+    ]),
+  );
   useEffect(() => {
     if (remoteBoard) {
       setBoard(remoteBoard);
@@ -148,10 +154,13 @@ const useSetInitialBoard = ({
   const router = useRouter();
   useEffect(() => {
     if (stashedBoard)
-      if (id === STASHED_CONTENT_ID) return setBoard(stashedBoard);
+      if (id === STASHED_CONTENT_ID) {
+        setBoard(stashedBoard);
+        setGenerationPending(false);
+      }
     if (id === STASHED_CONTENT_ID && !stashedBoard && hydrated)
       router.push(`/dashboard/${INITIAL_CONTENT_ID}`);
-  }, [id, setBoard, stashedBoard, router, hydrated]);
+  }, [id, setBoard, stashedBoard, router, hydrated, setGenerationPending]);
 
   return;
 };
