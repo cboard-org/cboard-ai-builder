@@ -134,6 +134,7 @@ const useSetInitialBoard = ({
     hydrated,
     setBoardIsUpToDate,
     setGenerationPending,
+    setPrompt,
   ] = useBoundStore(
     useShallow((state) => [
       state.setBoard,
@@ -141,8 +142,10 @@ const useSetInitialBoard = ({
       state.hydrated,
       state.setBoardIsUpToDate,
       state.setGenerationPending,
+      state.setPrompt,
     ]),
   );
+
   useEffect(() => {
     if (remoteBoard) {
       setBoard(remoteBoard);
@@ -151,16 +154,28 @@ const useSetInitialBoard = ({
   }, [remoteBoard, setBoard, setBoardIsUpToDate]);
 
   const stashedBoard = stashedDashboard.board;
+  const stashedPrompt = stashedDashboard.prompt;
+
   const router = useRouter();
   useEffect(() => {
-    if (stashedBoard)
-      if (id === STASHED_CONTENT_ID) {
-        setBoard(stashedBoard);
-        setGenerationPending(false);
-      }
+    if (stashedBoard && stashedPrompt && id === STASHED_CONTENT_ID) {
+      setBoard(stashedBoard);
+      setPrompt(stashedPrompt);
+      setGenerationPending(false);
+      return;
+    }
     if (id === STASHED_CONTENT_ID && !stashedBoard && hydrated)
       router.push(`/dashboard/${INITIAL_CONTENT_ID}`);
-  }, [id, setBoard, stashedBoard, router, hydrated, setGenerationPending]);
+  }, [
+    id,
+    setBoard,
+    stashedBoard,
+    router,
+    hydrated,
+    stashedPrompt,
+    setPrompt,
+    setGenerationPending,
+  ]);
 
   return;
 };
