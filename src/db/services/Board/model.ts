@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { BoardRecord } from '@/commonTypes/Board';
+import { type BoardRecord } from '@/commonTypes/Board';
 import { TileRecord } from '@/commonTypes/Tile';
 
 export type DbBoardRecord = BoardRecord & {
@@ -8,7 +8,7 @@ export type DbBoardRecord = BoardRecord & {
   updatedAt: Date | string;
 };
 
-const BoardRecord = new Schema<DbBoardRecord>(
+const BoardSchema = new Schema<DbBoardRecord>(
   {
     userId: {
       type: String,
@@ -83,6 +83,6 @@ const BoardRecord = new Schema<DbBoardRecord>(
 );
 
 const Board: mongoose.Model<DbBoardRecord> =
-  mongoose.models.Board || mongoose.model<DbBoardRecord>('Board', BoardRecord);
+  mongoose.models.Board || mongoose.model<DbBoardRecord>('Board', BoardSchema);
 
 export default Board;
