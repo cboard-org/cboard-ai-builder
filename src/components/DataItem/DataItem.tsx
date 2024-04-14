@@ -9,15 +9,14 @@ import { useBoundStore } from '@/providers/StoreProvider';
 
 import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
-import { BoardRecord } from '@/commonTypes/Board';
 import { useShallow } from 'zustand/react/shallow';
 import { Link } from '@/navigation';
 import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 export type BaseDataItemType = {
   id: string;
+  isSavedBoard?: boolean;
   prompt: PromptRecord;
   date: Date | string;
-  board?: BoardRecord;
 };
 
 type Props<DataType extends BaseDataItemType> = {
@@ -55,7 +54,7 @@ export default function DataItem<DataType extends BaseDataItemType>({
         <Box>
           <Link
             href={
-              data.board //Replace this with boardId
+              data.isSavedBoard //Replace this with boardId
                 ? `/dashboard/${data.id}`
                 : `/dashboard/${INITIAL_CONTENT_ID}`
             }

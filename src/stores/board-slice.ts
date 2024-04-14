@@ -6,6 +6,7 @@ export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
   boardId?: string;
+  isOutdated?: boolean;
 };
 
 export type BoardActions = {
@@ -17,15 +18,18 @@ export type BoardActions = {
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
   updateTileImage: (tileId: string, image: string) => void;
+  setBoardIsUpToDate: () => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
 export const defaultBoardState: {
   board: null;
   errorOnBoardGeneration: boolean;
+  isOutdated?: boolean;
 } = {
   board: null,
   errorOnBoardGeneration: false,
+  isOutdated: false,
 };
 
 export const createBoardSlice: StateCreator<
@@ -36,7 +40,7 @@ export const createBoardSlice: StateCreator<
 > = (set) => ({
   ...defaultBoardState,
   setBoard: (board: BoardRecord) =>
-    set(() => ({ board: board }), false, {
+    set(() => ({ board: board, isOutdated: true }), false, {
       type: 'Board/setBoard',
       board,
     }),
@@ -62,6 +66,7 @@ export const createBoardSlice: StateCreator<
         );
         return {
           board: { ...state.board, tiles: nextTiles },
+          isOutdated: true,
         };
       },
       false,
@@ -71,5 +76,10 @@ export const createBoardSlice: StateCreator<
         image,
       },
     );
+  },
+  setBoardIsUpToDate: () => {
+    set(() => ({ isOutdated: false }), false, {
+      type: 'Board/setBoardIsUpToDate',
+    });
   },
 });
