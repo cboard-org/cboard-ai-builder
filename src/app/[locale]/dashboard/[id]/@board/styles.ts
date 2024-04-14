@@ -27,6 +27,10 @@ export default {
     justifyContent: 'start',
     width: '100%',
   },
-  title: { flexGrow: 1, textTransform: 'capitalize' },
+  titleContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  title: { flexGrow: 1, textTransform: 'uppercase', ml: 0 },
   toolbar: { display: 'flex', justifyContent: 'end' },
 } satisfies Record<string, SxProps>;

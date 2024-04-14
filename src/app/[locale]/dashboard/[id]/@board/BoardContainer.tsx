@@ -87,7 +87,7 @@ const BoardSection = () => {
               </IconButton>
             }
           </Box>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={styles.titleContainer}>
             {/* <Box>Image</Box> */}
             <Box>
               <Typography
