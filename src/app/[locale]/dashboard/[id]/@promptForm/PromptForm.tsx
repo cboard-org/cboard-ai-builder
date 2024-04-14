@@ -162,7 +162,7 @@ export function PromptForm() {
             id="panel1-header"
             sx={styles.newBoardButton}
           >
-            <>
+            <Box sx={styles.newBoardButtonContent}>
               <SvgIcon sx={{ mr: 1 }}>
                 <Brand />
               </SvgIcon>
@@ -173,7 +173,7 @@ export function PromptForm() {
               >
                 New AAC Board
               </Typography>
-            </>
+            </Box>
           </AccordionSummary>
         </Link>
       )}

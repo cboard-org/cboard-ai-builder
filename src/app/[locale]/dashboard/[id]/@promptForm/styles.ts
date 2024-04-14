@@ -7,8 +7,11 @@ export default {
   },
 
   newBoardButton: {
-    alignItems: 'center',
     pl: 3,
     py: 0.5,
+  },
+  newBoardButtonContent: {
+    display: 'flex',
+    alignItems: 'center',
   },
 } satisfies Record<string, SxProps>;
