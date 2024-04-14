@@ -12,10 +12,11 @@ export const saveBoard = async (board: BoardRecord) => {
     throw new Error('User not authenticated');
   }
   const savedBoard = await create({ ...board, userId: session.cboard_user.id });
+  const { _id, ...newBoard } = savedBoard;
 
   return {
-    ...savedBoard,
-    id: savedBoard._id.toString(),
+    newBoard,
+    id: _id.toString(),
     promptId: savedBoard.promptId?.toString(),
   };
 };
@@ -26,7 +27,15 @@ export const updateBoard = async (board: BoardRecord) => {
     throw new Error('User not authenticated');
   }
   const savedBoard = await update(board);
-  return savedBoard;
+  const { _id, ...newBoard } = savedBoard;
+  newBoard.id = _id.toString();
+  if (typeof newBoard.createdAt !== 'string')
+    newBoard.createdAt = newBoard.createdAt.toISOString();
+  if (typeof newBoard.updatedAt !== 'string')
+    newBoard.updatedAt = newBoard.updatedAt.toISOString();
+  newBoard.promptId = board.promptId?.toString();
+
+  return newBoard;
 };
 
 export const getBoard = async (id: string) => {
@@ -46,6 +55,7 @@ export const getBoard = async (id: string) => {
 
   return board;
 };
+
 const client = new Midjourney({
   ServerId: <string>process.env.PICTO_SERVER_ID,
   ChannelId: <string>process.env.PICTO_CHANNEL_ID,

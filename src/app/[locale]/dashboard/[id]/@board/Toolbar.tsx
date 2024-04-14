@@ -49,7 +49,7 @@ export default function Toolbar({ onEditClick, isSavingChange }: Props) {
         ? await saveBoard(board)
         : await updateBoard(board);
       setBoardIsUpToDate();
-      if (isNewBoard) router.push(`/dashboard/${savedBoard._id}`);
+      if (isNewBoard) router.push(`/dashboard/${savedBoard.id}`);
     } catch (err) {
       console.error(err);
     }
