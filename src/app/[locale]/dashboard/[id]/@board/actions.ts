@@ -15,7 +15,7 @@ export const saveBoard = async (board: BoardRecord) => {
   const { _id, ...newBoard } = savedBoard;
 
   return {
-    newBoard,
+    ...newBoard,
     id: _id.toString(),
     promptId: savedBoard.promptId?.toString(),
   };
