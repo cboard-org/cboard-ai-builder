@@ -1,5 +1,6 @@
 import { Grid } from '@/commonTypes/Grid';
 import { TileRecord } from '@/commonTypes/Tile';
+import { PromptRecord } from './Prompt';
 
 export type BoardRecord = {
   id: string;
@@ -21,4 +22,7 @@ export type BoardRecord = {
   prevId?: string;
   focusedTileId?: string;
   promptId?: string;
+  prompt?: PromptRecord;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };
