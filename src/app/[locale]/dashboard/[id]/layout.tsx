@@ -6,7 +6,7 @@ const xsSpacing = 3;
 const mdSpacing = 2;
 const lgSpacing = 2;
 
-//const xsPadding = 1;
+const xsPadding = 1;
 const mdPadding = 0;
 
 const menuBarHeight = 56;
@@ -55,11 +55,10 @@ export default function Dashboard(props: {
         sx={sxStyles.dashboardContainer}
         className={styles.dashboardContainer}
       >
-        {/* <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
-          {props.navbar}
-        </Box> */}
-        <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
+        <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
           <Box className={styles.controls}>{props.promptForm}</Box>
+        </Box>
+        <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
           <div className={styles.controls}>{props.savedData}</div>
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }} className={styles.board}>
