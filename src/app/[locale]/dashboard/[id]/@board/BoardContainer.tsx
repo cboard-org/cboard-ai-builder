@@ -17,8 +17,10 @@ import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
+import theme from '@/theme';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
@@ -67,11 +69,21 @@ const BoardSection = () => {
           overflow: 'auto',
         }}
       >
-        <Box sx={styles.header} borderRadius={1}>
+        <Box
+          bgcolor={
+            isEditing ? theme.palette.primary.light : 'rgb(240, 238, 238);'
+          }
+          sx={styles.header}
+          borderRadius={1}
+        >
           <Box>
             {
               <IconButton onClick={handleEditClick}>
-                <EditIcon fontSize="small" />
+                {!isEditing ? (
+                  <EditIcon fontSize="small" />
+                ) : (
+                  <CloseIcon fontSize="small" />
+                )}
               </IconButton>
             }
           </Box>

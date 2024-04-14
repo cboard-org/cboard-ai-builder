@@ -17,7 +17,6 @@ export default {
     gridTemplateColumns: '1fr 1fr 1fr',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'rgb(240, 238, 238);',
     padding: 1.5,
     mb: 0.5,
   },
