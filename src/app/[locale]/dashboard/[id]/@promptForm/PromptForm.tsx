@@ -145,6 +145,7 @@ export function PromptForm() {
       sx={accordionStyles}
       onChange={() => {
         if (!isInitialContentView) {
+          cleanBoard();
           cleanPrompt();
         }
       }}
