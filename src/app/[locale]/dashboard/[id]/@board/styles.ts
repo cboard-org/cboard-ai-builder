@@ -12,4 +12,21 @@ export default {
     width: '100%',
     maxWidth: '250px',
   },
+  header: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgb(240, 238, 238);',
+    padding: 1.5,
+    mb: 0.5,
+  },
+  headerLeftSide: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    width: '100%',
+  },
+  title: { flexGrow: 1, textTransform: 'capitalize' },
+  toolbar: { display: 'flex', justifyContent: 'end' },
 } satisfies Record<string, SxProps>;

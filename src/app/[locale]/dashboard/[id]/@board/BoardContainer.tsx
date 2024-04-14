@@ -18,11 +18,12 @@ import { useRouter } from '@/navigation';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
+import styles from './styles';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard] = useBoundStore(
-    useShallow((state) => [state.board, state.setBoard]),
+  const [board, setBoard, prompt] = useBoundStore(
+    useShallow((state) => [state.board, state.setBoard, state.prompt]),
   );
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
@@ -66,17 +67,7 @@ const BoardSection = () => {
           overflow: 'auto',
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            backgroundColor: 'rgb(240, 238, 238);',
-            padding: 1.5,
-            mb: 0.5,
-          }}
-          borderRadius={1}
-        >
+        <Box sx={styles.header} borderRadius={1}>
           <Box>
             {
               <IconButton onClick={handleEditClick}>
@@ -85,16 +76,16 @@ const BoardSection = () => {
             }
           </Box>
           <Box sx={{ display: 'flex' }}>
-            <Box>Image</Box>
+            {/* <Box>Image</Box> */}
             <Box>
               <Typography
                 variant="h6"
                 fontSize={'1rem'}
                 component="div"
-                sx={{ flexGrow: 1 }}
+                sx={styles.title}
                 ml={0.5}
               >
-                TITLE
+                {prompt.description}
               </Typography>
             </Box>
           </Box>
