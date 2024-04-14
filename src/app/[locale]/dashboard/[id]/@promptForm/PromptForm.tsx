@@ -171,7 +171,7 @@ export function PromptForm() {
                 component="h2"
                 fontWeight={'regular'}
               >
-                New Board
+                New AAC Board
               </Typography>
             </>
           </AccordionSummary>
