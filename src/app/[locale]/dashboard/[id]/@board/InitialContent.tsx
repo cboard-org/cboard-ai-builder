@@ -132,7 +132,7 @@ export default function InitialContent({
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          p: '1rem',
+          p: 2,
           height: '100%',
         }}
       >
@@ -230,9 +230,8 @@ const BrandTypography = () => {
 
   return (
     <Typography
-      variant="h6"
-      fontSize={'1rem'}
-      component="div"
+      variant="subtitle1"
+      component="h2"
       sx={{ flexGrow: 1 }}
       ml={0.5}
     >
