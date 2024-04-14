@@ -109,7 +109,7 @@ const BoardSection = () => {
           items={board.tiles}
           columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
-          dragAndDropEnabled={true} //{isSelecting}
+          dragAndDropEnabled={isEditing}
           renderItem={(item) => (
             <Tile tile={item} handleTileClick={handleTileClick}>
               {isEditing && (
