@@ -1,6 +1,5 @@
 'use client';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
@@ -16,6 +15,9 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import Typography from '@mui/material/Typography';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
@@ -61,25 +63,44 @@ const BoardSection = () => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          p: '.5rem',
           overflow: 'auto',
         }}
       >
         <Box
           sx={{
-            height: '12%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            backgroundColor: 'rgb(240, 238, 238);',
+            padding: 1.5,
+            mb: 0.5,
           }}
+          borderRadius={1}
         >
+          <Box>
+            {
+              <IconButton onClick={handleEditClick}>
+                <EditIcon fontSize="small" />
+              </IconButton>
+            }
+          </Box>
           <Box sx={{ display: 'flex' }}>
             <Box>Image</Box>
-            <Box>| Board title</Box>
+            <Box>
+              <Typography
+                variant="h6"
+                fontSize={'1rem'}
+                component="div"
+                sx={{ flexGrow: 1 }}
+                ml={0.5}
+              >
+                TITLE
+              </Typography>
+            </Box>
           </Box>
-          <Toolbar onEditClick={handleEditClick} />
+          <Toolbar isEditing={isEditing} />
         </Box>
-        <Divider flexItem sx={{ my: '0.5rem' }} />
+        {/* <Divider flexItem sx={{ my: '0.5rem' }} /> */}
         <Grid
           order={board.grid ? board.grid.order : []}
           items={board.tiles}
