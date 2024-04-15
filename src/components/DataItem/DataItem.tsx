@@ -12,6 +12,11 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
 import { Link } from '@/navigation';
 import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
+import { useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import useIsInitialContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsInitialContentView';
+import { usePathname } from 'next/navigation';
+
 export type BaseDataItemType = {
   id: string;
   isSavedBoard?: boolean;
@@ -37,8 +42,17 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const [setPrompt, isGenerationPending] = useBoundStore(
     useShallow((state) => [state.setPrompt, state.isGenerationPending]),
   );
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const isInitialContentView = useIsInitialContentView();
+
+  const pathname = usePathname();
 
   const onEdit = () => {
+    if (
+      (!isInitialContentView || data.isSavedBoard) &&
+      !pathname.includes(data.id)
+    )
+      setIsRedirecting(true);
     setPrompt({
       description,
       rows,
@@ -65,7 +79,11 @@ export default function DataItem<DataType extends BaseDataItemType>({
               onClick={() => onEdit()}
               size="small"
             >
-              <EditOutlined fontSize="small" />
+              {isRedirecting ? (
+                <CircularProgress size={24} />
+              ) : (
+                <EditOutlined fontSize="small" />
+              )}
             </IconButton>
           </Link>
           <IconButton
