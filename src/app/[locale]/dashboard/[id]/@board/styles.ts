@@ -14,7 +14,7 @@ export default {
   },
   header: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateColumns: '1fr auto 1fr',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 1.5,

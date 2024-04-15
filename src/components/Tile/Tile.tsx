@@ -40,6 +40,7 @@ export default function Tile({ tile, handleTileClick, children }: Props) {
       onClose={() => {
         setIsEditing(false);
       }}
+      tile={tile}
     >
       <button className={style.Tile} type="button" onClick={onTileClick}>
         <div
@@ -60,8 +61,6 @@ export default function Tile({ tile, handleTileClick, children }: Props) {
             label={tile.label}
             labelpos={displaySettings.labelPosition}
             tileId={tile.id}
-            isEditingImage={isEditing}
-            suggestedImages={tile.suggestedImages ?? null}
           />
         </Box>
         {children}

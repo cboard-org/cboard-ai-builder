@@ -9,21 +9,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 import GenerateButton from './GenerateButton';
-import Box from '@mui/material/Box';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import styles from './styles';
-import Button from '@mui/material/Button';
-import ArrowBack from '@mui/icons-material/ArrowBack';
-import ArrowForward from '@mui/icons-material/ArrowForward';
 
 type Props = {
   label: string | undefined;
   labelpos: LabelPositionRecord;
   image: string | undefined;
   tileId: string;
-  isEditingImage?: boolean;
-  suggestedImages: string[] | null;
 };
 const useUpdateTileImage = (
   tileId: string,
@@ -52,7 +43,7 @@ const useUpdateTileImage = (
   ]);
 };
 
-const useGeneratePictoActive = () => {
+export const useGeneratePictoActive = () => {
   const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
   const pathname = usePathname();
   const isStashedContentView = pathname.includes(
@@ -66,14 +57,7 @@ const useGeneratePictoActive = () => {
   };
 };
 
-export default function Symbol({
-  label,
-  labelpos,
-  image,
-  tileId,
-  isEditingImage = false,
-  suggestedImages,
-}: Props) {
+export default function Symbol({ label, labelpos, image, tileId }: Props) {
   const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
   const [generatedPicto, setGeneratedPicto] = React.useState('');
@@ -158,30 +142,6 @@ export default function Symbol({
   //   }
   // };
 
-  const [selectedImageSuggestion, setSelectedImageSuggestion] =
-    React.useState(0);
-
-  const updateTileImage = useBoundStore((state) => state.updateTileImage);
-  const handleNextImage = () => {
-    if (!suggestedImages) return;
-    let nextPosition = selectedImageSuggestion + 1;
-    if (nextPosition > suggestedImages.length - 1) nextPosition = 0;
-
-    updateTileImage(tileId, suggestedImages[nextPosition]);
-    setSelectedImageSuggestion(nextPosition);
-  };
-
-  const handlePreviousImage = () => {
-    if (!suggestedImages) return;
-    let nextPosition = selectedImageSuggestion - 1;
-    if (nextPosition < 0) nextPosition = suggestedImages.length - 1;
-
-    updateTileImage(tileId, suggestedImages[nextPosition]);
-    setSelectedImageSuggestion(nextPosition);
-  };
-
-  const suggestedImagesLength = suggestedImages?.length || 0;
-
   return (
     <div className={symbolClassName}>
       {/* <div onClick={onClick}>clickme</div> */}
@@ -199,30 +159,13 @@ export default function Symbol({
         </div>
       ) : (
         src && (
-          <Box sx={styles.symbolImageContainer}>
-            {isEditingImage && (
-              <Button onClick={handlePreviousImage} sx={styles.arrowButton}>
-                <ArrowBack fontSize="large" />
-              </Button>
-            )}
-            <div className={style.SymbolImageContainer}>
-              <img className={style.SymbolImage} src={src} alt={label} />
-              {/* TODO: Use Image component from next to optimize images - TechDebt */}
-            </div>
-            {isEditingImage && (
-              <Button onClick={handleNextImage} sx={styles.arrowButton}>
-                <ArrowForward fontSize="large" />
-              </Button>
-            )}
-          </Box>
+          <div className={style.SymbolImageContainer}>
+            <img className={style.SymbolImage} src={src} alt={label} />
+            {/* TODO: Use Image component from next to optimize images - TechDebt */}
+          </div>
         )
       )}
-      {isEditingImage && suggestedImagesLength && (
-        <ImagePagination
-          length={suggestedImagesLength}
-          activeImage={selectedImageSuggestion}
-        />
-      )}
+
       {!src && !isPictoGenerationActive && (
         <div className={style.SymbolEmptyImageContainer}>
           <GenerateButton />
@@ -230,32 +173,10 @@ export default function Symbol({
       )}
 
       {labelpos === 'Below' && (
-        <Typography className={style.SymbolLabel}>{label}</Typography>
+        <Typography pb={1} className={style.SymbolLabel}>
+          {label}
+        </Typography>
       )}
     </div>
   );
 }
-
-const ImagePagination = ({
-  length,
-  activeImage,
-}: {
-  length: number;
-  activeImage: number;
-}) => {
-  const pages = [];
-  for (let i = 1; i <= length; i++) {
-    if (i === activeImage + 1) {
-      pages.push(<RadioButtonCheckedIcon fontSize="inherit" color="primary" />);
-    } else {
-      pages.push(
-        <RadioButtonUncheckedIcon fontSize="inherit" color="primary" />,
-      );
-    }
-  }
-  return (
-    <Box pb={1} sx={{ display: 'flex' }}>
-      {pages}
-    </Box>
-  );
-};
