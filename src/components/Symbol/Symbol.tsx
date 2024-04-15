@@ -217,10 +217,16 @@ const ImagePagination = ({
   const pages = [];
   for (let i = 1; i <= length; i++) {
     if (i === activeImage + 1) {
-      pages.push(<CircleIcon fontSize="inherit" color="primary" />);
+      pages.push(
+        <CircleIcon sx={{ fontSize: 10 }} fontSize="inherit" color="primary" />,
+      );
     } else {
       pages.push(
-        <RadioButtonUncheckedIcon fontSize="inherit" color="primary" />,
+        <RadioButtonUncheckedIcon
+          sx={{ fontSize: 10 }}
+          // fontSize="inherit"
+          color="primary"
+        />,
       );
     }
   }

@@ -17,7 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { RowsIcon, ColumnsIcon } from './icons';
+// import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useTranslations } from 'next-intl';
@@ -202,8 +202,8 @@ export function PromptForm() {
             }}
             action={formAction}
           >
-            <Grid p={3} pt={0.5} container>
-              <Grid item xs={12}>
+            <Grid p={3} pt={0} container>
+              <Grid pt={0} item xs={12}>
                 <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
                   <Box
                     sx={{
@@ -219,10 +219,10 @@ export function PromptForm() {
                         mb: '0.3rem',
                       }}
                     >
-                      <RowsIcon fontSize="small" />
+                      {/* <RowsIcon fontSize="small" /> */}
                       <Typography
                         id="rows-label"
-                        variant="body2"
+                        variant="subtitle1"
                         component="label"
                       >
                         {message('rows')}
@@ -258,10 +258,10 @@ export function PromptForm() {
                         mb: '0.3rem',
                       }}
                     >
-                      <ColumnsIcon fontSize="small" />
+                      {/* <ColumnsIcon fontSize="small" /> */}
                       <Typography
                         id="columns-label"
-                        variant="body2"
+                        variant="subtitle1"
                         component="label"
                       >
                         {message('columns')}
@@ -286,6 +286,67 @@ export function PromptForm() {
                 </Stack>
               </Grid>
               <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    mt: '0.3rem',
+                  }}
+                >
+                  <Stack
+                    spacing={1}
+                    direction="row"
+                    useFlexGap
+                    flexWrap="nowrap"
+                    sx={{
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      mb: '0.3rem',
+                    }}
+                  >
+                    <Typography
+                      id="color-scheme-label"
+                      variant="subtitle1"
+                      component="label"
+                    >
+                      {message('prompt')}
+                    </Typography>
+                    <IconButton
+                      aria-label="help"
+                      sx={{ fontSize: 'inherit' }}
+                      size="small"
+                    >
+                      <HelpOutlineIcon fontSize="inherit" />
+                    </IconButton>
+                  </Stack>
+                  <TextField
+                    id="prompt-text"
+                    name="prompt-text"
+                    multiline
+                    rows={3}
+                    required
+                    InputProps={{
+                      inputComponent: 'textarea',
+                      style: {
+                        fontSize: '1rem',
+                        color: theme.palette.text.secondary,
+                        paddingTop: '0.5rem',
+                      },
+                    }}
+                    inputProps={{ minLength: 5, maxLength: 180 }}
+                    sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
+                    inputRef={descriptionTextFieldRef}
+                    onChange={(e) => {
+                      setControlledPromptValue({
+                        ...controlledPromptValue,
+                        description: e.target.value,
+                      });
+                    }}
+                    value={controlledPromptValue.description}
+                  />
+                </Box>
+              </Grid>
+              <Grid sx={{ display: 'none' }} item xs={12}>
                 <Box
                   sx={{
                     display: 'flex',
@@ -350,67 +411,7 @@ export function PromptForm() {
                   </FormControl>
                 </Box>
               </Grid>
-              <Grid item xs={12}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    mt: '0.3rem',
-                  }}
-                >
-                  <Stack
-                    spacing={1}
-                    direction="row"
-                    useFlexGap
-                    flexWrap="nowrap"
-                    sx={{
-                      alignContent: 'center',
-                      alignItems: 'center',
-                      mb: '0.3rem',
-                    }}
-                  >
-                    <Typography
-                      id="color-scheme-label"
-                      variant="body2"
-                      component="label"
-                    >
-                      {message('prompt')}
-                    </Typography>
-                    <IconButton
-                      aria-label="help"
-                      sx={{ fontSize: 'inherit' }}
-                      size="small"
-                    >
-                      <HelpOutlineIcon fontSize="inherit" />
-                    </IconButton>
-                  </Stack>
-                  <TextField
-                    id="prompt-text"
-                    name="prompt-text"
-                    multiline
-                    rows={3}
-                    required
-                    InputProps={{
-                      inputComponent: 'textarea',
-                      style: {
-                        fontSize: '1rem',
-                        color: theme.palette.text.secondary,
-                        paddingTop: '0.5rem',
-                      },
-                    }}
-                    inputProps={{ minLength: 5, maxLength: 180 }}
-                    sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
-                    inputRef={descriptionTextFieldRef}
-                    onChange={(e) => {
-                      setControlledPromptValue({
-                        ...controlledPromptValue,
-                        description: e.target.value,
-                      });
-                    }}
-                    value={controlledPromptValue.description}
-                  />
-                </Box>
-              </Grid>
+
               <Grid item xs={12}>
                 <Box
                   sx={{

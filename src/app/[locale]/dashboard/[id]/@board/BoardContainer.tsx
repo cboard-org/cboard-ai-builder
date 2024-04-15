@@ -75,12 +75,12 @@ const BoardSection = () => {
       >
         <Box
           bgcolor={
-            isEditing ? theme.palette.primary.light : 'rgb(240, 238, 238);'
+            isEditing ? theme.palette.primary.light : 'rgb(244, 244, 244)'
           }
           sx={styles.header}
           borderRadius={1}
         >
-          <Box>
+          <Box pr={2}>
             {
               <IconButton onClick={handleEditClick}>
                 {!isEditing ? (
