@@ -8,7 +8,10 @@ import { useState } from 'react';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { useGeneratePictoActive } from '@/components/Symbol/Symbol';
-import { changePicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
+import {
+  changePicto,
+  createPicto,
+} from '@/app/[locale]/dashboard/[id]/@board/actions';
 import Button from '@mui/material/Button';
 
 const useUpdateTileImageSaver = () => {
@@ -81,6 +84,20 @@ export default function Tile({
     let nextPosition = selectedImageSuggestion + 1;
     const upscaledPictos = tile.generatedPicto?.upscaledPictos || [];
     if (!suggestedImages || suggestedImages?.length === 0) {
+      if (!generatedPicto) {
+        try {
+          setIsChangingPicto(true);
+          const generatedPicto = tile.label && (await createPicto(tile.label));
+          if (generatedPicto) {
+            updateTileImageSaver(tile.id, generatedPicto.url, generatedPicto);
+            setSelectedImageSuggestion(0);
+          }
+        } catch (error) {
+          console.error('Error generating picto', error);
+        }
+        setIsChangingPicto(false);
+        return;
+      }
       if (nextPosition >= 4) nextPosition = 0;
       if (upscaledPictos[nextPosition] !== undefined) {
         updateTileImageSaver(tile.id, upscaledPictos[nextPosition]);
@@ -141,7 +158,7 @@ export default function Tile({
       tile={tile}
     >
       <Button
-        disabled={suggestedImagesLength <= 1 && !isEditionView}
+        disabled={suggestedImagesLength === 1 && !isEditionView}
         className={style.Tile}
         type="button"
         onClick={onTileClick}
