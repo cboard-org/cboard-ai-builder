@@ -5,6 +5,7 @@ import { create, get, update } from '@/db/services/Board/service';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
 import { Midjourney } from 'midjourney';
+import { TileRecord } from '@/commonTypes/Tile';
 
 export const saveBoard = async (board: BoardRecord) => {
   const session = await getServerSession(authConfig);
@@ -71,7 +72,9 @@ async function initClient() {
 
 initClient();
 
-export async function createPicto(description: string) {
+export async function createPicto(
+  description: string,
+): Promise<TileRecord['generatedPicto']> {
   const basePrompt =
     ' colored as a pictogram in arasaac style with transparent background --style 56xABarnXQy --version 5.2 --fast';
 

@@ -38,7 +38,9 @@ const BoardSection = () => {
   };
 
   const handleTileClick = (id: string) => {
-    if (!isEditing) return;
+    if (!isEditing) {
+      return;
+    }
 
     setSelectedTiles((selectedTiles) =>
       selectedTiles.includes(id)
@@ -113,7 +115,11 @@ const BoardSection = () => {
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
           dragAndDropEnabled={isEditing}
           renderItem={(item) => (
-            <Tile tile={item} handleTileClick={handleTileClick}>
+            <Tile
+              tile={item}
+              handleTileClick={handleTileClick}
+              isEditionView={isEditing}
+            >
               {isEditing && (
                 <SelectTileMask isSelected={selectedTiles.includes(item.id)} />
               )}

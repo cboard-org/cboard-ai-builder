@@ -43,7 +43,7 @@ const toCboardTilesAdapter = async (
       backgroundColor: DEFAULT_TILE_BACKGROUND_COLOR,
       borderColor: 'rgb( 255, 0,  0) ',
       image: images[0],
-      suggestedImages: images,
+      suggestedImages: images[0] !== '' ? images : null,
     });
   }
   return cboardTiles;

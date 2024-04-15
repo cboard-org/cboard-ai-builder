@@ -72,7 +72,7 @@ export default function TileEditor({
   };
 
   const suggestedImagesLength = suggestedImages?.length || 0;
-
+  const showArrows = suggestedImagesLength > 1;
   return (
     <>
       {children}
@@ -106,17 +106,21 @@ export default function TileEditor({
           </AppBar>
           <Box sx={styles.imageControls}>
             <Box sx={styles.arrowAndTileContainer}>
-              {true && (
-                <Button onClick={handlePreviousImage} sx={styles.arrowButton}>
-                  <ArrowBack fontSize="large" />
-                </Button>
-              )}
+              <Button
+                disabled={!showArrows}
+                onClick={handlePreviousImage}
+                sx={styles.arrowButton}
+              >
+                <ArrowBack fontSize="large" />
+              </Button>
               {children}
-              {true && (
-                <Button onClick={handleNextImage} sx={styles.arrowButton}>
-                  <ArrowForward fontSize="large" />
-                </Button>
-              )}
+              <Button
+                disabled={!showArrows}
+                onClick={handleNextImage}
+                sx={styles.arrowButton}
+              >
+                <ArrowForward fontSize="large" />
+              </Button>
             </Box>
             {true && suggestedImagesLength && (
               <ImagePagination

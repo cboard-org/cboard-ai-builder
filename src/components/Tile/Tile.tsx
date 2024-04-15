@@ -1,9 +1,31 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useTransition } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 import TileEditor from '@/components/TileEditor/TileEditor';
+import { useState } from 'react';
+import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
+import { useGeneratePictoActive } from '@/components/Symbol/Symbol';
+import { changePicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
+
+const useUpdateTileImageSaver = () => {
+  const [updateTileImage, stashDashboard] = useBoundStore(
+    useShallow((state) => [state.updateTileImage, state.stashDashboard]),
+  );
+  const { isStashedContentView } = useGeneratePictoActive();
+  const updateTileImageSaver = (
+    tileId: string,
+    imageUrl: string,
+    generatedPicto?: TileRecord['generatedPicto'],
+  ) => {
+    if (generatedPicto) updateTileImage(tileId, imageUrl, generatedPicto);
+    updateTileImage(tileId, imageUrl);
+    if (isStashedContentView) stashDashboard();
+  };
+  return updateTileImageSaver;
+};
 
 type Props = {
   children?: ReactNode;
@@ -12,7 +34,12 @@ type Props = {
   isEditionView?: boolean;
 };
 
-export default function Tile({ tile, handleTileClick, children }: Props) {
+export default function Tile({
+  tile,
+  handleTileClick,
+  children,
+  isEditionView,
+}: Props) {
   const displaySettings = {
     labelPosition: 'Below',
   } as { labelPosition: LabelPositionRecord }; // TODO: get from settings
@@ -29,8 +56,65 @@ export default function Tile({ tile, handleTileClick, children }: Props) {
     tileShapeStyles.backgroundColor = tile.backgroundColor;
   }
 
+  const [selectedImageSuggestion, setSelectedImageSuggestion] = useState(0);
+
+  const updateTileImageSaver = useUpdateTileImageSaver();
+
+  const suggestedImages = tile.suggestedImages;
+  const generatedPicto = tile.generatedPicto;
+
+  const [isChangingPicto, setIsChangingPicto] = useState(false);
+  const [, startTransition] = useTransition();
+
+  const handleNextImage = async () => {
+    let nextPosition = selectedImageSuggestion + 1;
+    const upscaledPictos = tile.generatedPicto?.upscaledPictos || [];
+    if (!suggestedImages || suggestedImages?.length === 0) {
+      if (nextPosition >= 4) nextPosition = 0;
+      if (upscaledPictos[nextPosition] !== undefined) {
+        updateTileImageSaver(tile.id, upscaledPictos[nextPosition]);
+        setSelectedImageSuggestion(nextPosition);
+        return;
+      }
+      if (
+        generatedPicto?.id &&
+        generatedPicto?.changeImageIds &&
+        generatedPicto?.changeImageIds[nextPosition]
+      ) {
+        try {
+          setIsChangingPicto(true);
+          const generatedSuggestion = await changePicto(
+            generatedPicto.id,
+            generatedPicto.changeImageIds[nextPosition],
+          );
+          const upscaledPictos = generatedPicto.upscaledPictos || [
+            generatedPicto.url,
+          ];
+          updateTileImageSaver(tile.id, generatedSuggestion.url, {
+            ...generatedPicto,
+            upscaledPictos: [...upscaledPictos, generatedSuggestion.url],
+          });
+          setSelectedImageSuggestion(nextPosition);
+        } catch (error) {
+          console.error('Error changing generated picto', error);
+        }
+        startTransition(() => {
+          setIsChangingPicto(false);
+        });
+      }
+      return;
+    }
+    if (suggestedImages.length === 1) return;
+
+    if (nextPosition > suggestedImages.length - 1) nextPosition = 0;
+
+    updateTileImageSaver(tile.id, suggestedImages[nextPosition]);
+    setSelectedImageSuggestion(nextPosition);
+  };
+
   const onTileClick = () => {
-    setIsEditing(true);
+    //setIsEditing(true);
+    !isEditionView && handleNextImage();
     handleTileClick(tile.id);
   };
 
@@ -61,6 +145,13 @@ export default function Tile({ tile, handleTileClick, children }: Props) {
             label={tile.label}
             labelpos={displaySettings.labelPosition}
             tileId={tile.id}
+            suggestedImagesLength={
+              suggestedImages?.length ||
+              generatedPicto?.changeImageIds?.length ||
+              0
+            }
+            selectedImageSuggestion={selectedImageSuggestion}
+            isChangingPicto={isChangingPicto}
           />
         </Box>
         {children}
