@@ -11,6 +11,7 @@ export type TileRecord = {
   sound?: string;
   linkedBoard?: boolean;
   borderColor?: string;
+  suggestedImages?: string[];
 };
 
 export type LabelPositionRecord = 'Above' | 'Below' | undefined;
