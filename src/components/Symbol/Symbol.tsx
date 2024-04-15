@@ -194,16 +194,14 @@ export default function Symbol({
         )
       )}
 
-      {!src && !isPictoGenerationActive && (
+      {!src && !isPictoGenerationActive && !isChangingPicto && (
         <div className={style.SymbolEmptyImageContainer}>
           <GenerateButton />
         </div>
       )}
 
       {labelpos === 'Below' && (
-        <Typography pb={1} className={style.SymbolLabel}>
-          {label}
-        </Typography>
+        <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
     </div>
   );
