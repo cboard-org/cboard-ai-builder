@@ -9,6 +9,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { useGeneratePictoActive } from '@/components/Symbol/Symbol';
 import { changePicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
+import Button from '@mui/material/Button';
 
 const useUpdateTileImageSaver = () => {
   const [updateTileImage, stashDashboard] = useBoundStore(
@@ -118,6 +119,9 @@ export default function Tile({
     handleTileClick(tile.id);
   };
 
+  const suggestedImagesLength =
+    suggestedImages?.length || generatedPicto?.changeImageIds?.length || 0;
+
   return (
     <TileEditor
       isEditing={isEditing}
@@ -126,7 +130,12 @@ export default function Tile({
       }}
       tile={tile}
     >
-      <button className={style.Tile} type="button" onClick={onTileClick}>
+      <Button
+        disabled={suggestedImagesLength <= 1 && !isEditionView}
+        className={style.Tile}
+        type="button"
+        onClick={onTileClick}
+      >
         <div
           className={style.TileShape}
           style={tileShapeStyles}
@@ -155,7 +164,7 @@ export default function Tile({
           />
         </Box>
         {children}
-      </button>
+      </Button>
     </TileEditor>
   );
 }
