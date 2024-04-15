@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
-import { LabelPositionRecord } from '@/commonTypes/Tile';
+import { LabelPositionRecord, TileRecord } from '@/commonTypes/Tile';
 import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
@@ -9,17 +9,22 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 import GenerateButton from './GenerateButton';
-
+import Box from '@mui/material/Box';
+import CircleIcon from '@mui/icons-material/Circle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 type Props = {
   label: string | undefined;
   labelpos: LabelPositionRecord;
   image: string | undefined;
   tileId: string;
+  suggestedImagesLength: number;
+  selectedImageSuggestion: number;
+  isChangingPicto: boolean;
 };
 const useUpdateTileImage = (
   tileId: string,
   image: string = '',
-  generatedPicto: string,
+  generatedPicto: TileRecord['generatedPicto'],
 ) => {
   const [updateTileImage, stashDashboard] = useBoundStore(
     useShallow((state) => [state.updateTileImage, state.stashDashboard]),
@@ -28,8 +33,8 @@ const useUpdateTileImage = (
     useGeneratePictoActive();
 
   useEffect(() => {
-    if (image === '' && isPictoGenerationActive) {
-      updateTileImage(tileId, generatedPicto);
+    if (image === '' && isPictoGenerationActive && generatedPicto) {
+      updateTileImage(tileId, generatedPicto.url, generatedPicto);
       if (isStashedContentView) stashDashboard();
     }
   }, [
@@ -43,7 +48,7 @@ const useUpdateTileImage = (
   ]);
 };
 
-const useGeneratePictoActive = () => {
+export const useGeneratePictoActive = () => {
   const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
   const pathname = usePathname();
   const isStashedContentView = pathname.includes(
@@ -57,10 +62,19 @@ const useGeneratePictoActive = () => {
   };
 };
 
-export default function Symbol({ label, labelpos, image, tileId }: Props) {
+export default function Symbol({
+  label,
+  labelpos,
+  image,
+  tileId,
+  suggestedImagesLength,
+  selectedImageSuggestion,
+  isChangingPicto,
+}: Props) {
   const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
-  const [generatedPicto, setGeneratedPicto] = React.useState('');
+  const [generatedPicto, setGeneratedPicto] =
+    React.useState<TileRecord['generatedPicto']>(undefined);
   const { isPictoGenerationActive } = useGeneratePictoActive();
 
   useEffect(() => {
@@ -110,7 +124,7 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
 
     try {
       const generatedPicto = await createPicto(description);
-      setGeneratedPicto(generatedPicto.url);
+      setGeneratedPicto(generatedPicto);
     } catch (e) {
       console.error('Error aca' + e);
     }
@@ -148,7 +162,7 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {!src && isPictoGenerationActive && (
+      {(!src && isPictoGenerationActive) || isChangingPicto ? (
         <div className={style.SymbolLoadingContainer}>
           <CircularProgress
             sx={{
@@ -157,21 +171,64 @@ export default function Symbol({ label, labelpos, image, tileId }: Props) {
             }}
           />
         </div>
+      ) : (
+        src && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              height: '100%',
+              width: '100%',
+            }}
+          >
+            <div className={style.SymbolImageContainer}>
+              <img className={style.SymbolImage} src={src} alt={label} />
+              {/* TODO: Use Image component from next to optimize images - TechDebt */}
+            </div>
+            <ImagePagination
+              length={suggestedImagesLength}
+              activeImage={selectedImageSuggestion}
+            />
+          </Box>
+        )
       )}
+
       {!src && !isPictoGenerationActive && (
         <div className={style.SymbolEmptyImageContainer}>
           <GenerateButton />
         </div>
       )}
-      {src && (
-        <div className={style.SymbolImageContainer}>
-          <img className={style.SymbolImage} src={src} alt={label} />
-          {/* TODO: Use Image component from next to optimize images - TechDebt */}
-        </div>
-      )}
+
       {labelpos === 'Below' && (
-        <Typography className={style.SymbolLabel}>{label}</Typography>
+        <Typography pb={1} className={style.SymbolLabel}>
+          {label}
+        </Typography>
       )}
     </div>
   );
 }
+
+const ImagePagination = ({
+  length,
+  activeImage,
+}: {
+  length: number;
+  activeImage: number;
+}) => {
+  const pages = [];
+  for (let i = 1; i <= length; i++) {
+    if (i === activeImage + 1) {
+      pages.push(<CircleIcon fontSize="inherit" color="primary" />);
+    } else {
+      pages.push(
+        <RadioButtonUncheckedIcon fontSize="inherit" color="primary" />,
+      );
+    }
+  }
+  return (
+    <Box pb={1} sx={{ display: 'flex' }}>
+      {pages}
+    </Box>
+  );
+};

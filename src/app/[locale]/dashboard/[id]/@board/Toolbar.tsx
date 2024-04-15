@@ -2,13 +2,13 @@ import React, { useMemo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+// import FullscreenIcon from '@mui/icons-material/Fullscreen';
+// import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { saveBoard, updateBoard } from './actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
@@ -18,27 +18,17 @@ import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '../constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material';
+import EditingToolbar from './EditingToolbar';
+import styles from './styles';
 
 type Props = {
-  onEditClick: () => void;
+  isEditing: boolean;
   isSavingChange: boolean;
 };
 
-export default function Toolbar({ onEditClick, isSavingChange }: Props) {
-  const [isFullscreen, setisFullscreen] = useState(false);
+export default function Toolbar({ isEditing, isSavingChange }: Props) {
   const [isSaving, setisSaving] = useState(false);
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      //if not fullscreen
-      document.documentElement.requestFullscreen();
-      setisFullscreen(true);
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-        setisFullscreen(false);
-      }
-    }
-  };
+
   const router = useRouter();
   const setBoardIsUpToDate = useBoundStore((state) => state.setBoardIsUpToDate);
   const onSaveBoard = async (board: BoardRecord, isNewBoard: boolean) => {
@@ -74,19 +64,9 @@ export default function Toolbar({ onEditClick, isSavingChange }: Props) {
   const isBoardOutdated = isOutdated || isNewBoard;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <IconButton onClick={toggleFullscreen}>
-        {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-      </IconButton>
-      <IconButton onClick={onEditClick}>
-        <EditIcon fontSize="small" />
-      </IconButton>
-      <IconButton>
-        <DownloadIcon fontSize="small" />
-      </IconButton>
-      <IconButton>
-        <PrintIcon fontSize="small" />
-      </IconButton>
+    <Box sx={styles.toolbar}>
+      {!isEditing ? <DefaultToolbar /> : <EditingToolbar />}
+
       <Divider orientation="vertical" flexItem />
       <IconButton
         disabled={isSavingChange || isSaving || !isBoardOutdated}
@@ -109,3 +89,37 @@ export default function Toolbar({ onEditClick, isSavingChange }: Props) {
     </Box>
   );
 }
+
+const DefaultToolbar = () => {
+  // const [isFullscreen, setisFullscreen] = useState(false);
+  // const toggleFullscreen = () => {
+  //   if (!document.fullscreenElement) {
+  //     //if not fullscreen
+  //     document.documentElement.requestFullscreen();
+  //     setisFullscreen(true);
+  //   } else {
+  //     if (document.exitFullscreen) {
+  //       document.exitFullscreen();
+  //       setisFullscreen(false);
+  //     }
+  //   }
+  // };
+
+  return (
+    <>
+      {/* <IconButton onClick={toggleFullscreen}>
+        {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+      </IconButton>
+      <IconButton>
+        <EditIcon fontSize="small" />
+      </IconButton> */}
+      <IconButton>
+        <DownloadIcon fontSize="small" />
+      </IconButton>
+      <IconButton>
+        <PrintIcon fontSize="small" />
+      </IconButton>
+      <Divider orientation="vertical" flexItem />
+    </>
+  );
+};

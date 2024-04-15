@@ -1,6 +1,7 @@
 import { StateCreator } from 'zustand';
 import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
+import { TileRecord } from '@/commonTypes/Tile';
 
 export type BoardStoreRecord = {
   board: BoardRecord | null;
@@ -17,7 +18,11 @@ export type BoardActions = {
   setBoard: (board: BoardRecord) => void;
   cleanBoard: () => void;
   setErrorOnBoardGeneration: () => void;
-  updateTileImage: (tileId: string, image: string) => void;
+  updateTileImage: (
+    tileId: string,
+    image: string,
+    generatedPicto?: TileRecord['generatedPicto'],
+  ) => void;
   setBoardIsUpToDate: () => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
@@ -55,14 +60,25 @@ export const createBoardSlice: StateCreator<
       type: 'Board/setErrorOnBoardGeneration',
     });
   },
-  updateTileImage: (tileId: string, image: string) => {
+  updateTileImage: (
+    tileId: string,
+    image: string,
+    generatedPicto?: TileRecord['generatedPicto'],
+  ) => {
     set(
       (state) => {
         if (!state.board) {
           return state;
         }
+
         const nextTiles = state.board.tiles.map((tile) =>
-          tile.id === tileId ? { ...tile, image: image } : tile,
+          tile.id === tileId
+            ? {
+                ...tile,
+                image: image,
+                generatedPicto: generatedPicto ?? tile.generatedPicto,
+              }
+            : tile,
         );
         return {
           board: { ...state.board, tiles: nextTiles },

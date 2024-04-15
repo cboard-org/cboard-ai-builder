@@ -1,6 +1,5 @@
 'use client';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
@@ -17,11 +16,17 @@ import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
 import useSaveOnSetBoard from './useSaveOnSetBoard';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import styles from './styles';
+import theme from '@/theme';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const [board] = useBoundStore(
-    useShallow((state) => [state.board, state.setBoard]),
+  const [board, prompt] = useBoundStore(
+    useShallow((state) => [state.board, state.prompt]),
   );
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
@@ -33,7 +38,9 @@ const BoardSection = () => {
   };
 
   const handleTileClick = (id: string) => {
-    if (!isEditing) return;
+    if (!isEditing) {
+      return;
+    }
 
     setSelectedTiles((selectedTiles) =>
       selectedTiles.includes(id)
@@ -63,33 +70,56 @@ const BoardSection = () => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          p: '.5rem',
           overflow: 'auto',
         }}
       >
         <Box
-          sx={{
-            height: '12%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
+          bgcolor={
+            isEditing ? theme.palette.primary.light : 'rgb(240, 238, 238);'
+          }
+          sx={styles.header}
+          borderRadius={1}
         >
-          <Box sx={{ display: 'flex' }}>
-            <Box>Image</Box>
-            <Box>| Board title</Box>
+          <Box>
+            {
+              <IconButton onClick={handleEditClick}>
+                {!isEditing ? (
+                  <EditIcon fontSize="small" />
+                ) : (
+                  <CloseIcon fontSize="small" />
+                )}
+              </IconButton>
+            }
           </Box>
-          <Toolbar onEditClick={handleEditClick} isSavingChange={isSaving} />
+          <Box sx={styles.titleContainer}>
+            {/* <Box>Image</Box> */}
+            <Box>
+              <Typography
+                variant="h6"
+                fontSize={'1rem'}
+                component="div"
+                sx={styles.title}
+                ml={0.5}
+              >
+                {prompt.description}
+              </Typography>
+            </Box>
+          </Box>
+          <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
         </Box>
-        <Divider flexItem sx={{ my: '0.5rem' }} />
+        {/* <Divider flexItem sx={{ my: '0.5rem' }} /> */}
         <Grid
           order={board.grid ? board.grid.order : []}
           items={board.tiles}
           columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
-          dragAndDropEnabled={true} //{isSelecting}
+          dragAndDropEnabled={isEditing}
           renderItem={(item) => (
-            <Tile tile={item} handleTileClick={handleTileClick}>
+            <Tile
+              tile={item}
+              handleTileClick={handleTileClick}
+              isEditionView={isEditing}
+            >
               {isEditing && (
                 <SelectTileMask isSelected={selectedTiles.includes(item.id)} />
               )}

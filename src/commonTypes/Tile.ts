@@ -11,6 +11,16 @@ export type TileRecord = {
   sound?: string;
   linkedBoard?: boolean;
   borderColor?: string;
+  suggestedImages?: string[] | null;
+  generatedPicto?: {
+    url: string;
+    id: string | undefined;
+    content: string;
+    progress: string | undefined;
+    proxy_url: string | undefined;
+    changeImageIds: string[] | undefined;
+    upscaledPictos?: string[];
+  };
 };
 
 export type LabelPositionRecord = 'Above' | 'Below' | undefined;
