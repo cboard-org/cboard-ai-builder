@@ -1,80 +1,49 @@
 'use server';
 
 import { PromptRecord } from '@/commonTypes/Prompt';
-import { BoardRecord } from '@/commonTypes/Board';
-import testBoard from '../@board/testBoard.json';
+import { getServerSession } from 'next-auth';
+import authConfig from '@/lib/next-auth/config';
+import { getUserBoards } from '@/db/services/Board/service';
 
 export type SavedBoardsData = {
   id: string;
-  board: BoardRecord;
+  isSavedBoard: boolean;
   prompt: PromptRecord;
   date: Date | string;
 };
 
-const yesterday = new Date();
-yesterday.setDate(yesterday.getDate() - 1);
-const todayMinsAgo = new Date();
-todayMinsAgo.setMinutes(todayMinsAgo.getMinutes() - 10);
-const todayHoursAgo = new Date();
-todayHoursAgo.setHours(todayHoursAgo.getHours() - 3);
-const fake_db: SavedBoardsData[] = [
-  {
-    id: '0',
-    board: testBoard[0],
-    prompt: {
-      description: 'pretty family in a camp with a cup',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: todayMinsAgo.toISOString(),
-  },
-  {
-    id: '1',
-    board: testBoard[1],
-    prompt: {
-      description: 'pretty family in a camp with a cup',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: todayHoursAgo.toISOString(),
-  },
-  {
-    id: '2',
-    board: testBoard[2],
-    prompt: {
-      description: 'an arabic famm',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: yesterday.toISOString(),
-  },
-  {
-    id: '3',
-    board: testBoard[3],
-    prompt: {
-      description: 'pretty family in a camp with a cup',
-      rows: 5,
-      columns: 5,
-      colorScheme: 'fitzgerald',
-      shouldUsePictonizer: true,
-    },
-    date: yesterday.toISOString(),
-  },
-];
-
 export async function getSavedBoardsData(): Promise<SavedBoardsData[]> {
-  // Fetching with a 2 seconds delay to test loading state
-  await fetch('https://postman-echo.com/delay/2', {
-    cache: 'no-cache',
+  const session = await getServerSession(authConfig);
+  if (!session) {
+    throw new Error('User not authenticated');
+  }
+  const savedBoardsData = await getUserBoards({
+    userId: session.cboard_user.id,
   });
-  // Here we query DB
-  return fake_db;
+
+  const savedBoardsList = savedBoardsData.map((board) => {
+    const prompt = board.prompt;
+
+    const promptItem: PromptRecord = {
+      description: prompt?.description ?? '',
+      rows: prompt?.rows ?? 0,
+      columns: prompt?.columns ?? 0,
+      colorScheme: prompt?.colorScheme ?? 'fitzgerald',
+      shouldUsePictonizer: prompt?.shouldUsePictonizer ?? false,
+    };
+    const createdAt =
+      typeof board.createdAt !== 'string'
+        ? board.createdAt.toISOString()
+        : board.createdAt;
+
+    return {
+      id: board._id.toString(),
+      isSavedBoard: true,
+      prompt: promptItem,
+      date: createdAt,
+    };
+  });
+  return savedBoardsList;
 }
 
 export async function removeSavedBoardsData(data: SavedBoardsData) {

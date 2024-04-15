@@ -74,6 +74,13 @@
   color: rgb(0, 0, 0);
 }
 
+.SymbolEmptyImageContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: 600px) {
   .Symbol .SymbolLabel {
     font-size: 1rem;

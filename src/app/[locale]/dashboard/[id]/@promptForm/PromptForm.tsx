@@ -148,8 +148,9 @@ export function PromptForm() {
       disableGutters
       expanded={isInitialContentView}
       sx={accordionStyles}
-      onClick={() => {
+      onChange={() => {
         if (!isInitialContentView) {
+          cleanBoard();
           cleanPrompt();
         }
       }}
@@ -422,7 +423,17 @@ export function PromptForm() {
                   <FormControlLabel
                     id="use-ai-pictograms"
                     name="use-ai-pictograms"
-                    control={<Switch defaultChecked />}
+                    control={
+                      <Switch
+                        checked={controlledPromptValue.shouldUsePictonizer}
+                        onChange={(e) => {
+                          setControlledPromptValue({
+                            ...controlledPromptValue,
+                            shouldUsePictonizer: e.target.checked,
+                          });
+                        }}
+                      />
+                    }
                     label={
                       <Stack
                         spacing={1}

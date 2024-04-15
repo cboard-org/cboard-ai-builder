@@ -6,6 +6,9 @@ import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
+import { usePathname } from '@/navigation';
+import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
+import GenerateButton from './GenerateButton';
 import Box from '@mui/material/Box';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
@@ -30,12 +33,37 @@ const useUpdateTileImage = (
   const [updateTileImage, stashDashboard] = useBoundStore(
     useShallow((state) => [state.updateTileImage, state.stashDashboard]),
   );
+  const { isStashedContentView, isPictoGenerationActive } =
+    useGeneratePictoActive();
+
   useEffect(() => {
-    if (image === '') {
+    if (image === '' && isPictoGenerationActive) {
       updateTileImage(tileId, generatedPicto);
-      stashDashboard();
+      if (isStashedContentView) stashDashboard();
     }
-  }, [updateTileImage, image, generatedPicto, tileId, stashDashboard]);
+  }, [
+    updateTileImage,
+    image,
+    generatedPicto,
+    tileId,
+    stashDashboard,
+    isStashedContentView,
+    isPictoGenerationActive,
+  ]);
+};
+
+const useGeneratePictoActive = () => {
+  const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
+  const pathname = usePathname();
+  const isStashedContentView = pathname.includes(
+    `/dashboard/${STASHED_CONTENT_ID}`,
+  );
+  const isShouldUsePictonizer = prompt.shouldUsePictonizer;
+  return {
+    isPictoGenerationActive: isShouldUsePictonizer && isStashedContentView,
+    isStashedContentView,
+    isShouldUsePictonizer,
+  };
 };
 
 export default function Symbol({
@@ -49,6 +77,7 @@ export default function Symbol({
   const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
   const [generatedPicto, setGeneratedPicto] = React.useState('');
+  const { isPictoGenerationActive } = useGeneratePictoActive();
 
   useEffect(() => {
     const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
@@ -104,10 +133,10 @@ export default function Symbol({
   }, [label]);
 
   useEffect(() => {
-    if (image === '') {
+    if (image === '' && isPictoGenerationActive) {
       generatePicto();
     }
-  }, [image, generatePicto]);
+  }, [image, generatePicto, isPictoGenerationActive]);
 
   useUpdateTileImage(tileId, image, generatedPicto);
   // const onClick = () => {
@@ -159,7 +188,7 @@ export default function Symbol({
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {!src ? (
+      {!src && isPictoGenerationActive ? (
         <div className={style.SymbolLoadingContainer}>
           <CircularProgress
             sx={{
@@ -169,22 +198,24 @@ export default function Symbol({
           />
         </div>
       ) : (
-        <Box sx={styles.symbolImageContainer}>
-          {isEditingImage && (
-            <Button onClick={handlePreviousImage} sx={styles.arrowButton}>
-              <ArrowBack fontSize="large" />
-            </Button>
-          )}
-          <div className={style.SymbolImageContainer}>
-            <img className={style.SymbolImage} src={src} alt={label} />
-            {/* TODO: Use Image component from next to optimize images - TechDebt */}
-          </div>
-          {isEditingImage && (
-            <Button onClick={handleNextImage} sx={styles.arrowButton}>
-              <ArrowForward fontSize="large" />
-            </Button>
-          )}
-        </Box>
+        src && (
+          <Box sx={styles.symbolImageContainer}>
+            {isEditingImage && (
+              <Button onClick={handlePreviousImage} sx={styles.arrowButton}>
+                <ArrowBack fontSize="large" />
+              </Button>
+            )}
+            <div className={style.SymbolImageContainer}>
+              <img className={style.SymbolImage} src={src} alt={label} />
+              {/* TODO: Use Image component from next to optimize images - TechDebt */}
+            </div>
+            {isEditingImage && (
+              <Button onClick={handleNextImage} sx={styles.arrowButton}>
+                <ArrowForward fontSize="large" />
+              </Button>
+            )}
+          </Box>
+        )
       )}
       {isEditingImage && suggestedImagesLength && (
         <ImagePagination
@@ -192,6 +223,12 @@ export default function Symbol({
           activeImage={selectedImageSuggestion}
         />
       )}
+      {!src && !isPictoGenerationActive && (
+        <div className={style.SymbolEmptyImageContainer}>
+          <GenerateButton />
+        </div>
+      )}
+
       {labelpos === 'Below' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}

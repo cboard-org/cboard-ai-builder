@@ -15,6 +15,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
+import useSaveOnSetBoard from './useSaveOnSetBoard';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
@@ -24,11 +25,12 @@ import theme from '@/theme';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
-  const [board, setBoard, prompt] = useBoundStore(
-    useShallow((state) => [state.board, state.setBoard, state.prompt]),
+  const [board, prompt] = useBoundStore(
+    useShallow((state) => [state.board, state.prompt]),
   );
   const [isEditing, setIsEditing] = useState(false);
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
+  const [updateBoard, isSaving] = useSaveOnSetBoard();
   if (!board) return null;
   const handleEditClick = () => {
     setIsEditing((isEditing) => !isEditing);
@@ -57,7 +59,7 @@ const BoardSection = () => {
         order: newOrder,
       },
     };
-    setBoard(newBoard);
+    updateBoard(newBoard);
   };
   return (
     <>
@@ -101,7 +103,7 @@ const BoardSection = () => {
               </Typography>
             </Box>
           </Box>
-          <Toolbar isEditing={isEditing} />
+          <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
         </Box>
         {/* <Divider flexItem sx={{ my: '0.5rem' }} /> */}
         <Grid
@@ -150,27 +152,36 @@ const useSetInitialBoard = ({
   remoteBoard: BoardRecord | null;
   id: string;
 }) => {
-  const [setBoard, stashedDashboard, hydrated] = useBoundStore(
-    useShallow((state) => [
-      state.setBoard,
-      state.stashedDashboard,
-      state.hydrated,
-    ]),
-  );
+  const [setBoard, stashedDashboard, hydrated, setBoardIsUpToDate, setPrompt] =
+    useBoundStore(
+      useShallow((state) => [
+        state.setBoard,
+        state.stashedDashboard,
+        state.hydrated,
+        state.setBoardIsUpToDate,
+        state.setPrompt,
+      ]),
+    );
   useEffect(() => {
     if (remoteBoard) {
       setBoard(remoteBoard);
+      setBoardIsUpToDate();
     }
-  }, [remoteBoard, setBoard]);
+  }, [remoteBoard, setBoard, setBoardIsUpToDate]);
 
   const stashedBoard = stashedDashboard.board;
+  const stashedPrompt = stashedDashboard.prompt;
+
   const router = useRouter();
   useEffect(() => {
-    if (stashedBoard)
-      if (id === STASHED_CONTENT_ID) return setBoard(stashedBoard);
+    if (stashedBoard && stashedPrompt && id === STASHED_CONTENT_ID) {
+      setBoard(stashedBoard);
+      setPrompt(stashedPrompt);
+      return;
+    }
     if (id === STASHED_CONTENT_ID && !stashedBoard && hydrated)
       router.push(`/dashboard/${INITIAL_CONTENT_ID}`);
-  }, [id, setBoard, stashedBoard, router, hydrated]);
+  }, [id, setBoard, stashedBoard, router, hydrated, stashedPrompt, setPrompt]);
 
   return;
 };
@@ -183,11 +194,7 @@ export default function BoardContainer({
 }) {
   // should use board from store as truth
   const [boardFromStore, errorOnBoardGeneration] = useBoundStore(
-    useShallow((state) => [
-      state.board,
-      state.errorOnBoardGeneration,
-      state.setBoard,
-    ]),
+    useShallow((state) => [state.board, state.errorOnBoardGeneration]),
   );
 
   useSetInitialBoard({ remoteBoard, id });
