@@ -56,10 +56,9 @@ export default function Dashboard(props: {
         className={styles.dashboardContainer}
       >
         <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
-          {props.navbar}
+          <Box className={styles.controls}>{props.promptForm}</Box>
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
-          <Box className={styles.controls}>{props.promptForm}</Box>
           <div className={styles.controls}>{props.savedData}</div>
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }} className={styles.board}>

@@ -33,6 +33,9 @@ import { useRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import usePromptBlinkAnimation from './usePromptBlinkAnimation';
+import SvgIcon from '@mui/material/SvgIcon';
+import Brand from '@/components/icons/Brand';
+import styles from './styles';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -139,8 +142,10 @@ export function PromptForm() {
         : 'rgba(0, 0, 0, 0.04)',
     },
   };
+
   return (
     <Accordion
+      disableGutters
       expanded={isInitialContentView}
       sx={accordionStyles}
       onChange={() => {
@@ -150,16 +155,26 @@ export function PromptForm() {
         }
       }}
     >
-      {!isInitialContentView && (
+      {true && (
         <Link href={`/dashboard/${INITIAL_CONTENT_ID}`}>
           <AccordionSummary
-            expandIcon={<AddIcon />}
+            expandIcon={!isInitialContentView && <AddIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
+            sx={styles.newBoardButton}
           >
-            <Typography variant="subtitle1" component="h2">
-              New Board
-            </Typography>
+            <Box sx={styles.newBoardButtonContent}>
+              <SvgIcon sx={{ mr: 1 }}>
+                <Brand />
+              </SvgIcon>
+              <Typography
+                variant="subtitle1"
+                component="h2"
+                fontWeight={'regular'}
+              >
+                New AAC Board
+              </Typography>
+            </Box>
           </AccordionSummary>
         </Link>
       )}
@@ -187,7 +202,7 @@ export function PromptForm() {
             }}
             action={formAction}
           >
-            <Grid p={3} container>
+            <Grid p={3} pt={0.5} container>
               <Grid item xs={12}>
                 <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
                   <Box
