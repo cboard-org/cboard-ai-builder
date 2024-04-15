@@ -57,7 +57,17 @@ export default function Tile({
     tileShapeStyles.backgroundColor = tile.backgroundColor;
   }
 
-  const [selectedImageSuggestion, setSelectedImageSuggestion] = useState(0);
+  const defaultSelectedImageSuggestion =
+    (tile.image &&
+      tile.generatedPicto?.upscaledPictos?.findIndex(
+        (element) => element === tile.image,
+      )) ||
+    tile.suggestedImages?.findIndex((element) => element === tile.image) ||
+    0;
+
+  const [selectedImageSuggestion, setSelectedImageSuggestion] = useState(
+    defaultSelectedImageSuggestion,
+  );
 
   const updateTileImageSaver = useUpdateTileImageSaver();
 
