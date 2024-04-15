@@ -2,7 +2,10 @@
 import { z } from 'zod';
 import { toCboardAdapter } from '@/lib/cboard-ai-engine/cboard-adapter';
 import { initEngine } from 'cboard-ai-engine';
-import { type PictonizerConfiguration } from 'cboard-ai-engine';
+import {
+  type PictonizerConfiguration,
+  type ContentSafetyConfiguration,
+} from 'cboard-ai-engine';
 import { BoardRecord } from '@/commonTypes/Board';
 import { getServerSession } from 'next-auth/next';
 import authConfig from '@/lib/next-auth/config';
@@ -36,9 +39,15 @@ const pictonizerConfiguration = {
   keyWords: 'arasaac pictograms',
 } as PictonizerConfiguration;
 
+const contentSafetyConfiguration = {
+  endpoint: process.env.CONTENT_SAFETY_ENDPOINT,
+  key: process.env.CONTENT_SAFETY_KEY,
+} as ContentSafetyConfiguration;
+
 const boardGenerator = initEngine({
   openAIConfiguration,
   pictonizerConfiguration,
+  contentSafetyConfiguration,
 });
 
 export async function submit(
@@ -82,6 +91,11 @@ export async function submit(
       typeof rows === 'number' &&
       typeof columns === 'number'
     ) {
+      const isContentSafe = await boardGenerator.isContentSafe(prompt);
+      if (!isContentSafe) {
+        throw new Error('Prompt is not safe');
+      }
+
       const numberOfTiles = rows * columns;
       const suggestions = await boardGenerator.getSuggestions({
         prompt: prompt,
