@@ -10,6 +10,7 @@
 
   /* HACK: fixes iOS flicker on scroll */
   transform: translateZ(0);
+  display: flex;
 }
 
 .Tile:not(.scanner__focused) {
