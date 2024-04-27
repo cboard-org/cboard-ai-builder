@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import React from 'react';
 
 type PropType = {
@@ -15,7 +16,9 @@ export const Thumb: React.FC<PropType> = (props) => {
         selected ? ' embla-thumbs__slide--selected' : '',
       )}
     >
-      <button
+      <Button
+        variant={selected ? 'text' : 'text'}
+        focusRipple
         onClick={onClick}
         type="button"
         className="embla-thumbs__slide__number"
@@ -25,7 +28,7 @@ export const Thumb: React.FC<PropType> = (props) => {
           src={`https://api.arasaac.org/api/pictograms/1024${index}`}
           alt="slide.label"
         />
-      </button>
+      </Button>
     </div>
   );
 };
