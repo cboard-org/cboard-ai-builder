@@ -142,7 +142,7 @@ export default function Tile({
 
   const onTileClick = () => {
     //setIsEditing(true);
-    !isEditionView && handleNextImage();
+    !isEditionView ? handleNextImage() : setIsEditing(true);
     handleTileClick(tile.id);
   };
 
