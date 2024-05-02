@@ -1,17 +1,10 @@
-.tile__container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* height: 100%; */
-  --label-placeholder: 16px;
-}
-
 .embla {
   max-width: 48rem;
   margin: auto;
   /* --slide-height: 19rem; */
   --slide-spacing: 1rem;
   --slide-size: 100%;
+  --label-placeholder: 16px;
   width: 50%;
 }
 .embla__viewport {
@@ -43,7 +36,7 @@
 .embla-thumbs {
   --thumbs-slide-spacing: 0.8rem;
   --thumbs-slide-height: 6rem;
-  margin-top: var(--thumbs-slide-spacing);
+  /* margin-top: var(--thumbs-slide-spacing); */
 }
 .embla-thumbs__viewport {
   overflow: hidden;
