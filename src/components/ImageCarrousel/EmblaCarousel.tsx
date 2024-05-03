@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import PictogramEditor from '../PictogramEditor/PictogramEditor';
 import Box from '@mui/material/Box';
 import styles from './styles';
+import TextField from '@mui/material/TextField';
 
 type PropType = {
   slides: number[];
@@ -101,6 +102,12 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         </div>
       </Box>
       <PictogramEditor carrousel={ThumbsCarrousel} />
+      <TextField
+        required
+        id="Label textfield"
+        label="Tile Label"
+        defaultValue="Label"
+      />
     </Box>
   );
 };
