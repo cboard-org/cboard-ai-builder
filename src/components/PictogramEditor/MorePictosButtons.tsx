@@ -14,7 +14,7 @@ const MorePictosButtons: FC = () => {
         Search
       </Button>
       <Button variant="contained" startIcon={<AutoAwesome />}>
-        Use Pictonizer
+        Generate
       </Button>
     </Box>
   );

@@ -14,6 +14,7 @@ export default {
   },
   morePictosButton: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    gap: 2,
   },
 } satisfies Record<string, SxProps>;
