@@ -3,7 +3,7 @@ import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
-import TileEditor from '@/components/TileEditor/TileEditor';
+import TileEditorModal from '@/components/TileEditorModal/TileEditorModal';
 import { useState } from 'react';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
@@ -187,7 +187,7 @@ export default function Tile({
         {children}
       </Button>
       {isEditing && (
-        <TileEditor tile={tile} onClose={() => setIsEditing(false)} />
+        <TileEditorModal tile={tile} onClose={() => setIsEditing(false)} />
       )}
     </>
   );

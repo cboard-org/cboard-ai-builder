@@ -4,7 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Thumb } from './EmblaCarouselThumbsButton';
 import './css/base.css';
 import './css/embla.css';
-import Typography from '@mui/material/Typography';
+import TilePreview from './TilePreview/TilePreview';
 import PictogramEditor from '../PictogramEditor/PictogramEditor';
 import Box from '@mui/material/Box';
 import styles from './styles';
@@ -16,7 +16,7 @@ type PropType = {
   tileColor: string;
 };
 
-const EmblaCarousel: React.FC<PropType> = (props) => {
+const TileEditor: React.FC<PropType> = (props) => {
   const { slides, options } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
@@ -51,6 +51,27 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     emblaMainApi.scrollNext();
   };
 
+  const TileGalery = (
+    <div className="embla" style={{ backgroundColor: props.tileColor }}>
+      <div className="embla__viewport" ref={emblaMainRef}>
+        <div className="embla__container">
+          {slides.map((index) => (
+            <div className="embla__slide embla__class-names" key={index}>
+              <div className="embla__tile" onClick={handleNextImage}>
+                <img
+                  className="embla__slide__img"
+                  src={`https://api.arasaac.org/api/pictograms/1024${index}`}
+                  alt="slide.label"
+                />
+              </div>
+            </div>
+          ))}
+          {slides.length === 0 && <EmptyTile />}
+        </div>
+      </div>
+    </div>
+  );
+
   const ThumbsCarrousel = (
     <div className="embla-thumbs">
       <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
@@ -72,35 +93,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
   return (
     <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
-      <Box sx={styles.tileContainer}>
-        <div className="embla" style={{ backgroundColor: props.tileColor }}>
-          <div className="embla__viewport" ref={emblaMainRef}>
-            <div className="embla__container">
-              {slides.map((index) => (
-                <div className="embla__slide embla__class-names" key={index}>
-                  <div className="embla__tile" onClick={handleNextImage}>
-                    <img
-                      className="embla__slide__img"
-                      src={`https://api.arasaac.org/api/pictograms/1024${index}`}
-                      alt="slide.label"
-                    />
-                  </div>
-                </div>
-              ))}
-              {slides.length === 0 && <EmptyTile />}
-            </div>
-          </div>
-        </div>
-        <div className="embla-tile__label-container">
-          <Typography
-            variant="body1"
-            fontWeight={700}
-            className="embla-tile__label"
-          >
-            LABEL
-          </Typography>
-        </div>
-      </Box>
+      <TilePreview TileGalery={TileGalery} />
       <PictogramEditor carrousel={ThumbsCarrousel} />
       <TextField
         required
@@ -119,4 +112,4 @@ const EmptyTile = () => (
     </div>
   </div>
 );
-export default EmblaCarousel;
+export default TileEditor;

@@ -6,10 +6,10 @@ import styles from './styles';
 import { TileRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 
-import EmblaCarousel from './EmblaCarousel';
+import TileEditor from './TileEditor';
 import { EmblaOptionsType } from 'embla-carousel';
 
-export default function TileEditor({
+export default function TileEditorModal({
   onClose,
   // tile: { suggestedImages, id: tileId },
   tile,
@@ -36,7 +36,7 @@ export default function TileEditor({
       >
         <Paper id="tileEditor" sx={styles.paper}>
           <Box sx={styles.tileControlsContainer}>
-            <EmblaCarousel
+            <TileEditor
               slides={SLIDES || []}
               options={OPTIONS}
               tileColor={tile.backgroundColor || 'white'}
