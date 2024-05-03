@@ -2,15 +2,23 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
   outlinedBox: {
-    backgroundColor: 'white',
+    backgroundColor: 'background.default',
     padding: 2,
     borderRadius: 2,
-    border: 2,
+    border: 1,
     borderColor: 'primary.light',
-    boxShadow: '0 0 1rem rgba(0, 0, 0, 0.1)',
     display: 'flex',
     flexDirection: 'column',
     gap: 2,
+    '&:hover': {
+      outline: 'none',
+      borderColor: 'primary.main',
+    },
+    '&:focus-within': {
+      outline: 'none',
+      boxShadow: '0 0 0 1px #7b1fa2',
+      borderColor: 'primary.main',
+    },
   },
   morePictosButton: {
     display: 'flex',

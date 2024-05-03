@@ -9,7 +9,7 @@ type PictogramEditorProps = {
 
 const PictogramEditor: React.FC<PictogramEditorProps> = ({ carrousel }) => {
   return (
-    <Box sx={styles.outlinedBox}>
+    <Box tabIndex={-1} sx={styles.outlinedBox}>
       {carrousel}
       <MorePictosButtons />
     </Box>

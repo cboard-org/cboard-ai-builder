@@ -16,6 +16,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 2,
+    backgroundColor: '#F8F8F8',
   },
   imageControls: {
     display: 'flex',
