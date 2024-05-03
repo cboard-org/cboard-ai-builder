@@ -35,7 +35,7 @@ export default function TileEditor({
         sx={styles.modal}
       >
         <Paper id="tileEditor" sx={styles.paper}>
-          <Box sx={styles.imageControls}>
+          <Box sx={styles.tileControlsContainer}>
             <EmblaCarousel
               slides={SLIDES || []}
               options={OPTIONS}

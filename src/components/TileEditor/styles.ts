@@ -17,7 +17,7 @@ export default {
     justifyContent: 'center',
     borderRadius: 2,
   },
-  imageControls: {
+  tileControlsContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
