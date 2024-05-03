@@ -36,14 +36,10 @@ import { EmblaOptionsType } from 'embla-carousel';
 // };
 
 export default function TileEditor({
-  children,
-  isEditing,
   onClose,
   // tile: { suggestedImages, id: tileId },
   tile,
 }: {
-  children: React.ReactNode;
-  isEditing: boolean;
   onClose: () => void;
   tile: TileRecord;
 }) {
@@ -54,8 +50,6 @@ export default function TileEditor({
   // const [selectedImageSuggestion, setSelectedImageSuggestion] = useState(0);
 
   // const updateTileImageSaver = useUpdateTileImageSaver();
-
-  if (!isEditing) return children;
 
   // const handleNextImage = () => {
   //   if (!suggestedImages) return;
@@ -79,12 +73,11 @@ export default function TileEditor({
   // const showArrows = suggestedImagesLength > 1;
 
   const OPTIONS: EmblaOptionsType = { loop: true };
-  const SLIDE_COUNT = 5;
+  const SLIDE_COUNT = 4;
   const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
   console.log(SLIDES);
   return (
     <>
-      {children}
       <Modal
         open={true}
         onClose={handleClose}

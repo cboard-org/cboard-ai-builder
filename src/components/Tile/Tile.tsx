@@ -150,13 +150,7 @@ export default function Tile({
     suggestedImages?.length || generatedPicto?.changeImageIds?.length || 0;
 
   return (
-    <TileEditor
-      isEditing={isEditing}
-      onClose={() => {
-        setIsEditing(false);
-      }}
-      tile={tile}
-    >
+    <>
       <Button
         disabled={suggestedImagesLength === 1 && !isEditionView}
         className={style.Tile}
@@ -192,6 +186,9 @@ export default function Tile({
         </Box>
         {children}
       </Button>
-    </TileEditor>
+      {isEditing && (
+        <TileEditor tile={tile} onClose={() => setIsEditing(false)} />
+      )}
+    </>
   );
 }
