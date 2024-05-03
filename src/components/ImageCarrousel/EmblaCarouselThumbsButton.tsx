@@ -17,11 +17,11 @@ export const Thumb: React.FC<PropType> = (props) => {
       )}
     >
       <Button
-        variant={selected ? 'text' : 'text'}
+        sx={{ border: 1, borderColor: selected ? '#7b1fa2' : 'transparent' }}
+        variant={'text'}
         focusRipple
         onClick={onClick}
         type="button"
-        className="embla-thumbs__slide__number"
       >
         <img
           className="embla__slide__img"
