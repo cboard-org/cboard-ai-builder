@@ -7,7 +7,6 @@ import { TileRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 
 import TileEditor from './TileEditor';
-import { EmblaOptionsType } from 'embla-carousel';
 
 export default function TileEditorModal({
   onClose,
@@ -21,10 +20,6 @@ export default function TileEditorModal({
     onClose();
   };
 
-  const OPTIONS: EmblaOptionsType = { loop: true };
-  const SLIDE_COUNT = 4;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-  console.log(SLIDES);
   return (
     <>
       <Modal
@@ -36,11 +31,7 @@ export default function TileEditorModal({
       >
         <Paper id="tileEditor" sx={styles.paper}>
           <Box sx={styles.tileControlsContainer}>
-            <TileEditor
-              slides={SLIDES || []}
-              options={OPTIONS}
-              tileColor={tile.backgroundColor || 'white'}
-            />
+            <TileEditor initialTile={tile} />
           </Box>
         </Paper>
       </Modal>

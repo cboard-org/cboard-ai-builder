@@ -9,17 +9,20 @@ import PictogramEditor from '../PictogramEditor/PictogramEditor';
 import Box from '@mui/material/Box';
 import styles from './styles';
 import TextField from '@mui/material/TextField';
+import { TileRecord } from '@/commonTypes/Tile';
 
 type PropType = {
-  slides: number[];
-  options?: EmblaOptionsType;
-  tileColor: string;
+  initialTile: TileRecord;
 };
 
-const TileEditor: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
+const TileEditor: React.FC<PropType> = ({ initialTile }) => {
+  const OPTIONS: EmblaOptionsType = { loop: true };
+  const SLIDE_COUNT = 4;
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+  const slides = SLIDES;
+
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(OPTIONS);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
     dragFree: true,
@@ -52,7 +55,10 @@ const TileEditor: React.FC<PropType> = (props) => {
   };
 
   const TileGalery = (
-    <div className="embla" style={{ backgroundColor: props.tileColor }}>
+    <div
+      className="embla"
+      style={{ backgroundColor: initialTile.backgroundColor }}
+    >
       <div className="embla__viewport" ref={emblaMainRef}>
         <div className="embla__container">
           {slides.map((index) => (
