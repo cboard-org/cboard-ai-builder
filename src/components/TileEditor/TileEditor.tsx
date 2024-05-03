@@ -6,7 +6,7 @@ import styles from './styles';
 import { TileRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 
-import EmblaCarousel from '../ImageCarrousel/EmblaCarousel';
+import EmblaCarousel from './EmblaCarousel';
 import { EmblaOptionsType } from 'embla-carousel';
 
 export default function TileEditor({

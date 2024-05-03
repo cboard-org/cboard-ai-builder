@@ -38,4 +38,14 @@ export default {
     height: '100%',
     alignItems: 'center',
   },
+  sectionsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 16,
+  },
+  tileContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
 } satisfies Record<string, SxProps>;
