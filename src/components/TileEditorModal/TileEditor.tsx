@@ -15,10 +15,11 @@ type PropType = {
   initialTile: TileRecord;
 };
 
+const OPTIONS: EmblaOptionsType = { loop: true };
+const SLIDE_COUNT = 4;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
 const TileEditor: React.FC<PropType> = ({ initialTile }) => {
-  const OPTIONS: EmblaOptionsType = { loop: true };
-  const SLIDE_COUNT = 4;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
   const slides = SLIDES;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
