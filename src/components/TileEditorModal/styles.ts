@@ -7,7 +7,7 @@ export default {
     alignItems: 'center',
   },
   paper: {
-    //width: { xs: '90%', sm: '80%' },
+    width: { xs: '90%', sm: '80%' },
     maxWidth: '75vh',
     height: '75%',
     color: 'text.primary',
@@ -24,7 +24,7 @@ export default {
     justifyContent: 'center',
     width: '100%',
     height: '100%',
-    px: { xs: 2, sm: 8 },
+    px: { xs: 2, sm: 4, md: 8 },
   },
   arrowAndTileContainer: {
     display: 'flex',
