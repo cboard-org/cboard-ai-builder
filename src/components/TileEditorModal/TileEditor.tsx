@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Thumb } from './EmblaCarouselThumbsButton';
@@ -18,9 +18,14 @@ type PropType = {
 const OPTIONS: EmblaOptionsType = { loop: true };
 
 const TileEditor: React.FC<PropType> = ({ initialTile }) => {
-  const [tile] = useState(initialTile);
+  const [tile, setTile] = useState(initialTile);
 
-  const slides = tile.suggestedImages ?? [];
+  const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTile((prevTile) => ({ ...prevTile, label: e.target.value }));
+  };
+  const slides = useMemo(() => {
+    return tile.suggestedImages ?? [];
+  }, [tile.suggestedImages]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(OPTIONS);
@@ -41,7 +46,11 @@ const TileEditor: React.FC<PropType> = ({ initialTile }) => {
     if (!emblaMainApi || !emblaThumbsApi) return;
     setSelectedIndex(emblaMainApi.selectedScrollSnap());
     emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
-  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex]);
+    setTile((prev) => ({
+      ...prev,
+      image: slides[emblaMainApi.selectedScrollSnap()],
+    }));
+  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex, setTile, slides]);
 
   useEffect(() => {
     if (!emblaMainApi) return;
@@ -97,13 +106,14 @@ const TileEditor: React.FC<PropType> = ({ initialTile }) => {
 
   return (
     <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
-      <TilePreview TileGalery={TileGalery} />
+      <TilePreview TileGalery={TileGalery} label={tile.label} />
       <PictogramEditor carrousel={ThumbsCarrousel} />
       <TextField
         required
         id="Label textfield"
-        label="Tile Label"
-        defaultValue="Label"
+        label={tile.label}
+        defaultValue={tile.label}
+        onChange={handleLabelChange}
       />
     </Box>
   );

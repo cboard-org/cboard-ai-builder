@@ -5,9 +5,10 @@ import styles from './styles';
 
 type TilePreviewProps = {
   TileGalery: React.ReactNode;
+  label?: string;
 };
 
-const TilePreview: React.FC<TilePreviewProps> = ({ TileGalery }) => {
+const TilePreview: React.FC<TilePreviewProps> = ({ TileGalery, label }) => {
   return (
     <Box sx={styles.tileContainer}>
       {TileGalery}
@@ -17,7 +18,7 @@ const TilePreview: React.FC<TilePreviewProps> = ({ TileGalery }) => {
           fontWeight={700}
           className="embla-tile__label"
         >
-          LABEL
+          {label}
         </Typography>
       </div>
     </Box>
