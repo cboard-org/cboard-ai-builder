@@ -52,9 +52,9 @@
   padding-left: var(--thumbs-slide-spacing);
 }
 @media (min-width: 576px) {
-  /* .embla-thumbs__slide {
-    flex: 0 0 90px;
-  } */
+  .embla-thumbs__slide {
+    flex: 0 0 110px;
+  }
 }
 .embla-thumbs__slide__number {
   border-radius: 1.8rem;
