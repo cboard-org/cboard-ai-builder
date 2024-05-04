@@ -16,11 +16,11 @@ type PropType = {
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
-const SLIDE_COUNT = 4;
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 const TileEditor: React.FC<PropType> = ({ initialTile }) => {
-  const slides = SLIDES;
+  const [tile] = useState(initialTile);
+
+  const slides = tile.suggestedImages ?? [];
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(OPTIONS);
@@ -56,18 +56,15 @@ const TileEditor: React.FC<PropType> = ({ initialTile }) => {
   };
 
   const TileGalery = (
-    <div
-      className="embla"
-      style={{ backgroundColor: initialTile.backgroundColor }}
-    >
+    <div className="embla" style={{ backgroundColor: tile.backgroundColor }}>
       <div className="embla__viewport" ref={emblaMainRef}>
         <div className="embla__container">
-          {slides.map((index) => (
+          {slides.map((src, index) => (
             <div className="embla__slide embla__class-names" key={index}>
               <div className="embla__tile" onClick={handleNextImage}>
                 <img
                   className="embla__slide__img"
-                  src={`https://api.arasaac.org/api/pictograms/1024${index}`}
+                  src={src}
                   alt="slide.label"
                 />
               </div>
@@ -83,12 +80,12 @@ const TileEditor: React.FC<PropType> = ({ initialTile }) => {
     <div className="embla-thumbs">
       <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
         <div className="embla-thumbs__container">
-          {slides.map((index) => (
+          {slides.map((src, index) => (
             <Thumb
               key={index}
               onClick={() => onThumbClick(index)}
               selected={index === selectedIndex}
-              index={index}
+              src={src}
             />
           ))}
         </div>

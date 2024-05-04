@@ -3,12 +3,12 @@ import React from 'react';
 
 type PropType = {
   selected: boolean;
-  index: number;
+  src: string;
   onClick: () => void;
 };
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, index, onClick } = props;
+  const { selected, onClick, src } = props;
 
   return (
     <div
@@ -23,11 +23,7 @@ export const Thumb: React.FC<PropType> = (props) => {
         onClick={onClick}
         type="button"
       >
-        <img
-          className="embla__slide__img"
-          src={`https://api.arasaac.org/api/pictograms/1024${index}`}
-          alt="slide.label"
-        />
+        <img className="embla__slide__img" src={src} alt="img option" />
       </Button>
     </div>
   );
