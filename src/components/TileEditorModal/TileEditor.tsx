@@ -111,7 +111,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile }) => {
       <TextField
         required
         id="Label textfield"
-        label={tile.label}
+        label="Label"
         defaultValue={tile.label}
         onChange={handleLabelChange}
       />
