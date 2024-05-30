@@ -10,10 +10,10 @@ import styles from './styles';
 const MorePictosButtons: FC = () => {
   return (
     <Box sx={styles.morePictosButton}>
-      <Button startIcon={<Search />} variant="contained">
+      <Button startIcon={<Search />} variant="text">
         Search
       </Button>
-      <Button variant="contained" startIcon={<AutoAwesome />}>
+      <Button variant="text" startIcon={<AutoAwesome />}>
         Generate
       </Button>
     </Box>

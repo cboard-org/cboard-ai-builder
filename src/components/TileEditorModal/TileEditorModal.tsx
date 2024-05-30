@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
-import Modal from '@mui/material/Modal';
-import Paper from '@mui/material/Paper';
-import styles from './styles';
 import { TileRecord } from '@/commonTypes/Tile';
-import Box from '@mui/material/Box';
-
 import TileEditor from './TileEditor';
+import ConfirmButtons from './TileEditorDialogActions';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 export default function TileEditorModal({
   onClose,
@@ -19,22 +19,23 @@ export default function TileEditorModal({
   const handleClose = () => {
     onClose();
   };
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <>
-      <Modal
+      <Dialog
+        fullScreen={fullScreen}
         open={true}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={styles.modal}
       >
-        <Paper id="tileEditor" sx={styles.paper}>
-          <Box sx={styles.tileControlsContainer}>
-            <TileEditor initialTile={tile} />
-          </Box>
-        </Paper>
-      </Modal>
+        <ConfirmButtons handleClose={() => {}} handleSave={() => {}} />
+        <DialogContent>
+          <TileEditor initialTile={tile} />
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

@@ -1,22 +1,6 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
-  modal: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  paper: {
-    width: { xs: '90%', sm: '80%' },
-    maxWidth: '75vh',
-    height: '75%',
-    color: 'text.primary',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 2,
-  },
   tileControlsContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -48,5 +32,8 @@ export default {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+  },
+  tileEditorDialogActions: {
+    justifyContent: 'space-between',
   },
 } satisfies Record<string, SxProps>;
