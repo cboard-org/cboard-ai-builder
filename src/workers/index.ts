@@ -1,19 +1,9 @@
-import { Worker } from 'bullmq';
+// Load env vars the way next js does it
+import { loadEnvConfig } from '@next/env';
+loadEnvConfig('./', process.env.NODE_ENV === 'development');
+// Every other import that depends on env vars should be done after calling this function^
+import { worker } from './foo';
 
-const worker = new Worker(
-  'foo',
-  async (job) => {
-    // Will print { foo: 'bar'} for the first job
-    // and { qux: 'baz' } for the second.
-    console.log(job.data);
-  },
-  {
-    connection: {
-      host: 'localhost',
-      port: 6379,
-    },
-  },
-);
 worker.on('ready', () => {
   console.log('Worker is ready');
 });
