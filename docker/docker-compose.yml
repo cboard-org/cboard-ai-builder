@@ -8,12 +8,14 @@ services:
     image: cboard-ai-builder-web
     depends_on:
       - mongodb
+      - worker
     env_file:
       - ../.env.local
     ports:
       - '3000:3000'
     networks:
       - cboard-ai-builder-network
+      - worker-network
   mongodb:
     image: mongo:7.0
     restart: always
@@ -25,11 +27,33 @@ services:
       - '27017:27017'
     networks:
       - cboard-ai-builder-network
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - worker-network
+  worker:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.worker
+    image: cboard-ai-builder-worker
+    depends_on:
+      - mongodb
+      - redis
+    env_file:
+      - ../.env.local
+    networks:
+      - cboard-ai-builder-network
+      - worker-network
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
 networks:
   cboard-ai-builder-network:
+    driver: bridge
+  worker-network:
     driver: bridge
 volumes:
   db-data:

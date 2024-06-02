@@ -8,3 +8,12 @@ docker
 .git
 .env
 .env.*
+out
+.husky
+.vscode
+.gitignore
+*.tsbuildinfo
+.prettierrc
+.prettierignore
+lint-staged.config.js
+.circleci
