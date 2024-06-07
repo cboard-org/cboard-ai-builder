@@ -23,6 +23,7 @@ export type BoardActions = {
     image: string,
     generatedPicto?: TileRecord['generatedPicto'],
   ) => void;
+  updateTileProps: (tileId: string, newProps: Partial<TileRecord>) => void;
   setBoardIsUpToDate: () => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
@@ -90,6 +91,28 @@ export const createBoardSlice: StateCreator<
         type: 'Board/updateTileImage',
         tileId,
         image,
+      },
+    );
+  },
+  updateTileProps: (tileId: string, newProps: Partial<TileRecord>) => {
+    set(
+      (state) => {
+        if (!state.board) {
+          return state;
+        }
+        const nextTiles = state.board.tiles.map((tile) =>
+          tile.id === tileId ? { ...tile, ...newProps } : tile,
+        );
+        return {
+          board: { ...state.board, tiles: nextTiles },
+          isOutdated: true,
+        };
+      },
+      false,
+      {
+        type: 'Board/updateTileProps',
+        tileId,
+        newProps,
       },
     );
   },
