@@ -10,14 +10,20 @@ import Box from '@mui/material/Box';
 import styles from './styles';
 import TextField from '@mui/material/TextField';
 import { TileRecord } from '@/commonTypes/Tile';
+import ConfirmButtons from './TileEditorDialogActions';
+import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
+import useIsStashedContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsStashedView';
+import DialogContent from '@mui/material/DialogContent';
 
 type PropType = {
   initialTile: TileRecord;
+  onClose: () => void;
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 
-const TileEditor: React.FC<PropType> = ({ initialTile }) => {
+const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
   const [tile, setTile] = useState(initialTile);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,18 +110,42 @@ const TileEditor: React.FC<PropType> = ({ initialTile }) => {
 
   const emblaCarrouselTheme = 'theme-light';
 
+  const isStashedContentView = useIsStashedContentView();
+  const useUpdateTilePropsSaver = () => {
+    const [updateTileProps, stashDashboard] = useBoundStore(
+      useShallow((state) => [state.updateTileProps, state.stashDashboard]),
+    );
+    // const { isStashedContentView } = useGeneratePictoActive();
+    const updateTilePropsSaver = (tileId: string, tileProps: TileRecord) => {
+      updateTileProps(tileId, tileProps);
+      if (isStashedContentView) stashDashboard();
+    };
+    return updateTilePropsSaver;
+  };
+  const updateTileProps = useUpdateTilePropsSaver();
+
+  const handleSave = () => {
+    updateTileProps(tile.id, tile);
+    onClose();
+  };
+
   return (
-    <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
-      <TilePreview TileGalery={TileGalery} label={tile.label} />
-      <PictogramEditor carrousel={ThumbsCarrousel} />
-      <TextField
-        required
-        id="Label textfield"
-        label="Label"
-        defaultValue={tile.label}
-        onChange={handleLabelChange}
-      />
-    </Box>
+    <>
+      <ConfirmButtons handleClose={onClose} handleSave={handleSave} />
+      <DialogContent>
+        <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
+          <TilePreview TileGalery={TileGalery} label={tile.label} />
+          <PictogramEditor carrousel={ThumbsCarrousel} />
+          <TextField
+            required
+            id="Label textfield"
+            label="Label"
+            defaultValue={tile.label}
+            onChange={handleLabelChange}
+          />
+        </Box>
+      </DialogContent>
+    </>
   );
 };
 
