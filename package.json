@@ -17,7 +17,7 @@
     "@mui/material": "^5.15.4",
     "@mui/material-nextjs": "^5.15.3",
     "bufferutil": "^4.0.8",
-    "cboard-ai-engine": "^1.3.1",
+    "cboard-ai-engine": "^1.3.3",
     "deepmerge": "^4.3.1",
     "lodash.pick": "^4.4.0",
     "midjourney": "^4.3.17",
