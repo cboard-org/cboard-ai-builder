@@ -24,7 +24,8 @@ const promptFormDataSchema = z.object({
 
 const openAIConfiguration = {
   apiKey,
-  basePath: 'https://cboard-openai.openai.azure.com/openai/deployments/ToEdit',
+  basePath:
+    'https://cboard-openai.openai.azure.com/openai/deployments/ToEdit-01',
   baseOptions: {
     headers: { 'api-key': apiKey },
     params: {
