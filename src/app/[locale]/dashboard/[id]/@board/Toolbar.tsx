@@ -78,7 +78,7 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
           },
         }}
       >
-        {isSavingChange || isSaving ? (
+        {isOutdated === null || isSavingChange || isSaving ? (
           <CircularProgress size={20} />
         ) : isBoardOutdated ? (
           <BookmarkIcon fontSize="small" />
