@@ -145,7 +145,9 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
       <DialogContent>
         <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
           <TilePreview TileGalery={TileGalery} label={tile.label} />
-          <PictogramEditor carrousel={ThumbsCarrousel} />
+          <PictogramEditor
+            carrousel={slides.length > 0 ? ThumbsCarrousel : null}
+          />
           <TextField
             required
             id="Label textfield"
