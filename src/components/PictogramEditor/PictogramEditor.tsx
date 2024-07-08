@@ -19,6 +19,7 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
     <Box
       p={isSearching ? 0 : 2}
       flexGrow={isSearching ? 1 : 0}
+      overflow={isSearching ? 'hidden' : 'visible'}
       sx={styles.outlinedBox}
     >
       {!isSearching && (
@@ -28,10 +29,7 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
         </>
       )}
       {isSearching && (
-        <>
-          <PictogramSearcher toogleIsSearching={onSearchToogleClick} />
-          <Box sx={styles.searchResults}></Box>
-        </>
+        <PictogramSearcher toogleIsSearching={onSearchToogleClick} />
       )}
     </Box>
   );

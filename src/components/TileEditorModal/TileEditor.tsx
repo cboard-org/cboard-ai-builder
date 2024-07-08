@@ -150,7 +150,11 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
         <ConfirmButtons handleClose={onClose} handleSave={handleSave} />
       )}
       <DialogContent>
-        <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
+        <Box
+          maxHeight={isSearching ? '100%' : 'auto'}
+          style={styles.sectionsContainer}
+          className={emblaCarrouselTheme}
+        >
           {!isSearching && (
             <TilePreview TileGalery={TileGalery} label={tile.label} />
           )}

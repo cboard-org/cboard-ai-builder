@@ -9,7 +9,6 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     gap: 2,
-    overflow: 'hidden',
     '&:hover': {
       outline: 'none',
       borderColor: 'primary.main',
