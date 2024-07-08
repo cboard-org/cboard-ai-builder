@@ -8,6 +8,18 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'api.arasaac.org',
+        port: '',
+        pathname: '/api/pictograms/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'arasaac.org',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'globalsymbols.com',
         port: '',
         pathname: '/**',
