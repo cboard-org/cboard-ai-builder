@@ -7,10 +7,14 @@ import AutoAwesome from '@mui/icons-material/AutoAwesome';
 
 import styles from './styles';
 
-const MorePictosButtons: FC = () => {
+type MorePictosButtonsProps = {
+  onSearchClick: () => void;
+};
+
+const MorePictosButtons: FC<MorePictosButtonsProps> = ({ onSearchClick }) => {
   return (
     <Box sx={styles.morePictosButton}>
-      <Button startIcon={<Search />} variant="text">
+      <Button startIcon={<Search />} variant="text" onClick={onSearchClick}>
         Search
       </Button>
       <Button variant="text" startIcon={<AutoAwesome />}>

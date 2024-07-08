@@ -139,22 +139,35 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
     onClose();
   };
 
+  const [isSearching, setIsSearching] = useState(false);
+  const handleSearchToogleClick = () => {
+    setIsSearching((prev) => !prev);
+  };
+
   return (
     <>
-      <ConfirmButtons handleClose={onClose} handleSave={handleSave} />
+      {!isSearching && (
+        <ConfirmButtons handleClose={onClose} handleSave={handleSave} />
+      )}
       <DialogContent>
         <Box style={styles.sectionsContainer} className={emblaCarrouselTheme}>
-          <TilePreview TileGalery={TileGalery} label={tile.label} />
+          {!isSearching && (
+            <TilePreview TileGalery={TileGalery} label={tile.label} />
+          )}
           <PictogramEditor
+            onSearchToogleClick={handleSearchToogleClick}
             carrousel={slides.length > 0 ? ThumbsCarrousel : null}
+            isSearching={isSearching}
           />
-          <TextField
-            required
-            id="Label textfield"
-            label="Label"
-            defaultValue={tile.label}
-            onChange={handleLabelChange}
-          />
+          {!isSearching && (
+            <TextField
+              required
+              id="Label textfield"
+              label="Label"
+              defaultValue={tile.label}
+              onChange={handleLabelChange}
+            />
+          )}
         </Box>
       </DialogContent>
     </>

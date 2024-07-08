@@ -3,13 +3,13 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 export default {
   outlinedBox: {
     backgroundColor: 'background.default',
-    padding: 2,
     borderRadius: 2,
     border: 1,
     borderColor: 'primary.light',
     display: 'flex',
     flexDirection: 'column',
     gap: 2,
+    overflow: 'hidden',
     '&:hover': {
       outline: 'none',
       borderColor: 'primary.main',
@@ -25,5 +25,8 @@ export default {
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     gap: 2,
+  },
+  searchResults: {
+    height: '100%',
   },
 } satisfies Record<string, SxProps>;

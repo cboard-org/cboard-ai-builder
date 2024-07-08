@@ -42,6 +42,7 @@ export default {
     flexDirection: 'column',
     gap: 16,
     width: '100%',
+    minHeight: '100%',
   },
   tileContainer: {
     width: '100%',
