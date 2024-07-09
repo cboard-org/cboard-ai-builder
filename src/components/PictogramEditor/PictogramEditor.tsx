@@ -7,12 +7,14 @@ import PictogramSearcher from '../PictogramSearcher/PictogramSearcher';
 type PictogramEditorProps = {
   carrousel: React.ReactNode;
   onSearchToogleClick: () => void;
+  onChangePictogram: (src: string) => void;
   isSearching: boolean;
 };
 
 const PictogramEditor: React.FC<PictogramEditorProps> = ({
   carrousel,
   onSearchToogleClick,
+  onChangePictogram,
   isSearching,
 }) => {
   return (
@@ -29,7 +31,10 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
         </>
       )}
       {isSearching && (
-        <PictogramSearcher toogleIsSearching={onSearchToogleClick} />
+        <PictogramSearcher
+          toogleIsSearching={onSearchToogleClick}
+          onChangePictogram={onChangePictogram}
+        />
       )}
     </Box>
   );

@@ -7,6 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search';
+import { useMemo } from 'react';
+import debounce from 'lodash.debounce';
+import { useLocale } from 'next-intl';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,10 +53,57 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 type SearchAppBarProps = {
   onArrowBackClick: () => void;
+  setSuggestions: {
+    setSearchSuggestions: (results: string[]) => void;
+    setError: (error: boolean) => void;
+  };
 };
 export default function SearchAppBar({
   onArrowBackClick,
+  setSuggestions: { setSearchSuggestions, setError },
 }: SearchAppBarProps): JSX.Element {
+  const locale = useLocale();
+  const fetchSuggestions = React.useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const arasaacPictogramsSearch = async (
+        locale = 'en',
+        searchText = '',
+      ) => {
+        if (searchText.length === 0) return [];
+        const ARASAAC_BASE_PATH_API = 'https://api.arasaac.org/api/';
+        const slicedLocale = locale.slice(0, 2);
+        const pictogSearchTextPath = `${ARASAAC_BASE_PATH_API}pictograms/${slicedLocale}/search/${searchText}`;
+        try {
+          setError(false);
+          const res = await fetch(pictogSearchTextPath);
+          const data = await res.json();
+          if (res.status === 200 && data) {
+            return data.map((pictogram: { _id: number }) => pictogram._id);
+          }
+          throw new Error('Error fetching pictograms');
+        } catch (err) {
+          setError(true);
+          return [];
+        }
+      };
+
+      const suggestionsIds = await arasaacPictogramsSearch(
+        locale,
+        e.target.value,
+      );
+      setSearchSuggestions(suggestionsIds);
+      return;
+    },
+    [setSearchSuggestions, setError],
+  );
+
+  const debouncedChangeHandler = useMemo(
+    () =>
+      debounce((value) => {
+        fetchSuggestions(value);
+      }, 600),
+    [fetchSuggestions],
+  );
   return (
     <Box borderRadius={2}>
       <AppBar position="static">
@@ -75,6 +125,7 @@ export default function SearchAppBar({
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={debouncedChangeHandler}
             />
           </Search>
         </Toolbar>

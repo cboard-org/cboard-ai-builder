@@ -9,66 +9,60 @@ import Button from '@mui/material/Button';
 
 type PictogramSearcherProps = {
   toogleIsSearching: () => void;
+  onChangePictogram: (src: string) => void;
 };
 
 const PictogramSearcher: FC<PictogramSearcherProps> = ({
   toogleIsSearching,
+  onChangePictogram,
 }) => {
-  const [searchResults] = useState([
-    '39109',
-    '36530',
-    '35829',
-    '35637',
-    '35389',
-    '34741',
-    '34745',
-    '34145',
-    '32536',
-    '32534',
-    '31418',
-    '29925',
-    '14262',
-    '8275',
-    '8261',
-    '8229',
-    '8200',
-    '8199',
-    '8105',
-    '8093',
-    '8089',
-    '8083',
-    '5071',
-    '4873',
-    '3388',
-  ]);
+  const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
+
+  const [error, setError] = useState(false);
+
+  const handlePictogramClick = async (src: string) => {
+    const fetchArasaacImageUrl = async () => {
+      try {
+        const suggestionImageReq = `${src}&url=true`;
+        const res = await fetch(suggestionImageReq);
+        const data = await res.json();
+        const imageArasaacUrl = data.image;
+        return imageArasaacUrl.length ? imageArasaacUrl : src;
+      } catch (err) {
+        return src;
+      }
+    };
+
+    const selectedPicto = await fetchArasaacImageUrl();
+    onChangePictogram(selectedPicto);
+    toogleIsSearching();
+  };
 
   return (
     <Box sx={styles.pictogramSearcherContainer}>
-      <SearchAppBar onArrowBackClick={toogleIsSearching} />
+      <SearchAppBar
+        onArrowBackClick={toogleIsSearching}
+        setSuggestions={{ setSearchSuggestions, setError }}
+      />
       <Grid container sx={styles.resultsContainer}>
-        {searchResults.map((src) => (
-          <Grid
-            onClick={() => {
-              console.log('click');
-            }}
-            item
-            xs={4}
-            sm={3}
-            key={src}
-            sx={styles.resultItem}
-          >
-            <Button onClick={() => console.log('click')}>
-              <Image
-                src={`https://api.arasaac.org/api/pictograms/${src}?hair=brown&skin=white`}
-                alt="pictogram"
-                width={85}
-                height={85}
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            </Button>
-          </Grid>
-        ))}
+        {searchSuggestions.map((id) => {
+          const src = `https://api.arasaac.org/api/pictograms/${id}?hair=brown&skin=white`;
+          return (
+            <Grid item xs={4} sm={3} key={id} sx={styles.resultItem}>
+              <Button onClick={() => handlePictogramClick(src)}>
+                <Image
+                  src={src}
+                  alt="pictogram"
+                  width={85}
+                  height={85}
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
+              </Button>
+            </Grid>
+          );
+        })}
       </Grid>
+      {error && <p>Error</p>}
     </Box>
   );
 };

@@ -144,6 +144,19 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
     setIsSearching((prev) => !prev);
   };
 
+  const handleChangePictogram = (src: string) => {
+    setTile((prevTile) => {
+      const newsuggestedImages = prevTile.suggestedImages
+        ? [src, ...prevTile.suggestedImages]
+        : [src];
+      return {
+        ...prevTile,
+        suggestedImages: newsuggestedImages ?? [src],
+        image: src,
+      };
+    });
+  };
+
   return (
     <>
       {!isSearching && (
@@ -162,6 +175,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
             onSearchToogleClick={handleSearchToogleClick}
             carrousel={slides.length > 0 ? ThumbsCarrousel : null}
             isSearching={isSearching}
+            onChangePictogram={handleChangePictogram}
           />
           {!isSearching && (
             <TextField
