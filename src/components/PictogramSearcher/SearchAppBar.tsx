@@ -55,7 +55,7 @@ export default function SearchAppBar({
   onArrowBackClick,
 }: SearchAppBarProps): JSX.Element {
   return (
-    <Box borderRadius={2} sx={{ flexGrow: 1 }}>
+    <Box borderRadius={2}>
       <AppBar position="static">
         <Toolbar>
           <IconButton

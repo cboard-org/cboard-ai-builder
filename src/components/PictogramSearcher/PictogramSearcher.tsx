@@ -5,6 +5,7 @@ import SearchAppBar from './SearchAppBar';
 import Grid from '@mui/material/Grid';
 import Image from 'next/image';
 import styles from './styles';
+import Button from '@mui/material/Button';
 
 type PictogramSearcherProps = {
   toogleIsSearching: () => void;
@@ -46,14 +47,25 @@ const PictogramSearcher: FC<PictogramSearcherProps> = ({
       <SearchAppBar onArrowBackClick={toogleIsSearching} />
       <Grid container sx={styles.resultsContainer}>
         {searchResults.map((src) => (
-          <Grid item xs={4} sm={3} key={src} sx={styles.resultItem}>
-            <Image
-              src={`https://api.arasaac.org/api/pictograms/${src}?hair=brown&skin=white`}
-              alt="pictogram"
-              width={80}
-              height={80}
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
+          <Grid
+            onClick={() => {
+              console.log('click');
+            }}
+            item
+            xs={4}
+            sm={3}
+            key={src}
+            sx={styles.resultItem}
+          >
+            <Button onClick={() => console.log('click')}>
+              <Image
+                src={`https://api.arasaac.org/api/pictograms/${src}?hair=brown&skin=white`}
+                alt="pictogram"
+                width={85}
+                height={85}
+                style={{ maxWidth: '100%', height: 'auto' }}
+              />
+            </Button>
           </Grid>
         ))}
       </Grid>
