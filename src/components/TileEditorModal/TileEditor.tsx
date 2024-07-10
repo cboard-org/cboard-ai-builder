@@ -86,11 +86,6 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
                   width={300}
                   height={300}
                 />
-                {/* <img
-                  className="embla__slide__img"
-                  src={src}
-                  alt="slide.label"
-                /> */}
               </div>
             </div>
           ))}
