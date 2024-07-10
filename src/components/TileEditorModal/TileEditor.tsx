@@ -16,6 +16,7 @@ import { useShallow } from 'zustand/react/shallow';
 import useIsStashedContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsStashedView';
 import DialogContent from '@mui/material/DialogContent';
 import useIsRemoteContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsRemoteContentView';
+import Image from 'next/image';
 
 type PropType = {
   initialTile: TileRecord;
@@ -78,11 +79,18 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
           {slides.map((src, index) => (
             <div className="embla__slide embla__class-names" key={index}>
               <div className="embla__tile" onClick={handleNextImage}>
-                <img
+                <Image
                   className="embla__slide__img"
                   src={src}
                   alt="slide.label"
+                  width={300}
+                  height={300}
                 />
+                {/* <img
+                  className="embla__slide__img"
+                  src={src}
+                  alt="slide.label"
+                /> */}
               </div>
             </div>
           ))}
