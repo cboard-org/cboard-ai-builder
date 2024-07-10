@@ -94,7 +94,7 @@ export default function SearchAppBar({
       setSearchSuggestions(suggestionsIds);
       return;
     },
-    [setSearchSuggestions, setError],
+    [setSearchSuggestions, setError, locale],
   );
 
   const debouncedChangeHandler = useMemo(
