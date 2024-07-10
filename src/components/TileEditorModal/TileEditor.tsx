@@ -11,12 +11,9 @@ import styles from './styles';
 import TextField from '@mui/material/TextField';
 import { TileRecord } from '@/commonTypes/Tile';
 import ConfirmButtons from './TileEditorDialogActions';
-import { useBoundStore } from '@/providers/StoreProvider';
-import { useShallow } from 'zustand/react/shallow';
-import useIsStashedContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsStashedView';
 import DialogContent from '@mui/material/DialogContent';
-import useIsRemoteContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsRemoteContentView';
 import Image from 'next/image';
+import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 
 type PropType = {
   initialTile: TileRecord;
@@ -114,31 +111,10 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
 
   const emblaCarrouselTheme = 'theme-light';
 
-  const isStashedContentView = useIsStashedContentView();
-  const isRemoteContentView = useIsRemoteContentView();
-
-  const useUpdateTilePropsSaver = () => {
-    const [updateTileProps, stashDashboard, board] = useBoundStore(
-      useShallow((state) => [
-        state.updateTileProps,
-        state.stashDashboard,
-        state.board,
-      ]),
-    );
-    // const { isStashedContentView } = useGeneratePictoActive();
-    const updateTilePropsSaver = async (
-      tileId: string,
-      tileProps: TileRecord,
-    ) => {
-      updateTileProps(tileId, tileProps, isRemoteContentView ? board : null);
-      if (isStashedContentView) stashDashboard();
-    };
-    return updateTilePropsSaver;
-  };
   const updateTilePropsSaver = useUpdateTilePropsSaver();
 
   const handleSave = async () => {
-    await updateTilePropsSaver(tile.id, tile);
+    updateTilePropsSaver(tile.id, tile);
     onClose();
   };
 
