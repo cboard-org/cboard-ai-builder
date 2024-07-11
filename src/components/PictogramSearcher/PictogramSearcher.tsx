@@ -6,10 +6,44 @@ import Grid from '@mui/material/Grid';
 import Image from 'next/image';
 import styles from './styles';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+import Typography from '@mui/material/Typography';
 
 type PictogramSearcherProps = {
   toogleIsSearching: () => void;
   onChangePictogram: (src: string) => void;
+};
+
+const AlertComponent: FC<{
+  isError: boolean;
+  isEmptyResults: boolean;
+  isEmptySearchAlert: boolean;
+}> = ({ isError, isEmptyResults, isEmptySearchAlert }) => {
+  return (
+    <Box sx={styles.alertContainer}>
+      {isEmptyResults && <YoutubeSearchedForIcon />}
+      {isError && <ReportGmailerrorredIcon />}
+      {isEmptySearchAlert && <EditNoteIcon />}
+      <Box>
+        <Typography fontWeight={'bold'}>
+          {isEmptyResults && 'Pictogram not found'}
+          {isError && 'Error'}
+          {isEmptySearchAlert && 'Write a keyword to search'}
+        </Typography>
+        <Typography>
+          {isEmptyResults &&
+            'Try searching with another keyword or generate it with our pictogram generator.'}
+          {isError &&
+            "We couldn't fetch the pictograms. Please try again later."}
+          {isEmptySearchAlert &&
+            'Search a pictogram using the text field on the top'}
+        </Typography>
+      </Box>
+    </Box>
+  );
 };
 
 const PictogramSearcher: FC<PictogramSearcherProps> = ({
@@ -18,7 +52,9 @@ const PictogramSearcher: FC<PictogramSearcherProps> = ({
 }) => {
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
 
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEmptyResults, setIsEmptyResults] = useState(false);
 
   const handlePictogramClick = async (src: string) => {
     const fetchArasaacImageUrl = async () => {
@@ -38,11 +74,18 @@ const PictogramSearcher: FC<PictogramSearcherProps> = ({
     toogleIsSearching();
   };
 
+  const isEmptySearchAlert = !isError && !isLoading && !isEmptyResults;
+
   return (
     <Box sx={styles.pictogramSearcherContainer}>
       <SearchAppBar
         onArrowBackClick={toogleIsSearching}
-        setSuggestions={{ setSearchSuggestions, setError }}
+        setSuggestions={{
+          setSearchSuggestions,
+          setIsError,
+          setIsLoading,
+          setIsEmptyResults,
+        }}
       />
       <Grid container sx={styles.resultsContainer}>
         {searchSuggestions.map((id) => {
@@ -62,7 +105,16 @@ const PictogramSearcher: FC<PictogramSearcherProps> = ({
           );
         })}
       </Grid>
-      {error && <p>Error</p>}
+      {!searchSuggestions.length && (
+        <Box sx={styles.infoContainer}>
+          <AlertComponent
+            isError={isError}
+            isEmptyResults={isEmptyResults}
+            isEmptySearchAlert={isEmptySearchAlert}
+          />
+          {isLoading && <CircularProgress />}
+        </Box>
+      )}
     </Box>
   );
 };

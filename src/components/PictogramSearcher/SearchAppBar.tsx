@@ -55,12 +55,19 @@ type SearchAppBarProps = {
   onArrowBackClick: () => void;
   setSuggestions: {
     setSearchSuggestions: (results: string[]) => void;
-    setError: (error: boolean) => void;
+    setIsError: (error: boolean) => void;
+    setIsLoading: (value: boolean) => void;
+    setIsEmptyResults: (value: boolean) => void;
   };
 };
 export default function SearchAppBar({
   onArrowBackClick,
-  setSuggestions: { setSearchSuggestions, setError },
+  setSuggestions: {
+    setSearchSuggestions,
+    setIsError,
+    setIsLoading,
+    setIsEmptyResults,
+  },
 }: SearchAppBarProps): JSX.Element {
   const locale = useLocale();
   const fetchSuggestions = React.useCallback(
@@ -69,21 +76,29 @@ export default function SearchAppBar({
         locale = 'en',
         searchText = '',
       ) => {
+        setIsEmptyResults(false);
         if (searchText.length === 0) return [];
+        setSearchSuggestions([]);
+        setIsLoading(true);
         const ARASAAC_BASE_PATH_API = 'https://api.arasaac.org/api/';
         const slicedLocale = locale.slice(0, 2);
         const pictogSearchTextPath = `${ARASAAC_BASE_PATH_API}pictograms/${slicedLocale}/search/${searchText}`;
         try {
-          setError(false);
+          setIsError(false);
           const res = await fetch(pictogSearchTextPath);
           const data = await res.json();
           if (res.status === 200 && data) {
             return data.map((pictogram: { _id: number }) => pictogram._id);
           }
-          throw new Error('Error fetching pictograms');
+          if (res.status === 404 && data) {
+            setIsEmptyResults(true);
+            return [];
+          }
         } catch (err) {
-          setError(true);
+          setIsError(true);
           return [];
+        } finally {
+          setIsLoading(false);
         }
       };
 
@@ -94,7 +109,7 @@ export default function SearchAppBar({
       setSearchSuggestions(suggestionsIds);
       return;
     },
-    [setSearchSuggestions, setError, locale],
+    [setSearchSuggestions, setIsError, setIsEmptyResults, setIsLoading, locale],
   );
 
   const debouncedChangeHandler = useMemo(

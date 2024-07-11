@@ -13,4 +13,16 @@ export default {
     alignItems: 'center',
     p: 1,
   },
+  infoContainer: {
+    p: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    height: '100%',
+  },
+  alertContainer: {
+    width: '100%',
+    display: 'flex',
+    gap: 2,
+  },
 } satisfies Record<string, SxProps>;
