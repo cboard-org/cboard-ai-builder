@@ -37,6 +37,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
       (suggestion) => suggestion === initialTile.image,
     ) || 0;
 
+  const [mustSelectFirst, setMustSelectFirst] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(initialIndex);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(OPTIONS);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -64,10 +65,12 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
 
   useEffect(() => {
     if (!emblaMainApi) return;
-    onThumbClick(initialIndex);
+    const index = mustSelectFirst ? 0 : initialIndex;
+    onThumbClick(index);
+    setSelectedIndex(index);
     emblaMainApi.on('select', onSelect);
     emblaMainApi.on('reInit', onSelect);
-  }, [emblaMainApi, onSelect, initialIndex, onThumbClick]);
+  }, [emblaMainApi, onSelect, initialIndex, onThumbClick, mustSelectFirst]);
 
   const handleNextImage = () => {
     if (!emblaMainApi) return;
@@ -139,6 +142,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
         image: src,
       };
     });
+    setMustSelectFirst(true);
   };
 
   return (
