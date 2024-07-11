@@ -72,7 +72,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
     emblaMainApi.on('reInit', onSelect);
   }, [emblaMainApi, onSelect, initialIndex, onThumbClick, mustSelectFirst]);
 
-  const handleNextImage = () => {
+  const handleNextCarrouselImage = () => {
     if (!emblaMainApi) return;
     emblaMainApi.scrollNext();
   };
@@ -83,7 +83,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
         <div className="embla__container">
           {slides.map((src, index) => (
             <div className="embla__slide embla__class-names" key={index}>
-              <div className="embla__tile" onClick={handleNextImage}>
+              <div className="embla__tile" onClick={handleNextCarrouselImage}>
                 <Image
                   className="embla__slide__img"
                   src={src}
