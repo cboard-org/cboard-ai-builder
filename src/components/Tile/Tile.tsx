@@ -7,29 +7,12 @@ import TileEditorModal from '@/components/TileEditorModal/TileEditorModal';
 import { useState } from 'react';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
-import { useGeneratePictoActive } from '@/components/Symbol/Symbol';
 import {
   changePicto,
   createPicto,
 } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import Button from '@mui/material/Button';
-
-const useUpdateTileImageSaver = () => {
-  const [updateTileImage, stashDashboard] = useBoundStore(
-    useShallow((state) => [state.updateTileImage, state.stashDashboard]),
-  );
-  const { isStashedContentView } = useGeneratePictoActive();
-  const updateTileImageSaver = (
-    tileId: string,
-    imageUrl: string,
-    generatedPicto?: TileRecord['generatedPicto'],
-  ) => {
-    if (generatedPicto) updateTileImage(tileId, imageUrl, generatedPicto);
-    updateTileImage(tileId, imageUrl);
-    if (isStashedContentView) stashDashboard();
-  };
-  return updateTileImageSaver;
-};
+import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 
 type Props = {
   children?: ReactNode;
@@ -72,24 +55,56 @@ export default function Tile({
     defaultSelectedImageSuggestion,
   );
 
-  const updateTileImageSaver = useUpdateTileImageSaver();
-
   const suggestedImages = tile.suggestedImages;
   const generatedPicto = tile.generatedPicto;
 
   const [isChangingPicto, setIsChangingPicto] = useState(false);
   const [, startTransition] = useTransition();
 
+  const updateTilePropsSaver = useUpdateTilePropsSaver();
+
+  const addGeneratedPicto = (
+    tile: TileRecord,
+    generatedPicto: TileRecord['generatedPicto'],
+    newPictoUrl: string,
+  ) => {
+    if (!generatedPicto) return;
+    const slicedChangeImageIds = generatedPicto.changeImageIds?.slice(1);
+
+    const concatedSuggestedImages = tile.suggestedImages
+      ? tile.suggestedImages.concat(newPictoUrl)
+      : [newPictoUrl];
+    const updatedTile = {
+      ...tile,
+      image: newPictoUrl,
+      suggestedImages: concatedSuggestedImages,
+      generatedPicto: {
+        ...generatedPicto,
+        changeImageIds: slicedChangeImageIds,
+      },
+    };
+    if (!updatedTile) throw new Error('Error adding generated picto');
+    updateTilePropsSaver(tile.id, updatedTile);
+  };
+
   const handleNextImage = async () => {
+    if (isChangingPicto) return;
     let nextPosition = selectedImageSuggestion + 1;
-    const upscaledPictos = tile.generatedPicto?.upscaledPictos || [];
-    if (!suggestedImages || suggestedImages?.length === 0) {
+    const unviewvedPictoGeneratedId =
+      generatedPicto?.changeImageIds && generatedPicto?.changeImageIds[0];
+
+    if (
+      (suggestedImages && unviewvedPictoGeneratedId) ||
+      !suggestedImages ||
+      suggestedImages?.length === 0
+    ) {
       if (!generatedPicto) {
         try {
           setIsChangingPicto(true);
           const generatedPicto = tile.label && (await createPicto(tile.label));
           if (generatedPicto) {
-            updateTileImageSaver(tile.id, generatedPicto.url, generatedPicto);
+            addGeneratedPicto(tile, generatedPicto, generatedPicto.url);
+            //updateTileImageSaver(tile.id, generatedPicto.url, generatedPicto);
             setSelectedImageSuggestion(0);
           }
         } catch (error) {
@@ -98,30 +113,29 @@ export default function Tile({
         setIsChangingPicto(false);
         return;
       }
-      if (nextPosition >= 4) nextPosition = 0;
-      if (upscaledPictos[nextPosition] !== undefined) {
-        updateTileImageSaver(tile.id, upscaledPictos[nextPosition]);
-        setSelectedImageSuggestion(nextPosition);
-        return;
-      }
-      if (
-        generatedPicto?.id &&
-        generatedPicto?.changeImageIds &&
-        generatedPicto?.changeImageIds[nextPosition]
-      ) {
+      //if (nextPosition >= 4) nextPosition = 0;
+      // if (upscaledPictos[nextPosition] !== undefined) {
+      //   updateTileImageSaver(tile.id, upscaledPictos[nextPosition]);
+      //   setSelectedImageSuggestion(nextPosition);
+      //   return;
+      // }
+
+      if (generatedPicto?.id && unviewvedPictoGeneratedId) {
         try {
           setIsChangingPicto(true);
+          console.log(
+            'generatedPicto.id',
+            generatedPicto.id,
+            unviewvedPictoGeneratedId,
+          );
           const generatedSuggestion = await changePicto(
             generatedPicto.id,
-            generatedPicto.changeImageIds[nextPosition],
+            unviewvedPictoGeneratedId,
           );
-          const upscaledPictos = generatedPicto.upscaledPictos || [
-            generatedPicto.url,
-          ];
-          updateTileImageSaver(tile.id, generatedSuggestion.url, {
-            ...generatedPicto,
-            upscaledPictos: [...upscaledPictos, generatedSuggestion.url],
-          });
+          if (!generatedSuggestion) {
+            throw new Error('Error changing generated picto');
+          }
+          addGeneratedPicto(tile, generatedPicto, generatedSuggestion.url);
           setSelectedImageSuggestion(nextPosition);
         } catch (error) {
           console.error('Error changing generated picto', error);
@@ -136,7 +150,10 @@ export default function Tile({
 
     if (nextPosition > suggestedImages.length - 1) nextPosition = 0;
 
-    updateTileImageSaver(tile.id, suggestedImages[nextPosition]);
+    updateTilePropsSaver(tile.id, {
+      ...tile,
+      image: suggestedImages[nextPosition],
+    });
     setSelectedImageSuggestion(nextPosition);
   };
 
@@ -146,13 +163,23 @@ export default function Tile({
     handleTileClick(tile.id);
   };
 
-  const suggestedImagesLength =
-    suggestedImages?.length || generatedPicto?.changeImageIds?.length || 0;
+  const suggestedImagesLength = suggestedImages?.length || 0;
+  const unviewvedPictoGenerated = generatedPicto?.changeImageIds?.length;
+
+  const [isOutdated] = useBoundStore(useShallow((state) => [state.isOutdated]));
 
   return (
     <>
       <Button
-        disabled={suggestedImagesLength === 1 && !isEditionView}
+        disabled={
+          (suggestedImagesLength === 1 &&
+            unviewvedPictoGenerated === 0 &&
+            !isEditionView) ||
+          isOutdated === null ||
+          isChangingPicto
+          /* it's not necessary to check if isOutdated is null if we can abort a previous request.
+          issue => https://github.com/cboard-org/cboard-ai-builder/issues/161 */
+        }
         className={style.Tile}
         type="button"
         onClick={onTileClick}
@@ -171,10 +198,9 @@ export default function Tile({
           }}
         >
           <Symbol
-            image={tile.image}
-            label={tile.label}
+            tile={tile}
+            addGeneratedPicto={addGeneratedPicto}
             labelpos={displaySettings.labelPosition}
-            tileId={tile.id}
             suggestedImagesLength={
               suggestedImages?.length ||
               generatedPicto?.changeImageIds?.length ||

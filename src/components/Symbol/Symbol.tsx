@@ -12,36 +12,43 @@ import GenerateButton from './GenerateButton';
 import Box from '@mui/material/Box';
 import CircleIcon from '@mui/icons-material/Circle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+
+type AddGeneratedPicto = (
+  tile: TileRecord,
+  generatedPicto: TileRecord['generatedPicto'],
+  newPictoUrl: string,
+) => void;
+
 type Props = {
-  label: string | undefined;
+  tile: TileRecord;
+  addGeneratedPicto: AddGeneratedPicto;
   labelpos: LabelPositionRecord;
-  image: string | undefined;
-  tileId: string;
   suggestedImagesLength: number;
   selectedImageSuggestion: number;
   isChangingPicto: boolean;
 };
 const useUpdateTileImage = (
-  tileId: string,
-  image: string = '',
+  tile: TileRecord,
   generatedPicto: TileRecord['generatedPicto'],
+  addGeneratedPicto: AddGeneratedPicto,
 ) => {
-  const [updateTileImage, stashDashboard] = useBoundStore(
-    useShallow((state) => [state.updateTileImage, state.stashDashboard]),
+  const image = tile.image;
+  const [stashDashboard] = useBoundStore(
+    useShallow((state) => [state.stashDashboard]),
   );
   const { isStashedContentView, isPictoGenerationActive } =
     useGeneratePictoActive();
 
   useEffect(() => {
     if (image === '' && isPictoGenerationActive && generatedPicto) {
-      updateTileImage(tileId, generatedPicto.url, generatedPicto);
+      addGeneratedPicto(tile, generatedPicto, generatedPicto.url);
       if (isStashedContentView) stashDashboard();
     }
   }, [
-    updateTileImage,
+    addGeneratedPicto,
     image,
     generatedPicto,
-    tileId,
+    tile,
     stashDashboard,
     isStashedContentView,
     isPictoGenerationActive,
@@ -63,14 +70,14 @@ export const useGeneratePictoActive = () => {
 };
 
 export default function Symbol({
-  label,
+  tile,
+  addGeneratedPicto,
   labelpos,
-  image,
-  tileId,
   suggestedImagesLength,
   selectedImageSuggestion,
   isChangingPicto,
 }: Props) {
+  const { label, image, id: tileId } = tile;
   const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
   const [generatedPicto, setGeneratedPicto] =
@@ -136,7 +143,7 @@ export default function Symbol({
     }
   }, [image, generatePicto, isPictoGenerationActive]);
 
-  useUpdateTileImage(tileId, image, generatedPicto);
+  useUpdateTileImage(tile, generatedPicto, addGeneratedPicto);
   // const onClick = () => {
   //   if (image === '' && label && !isPending) {
   //     console.log('Generating picto for', label);
