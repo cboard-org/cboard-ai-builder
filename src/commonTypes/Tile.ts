@@ -19,7 +19,6 @@ export type TileRecord = {
     progress: string | undefined;
     proxy_url: string | undefined;
     changeImageIds: string[] | undefined;
-    upscaledPictos?: string[];
   };
 };
 

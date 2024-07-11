@@ -1,4 +1,4 @@
-import React, { ReactNode, useTransition } from 'react';
+import React, { ReactNode, useEffect, useTransition } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
@@ -43,17 +43,13 @@ export default function Tile({
     tileShapeStyles.backgroundColor = tile.backgroundColor;
   }
 
-  const defaultSelectedImageSuggestion =
-    (tile.image &&
-      tile.generatedPicto?.upscaledPictos?.findIndex(
-        (element) => element === tile.image,
-      )) ||
-    tile.suggestedImages?.findIndex((element) => element === tile.image) ||
-    0;
+  const [selectedImageSuggestion, setSelectedImageSuggestion] = useState(0);
 
-  const [selectedImageSuggestion, setSelectedImageSuggestion] = useState(
-    defaultSelectedImageSuggestion,
-  );
+  useEffect(() => {
+    const selectedSuggestionIndex =
+      tile.suggestedImages?.findIndex((element) => element === tile.image) || 0;
+    setSelectedImageSuggestion(selectedSuggestionIndex);
+  }, [tile.image, tile.suggestedImages]);
 
   const suggestedImages = tile.suggestedImages;
   const generatedPicto = tile.generatedPicto;
@@ -89,7 +85,6 @@ export default function Tile({
 
   const handleNextImage = async () => {
     if (isChangingPicto) return;
-    let nextPosition = selectedImageSuggestion + 1;
     const unviewvedPictoGeneratedId =
       generatedPicto?.changeImageIds && generatedPicto?.changeImageIds[0];
 
@@ -113,21 +108,10 @@ export default function Tile({
         setIsChangingPicto(false);
         return;
       }
-      //if (nextPosition >= 4) nextPosition = 0;
-      // if (upscaledPictos[nextPosition] !== undefined) {
-      //   updateTileImageSaver(tile.id, upscaledPictos[nextPosition]);
-      //   setSelectedImageSuggestion(nextPosition);
-      //   return;
-      // }
 
       if (generatedPicto?.id && unviewvedPictoGeneratedId) {
         try {
           setIsChangingPicto(true);
-          console.log(
-            'generatedPicto.id',
-            generatedPicto.id,
-            unviewvedPictoGeneratedId,
-          );
           const generatedSuggestion = await changePicto(
             generatedPicto.id,
             unviewvedPictoGeneratedId,
@@ -136,7 +120,6 @@ export default function Tile({
             throw new Error('Error changing generated picto');
           }
           addGeneratedPicto(tile, generatedPicto, generatedSuggestion.url);
-          setSelectedImageSuggestion(nextPosition);
         } catch (error) {
           console.error('Error changing generated picto', error);
         }
@@ -147,14 +130,13 @@ export default function Tile({
       return;
     }
     if (suggestedImages.length === 1) return;
-
-    if (nextPosition > suggestedImages.length - 1) nextPosition = 0;
-
+    const nextPositionIsLast =
+      selectedImageSuggestion + 1 >= suggestedImages.length;
+    const nextPosition = nextPositionIsLast ? 0 : selectedImageSuggestion + 1;
     updateTilePropsSaver(tile.id, {
       ...tile,
       image: suggestedImages[nextPosition],
     });
-    setSelectedImageSuggestion(nextPosition);
   };
 
   const onTileClick = () => {
@@ -163,8 +145,9 @@ export default function Tile({
     handleTileClick(tile.id);
   };
 
-  const suggestedImagesLength = suggestedImages?.length || 0;
   const unviewvedPictoGenerated = generatedPicto?.changeImageIds?.length;
+  const suggestedImagesLength =
+    (suggestedImages?.length || 0) + (unviewvedPictoGenerated || 0);
 
   const [isOutdated] = useBoundStore(useShallow((state) => [state.isOutdated]));
 
@@ -201,11 +184,7 @@ export default function Tile({
             tile={tile}
             addGeneratedPicto={addGeneratedPicto}
             labelpos={displaySettings.labelPosition}
-            suggestedImagesLength={
-              suggestedImages?.length ||
-              generatedPicto?.changeImageIds?.length ||
-              0
-            }
+            suggestedImagesLength={suggestedImagesLength}
             selectedImageSuggestion={selectedImageSuggestion}
             isChangingPicto={isChangingPicto}
           />
