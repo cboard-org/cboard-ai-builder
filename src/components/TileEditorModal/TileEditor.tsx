@@ -18,11 +18,33 @@ import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 type PropType = {
   initialTile: TileRecord;
   onClose: () => void;
+  onNextGeneratedPictoClick: () => void;
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 
-const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
+const usePrimarySuggestedImagesMerger = (
+  primarySuggestedImages: TileRecord['suggestedImages'],
+  setTile: React.Dispatch<React.SetStateAction<TileRecord>>,
+) => {
+  useEffect(() => {
+    if (primarySuggestedImages) {
+      setTile((prevTile) => {
+        const currentSuggestedImages = prevTile.suggestedImages || [];
+        const newSuggestedImages = Array.from(
+          new Set([...currentSuggestedImages, ...primarySuggestedImages]),
+        );
+        return { ...prevTile, suggestedImages: newSuggestedImages };
+      });
+    }
+  }, [primarySuggestedImages, setTile]);
+};
+
+const TileEditor: React.FC<PropType> = ({
+  initialTile,
+  onClose,
+  onNextGeneratedPictoClick,
+}) => {
   const [tile, setTile] = useState(initialTile);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,6 +167,21 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
     setMustSelectFirst(true);
   };
 
+  const primarySuggestedImages = initialTile.suggestedImages;
+  usePrimarySuggestedImagesMerger(primarySuggestedImages, setTile);
+
+  const unviewedPictoGenerationsCounter =
+    initialTile.generatedPicto?.changeImageIds?.length;
+
+  const handleOnGeneratedPictoClick = () => {
+    if (
+      unviewedPictoGenerationsCounter &&
+      unviewedPictoGenerationsCounter > 0
+    ) {
+      onNextGeneratedPictoClick();
+    }
+  };
+
   return (
     <>
       {!isSearching && (
@@ -161,6 +198,7 @@ const TileEditor: React.FC<PropType> = ({ initialTile, onClose }) => {
           )}
           <PictogramEditor
             onSearchToogleClick={handleSearchToogleClick}
+            onGeneratedPictoClick={handleOnGeneratedPictoClick}
             carrousel={slides.length > 0 ? ThumbsCarrousel : null}
             isSearching={isSearching}
             onChangePictogram={handleChangePictogram}

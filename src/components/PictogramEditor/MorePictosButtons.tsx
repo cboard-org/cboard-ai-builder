@@ -9,15 +9,23 @@ import styles from './styles';
 
 type MorePictosButtonsProps = {
   onSearchClick: () => void;
+  onGeneratedPictoClick: () => void;
 };
 
-const MorePictosButtons: FC<MorePictosButtonsProps> = ({ onSearchClick }) => {
+const MorePictosButtons: FC<MorePictosButtonsProps> = ({
+  onSearchClick,
+  onGeneratedPictoClick,
+}) => {
   return (
     <Box sx={styles.morePictosButton}>
       <Button startIcon={<Search />} variant="text" onClick={onSearchClick}>
         Search
       </Button>
-      <Button variant="text" startIcon={<AutoAwesome />}>
+      <Button
+        variant="text"
+        startIcon={<AutoAwesome />}
+        onClick={onGeneratedPictoClick}
+      >
         Generate
       </Button>
     </Box>

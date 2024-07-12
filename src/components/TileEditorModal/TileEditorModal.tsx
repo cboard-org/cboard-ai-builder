@@ -11,9 +11,11 @@ export default function TileEditorModal({
   onClose,
   // tile: { suggestedImages, id: tileId },
   tile,
+  onNextGeneratedPictoClick,
 }: {
   onClose: () => void;
   tile: TileRecord;
+  onNextGeneratedPictoClick: () => void;
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -33,7 +35,11 @@ export default function TileEditorModal({
           },
         }}
       >
-        <TileEditor onClose={onClose} initialTile={tile} />
+        <TileEditor
+          onClose={onClose}
+          initialTile={tile}
+          onNextGeneratedPictoClick={onNextGeneratedPictoClick}
+        />
       </Dialog>
     </>
   );

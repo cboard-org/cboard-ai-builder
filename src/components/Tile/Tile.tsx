@@ -98,6 +98,7 @@ export default function Tile({
   };
 
   const handleNextImage = async () => {
+    if (isChangingPicto) return;
     const unviewvedPictoGeneratedId =
       generatedPicto?.changeImageIds && generatedPicto?.changeImageIds[0];
 
@@ -199,7 +200,11 @@ export default function Tile({
         {children}
       </Button>
       {isEditing && (
-        <TileEditorModal tile={tile} onClose={() => setIsEditing(false)} />
+        <TileEditorModal
+          tile={tile}
+          onClose={() => setIsEditing(false)}
+          onNextGeneratedPictoClick={handleNextImage}
+        />
       )}
     </>
   );
