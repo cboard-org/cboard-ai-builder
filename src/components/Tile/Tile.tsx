@@ -204,6 +204,7 @@ export default function Tile({
           tile={tile}
           onClose={() => setIsEditing(false)}
           onNextGeneratedPictoClick={handleNextImage}
+          isChangingPicto={isChangingPicto}
         />
       )}
     </>

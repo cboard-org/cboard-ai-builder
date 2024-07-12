@@ -10,6 +10,7 @@ type PictogramEditorProps = {
   onGeneratedPictoClick: () => void;
   onChangePictogram: (src: string) => void;
   isSearching: boolean;
+  showGenerationButton: boolean;
 };
 
 const PictogramEditor: React.FC<PictogramEditorProps> = ({
@@ -18,6 +19,7 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
   onGeneratedPictoClick,
   onChangePictogram,
   isSearching,
+  showGenerationButton,
 }) => {
   return (
     <Box
@@ -32,6 +34,7 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
           <MorePictosButtons
             onSearchClick={onSearchToogleClick}
             onGeneratedPictoClick={onGeneratedPictoClick}
+            showGenerationButton={showGenerationButton}
           />
         </>
       )}

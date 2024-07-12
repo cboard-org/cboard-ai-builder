@@ -12,10 +12,12 @@ export default function TileEditorModal({
   // tile: { suggestedImages, id: tileId },
   tile,
   onNextGeneratedPictoClick,
+  isChangingPicto,
 }: {
   onClose: () => void;
   tile: TileRecord;
   onNextGeneratedPictoClick: () => void;
+  isChangingPicto: boolean;
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -39,6 +41,7 @@ export default function TileEditorModal({
           onClose={onClose}
           initialTile={tile}
           onNextGeneratedPictoClick={onNextGeneratedPictoClick}
+          isChangingPicto={isChangingPicto}
         />
       </Dialog>
     </>

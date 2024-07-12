@@ -19,6 +19,7 @@ type PropType = {
   initialTile: TileRecord;
   onClose: () => void;
   onNextGeneratedPictoClick: () => void;
+  isChangingPicto: boolean;
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
@@ -44,6 +45,7 @@ const TileEditor: React.FC<PropType> = ({
   initialTile,
   onClose,
   onNextGeneratedPictoClick,
+  isChangingPicto,
 }) => {
   const [tile, setTile] = useState(initialTile);
 
@@ -122,6 +124,11 @@ const TileEditor: React.FC<PropType> = ({
     </div>
   );
 
+  const areUnviewedPictoGenerations = initialTile.generatedPicto?.changeImageIds
+    ?.length
+    ? initialTile.generatedPicto?.changeImageIds?.length >= 1
+    : false;
+
   const ThumbsCarrousel = (
     <div className="embla-thumbs">
       <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
@@ -134,6 +141,13 @@ const TileEditor: React.FC<PropType> = ({
               src={src}
             />
           ))}
+          {areUnviewedPictoGenerations || isChangingPicto ? (
+            <Thumb
+              onClick={onNextGeneratedPictoClick}
+              selected={false}
+              isChangingPicto={isChangingPicto}
+            />
+          ) : null}
         </div>
       </div>
     </div>
@@ -170,17 +184,13 @@ const TileEditor: React.FC<PropType> = ({
   const primarySuggestedImages = initialTile.suggestedImages;
   usePrimarySuggestedImagesMerger(primarySuggestedImages, setTile);
 
-  const unviewedPictoGenerationsCounter =
-    initialTile.generatedPicto?.changeImageIds?.length;
-
   const handleOnGeneratedPictoClick = () => {
-    if (
-      unviewedPictoGenerationsCounter &&
-      unviewedPictoGenerationsCounter > 0
-    ) {
+    if (areUnviewedPictoGenerations) {
       onNextGeneratedPictoClick();
     }
   };
+
+  const showCarrousel = slides.length > 0 || isChangingPicto;
 
   return (
     <>
@@ -199,9 +209,12 @@ const TileEditor: React.FC<PropType> = ({
           <PictogramEditor
             onSearchToogleClick={handleSearchToogleClick}
             onGeneratedPictoClick={handleOnGeneratedPictoClick}
-            carrousel={slides.length > 0 ? ThumbsCarrousel : null}
+            carrousel={showCarrousel ? ThumbsCarrousel : null}
             isSearching={isSearching}
             onChangePictogram={handleChangePictogram}
+            showGenerationButton={
+              !areUnviewedPictoGenerations && !isChangingPicto
+            }
           />
           {!isSearching && (
             <TextField
