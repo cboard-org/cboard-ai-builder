@@ -5,14 +5,26 @@ import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 import TileEditorModal from '@/components/TileEditorModal/TileEditorModal';
 import { useState } from 'react';
-import { useBoundStore } from '@/providers/StoreProvider';
-import { useShallow } from 'zustand/react/shallow';
 import {
   changePicto,
   createPicto,
 } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import Button from '@mui/material/Button';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
+
+const useUpdatedTileSyncronizer = () => {
+  const updateTilePropsSaver = useUpdateTilePropsSaver();
+  const [updatedTile, setUpdatedTile] = useState<TileRecord | null>(null);
+  const tileId = updatedTile?.id;
+
+  useEffect(() => {
+    if (updatedTile && tileId) {
+      updateTilePropsSaver(tileId, updatedTile);
+      setUpdatedTile(null);
+    }
+  }, [updatedTile, tileId, updateTilePropsSaver]);
+  return setUpdatedTile;
+};
 
 type Props = {
   children?: ReactNode;
@@ -57,6 +69,8 @@ export default function Tile({
   const [isChangingPicto, setIsChangingPicto] = useState(false);
   const [, startTransition] = useTransition();
 
+  const setUpdatedTile = useUpdatedTileSyncronizer();
+
   const updateTilePropsSaver = useUpdateTilePropsSaver();
 
   const addGeneratedPicto = (
@@ -80,11 +94,10 @@ export default function Tile({
       },
     };
     if (!updatedTile) throw new Error('Error adding generated picto');
-    updateTilePropsSaver(tile.id, updatedTile);
+    setUpdatedTile(updatedTile);
   };
 
   const handleNextImage = async () => {
-    if (isChangingPicto) return;
     const unviewvedPictoGeneratedId =
       generatedPicto?.changeImageIds && generatedPicto?.changeImageIds[0];
 
@@ -149,19 +162,13 @@ export default function Tile({
   const suggestedImagesLength =
     (suggestedImages?.length || 0) + (unviewvedPictoGenerated || 0);
 
-  const [isOutdated] = useBoundStore(useShallow((state) => [state.isOutdated]));
-
   return (
     <>
       <Button
         disabled={
-          (suggestedImagesLength === 1 &&
-            unviewvedPictoGenerated === 0 &&
-            !isEditionView) ||
-          isOutdated === null ||
-          isChangingPicto
-          /* it's not necessary to check if isOutdated is null if we can abort a previous request.
-          issue => https://github.com/cboard-org/cboard-ai-builder/issues/161 */
+          suggestedImagesLength === 1 &&
+          unviewvedPictoGenerated === 0 &&
+          !isEditionView
         }
         className={style.Tile}
         type="button"
