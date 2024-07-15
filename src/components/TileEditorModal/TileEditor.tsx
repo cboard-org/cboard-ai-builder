@@ -14,6 +14,8 @@ import ConfirmButtons from './TileEditorDialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Image from 'next/image';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
+import usePrimarySuggestedImagesMerger from './hooks/usePrimarySuggestedImagesMerger';
+import useLastIndexSelector from './hooks/useLastIndexSelector';
 
 type PropType = {
   initialTile: TileRecord;
@@ -23,81 +25,6 @@ type PropType = {
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
-
-const usePrimarySuggestedImagesMerger = (
-  primaryTile: TileRecord,
-  setTile: React.Dispatch<React.SetStateAction<TileRecord>>,
-) => {
-  const primarySuggestedImages = primaryTile.suggestedImages;
-  const generatedPicto = primaryTile.generatedPicto;
-  useEffect(() => {
-    if (primarySuggestedImages) {
-      setTile((prevTile) => {
-        const currentSuggestedImages = prevTile.suggestedImages || [];
-        const newSuggestedImages = Array.from(
-          new Set([...currentSuggestedImages, ...primarySuggestedImages]),
-        );
-        return {
-          ...prevTile,
-          suggestedImages: newSuggestedImages,
-          generatedPicto,
-        };
-      });
-    }
-  }, [primarySuggestedImages, setTile, generatedPicto]);
-};
-
-type UseLastIndexSelectorProps = {
-  tile: TileRecord;
-  setTile: React.Dispatch<React.SetStateAction<TileRecord>>;
-  primaryTile: TileRecord;
-  slides: string[];
-  onThumbClick: (index: number) => void;
-  setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const useLastIndexSelector = ({
-  tile,
-  setTile,
-  primaryTile,
-  slides,
-  onThumbClick,
-  setSelectedIndex,
-}: UseLastIndexSelectorProps) => {
-  const suggetionsCounter = useMemo(() => {
-    return tile.suggestedImages?.length;
-  }, [tile.suggestedImages]);
-
-  const [mustForceSelectedIndex, setMustForceSelectedIndex] = useState(false);
-  useEffect(() => {
-    if (!suggetionsCounter) return;
-    const suggestedIndex = suggetionsCounter - 1;
-    setTile((prevTile) => {
-      if (
-        prevTile.suggestedImages?.length ===
-          primaryTile.suggestedImages?.length &&
-        !mustForceSelectedIndex
-      )
-        return prevTile;
-      setMustForceSelectedIndex(false);
-      setSelectedIndex(suggestedIndex);
-      onThumbClick(suggestedIndex);
-      return {
-        ...prevTile,
-        image: slides[suggestedIndex],
-      };
-    });
-  }, [
-    suggetionsCounter,
-    onThumbClick,
-    slides,
-    primaryTile.suggestedImages,
-    mustForceSelectedIndex,
-    setSelectedIndex,
-    setTile,
-  ]);
-  return { setMustForceSelectedIndex };
-};
 
 const TileEditor: React.FC<PropType> = ({
   initialTile,
