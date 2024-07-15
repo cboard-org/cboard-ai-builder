@@ -18,7 +18,7 @@ import usePrimarySuggestedImagesMerger from './hooks/usePrimarySuggestedImagesMe
 import useLastIndexSelector from './hooks/useLastIndexSelector';
 
 type PropType = {
-  initialTile: TileRecord;
+  primaryTile: TileRecord;
   onClose: () => void;
   onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
@@ -27,12 +27,12 @@ type PropType = {
 const OPTIONS: EmblaOptionsType = { loop: true };
 
 const TileEditor: React.FC<PropType> = ({
-  initialTile,
+  primaryTile,
   onClose,
   onNextGeneratedPictoClick,
   isChangingPicto,
 }) => {
-  const [tile, setTile] = useState(initialTile);
+  const [tile, setTile] = useState(primaryTile);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTile((prevTile) => ({ ...prevTile, label: e.target.value }));
@@ -43,7 +43,7 @@ const TileEditor: React.FC<PropType> = ({
 
   const initialIndex =
     tile.suggestedImages?.findIndex(
-      (suggestion) => suggestion === initialTile.image,
+      (suggestion) => suggestion === primaryTile.image,
     ) || 0;
 
   const [selectedIndex, setSelectedIndex] = useState(initialIndex);
@@ -75,7 +75,7 @@ const TileEditor: React.FC<PropType> = ({
   const { setMustForceSelectedIndex } = useLastIndexSelector({
     tile,
     setTile,
-    primaryTile: initialTile,
+    primaryTile: primaryTile,
     slides,
     onThumbClick,
     setSelectedIndex,
@@ -117,9 +117,9 @@ const TileEditor: React.FC<PropType> = ({
     </div>
   );
 
-  const areUnviewedPictoGenerations = initialTile.generatedPicto?.changeImageIds
+  const areUnviewedPictoGenerations = primaryTile.generatedPicto?.changeImageIds
     ?.length
-    ? initialTile.generatedPicto?.changeImageIds?.length >= 1
+    ? primaryTile.generatedPicto?.changeImageIds?.length >= 1
     : false;
 
   const handleOnNextGeneratedPictoClick = async () => {
@@ -179,7 +179,6 @@ const TileEditor: React.FC<PropType> = ({
     });
   };
 
-  const primaryTile = initialTile;
   usePrimarySuggestedImagesMerger(primaryTile, setTile);
 
   const handleOnGeneratePictoInit = async () => {

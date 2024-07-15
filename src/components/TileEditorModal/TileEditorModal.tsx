@@ -39,7 +39,7 @@ export default function TileEditorModal({
       >
         <TileEditor
           onClose={onClose}
-          initialTile={tile}
+          primaryTile={tile}
           onNextGeneratedPictoClick={onNextGeneratedPictoClick}
           isChangingPicto={isChangingPicto}
         />
