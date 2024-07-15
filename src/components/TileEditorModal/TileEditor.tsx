@@ -182,11 +182,12 @@ const TileEditor: React.FC<PropType> = ({
   const primaryTile = initialTile;
   usePrimarySuggestedImagesMerger(primaryTile, setTile);
 
-  const handleOnGeneratedPictoClick = async () => {
+  const handleOnGeneratePictoInit = async () => {
     if (areUnviewedPictoGenerations) {
       await handleOnNextGeneratedPictoClick();
       return;
     }
+    //create Picto
   };
 
   const showCarrousel = slides.length > 0 || isChangingPicto;
@@ -207,13 +208,14 @@ const TileEditor: React.FC<PropType> = ({
           )}
           <PictogramEditor
             onSearchToogleClick={handleSearchToogleClick}
-            onGeneratedPictoClick={handleOnGeneratedPictoClick}
+            onGeneratePictoInit={handleOnGeneratePictoInit}
             carrousel={showCarrousel ? ThumbsCarrousel : null}
             isSearching={isSearching}
             onChangePictogram={handleChangePictogram}
             showGenerationButton={
               !areUnviewedPictoGenerations && !isChangingPicto
             }
+            tileLabel={tile.label ?? ''}
           />
           {!isSearching && (
             <TextField

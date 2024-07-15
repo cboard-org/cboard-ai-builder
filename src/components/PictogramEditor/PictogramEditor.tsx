@@ -3,24 +3,36 @@ import React from 'react';
 import styles from './styles';
 import MorePictosButtons from './MorePictosButtons';
 import PictogramSearcher from '../PictogramSearcher/PictogramSearcher';
+import PictogramGeneratorFormDialog from '../PictogramGeneratorFormDialog/PictogramGeneratorFormDialog';
 
 type PictogramEditorProps = {
   carrousel: React.ReactNode;
   onSearchToogleClick: () => void;
-  onGeneratedPictoClick: () => void;
+  onGeneratePictoInit: () => void;
   onChangePictogram: (src: string) => void;
   isSearching: boolean;
   showGenerationButton: boolean;
+  tileLabel: string;
 };
 
 const PictogramEditor: React.FC<PictogramEditorProps> = ({
   carrousel,
   onSearchToogleClick,
-  onGeneratedPictoClick,
+  onGeneratePictoInit,
   onChangePictogram,
   isSearching,
   showGenerationButton,
+  tileLabel,
 }) => {
+  const [showPictogramGeneratorDialog, setShowPictogramGeneratorDialog] =
+    React.useState(false);
+  const handleOnGeneratePictoClick = () => {
+    setShowPictogramGeneratorDialog(true);
+  };
+  const handleGenerateInitClick = () => {
+    onGeneratePictoInit();
+    setShowPictogramGeneratorDialog(false);
+  };
   return (
     <Box
       p={isSearching ? 0 : 2}
@@ -28,12 +40,12 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
       overflow={isSearching ? 'hidden' : 'visible'}
       sx={styles.outlinedBox}
     >
-      {!isSearching && (
+      {!isSearching && !showPictogramGeneratorDialog && (
         <>
           {carrousel}
           <MorePictosButtons
             onSearchClick={onSearchToogleClick}
-            onGeneratedPictoClick={onGeneratedPictoClick}
+            onGeneratePictoClick={handleOnGeneratePictoClick}
             showGenerationButton={showGenerationButton}
           />
         </>
@@ -42,6 +54,13 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
         <PictogramSearcher
           toogleIsSearching={onSearchToogleClick}
           onChangePictogram={onChangePictogram}
+        />
+      )}
+      {showPictogramGeneratorDialog && (
+        <PictogramGeneratorFormDialog
+          onClose={() => setShowPictogramGeneratorDialog(false)}
+          onGenerateInitClick={handleGenerateInitClick}
+          initialInput={tileLabel}
         />
       )}
     </Box>

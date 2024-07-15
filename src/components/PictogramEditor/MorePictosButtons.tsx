@@ -9,13 +9,13 @@ import styles from './styles';
 
 type MorePictosButtonsProps = {
   onSearchClick: () => void;
-  onGeneratedPictoClick: () => void;
+  onGeneratePictoClick: () => void;
   showGenerationButton: boolean;
 };
 
 const MorePictosButtons: FC<MorePictosButtonsProps> = ({
   onSearchClick,
-  onGeneratedPictoClick,
+  onGeneratePictoClick,
   showGenerationButton,
 }) => {
   return (
@@ -27,7 +27,7 @@ const MorePictosButtons: FC<MorePictosButtonsProps> = ({
         <Button
           variant="text"
           startIcon={<AutoFixHighIcon />}
-          onClick={onGeneratedPictoClick}
+          onClick={onGeneratePictoClick}
         >
           Generate
         </Button>
