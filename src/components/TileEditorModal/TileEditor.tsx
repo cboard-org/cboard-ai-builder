@@ -122,6 +122,11 @@ const TileEditor: React.FC<PropType> = ({
     ? initialTile.generatedPicto?.changeImageIds?.length >= 1
     : false;
 
+  const handleOnNextGeneratedPictoClick = async () => {
+    await onNextGeneratedPictoClick();
+    setMustForceSelectedIndex(true);
+  };
+
   const ThumbsCarrousel = (
     <div className="embla-thumbs">
       <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
@@ -136,10 +141,7 @@ const TileEditor: React.FC<PropType> = ({
           ))}
           {areUnviewedPictoGenerations || isChangingPicto ? (
             <Thumb
-              onClick={async () => {
-                await onNextGeneratedPictoClick();
-                setMustForceSelectedIndex(true);
-              }}
+              onClick={handleOnNextGeneratedPictoClick}
               selected={false}
               isChangingPicto={isChangingPicto}
             />
@@ -182,7 +184,8 @@ const TileEditor: React.FC<PropType> = ({
 
   const handleOnGeneratedPictoClick = async () => {
     if (areUnviewedPictoGenerations) {
-      await onNextGeneratedPictoClick();
+      await handleOnNextGeneratedPictoClick();
+      return;
     }
   };
 
