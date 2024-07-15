@@ -16,7 +16,7 @@ export default function TileEditorModal({
 }: {
   onClose: () => void;
   tile: TileRecord;
-  onNextGeneratedPictoClick: () => void;
+  onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
 }) {
   const theme = useTheme();

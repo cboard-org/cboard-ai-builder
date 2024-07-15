@@ -18,16 +18,18 @@ import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 type PropType = {
   initialTile: TileRecord;
   onClose: () => void;
-  onNextGeneratedPictoClick: () => void;
+  onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 
 const usePrimarySuggestedImagesMerger = (
-  primarySuggestedImages: TileRecord['suggestedImages'],
+  primaryTile: TileRecord,
   setTile: React.Dispatch<React.SetStateAction<TileRecord>>,
 ) => {
+  const primarySuggestedImages = primaryTile.suggestedImages;
+  const generatedPicto = primaryTile.generatedPicto;
   useEffect(() => {
     if (primarySuggestedImages) {
       setTile((prevTile) => {
@@ -35,10 +37,66 @@ const usePrimarySuggestedImagesMerger = (
         const newSuggestedImages = Array.from(
           new Set([...currentSuggestedImages, ...primarySuggestedImages]),
         );
-        return { ...prevTile, suggestedImages: newSuggestedImages };
+        return {
+          ...prevTile,
+          suggestedImages: newSuggestedImages,
+          generatedPicto,
+        };
       });
     }
-  }, [primarySuggestedImages, setTile]);
+  }, [primarySuggestedImages, setTile, generatedPicto]);
+};
+
+type UseLastIndexSelectorProps = {
+  tile: TileRecord;
+  setTile: React.Dispatch<React.SetStateAction<TileRecord>>;
+  primaryTile: TileRecord;
+  slides: string[];
+  onThumbClick: (index: number) => void;
+  setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const useLastIndexSelector = ({
+  tile,
+  setTile,
+  primaryTile,
+  slides,
+  onThumbClick,
+  setSelectedIndex,
+}: UseLastIndexSelectorProps) => {
+  const suggetionsCounter = useMemo(() => {
+    return tile.suggestedImages?.length;
+  }, [tile.suggestedImages]);
+
+  const [mustForceSelectedIndex, setMustForceSelectedIndex] = useState(false);
+  useEffect(() => {
+    if (!suggetionsCounter) return;
+    const suggestedIndex = suggetionsCounter - 1;
+    setTile((prevTile) => {
+      if (
+        prevTile.suggestedImages?.length ===
+          primaryTile.suggestedImages?.length &&
+        !mustForceSelectedIndex
+      )
+        return prevTile;
+      setMustForceSelectedIndex(false);
+      setSelectedIndex(suggestedIndex);
+      onThumbClick(suggestedIndex);
+      return {
+        ...prevTile,
+        image: slides[suggestedIndex],
+      };
+    });
+  }, [
+    suggetionsCounter,
+    onThumbClick,
+    slides,
+    primaryTile.suggestedImages,
+    mustForceSelectedIndex,
+    setSelectedIndex,
+    setTile,
+  ]);
+  return { setMustForceSelectedIndex };
 };
 
 const TileEditor: React.FC<PropType> = ({
@@ -61,7 +119,6 @@ const TileEditor: React.FC<PropType> = ({
       (suggestion) => suggestion === initialTile.image,
     ) || 0;
 
-  const [mustSelectFirst, setMustSelectFirst] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(initialIndex);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(OPTIONS);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -73,6 +130,7 @@ const TileEditor: React.FC<PropType> = ({
     (index: number) => {
       if (!emblaMainApi || !emblaThumbsApi) return;
       emblaMainApi.scrollTo(index);
+      emblaThumbsApi?.scrollTo(index);
     },
     [emblaMainApi, emblaThumbsApi],
   );
@@ -87,14 +145,22 @@ const TileEditor: React.FC<PropType> = ({
     }));
   }, [emblaMainApi, emblaThumbsApi, setSelectedIndex, setTile, slides]);
 
+  const { setMustForceSelectedIndex } = useLastIndexSelector({
+    tile,
+    setTile,
+    primaryTile: initialTile,
+    slides,
+    onThumbClick,
+    setSelectedIndex,
+  });
+
   useEffect(() => {
     if (!emblaMainApi) return;
-    const index = mustSelectFirst ? 0 : initialIndex;
-    onThumbClick(index);
-    setSelectedIndex(index);
+    onThumbClick(initialIndex);
+    setSelectedIndex(initialIndex);
     emblaMainApi.on('select', onSelect);
     emblaMainApi.on('reInit', onSelect);
-  }, [emblaMainApi, onSelect, initialIndex, onThumbClick, mustSelectFirst]);
+  }, [emblaMainApi, onSelect, initialIndex, emblaThumbsApi, onThumbClick]);
 
   const handleNextCarrouselImage = () => {
     if (!emblaMainApi) return;
@@ -143,7 +209,10 @@ const TileEditor: React.FC<PropType> = ({
           ))}
           {areUnviewedPictoGenerations || isChangingPicto ? (
             <Thumb
-              onClick={onNextGeneratedPictoClick}
+              onClick={async () => {
+                await onNextGeneratedPictoClick();
+                setMustForceSelectedIndex(true);
+              }}
               selected={false}
               isChangingPicto={isChangingPicto}
             />
@@ -170,23 +239,23 @@ const TileEditor: React.FC<PropType> = ({
   const handleChangePictogram = (src: string) => {
     setTile((prevTile) => {
       const newsuggestedImages = prevTile.suggestedImages
-        ? [src, ...prevTile.suggestedImages]
+        ? [...prevTile.suggestedImages, src]
         : [src];
+
       return {
         ...prevTile,
         suggestedImages: newsuggestedImages ?? [src],
         image: src,
       };
     });
-    setMustSelectFirst(true);
   };
 
-  const primarySuggestedImages = initialTile.suggestedImages;
-  usePrimarySuggestedImagesMerger(primarySuggestedImages, setTile);
+  const primaryTile = initialTile;
+  usePrimarySuggestedImagesMerger(primaryTile, setTile);
 
-  const handleOnGeneratedPictoClick = () => {
+  const handleOnGeneratedPictoClick = async () => {
     if (areUnviewedPictoGenerations) {
-      onNextGeneratedPictoClick();
+      await onNextGeneratedPictoClick();
     }
   };
 
