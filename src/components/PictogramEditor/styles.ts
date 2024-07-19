@@ -9,6 +9,9 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     gap: 2,
+    height: 'fit-content',
+    minHeight: '26%',
+    boxSizing: 'content-box',
     '&:hover': {
       outline: 'none',
       borderColor: 'primary.main',
@@ -18,6 +21,12 @@ export default {
       boxShadow: '0 0 0 1px #7b1fa2',
       borderColor: 'primary.main',
     },
+  },
+  pictogramEditorContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: { xs: 'space-evenly', sm: 'space-between' },
   },
   morePictosButton: {
     display: 'flex',

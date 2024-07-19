@@ -26,12 +26,17 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
 }) => {
   const [showPictogramGeneratorDialog, setShowPictogramGeneratorDialog] =
     React.useState(false);
+  const [isGeneratingPictograms, setIsGeneratingPictograms] =
+    React.useState(false);
+
   const handleOnGeneratePictoClick = () => {
     setShowPictogramGeneratorDialog(true);
   };
   const handleGenerateInitClick = async (label: string) => {
+    setIsGeneratingPictograms(true);
     await onGeneratePictoInit(label);
     setShowPictogramGeneratorDialog(false);
+    setIsGeneratingPictograms(false);
   };
   return (
     <Box
@@ -41,14 +46,14 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
       sx={styles.outlinedBox}
     >
       {!isSearching && !showPictogramGeneratorDialog && (
-        <>
+        <Box sx={styles.pictogramEditorContent}>
           {carrousel}
           <MorePictosButtons
             onSearchClick={onSearchToogleClick}
             onGeneratePictoClick={handleOnGeneratePictoClick}
             showGenerationButton={showGenerationButton}
           />
-        </>
+        </Box>
       )}
       {isSearching && (
         <PictogramSearcher
@@ -61,6 +66,7 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
           onClose={() => setShowPictogramGeneratorDialog(false)}
           onGenerateInitClick={handleGenerateInitClick}
           initialInput={tileLabel}
+          isGeneratingPictograms={isGeneratingPictograms}
         />
       )}
     </Box>
