@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import Image from 'next/image';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 import usePrimarySuggestedImagesMerger from './hooks/usePrimarySuggestedImagesMerger';
+import CircularProgress from '@mui/material/CircularProgress';
 
 type PropType = {
   primaryTile: TileRecord;
@@ -106,6 +107,9 @@ const TileEditor: React.FC<PropType> = ({
   const handleNextCarrouselImage = () => {
     if (!emblaMainApi) return;
     emblaMainApi.scrollNext();
+    onThumbClick(emblaMainApi.selectedScrollSnap());
+    if (slides.length === emblaMainApi.selectedScrollSnap() + 1)
+      handleOnNextGeneratedPictoClick();
   };
 
   const TileGalery = (
@@ -115,7 +119,7 @@ const TileEditor: React.FC<PropType> = ({
           {slides.map((src, index) => (
             <div className="embla__slide embla__class-names" key={index}>
               <div className="embla__tile" onClick={handleNextCarrouselImage}>
-                {src && (
+                {src ? (
                   <Image
                     className="embla__slide__img"
                     src={src}
@@ -123,6 +127,15 @@ const TileEditor: React.FC<PropType> = ({
                     width={300}
                     height={300}
                   />
+                ) : (
+                  <Box
+                    display={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    height={'100%'}
+                  >
+                    <CircularProgress />
+                  </Box>
                 )}
               </div>
             </div>
