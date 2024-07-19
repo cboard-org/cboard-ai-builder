@@ -15,13 +15,14 @@ import DialogContent from '@mui/material/DialogContent';
 import Image from 'next/image';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 import usePrimarySuggestedImagesMerger from './hooks/usePrimarySuggestedImagesMerger';
-import useLastIndexSelector from './hooks/useLastIndexSelector';
 
 type PropType = {
   primaryTile: TileRecord;
   onClose: () => void;
   onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
+  generatePicto: (label: string) => Promise<void>;
+  pictogramIndexBeforeSave: number | null;
 };
 
 const OPTIONS: EmblaOptionsType = { loop: true };
@@ -31,22 +32,26 @@ const TileEditor: React.FC<PropType> = ({
   onClose,
   onNextGeneratedPictoClick,
   isChangingPicto,
+  generatePicto,
+  pictogramIndexBeforeSave,
 }) => {
   const [tile, setTile] = useState(primaryTile);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTile((prevTile) => ({ ...prevTile, label: e.target.value }));
   };
+
+  const areUnviewedPictoGenerations = primaryTile.generatedPicto?.changeImageIds
+    ?.length
+    ? primaryTile.generatedPicto?.changeImageIds?.length >= 1
+    : false;
+
   const slides = useMemo(() => {
-    return tile.suggestedImages ?? [];
+    const suggestedImages = tile.suggestedImages ?? [];
+    return [...suggestedImages, ''];
   }, [tile.suggestedImages]);
 
-  const initialIndex =
-    tile.suggestedImages?.findIndex(
-      (suggestion) => suggestion === primaryTile.image,
-    ) || 0;
-
-  const [selectedIndex, setSelectedIndex] = useState(initialIndex);
+  const [selectedIndex, setSelectedIndex] = useState(pictogramIndexBeforeSave);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(OPTIONS);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
@@ -56,38 +61,47 @@ const TileEditor: React.FC<PropType> = ({
   const onThumbClick = useCallback(
     (index: number) => {
       if (!emblaMainApi || !emblaThumbsApi) return;
+      setSelectedIndex(index);
       emblaMainApi.scrollTo(index);
-      emblaThumbsApi?.scrollTo(index);
+      emblaThumbsApi.scrollTo(index);
     },
     [emblaMainApi, emblaThumbsApi],
   );
 
   const onSelect = useCallback(() => {
     if (!emblaMainApi || !emblaThumbsApi) return;
-    setSelectedIndex(emblaMainApi.selectedScrollSnap());
-    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
     setTile((prev) => ({
       ...prev,
       image: slides[emblaMainApi.selectedScrollSnap()],
     }));
-  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex, setTile, slides]);
+    if (selectedIndex) return;
+    setSelectedIndex(emblaMainApi.selectedScrollSnap());
+    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
+  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex, slides, selectedIndex]);
 
-  const { setMustForceSelectedIndex } = useLastIndexSelector({
-    tile,
-    setTile,
-    primaryTile: primaryTile,
-    slides,
-    onThumbClick,
-    setSelectedIndex,
-  });
+  const [mustForceIndex, setMustForceIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!mustForceIndex) return;
+    setSelectedIndex(mustForceIndex);
+    setMustForceIndex(null);
+  }, [mustForceIndex]);
+
+  useEffect(() => {
+    if (!selectedIndex || !emblaMainApi || !emblaThumbsApi) return;
+    emblaMainApi.scrollTo(selectedIndex);
+    emblaThumbsApi.scrollTo(selectedIndex);
+    onSelect();
+  }, [selectedIndex, onThumbClick, emblaMainApi, emblaThumbsApi, onSelect]);
 
   useEffect(() => {
     if (!emblaMainApi) return;
-    onThumbClick(initialIndex);
-    setSelectedIndex(initialIndex);
     emblaMainApi.on('select', onSelect);
-    emblaMainApi.on('reInit', onSelect);
-  }, [emblaMainApi, onSelect, initialIndex, emblaThumbsApi, onThumbClick]);
+    const cleanup = () => {
+      emblaMainApi.off('select', onSelect);
+    };
+    return cleanup;
+  }, [emblaMainApi, onSelect, emblaThumbsApi, onThumbClick]);
 
   const handleNextCarrouselImage = () => {
     if (!emblaMainApi) return;
@@ -101,13 +115,15 @@ const TileEditor: React.FC<PropType> = ({
           {slides.map((src, index) => (
             <div className="embla__slide embla__class-names" key={index}>
               <div className="embla__tile" onClick={handleNextCarrouselImage}>
-                <Image
-                  className="embla__slide__img"
-                  src={src}
-                  alt="slide.label"
-                  width={300}
-                  height={300}
-                />
+                {src && (
+                  <Image
+                    className="embla__slide__img"
+                    src={src}
+                    alt="slide.label"
+                    width={300}
+                    height={300}
+                  />
+                )}
               </div>
             </div>
           ))}
@@ -117,14 +133,12 @@ const TileEditor: React.FC<PropType> = ({
     </div>
   );
 
-  const areUnviewedPictoGenerations = primaryTile.generatedPicto?.changeImageIds
-    ?.length
-    ? primaryTile.generatedPicto?.changeImageIds?.length >= 1
-    : false;
-
   const handleOnNextGeneratedPictoClick = async () => {
-    await onNextGeneratedPictoClick();
-    setMustForceSelectedIndex(true);
+    try {
+      await onNextGeneratedPictoClick();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const ThumbsCarrousel = (
@@ -134,18 +148,20 @@ const TileEditor: React.FC<PropType> = ({
           {slides.map((src, index) => (
             <Thumb
               key={index}
-              onClick={() => onThumbClick(index)}
+              onClick={
+                src
+                  ? () => onThumbClick(index)
+                  : () => {
+                      onThumbClick(index);
+                      handleOnNextGeneratedPictoClick();
+                    }
+              }
               selected={index === selectedIndex}
               src={src}
+              isChangingPicto={isChangingPicto}
+              disabled={!src && !areUnviewedPictoGenerations}
             />
           ))}
-          {areUnviewedPictoGenerations || isChangingPicto ? (
-            <Thumb
-              onClick={handleOnNextGeneratedPictoClick}
-              selected={false}
-              isChangingPicto={isChangingPicto}
-            />
-          ) : null}
         </div>
       </div>
     </div>
@@ -170,10 +186,10 @@ const TileEditor: React.FC<PropType> = ({
       const newsuggestedImages = prevTile.suggestedImages
         ? [...prevTile.suggestedImages, src]
         : [src];
-
+      setMustForceIndex(newsuggestedImages.length - 1);
       return {
         ...prevTile,
-        suggestedImages: newsuggestedImages ?? [src],
+        suggestedImages: newsuggestedImages,
         image: src,
       };
     });
@@ -181,12 +197,14 @@ const TileEditor: React.FC<PropType> = ({
 
   usePrimarySuggestedImagesMerger(primaryTile, setTile);
 
-  const handleOnGeneratePictoInit = async () => {
+  const handleOnGeneratePictoInit = async (label: string) => {
     if (areUnviewedPictoGenerations) {
       await handleOnNextGeneratedPictoClick();
       return;
     }
-    //create Picto
+    const lastIndex = slides.length;
+    setMustForceIndex(lastIndex - 1);
+    await generatePicto(label);
   };
 
   const showCarrousel = slides.length > 0 || isChangingPicto;

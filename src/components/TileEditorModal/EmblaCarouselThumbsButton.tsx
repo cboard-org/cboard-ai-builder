@@ -8,10 +8,11 @@ type PropType = {
   src?: string;
   onClick: () => void;
   isChangingPicto?: boolean;
+  disabled?: boolean;
 };
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, onClick, src, isChangingPicto } = props;
+  const { selected, onClick, src, isChangingPicto, disabled } = props;
 
   return (
     <div
@@ -32,6 +33,7 @@ export const Thumb: React.FC<PropType> = (props) => {
         variant={'text'}
         focusRipple
         onClick={onClick}
+        disabled={disabled}
         type="button"
       >
         {src && (

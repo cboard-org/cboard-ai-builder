@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useTransition } from 'react';
+import React, { ReactNode, useEffect, useRef, useTransition } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
@@ -95,6 +95,29 @@ export default function Tile({
     };
     if (!updatedTile) throw new Error('Error adding generated picto');
     setUpdatedTile(updatedTile);
+    return updatedTile;
+  };
+
+  const generatePictoForTile = async (injectedLabel: string | null = null) => {
+    try {
+      setIsChangingPicto(true);
+      const generatedPicto =
+        tile.label && (await createPicto(injectedLabel ?? tile.label));
+      if (generatedPicto) {
+        const updatedTile = addGeneratedPicto(
+          tile,
+          generatedPicto,
+          generatedPicto.url,
+        );
+
+        const lastSuggestedImagesIndex =
+          updatedTile?.suggestedImages.length ?? 1 - 1;
+        setSelectedImageSuggestion(lastSuggestedImagesIndex);
+      }
+    } catch (error) {
+      console.error('Error generating picto', error);
+    }
+    setIsChangingPicto(false);
   };
 
   const handleNextImage = async () => {
@@ -108,18 +131,7 @@ export default function Tile({
       suggestedImages?.length === 0
     ) {
       if (!generatedPicto) {
-        try {
-          setIsChangingPicto(true);
-          const generatedPicto = tile.label && (await createPicto(tile.label));
-          if (generatedPicto) {
-            addGeneratedPicto(tile, generatedPicto, generatedPicto.url);
-            //updateTileImageSaver(tile.id, generatedPicto.url, generatedPicto);
-            setSelectedImageSuggestion(0);
-          }
-        } catch (error) {
-          console.error('Error generating picto', error);
-        }
-        setIsChangingPicto(false);
+        await generatePictoForTile();
         return;
       }
 
@@ -163,6 +175,26 @@ export default function Tile({
   const suggestedImagesLength =
     (suggestedImages?.length || 0) + (unviewvedPictoGenerated || 0);
 
+  const prevIsEditingRef = useRef(false);
+  const [pictogramIndexBeforeSave, setPictogramIndexBeforeSave] = useState<
+    number | null
+  >(null);
+
+  useEffect(() => {
+    if (isEditing && !prevIsEditingRef.current) {
+      const suggestedInitialIndex = tile.suggestedImages?.findIndex(
+        (suggestion) => suggestion === tile.image,
+      );
+      const initialIndex =
+        suggestedInitialIndex && suggestedInitialIndex > 0
+          ? suggestedInitialIndex
+          : null;
+
+      setPictogramIndexBeforeSave(initialIndex);
+    }
+    prevIsEditingRef.current = isEditing;
+  }, [isEditing, tile]);
+
   return (
     <>
       <Button
@@ -205,6 +237,9 @@ export default function Tile({
           onClose={() => setIsEditing(false)}
           onNextGeneratedPictoClick={handleNextImage}
           isChangingPicto={isChangingPicto}
+          generatePicto={generatePictoForTile}
+          pictogramIndexBeforeSave={pictogramIndexBeforeSave}
+          setUpdatedTile={setUpdatedTile}
         />
       )}
     </>

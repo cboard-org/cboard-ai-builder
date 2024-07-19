@@ -8,7 +8,7 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 type PictogramGeneratorFormDialogProps = {
   onClose: () => void;
-  onGenerateInitClick: (src: string) => void;
+  onGenerateInitClick: (label: string) => void;
   initialInput: string;
 };
 

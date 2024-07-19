@@ -13,11 +13,16 @@ export default function TileEditorModal({
   tile,
   onNextGeneratedPictoClick,
   isChangingPicto,
+  generatePicto,
+  pictogramIndexBeforeSave,
 }: {
   onClose: () => void;
   tile: TileRecord;
   onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
+  generatePicto: () => Promise<void>;
+  pictogramIndexBeforeSave: number | null;
+  setUpdatedTile: (tile: TileRecord) => void;
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -42,6 +47,8 @@ export default function TileEditorModal({
           primaryTile={tile}
           onNextGeneratedPictoClick={onNextGeneratedPictoClick}
           isChangingPicto={isChangingPicto}
+          generatePicto={generatePicto}
+          pictogramIndexBeforeSave={pictogramIndexBeforeSave}
         />
       </Dialog>
     </>

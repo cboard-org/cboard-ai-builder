@@ -8,7 +8,7 @@ import PictogramGeneratorFormDialog from '../PictogramGeneratorFormDialog/Pictog
 type PictogramEditorProps = {
   carrousel: React.ReactNode;
   onSearchToogleClick: () => void;
-  onGeneratePictoInit: () => void;
+  onGeneratePictoInit: (label: string) => Promise<void>;
   onChangePictogram: (src: string) => void;
   isSearching: boolean;
   showGenerationButton: boolean;
@@ -29,8 +29,8 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
   const handleOnGeneratePictoClick = () => {
     setShowPictogramGeneratorDialog(true);
   };
-  const handleGenerateInitClick = () => {
-    onGeneratePictoInit();
+  const handleGenerateInitClick = async (label: string) => {
+    await onGeneratePictoInit(label);
     setShowPictogramGeneratorDialog(false);
   };
   return (
