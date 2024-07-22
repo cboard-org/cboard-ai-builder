@@ -48,7 +48,8 @@ const TileEditor: React.FC<PropType> = ({
     : false;
 
   const slides = useMemo(() => {
-    const suggestedImages = tile.suggestedImages ?? [];
+    const suggestedImages = tile.suggestedImages ?? null;
+    if (suggestedImages === null) return [];
     return [...suggestedImages, ''];
   }, [tile.suggestedImages]);
 
@@ -108,8 +109,10 @@ const TileEditor: React.FC<PropType> = ({
     if (!emblaMainApi) return;
     emblaMainApi.scrollNext();
     onThumbClick(emblaMainApi.selectedScrollSnap());
-    if (slides.length === emblaMainApi.selectedScrollSnap() + 1)
-      handleOnNextGeneratedPictoClick();
+    if (slides.length === emblaMainApi.selectedScrollSnap() + 1) {
+      if (areUnviewedPictoGenerations) return handleOnNextGeneratedPictoClick();
+      handleNextCarrouselImage();
+    }
   };
 
   const TileGalery = (
