@@ -8,6 +8,7 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import styles from './styles';
 import AutoAwesome from '@mui/icons-material/AutoAwesome';
 import Zoom from '@mui/material/Zoom';
+import { useTranslations } from 'next-intl';
 
 type PictogramGeneratorFormDialogProps = {
   onClose: () => void;
@@ -22,6 +23,9 @@ const PictogramGeneratorFormDialog = ({
   initialInput,
   isGeneratingPictograms,
 }: PictogramGeneratorFormDialogProps) => {
+  const message = useTranslations(
+    'Board.TileEditor.PictogramGeneratorFormDialog',
+  );
   const [input, setInput] = useState(initialInput);
 
   const handleGenerate = () => {
@@ -43,30 +47,29 @@ const PictogramGeneratorFormDialog = ({
   return !isGeneratingPictograms ? (
     <Box sx={styles.pictogramGeneratorForm}>
       <Typography variant="body1" gutterBottom>
-        Use Pictonizer to generate pictograms
+        {message('title')}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" gutterBottom>
-        Generate 4 pictograms for
+        {message('subtitle')}
       </Typography>
 
       <TextField
         fullWidth
         variant="standard"
-        placeholder="See"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         sx={{ mb: 2 }}
       />
       <Stack direction="row" justifyContent="flex-end" spacing={2}>
-        <Button onClick={onClose}>CANCEL</Button>
+        <Button onClick={onClose}>{message('cancelButton')}</Button>
         <Button
           variant="contained"
           startIcon={<AutoFixHighIcon />}
           onClick={handleGenerate}
           disabled={!input}
         >
-          GENERATE
+          {message('generateButton')}
         </Button>
       </Stack>
     </Box>
@@ -88,7 +91,7 @@ const PictogramGeneratorFormDialog = ({
       </Box>
       <Box>
         <Typography textAlign={'center'} variant="body1" gutterBottom>
-          Generating 4 pictograms to:
+          {message('generatingPictogramsTo')}
         </Typography>
         <Typography
           fontWeight={'bold'}

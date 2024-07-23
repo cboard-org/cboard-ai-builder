@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslations } from 'next-intl';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,18 +19,26 @@ const MorePictosButtons: FC<MorePictosButtonsProps> = ({
   onGeneratePictoClick,
   showGenerationButton,
 }) => {
+  const message = useTranslations('Board.TileEditor.MorePictosButtons');
+
   return (
     <Box sx={styles.morePictosButton}>
-      <Button startIcon={<Search />} variant="text" onClick={onSearchClick}>
-        Search
+      <Button
+        startIcon={<Search />}
+        variant="text"
+        onClick={onSearchClick}
+        aria-label={message('searchAccessibility')}
+      >
+        {message('search')}
       </Button>
       {showGenerationButton && (
         <Button
           variant="text"
           startIcon={<AutoFixHighIcon />}
           onClick={onGeneratePictoClick}
+          aria-label={message('generateAccessibility')}
         >
-          Generate
+          {message('generate')}
         </Button>
       )}
     </Box>

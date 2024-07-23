@@ -11,6 +11,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
 import Typography from '@mui/material/Typography';
+import { useTranslations } from 'next-intl';
 
 type PictogramSearcherProps = {
   toogleIsSearching: () => void;
@@ -22,6 +23,8 @@ const AlertComponent: FC<{
   isEmptyResults: boolean;
   isEmptySearchAlert: boolean;
 }> = ({ isError, isEmptyResults, isEmptySearchAlert }) => {
+  const message = useTranslations('Board.TileEditor.PictogramSearcher');
+
   return (
     <Box sx={styles.alertContainer}>
       {isEmptyResults && <YoutubeSearchedForIcon />}
@@ -29,17 +32,15 @@ const AlertComponent: FC<{
       {isEmptySearchAlert && <EditNoteIcon />}
       <Box>
         <Typography fontWeight={'bold'}>
-          {isEmptyResults && 'Pictogram not found'}
-          {isError && 'Error'}
-          {isEmptySearchAlert && 'Write a keyword to search'}
+          {isEmptyResults && message('pictogramNotFound')}
+          {isError && message('error')}
+          {isEmptySearchAlert && message('writeKeywordToSearch')}
         </Typography>
         <Typography>
           {isEmptyResults &&
-            'Try searching with another keyword or generate it with our pictogram generator.'}
-          {isError &&
-            "We couldn't fetch the pictograms. Please try again later."}
-          {isEmptySearchAlert &&
-            'Search a pictogram using the text field on the top'}
+            message('trySearchingWithAnotherKeywordOrGenerateIt')}
+          {isError && message('couldNotFetchPictograms')}
+          {isEmptySearchAlert && message('searchPictogramUsingTextField')}
         </Typography>
       </Box>
     </Box>

@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './styles';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useTranslations } from 'next-intl';
 
 type PropType = {
   handleClose: () => void;
@@ -15,6 +16,8 @@ const TileEditorDialogActions: React.FC<PropType> = ({
   handleClose,
   handleSave,
 }) => {
+  const message = useTranslations('Board.TileEditor.TileEditorDialogActions');
+
   return (
     <DialogActions sx={styles.tileEditorDialogActions}>
       <IconButton onClick={handleClose}>
@@ -26,7 +29,7 @@ const TileEditorDialogActions: React.FC<PropType> = ({
         variant="contained"
         startIcon={<BookmarkIcon />}
       >
-        Save changes
+        {message('saveChanges')}
       </Button>
     </DialogActions>
   );

@@ -26,6 +26,32 @@
     },
     "BoardContainer": {
       "exportToCboard": "Export to Cboard"
+    },
+    "TileEditor": {
+      "TileEditorDialogActions": {
+        "saveChanges": "Save changes"
+      },
+      "MorePictosButtons": {
+        "search": "Search",
+        "generate": "Generate",
+        "searchAccessibility": "Search for pictograms",
+        "generateAccessibility": "Generate pictograms"
+      },
+      "PictogramGeneratorFormDialog": {
+        "title": "Use Pictonizer to generate pictograms",
+        "subtitle": "Generate 4 pictograms for",
+        "cancelButton": "CANCEL",
+        "generateButton": "GENERATE",
+        "generatingPictogramsTo": "Generating 4 pictograms to:"
+      },
+      "PictogramSearcher": {
+        "pictogramNotFound": "Pictogram not found",
+        "error": "Error",
+        "writeKeywordToSearch": "Write a keyword to search",
+        "trySearchingWithAnotherKeywordOrGenerateIt": "Try searching with another keyword or generate it with our pictogram generator.",
+        "couldNotFetchPictograms": "We couldn't fetch the pictograms. Please try again later.",
+        "searchPictogramUsingTextField": "Search a pictogram using the text field on the top"
+      }
     }
   },
   "SavedData": {
