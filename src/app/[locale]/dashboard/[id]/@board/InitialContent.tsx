@@ -136,9 +136,6 @@ export default function InitialContent({
           height: '100%',
         }}
       >
-        <Box sx={{ pb: '1rem' }}>
-          <BrandTypography />
-        </Box>
         <Box
           sx={{
             backgroundColor: grey,
@@ -224,26 +221,3 @@ export default function InitialContent({
     </Box>
   );
 }
-
-const BrandTypography = () => {
-  //const messages = useTranslations('');
-
-  return (
-    <Typography
-      variant="subtitle1"
-      component="h2"
-      sx={{ flexGrow: 1 }}
-      ml={0.5}
-    >
-      <Box component="span" fontWeight="bold">
-        {
-          //messages('cboard')
-        }
-        Cboard
-      </Box>
-      {
-        ' ' + 'Builder' //messages('builder')
-      }
-    </Typography>
-  );
-};
