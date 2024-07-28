@@ -11,7 +11,7 @@ type Props = {
 };
 
 function DroppableCell({ id, accept, onDrop, children }: Props) {
-  const [{ isOver, canDrop }, drop] = useDrop({
+  const [{ isOver, canDrop }] = useDrop({
     accept,
     drop: onDrop,
     collect: (monitor) => ({
@@ -23,7 +23,7 @@ function DroppableCell({ id, accept, onDrop, children }: Props) {
   const isActive = isOver && canDrop;
 
   return (
-    <div id={id} className={styles.root} data-isactive={isActive} ref={drop}>
+    <div id={id} className={styles.root} data-isactive={isActive}>
       {children}
     </div>
   );
