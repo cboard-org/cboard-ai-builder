@@ -20,6 +20,7 @@ export default {
     padding: 1.5,
     px: 2,
     mb: 0.5,
+    flexShrink: 0,
   },
   headerLeftSide: {
     display: 'flex',
