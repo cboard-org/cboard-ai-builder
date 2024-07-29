@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import { useMediaQuery } from '@mui/material';
 import Topbar from './Topbar/Topbar';
 import Menu from '@mui/icons-material/Menu';
+import { INITIAL_CONTENT_ID } from './constants';
 
 const xsSpacing = 3;
 
@@ -54,6 +55,9 @@ export default function Dashboard(props: {
   promptForm: React.ReactNode;
   board: React.ReactNode;
   savedData: React.ReactNode;
+  params: {
+    id: string;
+  };
 }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
   const theme: Theme = useTheme();
@@ -80,7 +84,7 @@ export default function Dashboard(props: {
         <Box sx={sxStyles.drawerTopBar}>
           <OpenSideBarButton />
           <Box py={{ xs: xsPadding, md: mdPadding }}>
-            <Box sx={sxStyles.controls}>{props.promptForm}</Box>
+            <Box sx={sxStyles.controls}>{}</Box>
           </Box>
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }}>
@@ -107,6 +111,10 @@ export default function Dashboard(props: {
           isSidebarOpen={sidebarOpen}
         />
         <Box sx={sxStyles.board}>{props.board}</Box>
+
+        {props.params.id === INITIAL_CONTENT_ID && (
+          <Box px={4}>{props.promptForm}</Box>
+        )}
       </Box>
     </Box>
   );
