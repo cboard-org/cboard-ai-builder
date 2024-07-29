@@ -4,14 +4,15 @@ import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
 import { useTheme, Theme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import { useMediaQuery } from '@mui/material';
 import Topbar from './Topbar/Topbar';
 import Menu from '@mui/icons-material/Menu';
 import { INITIAL_CONTENT_ID } from './constants';
+import NewBoardLink from './NewBoardLink/NewBoardLink';
 
 const xsSpacing = 3;
 
-const xsPadding = 1;
 const mdPadding = 0;
 
 const drawerWidth = 260; // Adjust this value as needed
@@ -36,6 +37,7 @@ const sxStyles = {
   drawerTopBar: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
     p: 1,
   },
@@ -67,12 +69,17 @@ export default function Dashboard(props: {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const OpenSideBarButton = () => (
-    <IconButton onClick={toggleSidebar}>
-      <Menu />
-    </IconButton>
-  );
-
+  const OpenSideBarButton = () => {
+    /* translate */
+    const toolbarTitle = sidebarOpen ? 'Close Sidebar' : 'Open Sidebar';
+    return (
+      <Tooltip title={toolbarTitle}>
+        <IconButton onClick={toggleSidebar}>
+          <Menu />
+        </IconButton>
+      </Tooltip>
+    );
+  };
   return (
     <Box sx={sxStyles.app}>
       <Drawer
@@ -83,9 +90,9 @@ export default function Dashboard(props: {
       >
         <Box sx={sxStyles.drawerTopBar}>
           <OpenSideBarButton />
-          <Box py={{ xs: xsPadding, md: mdPadding }}>
-            <Box sx={sxStyles.controls}>{}</Box>
-          </Box>
+          {/* <Box py={{ xs: xsPadding, md: mdPadding }}> */}
+          <NewBoardLink />
+          {/* </Box> */}
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }}>
           <Box sx={sxStyles.controls}>{props.savedData}</Box>
