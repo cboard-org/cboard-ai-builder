@@ -18,7 +18,7 @@ import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '../constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material';
-import EditingToolbar from './EditingToolbar';
+// import EditingToolbar from './EditingToolbar';
 import styles from './styles';
 
 type Props = {
@@ -65,7 +65,8 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
 
   return (
     <Box sx={styles.toolbar}>
-      {!isEditing ? <DefaultToolbar /> : <EditingToolbar />}
+      {!isEditing ? <DefaultToolbar /> : <></>}
+      {/* <EditingToolbar />} */}
 
       <Divider orientation="vertical" flexItem />
       <IconButton
