@@ -41,7 +41,7 @@ export default {
     height: '100%',
     gap: 2,
   },
-  brandIcon: { fontSize: 55 },
+  brandIcon: { fontSize: { xs: 35, md: 55 } },
   examplesContainer: {
     display: 'flex',
     flexDirection: 'column',

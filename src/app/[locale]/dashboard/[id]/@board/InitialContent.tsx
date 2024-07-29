@@ -63,6 +63,7 @@ const PromptExamplesTextField = ({
             color: 'black',
             backgroundColor: 'white',
             border: 'none',
+            fontSize: '15px',
           },
         }}
         sx={styles.textArea}
