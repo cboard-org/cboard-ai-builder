@@ -50,4 +50,9 @@ export default {
   },
   title: { flexGrow: 1, textTransform: 'uppercase', ml: 0 },
   toolbar: { display: 'flex', justifyContent: 'end' },
+  boardGridContainer: {
+    overflow: 'auto',
+    flexGrow: 1,
+    display: 'flex',
+  },
 } satisfies Record<string, SxProps>;

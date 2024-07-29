@@ -103,7 +103,7 @@ const BoardSection = () => {
         </Box>
         <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
       </Box>
-      <Box sx={{ overflow: 'auto', flexGrow: 1 }}>
+      <Box sx={styles.boardGridContainer}>
         <Grid
           order={board.grid ? board.grid.order : []}
           items={board.tiles}
