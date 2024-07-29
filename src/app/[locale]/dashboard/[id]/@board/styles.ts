@@ -32,6 +32,22 @@ export default {
     display: 'flex',
     justifyContent: 'center',
   },
+  initialContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    p: 2,
+    height: '100%',
+    gap: 2,
+  },
+  brandIcon: { fontSize: 55 },
+  examplesContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    maxWidth: '900px',
+  },
   title: { flexGrow: 1, textTransform: 'uppercase', ml: 0 },
   toolbar: { display: 'flex', justifyContent: 'end' },
 } satisfies Record<string, SxProps>;
