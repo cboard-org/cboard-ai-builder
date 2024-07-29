@@ -225,7 +225,12 @@ const ImagePagination = ({
   for (let i = 1; i <= length; i++) {
     if (i === activeImage + 1) {
       pages.push(
-        <CircleIcon sx={{ fontSize: 10 }} fontSize="inherit" color="primary" />,
+        <CircleIcon
+          sx={{ fontSize: 10 }}
+          fontSize="inherit"
+          color="primary"
+          key={i}
+        />,
       );
     } else {
       pages.push(
@@ -233,6 +238,7 @@ const ImagePagination = ({
           sx={{ fontSize: 10 }}
           // fontSize="inherit"
           color="primary"
+          key={i}
         />,
       );
     }
