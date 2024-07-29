@@ -12,7 +12,7 @@ import {
 import Button from '@mui/material/Button';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 
-const useUpdatedTileSyncronizer = () => {
+const useUpdatedTileSynchronizer = () => {
   const updateTilePropsSaver = useUpdateTilePropsSaver();
   const [updatedTile, setUpdatedTile] = useState<TileRecord | null>(null);
   const tileId = updatedTile?.id;
@@ -69,7 +69,7 @@ export default function Tile({
   const [isChangingPicto, setIsChangingPicto] = useState(false);
   const [, startTransition] = useTransition();
 
-  const setUpdatedTile = useUpdatedTileSyncronizer();
+  const setUpdatedTile = useUpdatedTileSynchronizer();
 
   const updateTilePropsSaver = useUpdateTilePropsSaver();
 
