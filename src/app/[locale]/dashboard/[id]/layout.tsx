@@ -64,7 +64,7 @@ export default function Dashboard(props: {
     id: string;
   };
 }) {
-  const [sidebarOpen, setSidebarOpen] = React.useState(true);
+  const [sidebarOpen, setSidebarOpen] = React.useState(false); // the initial could be in the store
   const theme: Theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
