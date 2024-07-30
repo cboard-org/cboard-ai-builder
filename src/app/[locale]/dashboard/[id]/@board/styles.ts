@@ -29,10 +29,6 @@ export default {
     justifyContent: 'start',
     width: '100%',
   },
-  titleContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
   initialContentContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -58,7 +54,13 @@ export default {
       display: 'none',
     },
   },
-  title: { flexGrow: 1, textTransform: 'uppercase', ml: 0 },
+  title: {
+    textTransform: 'uppercase',
+    ml: 0,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
   toolbar: { display: 'flex', justifyContent: 'end' },
   boardGridContainer: {
     overflow: 'auto',

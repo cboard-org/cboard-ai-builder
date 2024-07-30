@@ -87,20 +87,15 @@ const BoardSection = () => {
             </IconButton>
           }
         </Box>
-        <Box sx={styles.titleContainer}>
-          {/* <Box>Image</Box> */}
-          <Box>
-            <Typography
-              variant="h6"
-              fontSize={'1rem'}
-              component="div"
-              sx={styles.title}
-              ml={0.5}
-            >
-              {prompt.description}
-            </Typography>
-          </Box>
-        </Box>
+        <Typography
+          variant="h6"
+          fontSize={'1rem'}
+          component="span"
+          sx={styles.title}
+          ml={0.5}
+        >
+          {prompt.description}
+        </Typography>
         <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
       </Box>
       <Box sx={styles.boardGridContainer}>
