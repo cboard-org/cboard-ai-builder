@@ -11,6 +11,7 @@ import Menu from '@mui/icons-material/Menu';
 import { INITIAL_CONTENT_ID } from './constants';
 import NewBoardLink from './NewBoardLink/NewBoardLink';
 import styles from './styles';
+import { useTranslations } from 'next-intl';
 
 const xsSpacing = 3;
 
@@ -71,9 +72,12 @@ export default function Dashboard(props: {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const message = useTranslations('Dashboard');
+
   const OpenSideBarButton = () => {
-    /* translate */
-    const toolbarTitle = sidebarOpen ? 'Close Sidebar' : 'Open Sidebar';
+    const toolbarTitle = sidebarOpen
+      ? message('closeSidebar')
+      : message('openSidebar');
     return (
       <Tooltip title={toolbarTitle}>
         <IconButton onClick={toggleSidebar}>

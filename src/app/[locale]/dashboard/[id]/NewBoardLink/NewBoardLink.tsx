@@ -6,15 +6,16 @@ import { Link } from '@/navigation';
 import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import Tooltip from '@mui/material/Tooltip';
+import { useTranslations } from 'next-intl';
 
 // type Props = {};
 
 function NewBoardLink() {
+  const messages = useTranslations('Dashboard');
   return (
     <Link href={`/dashboard/${INITIAL_CONTENT_ID}`}>
       <Box sx={styles.linkContent}>
-        {/* translate */}
-        <Tooltip title="New board">
+        <Tooltip title={messages('newBoard')}>
           <IconButton>
             <AddBoxIcon />
           </IconButton>
