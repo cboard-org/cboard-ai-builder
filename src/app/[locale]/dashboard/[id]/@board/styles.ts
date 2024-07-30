@@ -22,6 +22,8 @@ export default {
     px: 2,
     mb: 0.5,
     flexShrink: 0,
+    mx: '12px',
+    borderRadius: 1,
   },
   headerLeftSide: {
     display: 'flex',
