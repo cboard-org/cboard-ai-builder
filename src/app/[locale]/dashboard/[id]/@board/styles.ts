@@ -41,12 +41,21 @@ export default {
     height: '100%',
     gap: 2,
   },
-  brandIcon: { fontSize: { xs: 35, md: 55 } },
+  brandIcon: {
+    fontSize: { xs: 35, md: 55 },
+    display: 'flex',
+    '@media (max-height: 600px)': {
+      display: 'none',
+    },
+  },
   examplesContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     maxWidth: '900px',
+    '@media (max-height: 550px)': {
+      display: 'none',
+    },
   },
   title: { flexGrow: 1, textTransform: 'uppercase', ml: 0 },
   toolbar: { display: 'flex', justifyContent: 'end' },
