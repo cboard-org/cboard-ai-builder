@@ -8,7 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
-import GenerateButton from './GenerateButton';
+import GenerateIcon from './GenerateIcon';
 import Box from '@mui/material/Box';
 import CircleIcon from '@mui/icons-material/Circle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
@@ -203,7 +203,7 @@ export default function Symbol({
 
       {!src && !isPictoGenerationActive && !isChangingPicto && (
         <div className={style.SymbolEmptyImageContainer}>
-          <GenerateButton />
+          <GenerateIcon />
         </div>
       )}
 
