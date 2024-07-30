@@ -8,7 +8,7 @@ import DataItem from '@/components/DataItem/DataItem';
 import { BaseDataItemType } from '@/components/DataItem/DataItem';
 import styles from './styles';
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 6;
 
 export default function DataList<DataItemType extends BaseDataItemType>({
   list,

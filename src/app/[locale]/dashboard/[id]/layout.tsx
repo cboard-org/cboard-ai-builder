@@ -13,10 +13,6 @@ import NewBoardLink from './NewBoardLink/NewBoardLink';
 import styles from './styles';
 import { useTranslations } from 'next-intl';
 
-const xsSpacing = 3;
-
-const mdPadding = 0;
-
 const drawerWidth = 260; // Adjust this value as needed
 
 const sxStyles = {
@@ -35,6 +31,7 @@ const sxStyles = {
       backgroundColor: (theme: Theme) => theme.palette.grey[100],
       borderRight: '0',
       boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden',
     },
   },
   drawerTopBar: {
@@ -43,8 +40,10 @@ const sxStyles = {
     justifyContent: 'space-between',
     width: '100%',
     p: 1,
+    flexShrink: 0,
   },
   controls: {
+    minHeight: 0,
     px: 1,
     pb: 1,
   },
@@ -98,9 +97,7 @@ export default function Dashboard(props: {
           <OpenSideBarButton />
           <NewBoardLink />
         </Box>
-        <Box pb={{ xs: xsSpacing, md: mdPadding }}>
-          <Box sx={sxStyles.controls}>{props.savedData}</Box>
-        </Box>
+        <Box sx={sxStyles.controls}>{props.savedData}</Box>
       </Drawer>
 
       <Box
