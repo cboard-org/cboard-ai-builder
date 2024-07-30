@@ -32,8 +32,9 @@ const sxStyles = {
       width: drawerWidth,
       boxSizing: 'border-box',
       backgroundColor: (theme: Theme) => theme.palette.grey[100],
+      borderRight: '0',
+      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
     },
-    borderRight: '0',
   },
   drawerTopBar: {
     display: 'flex',
