@@ -1,4 +1,5 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
+import { INITIAL_CONTENT_MAX_WIDTH } from '../constants';
 
 export default {
   exampleButton: {
@@ -52,7 +53,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    maxWidth: '900px',
+    maxWidth: INITIAL_CONTENT_MAX_WIDTH,
     '@media (max-height: 550px)': {
       display: 'none',
     },

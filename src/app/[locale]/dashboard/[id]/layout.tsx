@@ -10,6 +10,7 @@ import Topbar from './Topbar/Topbar';
 import Menu from '@mui/icons-material/Menu';
 import { INITIAL_CONTENT_ID } from './constants';
 import NewBoardLink from './NewBoardLink/NewBoardLink';
+import styles from './styles';
 
 const xsSpacing = 3;
 
@@ -120,7 +121,7 @@ export default function Dashboard(props: {
         <Box sx={sxStyles.board}>{props.board}</Box>
 
         {props.params.id === INITIAL_CONTENT_ID && (
-          <Box px={4}>{props.promptForm}</Box>
+          <Box sx={styles.promptContainer}>{props.promptForm}</Box>
         )}
       </Box>
     </Box>

@@ -28,6 +28,7 @@ import { STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
 import usePromptBlinkAnimation from './usePromptBlinkAnimation';
 import { Theme } from '@mui/material';
+import styles from './styles';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -122,8 +123,8 @@ export function PromptForm() {
   return (
     <Box
       sx={{
+        ...styles.promptForm,
         backgroundColor: (theme: Theme) => theme.palette.grey[100],
-        borderRadius: 6,
       }}
     >
       <Fade

@@ -7,4 +7,10 @@ export default {
     width: '100%',
     p: 1,
   },
+  promptContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    px: 4,
+  },
 } satisfies Record<string, SxProps>;
