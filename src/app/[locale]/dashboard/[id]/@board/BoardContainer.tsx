@@ -10,7 +10,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';
-import SelectTileMask from '@/components/SelectTileMask';
+// import SelectTileMask from '@/components/SelectTileMask';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
@@ -29,24 +29,24 @@ const BoardSection = () => {
     useShallow((state) => [state.board, state.prompt]),
   );
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
+  //const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
   const [updateBoard, isSaving] = useSaveOnSetBoard();
   if (!board) return null;
   const handleEditClick = () => {
     setIsEditing((isEditing) => !isEditing);
-    setSelectedTiles([]);
+    //setSelectedTiles([]);
   };
 
-  const handleTileClick = (id: string) => {
+  const handleTileClick = () => {
     if (!isEditing) {
       return;
     }
 
-    setSelectedTiles((selectedTiles) =>
-      selectedTiles.includes(id)
-        ? selectedTiles.filter((tileId) => tileId !== id)
-        : [...selectedTiles, id],
-    );
+    // setSelectedTiles((selectedTiles) =>
+    //   selectedTiles.includes(id)
+    //     ? selectedTiles.filter((tileId) => tileId !== id)
+    //     : [...selectedTiles, id],
+    // );
   };
 
   const onTileDrop = (
@@ -110,9 +110,9 @@ const BoardSection = () => {
               handleTileClick={handleTileClick}
               isEditionView={isEditing}
             >
-              {isEditing && (
+              {/* {isEditing && (
                 <SelectTileMask isSelected={selectedTiles.includes(item.id)} />
-              )}
+              )} */}
             </Tile>
           )}
           onItemDrop={onTileDrop}
