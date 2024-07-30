@@ -92,9 +92,7 @@ export default function Dashboard(props: {
       >
         <Box sx={sxStyles.drawerTopBar}>
           <OpenSideBarButton />
-          {/* <Box py={{ xs: xsPadding, md: mdPadding }}> */}
           <NewBoardLink />
-          {/* </Box> */}
         </Box>
         <Box pb={{ xs: xsSpacing, md: mdPadding }}>
           <Box sx={sxStyles.controls}>{props.savedData}</Box>
