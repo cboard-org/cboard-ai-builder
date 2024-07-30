@@ -1,0 +1,85 @@
+{
+  "Dashboard": {},
+  "History": {
+    "title": "Historia"
+  },
+  "Navbar": {
+    "cboard": "CBoard",
+    "builder": "Constructor"
+  },
+  "PromptForm": {
+    "rows": "Filas",
+    "columns": "Columnas",
+    "colorScheme": "Combinación de colores",
+    "prompt": "Descripción",
+    "useAiPictograms": "Usar pictogramas de IA",
+    "newBoard": "Nuevo tablero"
+  },
+  "Board": {
+    "InitialContent": {
+      "ai": "IA",
+      "createANewBoard": "Cree un <b>Nuevo <br></br> Tablero</b>",
+      "examples": "Ejemplos",
+      "promptExample1": "Crea un tablero con una secuencia que cuente una historia mágica y aventurera con animales marinos.",
+      "promptExample2": "Muestra a una familia con una madre, un hijo y una abuela en una casa interactuando.",
+      "promptExample3": "Ilustrar historias imaginativas sobre aventuras y amistades entre niños y animales."
+    },
+    "BoardContainer": {
+      "exportToCboard": "Exportar a Cboard"
+    },
+    "TileEditor": {
+      "TileEditorDialogActions": {
+        "saveChanges": "Guardar cambios"
+      },
+      "MorePictosButtons": {
+        "search": "Buscar",
+        "generate": "Generar",
+        "searchAccessibility": "Buscar pictogramas",
+        "generateAccessibility": "Generar pictogramas"
+      },
+      "PictogramGeneratorFormDialog": {
+        "title": "Utilice Pictonizer para generar pictogramas",
+        "subtitle": "Generar 4 pictogramas para",
+        "cancelButton": "CANCELAR",
+        "generateButton": "GENERAR",
+        "generatingPictogramsTo": "Generando 4 pictogramas para:"
+      },
+      "PictogramSearcher": {
+        "pictogramNotFound": "Pictograma no encontrado",
+        "error": "Error",
+        "writeKeywordToSearch": "Escribe una palabra clave para buscar",
+        "trySearchingWithAnotherKeywordOrGenerateIt": "Intente buscar con otra palabra clave o genere con nuestro generador de pictogramas.",
+        "couldNotFetchPictograms": "No pudimos conseguir los pictogramas. Por favor, inténtelo de nuevo más tarde.",
+        "searchPictogramUsingTextField": "Buscar un pictograma usando el campo de texto en la parte superior"
+      }
+    }
+  },
+  "SavedData": {
+    "savedBoards": "Tableros guardados",
+    "history": "Historia"
+  },
+  "SignIn": {
+    "cboard": "CBoard",
+    "builder": "Constructor",
+    "sloganTitle": "Rápido e inteligente",
+    "sloganSubtitle": "Crea tableros con solo escribir lo que necesitas.",
+    "ai": "IA",
+    "errorMessage": "Algo salió mal durante el inicio de sesión",
+    "hello": "¡Hola!",
+    "welcome": "Bienvenido al creador de tableros de CAA",
+    "loginButton": "INICIAR SESIÓN",
+    "signUpButton": "ÚNETE",
+    "signInWith": "Iniciar sesión con {provider}",
+    "privacyPolicy": "Política de privacidad",
+    "terms": "Letra chica",
+    "LoginDialog": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "loginButton": "INICIAR SESIÓN",
+      "cancelButton": "CANCELAR",
+      "forgotPassword": "¿OLVIDÓ SU CONTRASEÑA?",
+      "errorMessage": "Correo electrónico o contraseña incorrectos"
+    }
+  }
+}
