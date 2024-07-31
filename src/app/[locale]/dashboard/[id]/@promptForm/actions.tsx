@@ -52,6 +52,17 @@ const boardGenerator = initEngine({
   contentSafetyConfiguration,
 });
 
+function convertLocaletoIso639_3(locale: string) {
+  const iso639_1to3: { [key: string]: string } = {
+    en: 'eng',
+    es: 'spa',
+    pt: 'por',
+  };
+  const iso639_1 = locale.split('-')[0];
+
+  return iso639_1to3[iso639_1] || 'eng';
+}
+
 export async function submit(
   prevState: {
     error?: { message: string };
@@ -103,11 +114,14 @@ export async function submit(
       }
 
       const numberOfTiles = rows * columns;
+
+      const language = convertLocaletoIso639_3(locale);
+
       const suggestions = await boardGenerator.getSuggestions({
         prompt: prompt,
         maxSuggestions: numberOfTiles,
         symbolSet: 'arasaac',
-        language: 'eng',
+        language: language,
       });
 
       if (!suggestions.length) {
