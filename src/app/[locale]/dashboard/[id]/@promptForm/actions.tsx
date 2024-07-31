@@ -20,6 +20,7 @@ const promptFormDataSchema = z.object({
   colorScheme: z.string().min(1),
   prompt: z.string().min(1),
   isAiPictogram: z.coerce.boolean(),
+  locale: z.string().min(1),
 });
 
 const openAIConfiguration = {
@@ -70,13 +71,16 @@ export async function submit(
     rows = Number(formData.get('rows')),
     columns = Number(formData.get('columns')),
     colorScheme = formData.get('color-scheme'),
-    isAiPictogram = formData.get('use-ai-pictograms');
+    isAiPictogram = formData.get('use-ai-pictograms'),
+    locale = formData.get('locale');
+
   const validate = promptFormDataSchema.safeParse({
     rows: rows,
     columns: columns,
     colorScheme: colorScheme,
     prompt: prompt,
     isAiPictogram: isAiPictogram,
+    locale: locale,
   });
   const ERROR_RESPONSE_OBJECT = {
     message: 'Failed to create board',
@@ -90,7 +94,8 @@ export async function submit(
     if (
       typeof prompt === 'string' &&
       typeof rows === 'number' &&
-      typeof columns === 'number'
+      typeof columns === 'number' &&
+      typeof locale === 'string'
     ) {
       const isContentSafe = await boardGenerator.isContentSafe(prompt);
       if (!isContentSafe) {
