@@ -92,6 +92,24 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
   );
 }
 
+const useDownloadBoard = (): [() => Promise<void>, boolean] => {
+  const board = useBoundStore((state) => state.board);
+  const [isDownloadingBoard, setIsDownloadingBoard] = useState(false);
+
+  const handleDownloadClick = async () => {
+    setIsDownloadingBoard(true);
+    try {
+      if (board) await cboardExportAdapter([board]);
+    } catch (err) {
+      console.error(err);
+      //Show Error Notification
+    }
+    setIsDownloadingBoard(false);
+  };
+
+  return [handleDownloadClick, isDownloadingBoard];
+};
+
 const DefaultToolbar = () => {
   // const [isFullscreen, setisFullscreen] = useState(false);
   // const toggleFullscreen = () => {
@@ -106,10 +124,7 @@ const DefaultToolbar = () => {
   //     }
   //   }
   // };
-  const board = useBoundStore((state) => state.board);
-  const handleDownloadClick = () => {
-    if (board) cboardExportAdapter([board]);
-  };
+  const [handleDownloadClick, isDownloadingBoard] = useDownloadBoard();
 
   return (
     <>
@@ -119,8 +134,12 @@ const DefaultToolbar = () => {
       <IconButton>
         <EditIcon fontSize="small" />
       </IconButton> */}
-      <IconButton onClick={handleDownloadClick}>
-        <DownloadIcon fontSize="small" />
+      <IconButton onClick={handleDownloadClick} disabled={isDownloadingBoard}>
+        {isDownloadingBoard ? (
+          <CircularProgress size={20} />
+        ) : (
+          <DownloadIcon fontSize="small" />
+        )}
       </IconButton>
       <IconButton>
         <PrintIcon fontSize="small" />
