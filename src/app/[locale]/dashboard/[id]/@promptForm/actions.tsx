@@ -20,6 +20,7 @@ const promptFormDataSchema = z.object({
   colorScheme: z.string().min(1),
   prompt: z.string().min(1),
   isAiPictogram: z.coerce.boolean(),
+  locale: z.string().min(1),
 });
 
 const openAIConfiguration = {
@@ -51,6 +52,17 @@ const boardGenerator = initEngine({
   contentSafetyConfiguration,
 });
 
+function convertLocaletoIso639_3(locale: string) {
+  const iso639_1to3: { [key: string]: string } = {
+    en: 'eng',
+    es: 'spa',
+    pt: 'por',
+  };
+  const iso639_1 = locale.split('-')[0];
+
+  return iso639_1to3[iso639_1] || 'eng';
+}
+
 export async function submit(
   prevState: {
     error?: { message: string };
@@ -70,13 +82,16 @@ export async function submit(
     rows = Number(formData.get('rows')),
     columns = Number(formData.get('columns')),
     colorScheme = formData.get('color-scheme'),
-    isAiPictogram = formData.get('use-ai-pictograms');
+    isAiPictogram = formData.get('use-ai-pictograms'),
+    locale = formData.get('locale');
+
   const validate = promptFormDataSchema.safeParse({
     rows: rows,
     columns: columns,
     colorScheme: colorScheme,
     prompt: prompt,
     isAiPictogram: isAiPictogram,
+    locale: locale,
   });
   const ERROR_RESPONSE_OBJECT = {
     message: 'Failed to create board',
@@ -90,7 +105,8 @@ export async function submit(
     if (
       typeof prompt === 'string' &&
       typeof rows === 'number' &&
-      typeof columns === 'number'
+      typeof columns === 'number' &&
+      typeof locale === 'string'
     ) {
       const isContentSafe = await boardGenerator.isContentSafe(prompt);
       if (!isContentSafe) {
@@ -98,11 +114,14 @@ export async function submit(
       }
 
       const numberOfTiles = rows * columns;
+
+      const language = convertLocaletoIso639_3(locale);
+
       const suggestions = await boardGenerator.getSuggestions({
         prompt: prompt,
         maxSuggestions: numberOfTiles,
         symbolSet: 'arasaac',
-        language: 'eng',
+        language: language,
       });
 
       if (!suggestions.length) {
