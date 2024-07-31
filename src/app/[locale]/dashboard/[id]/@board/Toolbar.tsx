@@ -20,6 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material';
 // import EditingToolbar from './EditingToolbar';
 import styles from './styles';
+import { cboardExportAdapter } from '@/exportHelpers/cboardExportAdapter';
 
 type Props = {
   isEditing: boolean;
@@ -105,6 +106,10 @@ const DefaultToolbar = () => {
   //     }
   //   }
   // };
+  const board = useBoundStore((state) => state.board);
+  const handleDownloadClick = () => {
+    if (board) cboardExportAdapter([board]);
+  };
 
   return (
     <>
@@ -114,7 +119,7 @@ const DefaultToolbar = () => {
       <IconButton>
         <EditIcon fontSize="small" />
       </IconButton> */}
-      <IconButton>
+      <IconButton onClick={handleDownloadClick}>
         <DownloadIcon fontSize="small" />
       </IconButton>
       <IconButton>
