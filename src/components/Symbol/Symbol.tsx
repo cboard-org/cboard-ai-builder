@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord, TileRecord } from '@/commonTypes/Tile';
-import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
+import { createAIPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -125,16 +125,17 @@ export default function Symbol({
     getSrc();
   }, [setSrc, image, label, tileId]);
 
-  const generatePicto = useCallback(async () => {
+  const generatePicto = useCallback(() => {
     const description = label;
     if (!description) return;
-
-    try {
-      const generatedPicto = await createPicto(description);
-      setGeneratedPicto(generatedPicto);
-    } catch (e) {
-      console.error('Error aca' + e);
-    }
+    createAIPicto(description)
+      .then((generatedPicto) => {
+        //console.log(JSON.stringify(generatedPicto));
+        setGeneratedPicto(generatedPicto);
+      })
+      .catch((error) => {
+        console.error('Error generating AI picto. ' + error);
+      });
   }, [label]);
 
   useEffect(() => {

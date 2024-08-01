@@ -7,7 +7,7 @@ import TileEditorModal from '@/components/TileEditorModal/TileEditorModal';
 import { useState } from 'react';
 import {
   changePicto,
-  createPicto,
+  createAIPicto,
 } from '@/app/[locale]/dashboard/[id]/@board/actions';
 import Button from '@mui/material/Button';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
@@ -98,26 +98,30 @@ export default function Tile({
     return updatedTile;
   };
 
-  const generatePictoForTile = async (injectedLabel: string | null = null) => {
-    try {
-      setIsChangingPicto(true);
-      const generatedPicto =
-        tile.label && (await createPicto(injectedLabel ?? tile.label));
-      if (generatedPicto) {
-        const updatedTile = addGeneratedPicto(
-          tile,
-          generatedPicto,
-          generatedPicto.url,
-        );
+  const generatePictoForTile = (injectedLabel: string | null = null) => {
+    setIsChangingPicto(true);
+    if (tile.label) {
+      createAIPicto(injectedLabel ?? tile.label)
+        .then((generatedPicto) => {
+          console.log(JSON.stringify(generatedPicto));
+          if (generatedPicto) {
+            const updatedTile = addGeneratedPicto(
+              tile,
+              generatedPicto,
+              generatedPicto.url,
+            );
+            setIsChangingPicto(false);
 
-        const lastSuggestedImagesIndex =
-          updatedTile?.suggestedImages.length ?? 1 - 1;
-        setSelectedImageSuggestion(lastSuggestedImagesIndex);
-      }
-    } catch (error) {
-      console.error('Error generating picto', error);
+            const lastSuggestedImagesIndex =
+              updatedTile?.suggestedImages.length ?? 1 - 1;
+            setSelectedImageSuggestion(lastSuggestedImagesIndex);
+          }
+        })
+        .catch((error) => {
+          console.error('Error generating picto', error);
+          setIsChangingPicto(false);
+        });
     }
-    setIsChangingPicto(false);
   };
 
   const handleNextImage = async () => {
