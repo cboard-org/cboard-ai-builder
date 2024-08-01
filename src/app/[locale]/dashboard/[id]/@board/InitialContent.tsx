@@ -229,21 +229,10 @@ const BrandTypography = () => {
   //const messages = useTranslations('');
 
   return (
-    <Typography
-      variant="subtitle1"
-      component="h2"
-      sx={{ flexGrow: 1 }}
-      ml={0.5}
-    >
-      <Box component="span" fontWeight="bold">
-        {
-          //messages('cboard')
-        }
-        Cboard
-      </Box>
-      {
-        ' ' + 'Builder' //messages('builder')
-      }
-    </Typography>
+    <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+      <Typography variant="subtitle1" component="h2" ml={0.5}>
+        <b>Cboard</b> Builder
+      </Typography>
+    </Box>
   );
 };
