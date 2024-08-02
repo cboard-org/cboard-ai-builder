@@ -100,7 +100,6 @@ export default function Tile({
     if (tile.label) {
       createAIPicto(injectedLabel ?? tile.label)
         .then((generatedPicto) => {
-          console.log(JSON.stringify(generatedPicto));
           if (generatedPicto) {
             const updatedTile = addGeneratedPicto(
               tile,
