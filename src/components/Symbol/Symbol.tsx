@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord, TileRecord } from '@/commonTypes/Tile';
-import { createAIPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
+import { createAIPicto } from '@/lib/ai-picto/picto';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';

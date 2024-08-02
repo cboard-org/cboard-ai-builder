@@ -5,10 +5,7 @@ import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 import TileEditorModal from '@/components/TileEditorModal/TileEditorModal';
 import { useState } from 'react';
-import {
-  changePicto,
-  createAIPicto,
-} from '@/app/[locale]/dashboard/[id]/@board/actions';
+import { createAIPicto, changePicto } from '@/lib/ai-picto/picto';
 import Button from '@mui/material/Button';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 
