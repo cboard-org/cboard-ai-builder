@@ -13,6 +13,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
 import { useEffect } from 'react';
+import Settings from '@/components/Settings/Settings';
 
 const promptExampleMessagesKey = [
   {
@@ -137,7 +138,12 @@ export default function InitialContent({
         }}
       >
         <Box sx={{ pb: '1rem' }}>
-          <BrandTypography />
+          <Box
+            sx={{ display: 'flex', direction: 'row', alignContent: 'center' }}
+          >
+            <BrandTypography />
+            <Settings />
+          </Box>
         </Box>
         <Box
           sx={{
