@@ -5,7 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Logout from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -21,6 +21,7 @@ import Paper from '@mui/material/Paper';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { signOut } from 'next-auth/react';
 
 export default function Settings() {
   const [open, setOpen] = React.useState(false);
@@ -62,9 +63,9 @@ export default function Settings() {
           >
             <ListItem
               secondaryAction={
-                <Button variant="outlined" color="primary">
-                  Log Out
-                </Button>
+                <IconButton onClick={() => signOut()}>
+                  <Logout />
+                </IconButton>
               }
               disablePadding
             >
