@@ -43,6 +43,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.imaginepro.ai',
+        port: '',
+        pathname: '/storage/**',
+      },
     ],
   },
 };
