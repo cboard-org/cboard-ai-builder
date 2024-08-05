@@ -22,9 +22,11 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { signOut } from 'next-auth/react';
+import { useLocale } from 'next-intl';
 
 export default function Settings() {
   const [open, setOpen] = React.useState(false);
+  const locale = useLocale();
   //const messages = useMessages();
   const handleOnClick = () => {
     setOpen(true);
@@ -63,7 +65,14 @@ export default function Settings() {
           >
             <ListItem
               secondaryAction={
-                <IconButton onClick={() => signOut()}>
+                <IconButton
+                  onClick={() =>
+                    signOut({
+                      redirect: true,
+                      callbackUrl: locale ? `/${locale}/signin` : '/signin',
+                    })
+                  }
+                >
                   <Logout />
                 </IconButton>
               }
