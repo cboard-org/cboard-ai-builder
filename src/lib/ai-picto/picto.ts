@@ -1,4 +1,27 @@
+async function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 export async function createAIPicto(description: string) {
+  let imgDone: boolean = false;
+  let tries: number = 0;
+  type Message = {
+    status: string;
+    uri: string;
+    progress: number;
+    messageId: string;
+  };
+  let messageData: Message = {
+    status: '',
+    uri: '',
+    progress: 0,
+    messageId: '',
+  };
+  let msgData: Message = {
+    status: '',
+    uri: '',
+    progress: 0,
+    messageId: '',
+  };
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -16,13 +39,25 @@ export async function createAIPicto(description: string) {
     });
     const data = await response.json();
 
-    const message = await fetch('/api/mymidjourney/message/' + data.messageId, {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow',
-      cache: 'no-store',
-    });
-    const messageData = await message.json();
+    do {
+      await delay(2000);
+      const message = await fetch(
+        '/api/mymidjourney/message/' + data.messageId,
+        {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+          cache: 'no-store',
+        },
+      );
+      messageData = await message.json();
+      tries++;
+      if (messageData.status === 'DONE') {
+        imgDone = true;
+      }
+    } while (imgDone === false && tries < 40);
+    imgDone = false;
+    tries = 0;
 
     // Upscale image
     const buttonBody: string = JSON.stringify({
@@ -38,16 +73,23 @@ export async function createAIPicto(description: string) {
     });
     const buttonData = await buttonResponse.json();
 
-    const upscaleMsg = await fetch(
-      '/api/mymidjourney/message/' + buttonData.messageId,
-      {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow',
-        cache: 'no-store',
-      },
-    );
-    const msgData = await upscaleMsg.json();
+    do {
+      await delay(2000);
+      const upscaleMsg = await fetch(
+        '/api/mymidjourney/message/' + buttonData.messageId,
+        {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+          cache: 'no-store',
+        },
+      );
+      msgData = await upscaleMsg.json();
+      tries++;
+      if (msgData.status === 'DONE') {
+        imgDone = true;
+      }
+    } while (imgDone === false && tries < 40);
 
     return {
       url: msgData.uri,
@@ -58,11 +100,26 @@ export async function createAIPicto(description: string) {
       changeImageIds: ['U1', 'U2', 'U3', 'U4'],
     };
   } catch (error) {
-    console.error('Error generating AI image');
+    imgDone = true;
+    console.error('Error generating AI image. ' + JSON.stringify(error));
   }
 }
 
 export async function changePicto(messageId: string, button: string) {
+  let imgDone: boolean = false;
+  let tries: number = 0;
+  type Message = {
+    status: string;
+    uri: string;
+    progress: number;
+    messageId: string;
+  };
+  let msgData: Message = {
+    status: '',
+    uri: '',
+    progress: 0,
+    messageId: '',
+  };
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -81,16 +138,23 @@ export async function changePicto(messageId: string, button: string) {
     });
     const buttonData = await buttonResponse.json();
 
-    const upscaleMsg = await fetch(
-      '/api/mymidjourney/message/' + buttonData.messageId,
-      {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow',
-        cache: 'no-store',
-      },
-    );
-    const msgData = await upscaleMsg.json();
+    do {
+      await delay(2000);
+      const upscaleMsg = await fetch(
+        '/api/mymidjourney/message/' + buttonData.messageId,
+        {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+          cache: 'no-store',
+        },
+      );
+      msgData = await upscaleMsg.json();
+      tries++;
+      if (msgData.status === 'DONE') {
+        imgDone = true;
+      }
+    } while (imgDone === false && tries < 40);
 
     return {
       url: msgData.uri,
