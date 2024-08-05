@@ -6,7 +6,7 @@ export default function IntlWrapperForAsync({
   propertyName,
 }: {
   children: React.ReactNode;
-  propertyName: string;
+  propertyName: string | string[];
 }) {
   const messages = useMessages();
   return (
