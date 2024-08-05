@@ -21,9 +21,9 @@
       "ai": "AI",
       "createANewBoard": "Create a <b>New <br></br> Board</b>",
       "examples": "Examples",
-      "promptExample1": "Create a board with a sequence that tells a magical and adventurous story with sea animals.",
-      "promptExample2": "Show a family with a mother, son and grandmother in a house interacting.",
-      "promptExample3": "Illustrate imaginative stories about adventures and friendships between children and animals."
+      "promptExample1": "Parts of the body",
+      "promptExample2": "Jungle animals",
+      "promptExample3": "Italian food"
     },
     "BoardContainer": {
       "exportToCboard": "Export to Cboard"
