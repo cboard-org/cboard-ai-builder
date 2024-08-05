@@ -1,5 +1,4 @@
-export const supportedLocales = ['en-US', 'pt-BR'];
-//export const supportedLocales = ['en', 'de', 'pt'];
+export const supportedLocales = ['en-US', 'pt-BR', 'pt-PT', 'es-ES'];
 
 export const defaultLocale = 'en-US';
 
