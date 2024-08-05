@@ -1,4 +1,10 @@
-import React, { ReactNode, useEffect, useRef, useTransition } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useTransition,
+} from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
@@ -8,6 +14,10 @@ import { useState } from 'react';
 import { createAIPicto, changePicto } from '@/lib/ai-picto/picto';
 import Button from '@mui/material/Button';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
+import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
+import { usePathname } from '@/navigation';
+import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 
 const useUpdatedTileSynchronizer = () => {
   const updateTilePropsSaver = useUpdateTilePropsSaver();
@@ -21,6 +31,20 @@ const useUpdatedTileSynchronizer = () => {
     }
   }, [updatedTile, tileId, updateTilePropsSaver]);
   return setUpdatedTile;
+};
+
+const useGeneratePictoActive = () => {
+  const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
+  const pathname = usePathname();
+  const isStashedContentView = pathname.includes(
+    `/dashboard/${STASHED_CONTENT_ID}`,
+  );
+  const isShouldUsePictonizer = prompt.shouldUsePictonizer;
+  return {
+    isPictoGenerationActive: isShouldUsePictonizer && isStashedContentView,
+    isStashedContentView,
+    isShouldUsePictonizer,
+  };
 };
 
 type Props = {
@@ -70,36 +94,43 @@ export default function Tile({
 
   const updateTilePropsSaver = useUpdateTilePropsSaver();
 
-  const addGeneratedPicto = (
-    tile: TileRecord,
-    generatedPicto: TileRecord['generatedPicto'],
-    newPictoUrl: string,
-  ) => {
-    if (!generatedPicto) return;
-    const slicedChangeImageIds = generatedPicto.changeImageIds?.slice(1);
+  const addGeneratedPicto = useCallback(
+    (
+      tile: TileRecord,
+      generatedPicto: TileRecord['generatedPicto'],
+      newPictoUrl: string,
+    ) => {
+      if (!generatedPicto) return;
+      const slicedChangeImageIds = generatedPicto.changeImageIds?.slice(1);
 
-    const concatedSuggestedImages = tile.suggestedImages
-      ? tile.suggestedImages.concat(newPictoUrl)
-      : [newPictoUrl];
-    const updatedTile = {
-      ...tile,
-      image: newPictoUrl,
-      suggestedImages: concatedSuggestedImages,
-      generatedPicto: {
-        ...generatedPicto,
-        changeImageIds: slicedChangeImageIds,
-      },
-    };
-    if (!updatedTile) throw new Error('Error adding generated picto');
-    setUpdatedTile(updatedTile);
-    return updatedTile;
-  };
+      const concatedSuggestedImages = tile.suggestedImages
+        ? tile.suggestedImages.concat(newPictoUrl)
+        : [newPictoUrl];
+      const updatedTile = {
+        ...tile,
+        image: newPictoUrl,
+        suggestedImages: concatedSuggestedImages,
+        generatedPicto: {
+          ...generatedPicto,
+          changeImageIds: slicedChangeImageIds,
+        },
+      };
+      if (!updatedTile) throw new Error('Error adding generated picto');
+      setUpdatedTile(updatedTile);
+      return updatedTile;
+    },
+    [setUpdatedTile],
+  );
 
-  const generatePictoForTile = (injectedLabel: string | null = null) => {
-    setIsChangingPicto(true);
-    if (tile.label) {
-      createAIPicto(injectedLabel ?? tile.label)
-        .then((generatedPicto) => {
+  const generatePictoForTile = useCallback(
+    async (injectedLabel: string | null = null) => {
+      setIsChangingPicto(true);
+      if (tile.label) {
+        try {
+          const generatedPicto = await createAIPicto(
+            injectedLabel ?? tile.label,
+          );
+
           if (generatedPicto) {
             const updatedTile = addGeneratedPicto(
               tile,
@@ -112,15 +143,16 @@ export default function Tile({
               updatedTile?.suggestedImages.length ?? 1 - 1;
             setSelectedImageSuggestion(lastSuggestedImagesIndex);
           }
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error('Error generating picto', error);
           setIsChangingPicto(false);
-        });
-    }
-  };
+        }
+      }
+    },
+    [addGeneratedPicto, tile],
+  );
 
-  const handleNextImage = async () => {
+  const handleNextImage = useCallback(async () => {
     if (isChangingPicto) return;
     const unviewvedPictoGeneratedId =
       generatedPicto?.changeImageIds && generatedPicto?.changeImageIds[0];
@@ -163,7 +195,16 @@ export default function Tile({
       ...tile,
       image: suggestedImages[nextPosition],
     });
-  };
+  }, [
+    isChangingPicto,
+    generatedPicto,
+    suggestedImages,
+    selectedImageSuggestion,
+    addGeneratedPicto,
+    tile,
+    generatePictoForTile,
+    updateTilePropsSaver,
+  ]);
 
   const onTileClick = () => {
     //setIsEditing(true);
@@ -194,6 +235,23 @@ export default function Tile({
     }
     prevIsEditingRef.current = isEditing;
   }, [isEditing, tile]);
+
+  const image = tile.image;
+
+  const { isPictoGenerationActive } = useGeneratePictoActive();
+  const [isGeneratingPictoOnMount, setIsGeneratingPictoOnMount] =
+    useState(false);
+  useEffect(() => {
+    if (image === '' && isPictoGenerationActive && !isGeneratingPictoOnMount) {
+      setIsGeneratingPictoOnMount(true);
+      handleNextImage();
+    }
+  }, [
+    image,
+    handleNextImage,
+    isPictoGenerationActive,
+    isGeneratingPictoOnMount,
+  ]);
 
   return (
     <>
