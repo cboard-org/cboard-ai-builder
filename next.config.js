@@ -43,8 +43,15 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.imaginepro.ai',
+        port: '',
+        pathname: '/storage/**',
+      },
     ],
   },
+  reactStrictMode: false,
 };
 
 module.exports = withNextIntl(nextConfig);

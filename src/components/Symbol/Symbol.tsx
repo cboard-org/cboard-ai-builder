@@ -1,13 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import style from './Symbol.module.css';
 import { LabelPositionRecord, TileRecord } from '@/commonTypes/Tile';
-import { createPicto } from '@/app/[locale]/dashboard/[id]/@board/actions';
-import { useBoundStore } from '@/providers/StoreProvider';
-import { useShallow } from 'zustand/react/shallow';
 import CircularProgress from '@mui/material/CircularProgress';
-import { usePathname } from '@/navigation';
-import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
 import GenerateIcon from './GenerateIcon';
 import Box from '@mui/material/Box';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -27,51 +22,9 @@ type Props = {
   selectedImageSuggestion: number;
   isChangingPicto: boolean;
 };
-const useUpdateTileImage = (
-  tile: TileRecord,
-  generatedPicto: TileRecord['generatedPicto'],
-  addGeneratedPicto: AddGeneratedPicto,
-) => {
-  const image = tile.image;
-  const [stashDashboard] = useBoundStore(
-    useShallow((state) => [state.stashDashboard]),
-  );
-  const { isStashedContentView, isPictoGenerationActive } =
-    useGeneratePictoActive();
-
-  useEffect(() => {
-    if (image === '' && isPictoGenerationActive && generatedPicto) {
-      addGeneratedPicto(tile, generatedPicto, generatedPicto.url);
-      if (isStashedContentView) stashDashboard();
-    }
-  }, [
-    addGeneratedPicto,
-    image,
-    generatedPicto,
-    tile,
-    stashDashboard,
-    isStashedContentView,
-    isPictoGenerationActive,
-  ]);
-};
-
-export const useGeneratePictoActive = () => {
-  const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
-  const pathname = usePathname();
-  const isStashedContentView = pathname.includes(
-    `/dashboard/${STASHED_CONTENT_ID}`,
-  );
-  const isShouldUsePictonizer = prompt.shouldUsePictonizer;
-  return {
-    isPictoGenerationActive: isShouldUsePictonizer && isStashedContentView,
-    isStashedContentView,
-    isShouldUsePictonizer,
-  };
-};
 
 export default function Symbol({
   tile,
-  addGeneratedPicto,
   labelpos,
   suggestedImagesLength,
   selectedImageSuggestion,
@@ -80,9 +33,6 @@ export default function Symbol({
   const { label, image, id: tileId } = tile;
   const [src, setSrc] = React.useState<string | null>(null);
   const symbolClassName = style.Symbol;
-  const [generatedPicto, setGeneratedPicto] =
-    React.useState<TileRecord['generatedPicto']>(undefined);
-  const { isPictoGenerationActive } = useGeneratePictoActive();
 
   useEffect(() => {
     const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
@@ -125,51 +75,13 @@ export default function Symbol({
     getSrc();
   }, [setSrc, image, label, tileId]);
 
-  const generatePicto = useCallback(async () => {
-    const description = label;
-    if (!description) return;
-
-    try {
-      const generatedPicto = await createPicto(description);
-      setGeneratedPicto(generatedPicto);
-    } catch (e) {
-      console.error('Error aca' + e);
-    }
-  }, [label]);
-
-  useEffect(() => {
-    if (image === '' && isPictoGenerationActive) {
-      generatePicto();
-    }
-  }, [image, generatePicto, isPictoGenerationActive]);
-
-  useUpdateTileImage(tile, generatedPicto, addGeneratedPicto);
-  // const onClick = () => {
-  //   if (image === '' && label && !isPending) {
-  //     console.log('Generating picto for', label);
-  //     startTransition(async () => {
-  //       const description = label;
-  //       try {
-  //         console.log('Creating picto for', description);
-  //         const generatedPicto = await createPicto(description);
-  //         console.log('Generated picto', generatedPicto);
-  //         //setSrc(generatedPicto.url);
-  //         updateTileImage(tileId, generatedPicto.url);
-  //         setSrc(generatedPicto.url);
-  //       } catch (e) {
-  //         console.error('Error aca' + e.message);
-  //       }
-  //     });
-  //   }
-  // };
-
   return (
     <div className={symbolClassName}>
       {/* <div onClick={onClick}>clickme</div> */}
       {labelpos === 'Above' && (
         <Typography className={style.SymbolLabel}>{label}</Typography>
       )}
-      {(!src && isPictoGenerationActive) || isChangingPicto ? (
+      {isChangingPicto ? (
         <div className={style.SymbolLoadingContainer}>
           <CircularProgress
             sx={{
@@ -201,7 +113,7 @@ export default function Symbol({
         )
       )}
 
-      {!src && !isPictoGenerationActive && !isChangingPicto && (
+      {!src && !isChangingPicto && (
         <div className={style.SymbolEmptyImageContainer}>
           <GenerateIcon />
         </div>

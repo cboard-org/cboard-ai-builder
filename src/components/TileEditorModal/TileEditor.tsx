@@ -22,7 +22,7 @@ type PropType = {
   onClose: () => void;
   onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
-  generatePicto: (label: string) => Promise<void>;
+  generatePicto: (label: string) => void;
   pictogramIndexBeforeSave: number | null;
 };
 
@@ -220,7 +220,7 @@ const TileEditor: React.FC<PropType> = ({
     }
     const lastIndex = slides.length;
     setMustForceIndex(lastIndex - 1);
-    await generatePicto(label);
+    generatePicto(label);
   };
 
   const showCarrousel = slides.length > 0 || isChangingPicto;
