@@ -17,7 +17,8 @@ export async function cboardExportAdapter(boards: BoardRecord[]) {
   if (jsonData) {
     let prefix = getDatetimePrefix();
     if (boards.length === 1) {
-      prefix = boards[0].name + ' ';
+      const name = boards[0].name?.split(' ').join('-').substring(0, 15);
+      prefix = name + '_';
     } else {
       prefix = prefix + 'boardsset ';
     }
