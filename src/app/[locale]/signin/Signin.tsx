@@ -10,7 +10,7 @@ import { getProviders } from 'next-auth/react';
 import InternalLink from '@/components/InternalLink/InternalLink';
 import Image from 'next/image';
 import Login from '@/app/[locale]/signin/Login/Login';
-import Alert from '@mui/material/Alert';
+import Alert from '@/components/Alert/Alert';
 import {
   NextIntlClientProvider,
   useMessages,
@@ -141,11 +141,7 @@ export default function Signin({
 
                 <Divider flexItem sx={styles.divider} variant="fullWidth" />
 
-                {errorMessage && (
-                  <Alert sx={{ width: '100%' }} severity="error">
-                    {t('errorMessage')}
-                  </Alert>
-                )}
+                {errorMessage && <Alert messages={t('errorMessage')} />}
 
                 {oauthProviders.map((provider) => (
                   <OAuthButton key={provider.id} provider={provider} />

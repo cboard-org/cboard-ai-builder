@@ -20,7 +20,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 // import { RowsIcon, ColumnsIcon } from './icons';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
@@ -150,6 +150,7 @@ export function PromptForm() {
           }}
           action={formAction}
         >
+          <input type="hidden" name="locale" value={useLocale()} />
           <Grid p={3} container>
             <Grid pt={0} item xs={12}>
               <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">

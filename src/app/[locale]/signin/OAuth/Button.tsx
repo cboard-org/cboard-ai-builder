@@ -8,8 +8,9 @@ import Facebook from '@/components/icons/Facebook';
 import Apple from '@/components/icons/Apple';
 import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { styles } from './styles';
+import { DEFAULT_CALLBACK_URL } from '../constants';
 
 function getIcon(id: string) {
   switch (id) {
@@ -26,6 +27,7 @@ function getIcon(id: string) {
 
 export default function Button({ provider }: { provider: ClientSafeProvider }) {
   const t = useTranslations('SignIn');
+  const locale = useLocale();
   const Icon = getIcon(provider.id);
   return (
     <MUIButton
@@ -33,8 +35,12 @@ export default function Button({ provider }: { provider: ClientSafeProvider }) {
       variant="outlined"
       size="large"
       onClick={() =>
-        signIn(provider.id, undefined, {
+        signIn(provider.id, {
           prompt: 'select_account',
+          redirect: true,
+          callbackUrl: locale
+            ? `/${locale}/${DEFAULT_CALLBACK_URL}`
+            : DEFAULT_CALLBACK_URL,
         })
       }
       sx={styles.button}

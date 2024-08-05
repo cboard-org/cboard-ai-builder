@@ -20,6 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material';
 // import EditingToolbar from './EditingToolbar';
 import styles from './styles';
+import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
 
 type Props = {
   isEditing: boolean;
@@ -91,6 +92,24 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
   );
 }
 
+const useDownloadBoard = (): [() => Promise<void>, boolean] => {
+  const board = useBoundStore((state) => state.board);
+  const [isDownloadingBoard, setIsDownloadingBoard] = useState(false);
+
+  const handleDownloadClick = async () => {
+    setIsDownloadingBoard(true);
+    try {
+      if (board) await cboardExportAdapter([board]);
+    } catch (err) {
+      console.error(err);
+      //Show Error Notification
+    }
+    setIsDownloadingBoard(false);
+  };
+
+  return [handleDownloadClick, isDownloadingBoard];
+};
+
 const DefaultToolbar = () => {
   // const [isFullscreen, setisFullscreen] = useState(false);
   // const toggleFullscreen = () => {
@@ -105,6 +124,7 @@ const DefaultToolbar = () => {
   //     }
   //   }
   // };
+  const [handleDownloadClick, isDownloadingBoard] = useDownloadBoard();
 
   return (
     <>
@@ -114,8 +134,12 @@ const DefaultToolbar = () => {
       <IconButton>
         <EditIcon fontSize="small" />
       </IconButton> */}
-      <IconButton>
-        <DownloadIcon fontSize="small" />
+      <IconButton onClick={handleDownloadClick} disabled={isDownloadingBoard}>
+        {isDownloadingBoard ? (
+          <CircularProgress size={20} />
+        ) : (
+          <DownloadIcon fontSize="small" />
+        )}
       </IconButton>
       <IconButton>
         <PrintIcon fontSize="small" />
