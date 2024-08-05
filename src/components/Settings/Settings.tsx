@@ -23,6 +23,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { signOut } from 'next-auth/react';
 import { useLocale } from 'next-intl';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Settings() {
   const [open, setOpen] = React.useState(false);
@@ -66,16 +67,18 @@ export default function Settings() {
           >
             <ListItem
               secondaryAction={
-                <IconButton
-                  onClick={() =>
-                    signOut({
-                      redirect: true,
-                      callbackUrl: locale ? `/${locale}/signin` : '/signin',
-                    })
-                  }
-                >
-                  <Logout />
-                </IconButton>
+                <Tooltip title={messages('signOut')}>
+                  <IconButton
+                    onClick={() =>
+                      signOut({
+                        redirect: true,
+                        callbackUrl: locale ? `/${locale}/signin` : '/signin',
+                      })
+                    }
+                  >
+                    <Logout />
+                  </IconButton>
+                </Tooltip>
               }
               disablePadding
             >
