@@ -11,9 +11,10 @@
     "rows": "Rows",
     "columns": "Columns",
     "colorScheme": "Color Scheme",
-    "prompt": "Description",
+    "prompt": "Create a board about:",
     "useAiPictograms": "Use AI Pictograms",
-    "newBoard": "New board"
+    "newBoard": "New board",
+    "newAACBoard": "New AAC board"
   },
   "Board": {
     "InitialContent": {
