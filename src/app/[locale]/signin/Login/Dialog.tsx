@@ -9,7 +9,7 @@ import { useState } from 'react';
 import DialogActions from '@mui/material/DialogActions';
 import { signIn } from 'next-auth/react';
 import Alert from '@mui/material/Alert';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { styles } from './styles';
 import { DEFAULT_CALLBACK_URL } from '../constants';
 export default function Dialog({
@@ -20,6 +20,7 @@ export default function Dialog({
   handleClose: () => void;
 }) {
   const t = useTranslations('SignIn.LoginDialog');
+  const locale = useLocale();
   const [error, setError] = useState<string | false>(false);
   const [loading, setLoading] = useState(false);
   return (
@@ -36,7 +37,9 @@ export default function Dialog({
           const response = await signIn('credentials', {
             email: formData.get('email') as string,
             password: formData.get('password') as string,
-            callbackUrl: DEFAULT_CALLBACK_URL,
+            callbackUrl: locale
+              ? `/${locale}/${DEFAULT_CALLBACK_URL}`
+              : DEFAULT_CALLBACK_URL,
           });
           if (response?.ok) return;
           if (response?.error) {
