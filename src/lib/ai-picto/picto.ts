@@ -106,6 +106,20 @@ export async function createAIPicto(description: string) {
 }
 
 export async function changePicto(messageId: string, button: string) {
+  let imgDone: boolean = false;
+  let tries: number = 0;
+  type Message = {
+    status: string;
+    uri: string;
+    progress: number;
+    messageId: string;
+  };
+  let msgData: Message = {
+    status: '',
+    uri: '',
+    progress: 0,
+    messageId: '',
+  };
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -124,16 +138,23 @@ export async function changePicto(messageId: string, button: string) {
     });
     const buttonData = await buttonResponse.json();
 
-    const upscaleMsg = await fetch(
-      '/api/mymidjourney/message/' + buttonData.messageId,
-      {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow',
-        cache: 'no-store',
-      },
-    );
-    const msgData = await upscaleMsg.json();
+    do {
+      await delay(2000);
+      const upscaleMsg = await fetch(
+        '/api/mymidjourney/message/' + buttonData.messageId,
+        {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+          cache: 'no-store',
+        },
+      );
+      msgData = await upscaleMsg.json();
+      tries++;
+      if (msgData.status === 'DONE') {
+        imgDone = true;
+      }
+    } while (imgDone === false && tries < 40);
 
     return {
       url: msgData.uri,
