@@ -1,13 +1,11 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
-  stack: {
+  linkContent: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
     width: '100%',
   },
-  list: { width: '100%', pt: 0 },
-  pagination: { paddingBottom: 1 },
 } satisfies Record<string, SxProps>;

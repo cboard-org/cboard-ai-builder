@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTranslations } from 'next-intl';
+import styles from './styles';
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -42,7 +43,7 @@ export default function TabsSelector({
   };
 
   return (
-    <Box px={2}>
+    <Box sx={styles.savedDataContainer} px={2}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -50,11 +51,12 @@ export default function TabsSelector({
         variant="fullWidth"
         indicatorColor="secondary"
         textColor="secondary"
+        sx={styles.tabs}
       >
         <Tab label={translations('history')} />
         <Tab label={translations('savedBoards')} />
       </Tabs>
-      <Box>
+      <Box sx={styles.tabPanelSection}>
         <TabPanel value={value} index={0}>
           <>{history}</>
         </TabPanel>

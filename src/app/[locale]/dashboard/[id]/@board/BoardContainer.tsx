@@ -64,50 +64,40 @@ const BoardSection = () => {
     updateBoard(newBoard);
   };
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+      }}
+    >
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          overflow: 'auto',
-        }}
+        bgcolor={isEditing ? theme.palette.primary.light : 'rgb(244, 244, 244)'}
+        sx={styles.header}
       >
-        <Box
-          bgcolor={
-            isEditing ? theme.palette.primary.light : 'rgb(244, 244, 244)'
+        <Box pr={2}>
+          {
+            <IconButton onClick={handleEditClick}>
+              {!isEditing ? (
+                <EditIcon fontSize="small" />
+              ) : (
+                <CloseIcon fontSize="small" />
+              )}
+            </IconButton>
           }
-          sx={styles.header}
-          borderRadius={1}
-        >
-          <Box pr={2}>
-            {
-              <IconButton onClick={handleEditClick}>
-                {!isEditing ? (
-                  <EditIcon fontSize="small" />
-                ) : (
-                  <CloseIcon fontSize="small" />
-                )}
-              </IconButton>
-            }
-          </Box>
-          <Box sx={styles.titleContainer}>
-            {/* <Box>Image</Box> */}
-            <Box>
-              <Typography
-                variant="h6"
-                fontSize={'1rem'}
-                component="div"
-                sx={styles.title}
-                ml={0.5}
-              >
-                {prompt.description}
-              </Typography>
-            </Box>
-          </Box>
-          <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
         </Box>
-        {/* <Divider flexItem sx={{ my: '0.5rem' }} /> */}
+        <Typography
+          variant="h6"
+          fontSize={'1rem'}
+          component="span"
+          sx={styles.title}
+          ml={0.5}
+        >
+          {prompt.description}
+        </Typography>
+        <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
+      </Box>
+      <Box sx={styles.boardGridContainer}>
         <Grid
           order={board.grid ? board.grid.order : []}
           items={board.tiles}
@@ -133,9 +123,9 @@ const BoardSection = () => {
           display: 'flex',
           justifyContent: 'end',
           alignItems: 'center',
-          pt: { xs: '0.5rem', sm: 0 },
+          flexShrink: 0,
           pr: { xs: 1, sm: 1 },
-          pb: { xs: 1, sm: 1 },
+          py: { xs: 1, sm: 1 },
         }}
       >
         <Button
@@ -147,7 +137,7 @@ const BoardSection = () => {
           {message('exportToCboard')}
         </Button>
       </Box>
-    </>
+    </Box>
   );
 };
 
