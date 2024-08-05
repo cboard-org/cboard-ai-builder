@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useSession, signOut } from 'next-auth/react';
 import { useLocale } from 'next-intl';
 import { styles } from './styles';
+import { SIGNIN_PATH } from '@/app/[locale]/signin/constants';
 
 export default function UserSection() {
   const locale = useLocale();
@@ -33,7 +34,9 @@ export default function UserSection() {
               onClick={() =>
                 signOut({
                   redirect: true,
-                  callbackUrl: locale ? `/${locale}/signin` : '/signin',
+                  callbackUrl: locale
+                    ? `/${locale}${SIGNIN_PATH}`
+                    : SIGNIN_PATH,
                 })
               }
             >
