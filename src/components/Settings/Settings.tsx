@@ -13,7 +13,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
 import ListSubheader from '@mui/material/ListSubheader';
 import Avatar from '@mui/material/Avatar';
-//import { useMessages } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import LanguageIcon from '@mui/icons-material/Language';
 import CloseIcon from '@mui/icons-material/Close';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -27,7 +27,8 @@ import { useLocale } from 'next-intl';
 export default function Settings() {
   const [open, setOpen] = React.useState(false);
   const locale = useLocale();
-  //const messages = useMessages();
+  const messages = useTranslations('Settings');
+
   const handleOnClick = () => {
     setOpen(true);
   };
@@ -51,7 +52,7 @@ export default function Settings() {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Settings
+              {messages('title')}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -59,7 +60,7 @@ export default function Settings() {
           <List
             subheader={
               <ListSubheader component="div" id="user">
-                User
+                {messages('user')}
               </ListSubheader>
             }
           >
@@ -93,7 +94,7 @@ export default function Settings() {
           <List
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
-                Application
+                {messages('application')}
               </ListSubheader>
             }
           >
