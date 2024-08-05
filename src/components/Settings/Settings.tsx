@@ -5,29 +5,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Logout from '@mui/icons-material/Logout';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItem from '@mui/material/ListItem';
-import ListSubheader from '@mui/material/ListSubheader';
-import Avatar from '@mui/material/Avatar';
 import { useTranslations } from 'next-intl';
-import LanguageIcon from '@mui/icons-material/Language';
 import CloseIcon from '@mui/icons-material/Close';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import Paper from '@mui/material/Paper';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { signOut } from 'next-auth/react';
-import { useLocale } from 'next-intl';
-import Tooltip from '@mui/material/Tooltip';
+import UserSection from './UserSection';
+import AppSection from './AppSection';
+import { SessionProvider } from 'next-auth/react';
 
 export default function Settings() {
   const [open, setOpen] = React.useState(false);
-  const locale = useLocale();
   const messages = useTranslations('Settings');
 
   const handleOnClick = () => {
@@ -58,77 +44,10 @@ export default function Settings() {
           </Toolbar>
         </AppBar>
         <Paper sx={{ mx: { md: 5, xs: 1 }, mt: 1 }}>
-          <List
-            subheader={
-              <ListSubheader component="div" id="user">
-                {messages('user')}
-              </ListSubheader>
-            }
-          >
-            <ListItem
-              secondaryAction={
-                <Tooltip title={messages('signOut')}>
-                  <IconButton
-                    onClick={() =>
-                      signOut({
-                        redirect: true,
-                        callbackUrl: locale ? `/${locale}/signin` : '/signin',
-                      })
-                    }
-                  >
-                    <Logout />
-                  </IconButton>
-                </Tooltip>
-              }
-              disablePadding
-            >
-              <ListItemButton>
-                <ListItemAvatar>
-                  <Avatar
-                    alt={'user image'}
-                    src={'https://material-ui.com/static/images/avatar/1.jpg'}
-                  />
-                </ListItemAvatar>
-                <ListItemText id={'labelId'} primary={`Line item `} />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          {/* <Divider /> */}
-          <List
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                {messages('application')}
-              </ListSubheader>
-            }
-          >
-            <ListItem
-              secondaryAction={
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                  <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    // value={age}
-                    // onChange={handleChange}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              }
-              disablePadding
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  <LanguageIcon />
-                </ListItemIcon>
-                <ListItemText id={'labelId'} primary={`Language `} />
-              </ListItemButton>
-            </ListItem>
-          </List>
+          <SessionProvider>
+            <UserSection />
+          </SessionProvider>
+          <AppSection />
         </Paper>
       </Modal>
     </>
