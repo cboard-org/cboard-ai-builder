@@ -20,7 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material';
 // import EditingToolbar from './EditingToolbar';
 import styles from './styles';
-import { cboardExportAdapter } from '@/exportHelpers/cboardExportAdapter';
+import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
 
 type Props = {
   isEditing: boolean;
