@@ -57,7 +57,7 @@ const PromptExamplesTextField = ({
         // id="prompt-text"
         // name="prompt-text"
         multiline
-        rows={2}
+        rows={1}
         aria-readonly
         value={promptValues.description}
         InputProps={{
