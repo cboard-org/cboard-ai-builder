@@ -11,18 +11,19 @@
     "rows": "Linhas",
     "columns": "Colunas",
     "colorScheme": "Esquema de cores",
-    "prompt": "Descrição",
+    "prompt": "Crie um quadro sobre:",
     "useAiPictograms": "Use pictogramas de IA",
-    "newBoard": "Nova diretoria"
+    "newBoard": "Nova diretoria",
+    "newAACBoard": "Nova placa da AAC"
   },
   "Board": {
     "InitialContent": {
       "ai": "IA",
       "createANewBoard": "Crie um <b>Novo <br></br> Tábua</b>",
       "examples": "Exemplos",
-      "promptExample1": "Crie um tabuleiro com uma sequência que conte uma história mágica e aventureira com animais marinhos.",
-      "promptExample2": "Mostre uma família com mãe, filho e avó em uma casa interagindo.",
-      "promptExample3": "Ilustre histórias imaginativas sobre aventuras e amizades entre crianças e animais."
+      "promptExample1": "Partes do corpo",
+      "promptExample2": "Animais da selva",
+      "promptExample3": "Comida italiana"
     },
     "BoardContainer": {
       "exportToCboard": "Exportar para Cboard"
@@ -81,5 +82,12 @@
       "forgotPassword": "ESQUECEU A SENHA?",
       "errorMessage": "E-mail ou senha incorretos"
     }
+  },
+  "Settings": {
+    "title": "Configurações",
+    "user": "Utilizador",
+    "application": "Aplicação",
+    "language": "Idioma",
+    "signOut": "Sair"
   }
 }

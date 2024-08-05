@@ -57,7 +57,7 @@ const PromptExamplesTextField = ({
         // id="prompt-text"
         // name="prompt-text"
         multiline
-        rows={4}
+        rows={1}
         aria-readonly
         value={promptValues.description}
         InputProps={{
@@ -68,6 +68,7 @@ const PromptExamplesTextField = ({
             color: 'black',
             backgroundColor: 'white',
             border: 'none',
+            textAlignLast: 'center',
           },
         }}
         sx={styles.textArea}
