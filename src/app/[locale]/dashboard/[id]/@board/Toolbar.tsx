@@ -21,6 +21,7 @@ import { useTheme } from '@mui/material';
 // import EditingToolbar from './EditingToolbar';
 import styles from './styles';
 import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
+import Settings from '@/components/Settings/Settings';
 
 type Props = {
   isEditing: boolean;
@@ -144,6 +145,7 @@ const DefaultToolbar = () => {
       <IconButton>
         <PrintIcon fontSize="small" />
       </IconButton>
+      <Settings />
       <Divider orientation="vertical" flexItem />
     </>
   );

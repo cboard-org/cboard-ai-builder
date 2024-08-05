@@ -81,5 +81,12 @@
       "forgotPassword": "FORGOT PASSWORD?",
       "errorMessage": "Wrong email or password"
     }
+  },
+  "Settings": {
+    "title": "Settings",
+    "user": "User",
+    "application": "Application",
+    "language": "Language",
+    "signOut": "Sign out"
   }
 }
