@@ -44,6 +44,7 @@ export default function Settings() {
           </Toolbar>
         </AppBar>
         <Paper sx={{ mx: { md: 5, xs: 1 }, mt: 1 }}>
+          {/* TODO avoid use SessionProvider, use a server component  instead */}
           <SessionProvider>
             <UserSection />
           </SessionProvider>
