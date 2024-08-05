@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslations } from 'next-intl';
+import { styles } from './styles';
 
 export default function AppSection() {
   const messages = useTranslations('Settings');
@@ -22,7 +23,7 @@ export default function AppSection() {
     >
       <ListItem
         secondaryAction={
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <FormControl sx={styles.formControl} size="small">
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"

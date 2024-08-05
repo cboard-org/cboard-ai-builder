@@ -11,12 +11,12 @@ import Logout from '@mui/icons-material/Logout';
 import Tooltip from '@mui/material/Tooltip';
 import { useSession, signOut } from 'next-auth/react';
 import { useLocale } from 'next-intl';
-import { useTheme } from '@mui/material/styles';
+import { styles } from './styles';
 
 export default function UserSection() {
   const locale = useLocale();
   const messages = useTranslations('Settings');
-  const theme = useTheme();
+
   const { data: session } = useSession();
   return (
     <List
@@ -48,7 +48,7 @@ export default function UserSection() {
             {session?.user?.image ? (
               <Avatar alt={'user image'} src={session?.user?.image} />
             ) : (
-              <Avatar sx={{ bgcolor: theme.palette.primary.light }}>
+              <Avatar sx={styles.avatar}>
                 {session?.user?.name?.charAt(0).toUpperCase()}
               </Avatar>
             )}

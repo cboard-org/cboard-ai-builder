@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import UserSection from './UserSection';
 import AppSection from './AppSection';
 import { SessionProvider } from 'next-auth/react';
+import { styles } from './styles';
 
 export default function Settings() {
   const [open, setOpen] = React.useState(false);
@@ -43,7 +44,7 @@ export default function Settings() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Paper sx={{ mx: { md: 5, xs: 1 }, mt: 1 }}>
+        <Paper sx={styles.paper}>
           {/* TODO avoid use SessionProvider, use a server component  instead */}
           <SessionProvider>
             <UserSection />
