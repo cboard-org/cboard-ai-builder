@@ -15,12 +15,14 @@ import { supportedLocales } from '@/intl/intl.constants';
 import { startTransition } from 'react';
 import { useRouter, usePathname } from '@/navigation';
 import ISO6391 from 'iso-639-1';
+import useIsSmallScreen from '@/hooks/useIsSmallScreen';
 
 export default function AppSection() {
   const router = useRouter();
   const pathname = usePathname();
   const messages = useTranslations('Settings');
   const locale = useLocale();
+  const isSmallScreen = useIsSmallScreen();
 
   const handleOnChange = (event: SelectChangeEvent<string>) => {
     const nextLocale = event.target.value;
@@ -54,7 +56,10 @@ export default function AppSection() {
             >
               {supportedLocales.map((locale) => (
                 <MenuItem key={locale} value={locale}>
-                  {getNativeName(locale)}
+                  {(isSmallScreen
+                    ? ''
+                    : locale.slice(0, 2).toUpperCase() + ' - ') +
+                    getNativeName(locale)}
                 </MenuItem>
               ))}
             </Select>
