@@ -1,18 +1,34 @@
+import React from 'react';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import LanguageIcon from '@mui/icons-material/Language';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { styles } from './styles';
+import { supportedLocales } from '@/intl/intl.constants';
+import { startTransition } from 'react';
+import { useRouter, usePathname } from '@/navigation';
 
 export default function AppSection() {
+  const router = useRouter();
+  const pathname = usePathname();
   const messages = useTranslations('Settings');
+  const locale = useLocale();
+
+  const handleOnChange = (event: SelectChangeEvent<string>) => {
+    const nextLocale = event.target.value;
+
+    startTransition(() => {
+      router.replace(pathname, { locale: nextLocale });
+    });
+  };
+
   return (
     <List
       subheader={
@@ -27,15 +43,14 @@ export default function AppSection() {
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"
-              // value={age}
-              // onChange={handleChange}
+              value={locale}
+              onChange={handleOnChange}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {supportedLocales.map((locale) => (
+                <MenuItem key={locale} value={locale}>
+                  {locale.slice(0, 2).toUpperCase()}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         }
@@ -45,7 +60,7 @@ export default function AppSection() {
           <ListItemIcon>
             <LanguageIcon />
           </ListItemIcon>
-          <ListItemText id={'labelId'} primary={`Language `} />
+          <ListItemText id={'labelId'} primary={messages('language')} />
         </ListItemButton>
       </ListItem>
     </List>
