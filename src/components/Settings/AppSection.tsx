@@ -40,7 +40,7 @@ export default function AppSection() {
   return (
     <List
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
+        <ListSubheader component="div" id="application-subheader">
           {messages('application')}
         </ListSubheader>
       }
@@ -49,8 +49,8 @@ export default function AppSection() {
         secondaryAction={
           <FormControl sx={styles.formControl} size="small">
             <Select
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
+              labelId="language-select-label"
+              id="language-select"
               value={locale}
               onChange={handleOnChange}
             >
@@ -71,7 +71,7 @@ export default function AppSection() {
           <ListItemIcon>
             <LanguageIcon />
           </ListItemIcon>
-          <ListItemText id={'labelId'} primary={messages('language')} />
+          <ListItemText id={'language'} primary={messages('language')} />
         </ListItemButton>
       </ListItem>
     </List>
