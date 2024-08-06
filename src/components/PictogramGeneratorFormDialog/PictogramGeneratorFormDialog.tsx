@@ -43,7 +43,7 @@ const PictogramGeneratorFormDialog = ({
 
     return () => clearInterval(intervalId);
   }, [isGeneratingPictograms]);
-
+  console.log('isGeneratingPictograms', isGeneratingPictograms);
   return !isGeneratingPictograms ? (
     <Box sx={styles.pictogramGeneratorForm}>
       <Typography variant="body1" gutterBottom>

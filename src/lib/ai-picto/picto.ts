@@ -5,23 +5,28 @@ export async function createAIPicto(description: string) {
   let imgDone: boolean = false;
   let tries: number = 0;
   type Message = {
+    task_id: string;
+    task_type: string;
     status: string;
-    uri: string;
-    progress: number;
-    messageId: string;
+    percentage: string;
   };
-  let messageData: Message = {
-    status: '',
-    uri: '',
-    progress: 0,
-    messageId: '',
+  type SuccessMessage = {
+    task_id: string;
+    sref?: string;
+    task_type: string;
+    original_image_url: string;
+    image_urls: string[];
   };
-  let msgData: Message = {
-    status: '',
-    uri: '',
-    progress: 0,
-    messageId: '',
+
+  type MessageResponse = Message | SuccessMessage;
+
+  let messageData: MessageResponse = {
+    task_id: '',
+    task_type: 'imagine',
+    original_image_url: '',
+    image_urls: [],
   };
+
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -41,132 +46,34 @@ export async function createAIPicto(description: string) {
 
     do {
       await delay(2000);
-      const message = await fetch(
-        '/api/mymidjourney/message/' + data.messageId,
-        {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow',
-          cache: 'no-store',
-        },
-      );
+      const message = await fetch('/api/mymidjourney/message/', {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow',
+        cache: 'no-store',
+        body: JSON.stringify({ task_id: data.task_id }),
+      });
       messageData = await message.json();
       tries++;
-      if (messageData.status === 'DONE') {
+      if ('image_urls' in messageData) {
         imgDone = true;
       }
     } while (imgDone === false && tries < 40);
     imgDone = false;
     tries = 0;
 
-    // Upscale image
-    const buttonBody: string = JSON.stringify({
-      messageId: messageData.messageId,
-      button: 'U1',
-    });
-    const buttonResponse = await fetch('/api/mymidjourney/button', {
-      method: 'POST',
-      headers: myHeaders,
-      body: buttonBody,
-      redirect: 'follow',
-      cache: 'no-store',
-    });
-    const buttonData = await buttonResponse.json();
-
-    do {
-      await delay(2000);
-      const upscaleMsg = await fetch(
-        '/api/mymidjourney/message/' + buttonData.messageId,
-        {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow',
-          cache: 'no-store',
-        },
-      );
-      msgData = await upscaleMsg.json();
-      tries++;
-      if (msgData.status === 'DONE') {
-        imgDone = true;
-      }
-    } while (imgDone === false && tries < 40);
-
+    if (!('image_urls' in messageData))
+      throw new Error('Error generating AI images');
     return {
-      url: msgData.uri,
-      id: messageData.messageId,
+      url: messageData.image_urls[0],
+      id: messageData.task_id,
       content: '',
-      progress: msgData.progress.toString(),
-      proxy_url: msgData.uri,
-      changeImageIds: ['U1', 'U2', 'U3', 'U4'],
+      progress: '100',
+      proxy_url: messageData.image_urls[0],
+      changeImageIds: messageData.image_urls,
     };
   } catch (error) {
     imgDone = true;
     console.error('Error generating AI image. ' + JSON.stringify(error));
-  }
-}
-
-export async function changePicto(messageId: string, button: string) {
-  let imgDone: boolean = false;
-  let tries: number = 0;
-  type Message = {
-    status: string;
-    uri: string;
-    progress: number;
-    messageId: string;
-  };
-  let msgData: Message = {
-    status: '',
-    uri: '',
-    progress: 0,
-    messageId: '',
-  };
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-
-  try {
-    // Upscale image
-    const buttonBody: string = JSON.stringify({
-      messageId: messageId,
-      button: button,
-    });
-    const buttonResponse = await fetch('/api/mymidjourney/button', {
-      method: 'POST',
-      headers: myHeaders,
-      body: buttonBody,
-      redirect: 'follow',
-      cache: 'no-store',
-    });
-    const buttonData = await buttonResponse.json();
-
-    do {
-      await delay(2000);
-      const upscaleMsg = await fetch(
-        '/api/mymidjourney/message/' + buttonData.messageId,
-        {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow',
-          cache: 'no-store',
-        },
-      );
-      msgData = await upscaleMsg.json();
-      tries++;
-      if (msgData.status === 'DONE') {
-        imgDone = true;
-      }
-    } while (imgDone === false && tries < 40);
-
-    return {
-      url: msgData.uri,
-      id: msgData.messageId,
-      content: '',
-      progress: msgData.progress.toString(),
-      proxy_url: msgData.uri,
-      options: [],
-      flags: '',
-    };
-  } catch (err) {
-    console.error('Error upscaling the generated image');
-    throw new Error('Error upscaling the generated image');
   }
 }

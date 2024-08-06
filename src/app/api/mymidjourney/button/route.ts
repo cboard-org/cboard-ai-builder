@@ -5,7 +5,7 @@ export async function POST(req: Request) {
 
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('Authorization', 'Bearer ' + process.env.MYMIDJOURNEY_TOKEN);
+  myHeaders.append('Authorization', 'Bearer ' + process.env.APIFRAME_TOKEN);
 
   //Upscale image
   const buttonBody: string = JSON.stringify({

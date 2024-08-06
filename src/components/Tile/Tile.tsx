@@ -1,17 +1,11 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useTransition,
-} from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
 import style from './Tile.module.css';
 import Symbol from '../Symbol';
 import { TileRecord, LabelPositionRecord } from '@/commonTypes/Tile';
 import Box from '@mui/material/Box';
 import TileEditorModal from '@/components/TileEditorModal/TileEditorModal';
 import { useState } from 'react';
-import { createAIPicto, changePicto } from '@/lib/ai-picto/picto';
+import { createAIPicto } from '@/lib/ai-picto/picto';
 import Button from '@mui/material/Button';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 import { useBoundStore } from '@/providers/StoreProvider';
@@ -88,7 +82,6 @@ export default function Tile({
   const generatedPicto = tile.generatedPicto;
 
   const [isChangingPicto, setIsChangingPicto] = useState(false);
-  const [, startTransition] = useTransition();
 
   const setUpdatedTile = useUpdatedTileSynchronizer();
 
@@ -154,11 +147,11 @@ export default function Tile({
 
   const handleNextImage = useCallback(async () => {
     if (isChangingPicto) return;
-    const unviewvedPictoGeneratedId =
+    const unviewvedPictoGeneratedUrl =
       generatedPicto?.changeImageIds && generatedPicto?.changeImageIds[0];
 
     if (
-      (suggestedImages && unviewvedPictoGeneratedId) ||
+      (suggestedImages && unviewvedPictoGeneratedUrl) ||
       !suggestedImages ||
       suggestedImages?.length === 0
     ) {
@@ -167,23 +160,10 @@ export default function Tile({
         return;
       }
 
-      if (generatedPicto?.id && unviewvedPictoGeneratedId) {
-        try {
-          setIsChangingPicto(true);
-          const generatedSuggestion = await changePicto(
-            generatedPicto.id,
-            unviewvedPictoGeneratedId,
-          );
-          if (!generatedSuggestion) {
-            throw new Error('Error changing generated picto');
-          }
-          addGeneratedPicto(tile, generatedPicto, generatedSuggestion.url);
-        } catch (error) {
-          console.error('Error changing generated picto', error);
-        }
-        startTransition(() => {
-          setIsChangingPicto(false);
-        });
+      if (generatedPicto?.id && unviewvedPictoGeneratedUrl) {
+        setIsChangingPicto(true);
+        addGeneratedPicto(tile, generatedPicto, unviewvedPictoGeneratedUrl);
+        setIsChangingPicto(false);
       }
       return;
     }
