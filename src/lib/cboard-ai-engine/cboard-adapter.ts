@@ -53,10 +53,12 @@ export const toCboardAdapter = async ({
   suggestions,
   columns,
   rows,
+  prompt,
 }: {
   suggestions: Suggestion[];
   columns: number;
   rows: number;
+  prompt: string;
 }): Promise<BoardRecord> => {
   if (!suggestions.length || !columns || !rows)
     throw new Error('Invalid input on Cboard adapter');
@@ -83,5 +85,7 @@ export const toCboardAdapter = async ({
     updatedAt: '',
     tiles,
     grid: { order, rows, columns },
+    //Engine should provide the title to be used as name
+    name: prompt,
   };
 };
