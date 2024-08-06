@@ -14,6 +14,7 @@ import { styles } from './styles';
 import { supportedLocales } from '@/intl/intl.constants';
 import { startTransition } from 'react';
 import { useRouter, usePathname } from '@/navigation';
+import ISO6391 from 'iso-639-1';
 
 export default function AppSection() {
   const router = useRouter();
@@ -27,6 +28,11 @@ export default function AppSection() {
     startTransition(() => {
       router.replace(pathname, { locale: nextLocale });
     });
+  };
+
+  const getNativeName = (locale: string) => {
+    const countryCode = locale.slice(0, 2);
+    return ISO6391.getNativeName(countryCode);
   };
 
   return (
@@ -48,7 +54,7 @@ export default function AppSection() {
             >
               {supportedLocales.map((locale) => (
                 <MenuItem key={locale} value={locale}>
-                  {locale.slice(0, 2).toUpperCase()}
+                  {getNativeName(locale)}
                 </MenuItem>
               ))}
             </Select>
