@@ -20,7 +20,7 @@ export default function TileEditorModal({
   tile: TileRecord;
   onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
-  generatePicto: () => void;
+  generatePicto: (label: string) => Promise<void>;
   pictogramIndexBeforeSave: number | null;
   setUpdatedTile: (tile: TileRecord) => void;
 }) {
