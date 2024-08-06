@@ -34,7 +34,9 @@ const PictogramEditor: React.FC<PictogramEditorProps> = ({
   };
   const handleGenerateInitClick = async (label: string) => {
     setIsGeneratingPictograms(true);
+    console.log('set');
     await onGeneratePictoInit(label);
+    console.log('down');
     setShowPictogramGeneratorDialog(false);
     setIsGeneratingPictograms(false);
   };

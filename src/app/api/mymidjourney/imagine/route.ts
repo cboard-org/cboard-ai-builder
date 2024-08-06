@@ -1,4 +1,4 @@
-const midjBaseUrl: string = 'https://api.imaginepro.ai/api/v1/midjourney/';
+const midjBaseUrl: string = 'https://api.apiframe.pro/';
 
 export async function POST(req: Request) {
   const { description } = await req.json();
@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('Authorization', 'Bearer ' + process.env.MYMIDJOURNEY_TOKEN);
+  myHeaders.append('Authorization', `${process.env.APIFRAME_TOKEN}`);
 
   // Imagine image
   const imagineBody: string = JSON.stringify({
