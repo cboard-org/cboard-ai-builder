@@ -60,7 +60,7 @@ export default function AppSection() {
           <ListItemIcon>
             <LanguageIcon />
           </ListItemIcon>
-          <ListItemText id={'labelId'} primary={`Language `} />
+          <ListItemText id={'labelId'} primary={messages('language')} />
         </ListItemButton>
       </ListItem>
     </List>
