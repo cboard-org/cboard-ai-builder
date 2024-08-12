@@ -1,0 +1,93 @@
+{
+  "Dashboard": {},
+  "History": {
+    "title": "History"
+  },
+  "Navbar": {
+    "cboard": "CBoard",
+    "builder": "Builder"
+  },
+  "PromptForm": {
+    "rows": "Rows",
+    "columns": "Columns",
+    "colorScheme": "Color Scheme",
+    "prompt": "Create a board about:",
+    "useAiPictograms": "Use AI Pictograms",
+    "newBoard": "New board",
+    "newAACBoard": "New AAC board"
+  },
+  "Board": {
+    "InitialContent": {
+      "ai": "AI",
+      "createANewBoard": "Create a <b>New <br></br> Board</b>",
+      "examples": "Examples",
+      "promptExample1": "Parts of the body",
+      "promptExample2": "Jungle animals",
+      "promptExample3": "Italian food"
+    },
+    "BoardContainer": {
+      "exportToCboard": "Export to Cboard"
+    },
+    "TileEditor": {
+      "TileEditorDialogActions": {
+        "saveChanges": "Save changes"
+      },
+      "MorePictosButtons": {
+        "search": "Search",
+        "generate": "Generate",
+        "searchAccessibility": "Search for pictograms",
+        "generateAccessibility": "Generate pictograms"
+      },
+      "PictogramGeneratorFormDialog": {
+        "title": "Use Pictonizer to generate pictograms",
+        "subtitle": "Generate 4 pictograms for",
+        "cancelButton": "CANCEL",
+        "generateButton": "GENERATE",
+        "generatingPictogramsTo": "Generating 4 pictograms to:"
+      },
+      "PictogramSearcher": {
+        "pictogramNotFound": "Pictogram not found",
+        "error": "Error",
+        "writeKeywordToSearch": "Write a keyword to search",
+        "trySearchingWithAnotherKeywordOrGenerateIt": "Try searching with another keyword or generate it with our pictogram generator.",
+        "couldNotFetchPictograms": "We couldn't fetch the pictograms. Please try again later.",
+        "searchPictogramUsingTextField": "Search a pictogram using the text field on the top"
+      }
+    }
+  },
+  "SavedData": {
+    "savedBoards": "Saved boards",
+    "history": "History"
+  },
+  "SignIn": {
+    "cboard": "CBoard",
+    "builder": "Builder",
+    "sloganTitle": "Fast and intelligent",
+    "sloganSubtitle": "Create tile boards by just typing what you need.",
+    "ai": "AI",
+    "errorMessage": "Something went wrong during sign in",
+    "hello": "¡Hello!",
+    "welcome": "Welcome to the Communication Board Builder",
+    "loginButton": "LOGIN",
+    "signUpButton": "SIGN UP",
+    "signInWith": "Sign in with {provider}",
+    "privacyPolicy": "Privacy policy",
+    "terms": "Terms",
+    "LoginDialog": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "loginButton": "LOGIN",
+      "cancelButton": "CANCEL",
+      "forgotPassword": "FORGOT PASSWORD?",
+      "errorMessage": "Wrong email or password"
+    }
+  },
+  "Settings": {
+    "title": "Settings",
+    "user": "User",
+    "application": "Application",
+    "language": "Language",
+    "signOut": "Sign out"
+  }
+}
