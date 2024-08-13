@@ -123,6 +123,7 @@ export default function Dashboard(props: {
         {props.params.id === INITIAL_CONTENT_ID && (
           <Box sx={styles.promptContainer}>{props.promptForm}</Box>
         )}
+        {props.children}
       </Box>
     </Box>
   );
