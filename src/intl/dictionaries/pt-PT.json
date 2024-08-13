@@ -1,5 +1,9 @@
 {
-  "Dashboard": {},
+  "Dashboard": {
+    "closeSidebar": "Close Sidebar",
+    "openSidebar": "Open Sidebar",
+    "newBoard": "New boards"
+  },
   "History": {
     "title": "História"
   },
