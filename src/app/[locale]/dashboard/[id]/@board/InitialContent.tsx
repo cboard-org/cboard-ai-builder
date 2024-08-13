@@ -10,6 +10,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useEffect } from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
 import Brand from '@/components/icons/Brand';
+
 const promptExampleMessagesKey = [
   {
     description: 'promptExample1',
@@ -52,7 +53,7 @@ const PromptExamplesTextField = ({
         // id="prompt-text"
         // name="prompt-text"
         multiline
-        rows={4}
+        rows={1}
         aria-readonly
         value={promptValues.description}
         InputProps={{
@@ -64,6 +65,7 @@ const PromptExamplesTextField = ({
             backgroundColor: 'white',
             border: 'none',
             fontSize: '15px',
+            textAlignLast: 'center',
           },
         }}
         sx={styles.textArea}

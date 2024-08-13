@@ -11,18 +11,19 @@
     "rows": "Filas",
     "columns": "Columnas",
     "colorScheme": "Combinación de colores",
-    "prompt": "Descripción",
+    "prompt": "Crea un tablero sobre:",
     "useAiPictograms": "Usar pictogramas de IA",
-    "newBoard": "Nuevo tablero"
+    "newBoard": "Nuevo tablero",
+    "newAACBoard": "Nuevo tablero de CAA"
   },
   "Board": {
     "InitialContent": {
       "ai": "IA",
       "createANewBoard": "Cree un <b>Nuevo <br></br> Tablero</b>",
       "examples": "Ejemplos",
-      "promptExample1": "Crea un tablero con una secuencia que cuente una historia mágica y aventurera con animales marinos.",
-      "promptExample2": "Muestra a una familia con una madre, un hijo y una abuela en una casa interactuando.",
-      "promptExample3": "Ilustrar historias imaginativas sobre aventuras y amistades entre niños y animales."
+      "promptExample1": "Partes del cuerpo",
+      "promptExample2": "Animales de la selva",
+      "promptExample3": "Comida italiana"
     },
     "BoardContainer": {
       "exportToCboard": "Exportar a Cboard"
@@ -81,5 +82,12 @@
       "forgotPassword": "¿OLVIDÓ SU CONTRASEÑA?",
       "errorMessage": "Correo electrónico o contraseña incorrectos"
     }
+  },
+  "Settings": {
+    "title": "Configuración",
+    "user": "Usuario",
+    "application": "Aplicación",
+    "language": "Idioma",
+    "signOut": "Cerrar sesión"
   }
 }
