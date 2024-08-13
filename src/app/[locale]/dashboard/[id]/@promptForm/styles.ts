@@ -1,17 +1,10 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
+import { INITIAL_CONTENT_MAX_WIDTH } from '../constants';
 
 export default {
-  brand: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  newBoardButton: {
-    pl: 3,
-    py: 0.5,
-  },
-  newBoardButtonContent: {
-    display: 'flex',
-    alignItems: 'center',
+  promptForm: {
+    borderRadius: 6,
+    width: '100%',
+    maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
 } satisfies Record<string, SxProps>;

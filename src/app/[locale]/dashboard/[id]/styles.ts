@@ -1,13 +1,16 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
-  stack: {
+  topbar: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    width: '100%',
+    p: 1,
+  },
+  promptContainer: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    px: 4,
   },
-  list: { width: '100%', pt: 0 },
-  pagination: { paddingBottom: 1 },
 } satisfies Record<string, SxProps>;
