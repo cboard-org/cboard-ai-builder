@@ -13,25 +13,37 @@ import NewBoardLink from './NewBoardLink/NewBoardLink';
 import styles from './styles';
 import { useTranslations } from 'next-intl';
 
-const drawerWidth = 260; // Adjust this value as needed
-
+const drawerWidth = 310; // Adjust this value as needed
+const paddings = { xs: 1, md: 2, lg: 3 };
 const sxStyles = {
   app: {
     backgroundColor: (theme: Theme) => theme.palette.background.default,
     color: (theme: Theme) => theme.palette.text.primary,
     height: '100%',
-    pb: { xs: 0, md: 2, lg: 3 },
     display: 'flex',
+    p: paddings,
   },
   drawer: {
     flexShrink: 0,
     '& .MuiDrawer-paper': {
       width: drawerWidth,
       boxSizing: 'border-box',
-      backgroundColor: (theme: Theme) => theme.palette.grey[100],
+      backgroundColor: {
+        xs: '#f5f5f5',
+        sm: 'transparent',
+      },
       borderRight: '0',
-      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
       overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 2,
+      py: paddings,
+      pl: paddings,
+    },
+  },
+  drawerMobile: {
+    '& .MuiDrawer-paper': {
+      backgroundColor: (theme: Theme) => theme.palette.grey[100],
     },
   },
   drawerTopBar: {
@@ -41,11 +53,15 @@ const sxStyles = {
     width: '100%',
     p: 1,
     flexShrink: 0,
+    backgroundColor: (theme: Theme) => theme.palette.grey[100],
+    borderRadius: 2,
   },
   controls: {
     minHeight: 0,
     px: 1,
     pb: 1,
+    backgroundColor: (theme: Theme) => theme.palette.grey[100],
+    borderRadius: 2,
   },
   board: {
     minHeight: 0,
