@@ -38,8 +38,20 @@ function SubmitButton({ text }: { text: string }) {
   return (
     <Box sx={{ position: 'relative' }}>
       <Tooltip title={text}>
-        <IconButton type="submit" disabled={pending}>
-          <AutoFixNormalIcon />
+        <IconButton
+          type="submit"
+          disabled={pending}
+          sx={{
+            backgroundColor: theme.palette.primary.main, // Background color
+
+            '&:hover': {
+              backgroundColor: theme.palette.primary.dark, // Background color on hover
+            },
+          }}
+        >
+          <AutoFixNormalIcon
+            sx={{ color: theme.palette.primary.contrastText }}
+          />
         </IconButton>
       </Tooltip>
       {pending && (
@@ -165,7 +177,7 @@ export function PromptForm() {
                     justifyContent: 'space-between',
                   }}
                 >
-                  <TuneIcon sx={{ ml: 2 }} />
+                  <TuneIcon sx={{ ml: 2, color: 'text.secondary' }} />
                   <Box display={'flex'} flexWrap={'wrap'}>
                     <Box
                       sx={{
