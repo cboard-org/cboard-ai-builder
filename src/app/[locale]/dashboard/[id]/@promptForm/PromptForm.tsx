@@ -28,6 +28,8 @@ import usePromptBlinkAnimation from './usePromptBlinkAnimation';
 import InputLabel from '@mui/material/InputLabel';
 import styles from './styles';
 import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -107,7 +109,7 @@ export function PromptForm() {
     rows: 5,
     columns: 5,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   };
 
   const [controlledPromptValue, setControlledPromptValue]: [
@@ -303,6 +305,55 @@ export function PromptForm() {
                   mb: '0.3rem',
                 }}
               >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1,
+                    my: '.5rem',
+                  }}
+                >
+                  <FormControlLabel
+                    id="use-ai-pictograms"
+                    name="use-ai-pictograms"
+                    control={
+                      <Switch
+                        checked={controlledPromptValue.shouldUsePictonizer}
+                        onChange={(e) => {
+                          setControlledPromptValue({
+                            ...controlledPromptValue,
+                            shouldUsePictonizer: e.target.checked,
+                          });
+                        }}
+                      />
+                    }
+                    label={
+                      <Stack
+                        spacing={1}
+                        direction="row"
+                        justifyContent="center"
+                        useFlexGap
+                        flexWrap="nowrap"
+                        sx={{
+                          alignContent: 'center',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Typography fontSize={'0.7rem'}>
+                          {message('useAiPictograms')}
+                        </Typography>
+                        <IconButton
+                          aria-label="help"
+                          sx={{ fontSize: 'inherit' }}
+                          size="small"
+                        >
+                          <HelpOutlineIcon fontSize="inherit" />
+                        </IconButton>
+                      </Stack>
+                    }
+                  />
+                </Box>
                 <Stack
                   spacing={1}
                   direction="row"
