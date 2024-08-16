@@ -7,9 +7,6 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
@@ -17,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-// import { RowsIcon, ColumnsIcon } from './icons';
+import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useLocale, useTranslations } from 'next-intl';
@@ -27,8 +24,9 @@ import { useShallow } from 'zustand/react/shallow';
 import { STASHED_CONTENT_ID } from '../constants';
 import { useRouter } from '@/navigation';
 import usePromptBlinkAnimation from './usePromptBlinkAnimation';
-import { Theme } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
 import styles from './styles';
+import Tooltip from '@mui/material/Tooltip';
 
 const totalRows = 12;
 const totalColumns = 12;
@@ -38,16 +36,11 @@ function SubmitButton({ text }: { text: string }) {
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Button
-        variant="contained"
-        type="submit"
-        disabled={pending}
-        sx={{ width: '100%' }}
-      >
-        <Typography variant="body2" component="div">
-          {text}
-        </Typography>
-      </Button>
+      <Tooltip title={text}>
+        <IconButton type="submit" disabled={pending}>
+          <AutoFixNormalIcon />
+        </IconButton>
+      </Tooltip>
       {pending && (
         <CircularProgress
           size={21}
@@ -124,7 +117,6 @@ export function PromptForm() {
     <Box
       sx={{
         ...styles.promptForm,
-        backgroundColor: (theme: Theme) => theme.palette.grey[100],
       }}
     >
       <Fade
@@ -151,32 +143,30 @@ export function PromptForm() {
           action={formAction}
         >
           <input type="hidden" name="locale" value={useLocale()} />
-          <Grid p={3} container>
-            <Grid pt={0} item xs={12}>
-              <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
-                <Box
+          <Box p={3} sx={{ display: 'flex' }}>
+            <Grid direction={'row'} container spacing={1}>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Stack
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flex: '1 1 0',
+                    width: 'max-content',
+                    backgroundColor: theme.palette.custom.filledBackground,
+                    borderRadius: 5,
+                    alignItems: 'center',
                   }}
+                  direction="row"
+                  flexWrap="wrap"
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      mb: '0.3rem',
-                    }}
-                  >
-                    {/* <RowsIcon fontSize="small" /> */}
-                    <Typography
-                      id="rows-label"
-                      variant="subtitle1"
-                      component="label"
-                    >
-                      {message('rows')}
-                    </Typography>
-                  </Box>
+                  <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
+                    {message('rows')}
+                  </InputLabel>
                   <FormControl size="small">
                     <GridSizeSelect
                       name="rows"
@@ -192,30 +182,9 @@ export function PromptForm() {
                       value={controlledPromptValue.rows}
                     />
                   </FormControl>
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flex: '1 1 0',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      mb: '0.3rem',
-                    }}
-                  >
-                    {/* <ColumnsIcon fontSize="small" /> */}
-                    <Typography
-                      id="columns-label"
-                      variant="subtitle1"
-                      component="label"
-                    >
-                      {message('columns')}
-                    </Typography>
-                  </Box>
+                  <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
+                    {message('columns')}
+                  </InputLabel>
                   <FormControl size="small">
                     <GridSizeSelect
                       name="columns"
@@ -231,59 +200,53 @@ export function PromptForm() {
                       value={controlledPromptValue.columns}
                     />
                   </FormControl>
-                </Box>
-              </Stack>
-            </Grid>
-            <Grid item xs={12}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  mt: '0.3rem',
-                }}
-              >
-                <Stack
-                  spacing={1}
-                  direction="row"
-                  useFlexGap
-                  flexWrap="nowrap"
-                  sx={{
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    mb: '0.3rem',
-                  }}
-                >
-                  <Typography
-                    id="color-scheme-label"
-                    variant="subtitle1"
-                    component="label"
-                  >
-                    {message('prompt')}
-                  </Typography>
-                  <IconButton
-                    aria-label="help"
-                    sx={{ fontSize: 'inherit' }}
-                    size="small"
-                  >
-                    <HelpOutlineIcon fontSize="inherit" />
-                  </IconButton>
                 </Stack>
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
+                  placeholder={message('prompt')}
+                  fullWidth
                   id="prompt-text"
                   name="prompt-text"
                   multiline
-                  rows={3}
+                  rows={1}
                   required
                   InputProps={{
                     inputComponent: 'textarea',
                     style: {
                       fontSize: '1rem',
-                      color: theme.palette.text.secondary,
-                      paddingTop: '0.5rem',
+                      color: theme.palette.text.primary,
+                    },
+                    endAdornment: <SubmitButton text={message('newBoard')} />,
+                  }}
+                  inputProps={{
+                    minLength: 5,
+                    maxLength: 180,
+                  }}
+                  variant="filled"
+                  sx={{
+                    backgroundColor: 'white',
+                    fontSize: '0.5rem',
+                    '.MuiFilledInput-underline:before': {
+                      borderBottom: 'none',
+                    },
+                    '.MuiFilledInput-underline:after': {
+                      borderBottom: 'none',
+                    },
+                    '.MuiFilledInput-underline:hover:not(.Mui-disabled):before':
+                      {
+                        borderBottom: 'none',
+                      },
+                    '.MuiFilledInput-root': {
+                      padding: 1,
+                      borderRadius: 5,
+                      overflow: 'hidden',
+                    },
+                    '.MuiInputBase-input': {
+                      padding: 1,
+                      backgroundColor: 'transparent',
                     },
                   }}
-                  inputProps={{ minLength: 5, maxLength: 180 }}
-                  sx={{ backgroundColor: 'white', fontSize: '0.5rem' }}
                   inputRef={descriptionTextFieldRef}
                   onChange={(e) => {
                     setControlledPromptValue({
@@ -293,7 +256,7 @@ export function PromptForm() {
                   }}
                   value={controlledPromptValue.description}
                 />
-              </Box>
+              </Grid>
             </Grid>
             <Grid sx={{ display: 'none' }} item xs={12}>
               <Box
@@ -309,7 +272,6 @@ export function PromptForm() {
                   spacing={1}
                   direction="row"
                   useFlexGap
-                  flexWrap="nowrap"
                   sx={{
                     alignContent: 'center',
                     alignItems: 'center',
@@ -360,62 +322,7 @@ export function PromptForm() {
                 </FormControl>
               </Box>
             </Grid>
-
-            <Grid item xs={12}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flexGrow: 1,
-                  my: '.5rem',
-                }}
-              >
-                <FormControlLabel
-                  id="use-ai-pictograms"
-                  name="use-ai-pictograms"
-                  control={
-                    <Switch
-                      checked={controlledPromptValue.shouldUsePictonizer}
-                      onChange={(e) => {
-                        setControlledPromptValue({
-                          ...controlledPromptValue,
-                          shouldUsePictonizer: e.target.checked,
-                        });
-                      }}
-                    />
-                  }
-                  label={
-                    <Stack
-                      spacing={1}
-                      direction="row"
-                      justifyContent="center"
-                      useFlexGap
-                      flexWrap="nowrap"
-                      sx={{
-                        alignContent: 'center',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Typography fontSize={'0.7rem'}>
-                        {message('useAiPictograms')}
-                      </Typography>
-                      <IconButton
-                        aria-label="help"
-                        sx={{ fontSize: 'inherit' }}
-                        size="small"
-                      >
-                        <HelpOutlineIcon fontSize="inherit" />
-                      </IconButton>
-                    </Stack>
-                  }
-                />
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <SubmitButton text={message('newBoard')} />
-            </Grid>
-          </Grid>
+          </Box>
         </form>
       </Fade>
     </Box>
