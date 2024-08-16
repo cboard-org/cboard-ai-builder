@@ -48,9 +48,7 @@ function SubmitButton({ text }: { text: string }) {
           {pending ? (
             <CircularProgress size={25} sx={{ justifyContent: 'center' }} />
           ) : (
-            <AutoFixNormalIcon
-              sx={{ color: theme.palette.primary.contrastText }}
-            />
+            <AutoFixNormalIcon sx={styles.submitIcon} />
           )}
         </IconButton>
       </Tooltip>
@@ -144,38 +142,14 @@ export function PromptForm() {
           action={formAction}
         >
           <input type="hidden" name="locale" value={useLocale()} />
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={styles.promptImputsContainer}>
             <Grid direction={'row'} container gap={1}>
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Box
-                  sx={{
-                    width: 'max-content',
-                    backgroundColor: theme.palette.custom.filledBackground,
-                    borderRadius: 5,
-                    alignItems: 'center',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <TuneIcon sx={{ ml: 2, color: 'text.secondary' }} />
+              <Grid item xs={12} sx={styles.sizeSelectorContainer}>
+                <Box sx={styles.sizeSelector}>
+                  <TuneIcon sx={styles.sizeIcon} />
                   <Box display={'flex'} flexWrap={'wrap'}>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        flexGrow: 1,
-                      }}
-                    >
-                      <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
+                    <Box sx={styles.selectContainer}>
+                      <InputLabel sx={styles.inputLabelStyle} id="rows-label">
                         {message('rows')}
                       </InputLabel>
                       <FormControl size="small">
@@ -194,16 +168,11 @@ export function PromptForm() {
                         />
                       </FormControl>
                     </Box>
-                    <Box
-                      sx={{
-                        justifySelf: 'flex-end',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        flexGrow: 1,
-                      }}
-                    >
-                      <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
+                    <Box sx={styles.selectContainer}>
+                      <InputLabel
+                        sx={styles.inputLabelStyle}
+                        id="columns-label"
+                      >
                         {message('columns')}
                       </InputLabel>
                       <FormControl size="small">
@@ -247,29 +216,7 @@ export function PromptForm() {
                     maxLength: 180,
                   }}
                   variant="filled"
-                  sx={{
-                    backgroundColor: 'white',
-                    fontSize: '0.5rem',
-                    '.MuiFilledInput-underline:before': {
-                      borderBottom: 'none',
-                    },
-                    '.MuiFilledInput-underline:after': {
-                      borderBottom: 'none',
-                    },
-                    '.MuiFilledInput-underline:hover:not(.Mui-disabled):before':
-                      {
-                        borderBottom: 'none',
-                      },
-                    '.MuiFilledInput-root': {
-                      padding: 1,
-                      borderRadius: 5,
-                      overflow: 'hidden',
-                    },
-                    '.MuiInputBase-input': {
-                      padding: 1,
-                      backgroundColor: 'transparent',
-                    },
-                  }}
+                  sx={styles.textField}
                   inputRef={descriptionTextFieldRef}
                   onChange={(e) => {
                     setControlledPromptValue({
