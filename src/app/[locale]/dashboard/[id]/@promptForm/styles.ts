@@ -2,9 +2,11 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { INITIAL_CONTENT_MAX_WIDTH } from '../constants';
 import theme from '@/theme';
 
+const borderRadius = 6;
+
 export default {
   promptForm: {
-    borderRadius: 6,
+    borderRadius,
     width: '100%',
     maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
@@ -25,7 +27,7 @@ export default {
   sizeSelector: {
     width: 'max-content',
     backgroundColor: theme.palette.custom.filledBackground,
-    borderRadius: 5,
+    borderRadius,
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'space-between',
@@ -52,7 +54,7 @@ export default {
     },
     '.MuiFilledInput-root': {
       padding: 1,
-      borderRadius: 5,
+      borderRadius,
       overflow: 'hidden',
     },
     '.MuiInputBase-input': {

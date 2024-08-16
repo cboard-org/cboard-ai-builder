@@ -23,7 +23,7 @@
   "Board": {
     "InitialContent": {
       "ai": "AI",
-      "createANewBoard": "Create a <b>New <br></br> Board</b>",
+      "createANewBoard": "Create a new<b><br></br>AAC Board</b>",
       "examples": "Examples",
       "promptExample1": "Parts of the body",
       "promptExample2": "Jungle animals",
