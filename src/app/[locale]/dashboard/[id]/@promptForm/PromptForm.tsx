@@ -15,6 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
+import TuneIcon from '@mui/icons-material/Tune';
 import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useLocale, useTranslations } from 'next-intl';
@@ -143,8 +144,8 @@ export function PromptForm() {
           action={formAction}
         >
           <input type="hidden" name="locale" value={useLocale()} />
-          <Box p={3} sx={{ display: 'flex' }}>
-            <Grid direction={'row'} container spacing={1}>
+          <Box sx={{ display: 'flex' }}>
+            <Grid direction={'row'} container gap={1}>
               <Grid
                 item
                 xs={12}
@@ -154,53 +155,75 @@ export function PromptForm() {
                   alignItems: 'center',
                 }}
               >
-                <Stack
+                <Box
                   sx={{
                     width: 'max-content',
                     backgroundColor: theme.palette.custom.filledBackground,
                     borderRadius: 5,
                     alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'space-between',
                   }}
-                  direction="row"
-                  flexWrap="wrap"
                 >
-                  <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
-                    {message('rows')}
-                  </InputLabel>
-                  <FormControl size="small">
-                    <GridSizeSelect
-                      name="rows"
-                      labelId="rows-label"
-                      totalItems={totalRows}
-                      initialValue={5}
-                      onChange={(e) => {
-                        setControlledPromptValue({
-                          ...controlledPromptValue,
-                          rows: Number(e.target.value),
-                        });
+                  <TuneIcon sx={{ ml: 2 }} />
+                  <Box display={'flex'} flexWrap={'wrap'}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        flexGrow: 1,
                       }}
-                      value={controlledPromptValue.rows}
-                    />
-                  </FormControl>
-                  <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
-                    {message('columns')}
-                  </InputLabel>
-                  <FormControl size="small">
-                    <GridSizeSelect
-                      name="columns"
-                      labelId="columns-label"
-                      totalItems={totalColumns}
-                      initialValue={5}
-                      onChange={(e) => {
-                        setControlledPromptValue({
-                          ...controlledPromptValue,
-                          columns: Number(e.target.value),
-                        });
+                    >
+                      <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
+                        {message('rows')}
+                      </InputLabel>
+                      <FormControl size="small">
+                        <GridSizeSelect
+                          name="rows"
+                          labelId="rows-label"
+                          totalItems={totalRows}
+                          initialValue={5}
+                          onChange={(e) => {
+                            setControlledPromptValue({
+                              ...controlledPromptValue,
+                              rows: Number(e.target.value),
+                            });
+                          }}
+                          value={controlledPromptValue.rows}
+                        />
+                      </FormControl>
+                    </Box>
+                    <Box
+                      sx={{
+                        justifySelf: 'flex-end',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        flexGrow: 1,
                       }}
-                      value={controlledPromptValue.columns}
-                    />
-                  </FormControl>
-                </Stack>
+                    >
+                      <InputLabel sx={{ ml: 2 }} id="demo-multiple-chip-label">
+                        {message('columns')}
+                      </InputLabel>
+                      <FormControl size="small">
+                        <GridSizeSelect
+                          name="columns"
+                          labelId="columns-label"
+                          totalItems={totalColumns}
+                          initialValue={5}
+                          onChange={(e) => {
+                            setControlledPromptValue({
+                              ...controlledPromptValue,
+                              columns: Number(e.target.value),
+                            });
+                          }}
+                          value={controlledPromptValue.columns}
+                        />
+                      </FormControl>
+                    </Box>
+                  </Box>
+                </Box>
               </Grid>
               <Grid item xs={12}>
                 <TextField
