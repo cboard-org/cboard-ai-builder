@@ -15,6 +15,7 @@ import { useTranslations } from 'next-intl';
 
 const drawerWidth = 310; // Adjust this value as needed
 const paddings = { xs: 1, md: 2, lg: 3 };
+const borderRadius = 4;
 const sxStyles = {
   app: {
     backgroundColor: (theme: Theme) => theme.palette.background.default,
@@ -54,14 +55,14 @@ const sxStyles = {
     p: 1,
     flexShrink: 0,
     backgroundColor: (theme: Theme) => theme.palette.grey[100],
-    borderRadius: 2,
+    borderRadius,
   },
   controls: {
     minHeight: 0,
     px: 1,
     pb: 1,
     backgroundColor: (theme: Theme) => theme.palette.grey[100],
-    borderRadius: 2,
+    borderRadius,
   },
   board: {
     minHeight: 0,
