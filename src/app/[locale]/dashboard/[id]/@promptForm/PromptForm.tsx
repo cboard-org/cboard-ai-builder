@@ -38,36 +38,22 @@ function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box>
       <Tooltip title={text}>
         <IconButton
           type="submit"
           disabled={pending}
-          sx={{
-            backgroundColor: theme.palette.primary.main, // Background color
-
-            '&:hover': {
-              backgroundColor: theme.palette.primary.dark, // Background color on hover
-            },
-          }}
+          sx={styles.submitIconButton}
         >
-          <AutoFixNormalIcon
-            sx={{ color: theme.palette.primary.contrastText }}
-          />
+          {pending ? (
+            <CircularProgress size={25} sx={{ justifyContent: 'center' }} />
+          ) : (
+            <AutoFixNormalIcon
+              sx={{ color: theme.palette.primary.contrastText }}
+            />
+          )}
         </IconButton>
       </Tooltip>
-      {pending && (
-        <CircularProgress
-          size={21}
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginTop: '-0.7em',
-            marginLeft: '-0.5em',
-          }}
-        />
-      )}
     </Box>
   );
 }
