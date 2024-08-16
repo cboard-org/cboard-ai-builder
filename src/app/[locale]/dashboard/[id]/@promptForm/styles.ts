@@ -9,10 +9,10 @@ export default {
     maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
   submitIconButton: {
-    backgroundColor: theme.palette.primary.main, // Background color
+    backgroundColor: theme.palette.primary.main,
 
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark, // Background color on hover
+      backgroundColor: theme.palette.primary.dark,
     },
   },
 } satisfies Record<string, SxProps>;
