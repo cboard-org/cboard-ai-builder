@@ -2,8 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
-import NewBoardLink from '../NewBoardLink/NewBoardLink';
-import OpenSideBarButton from '../../_components/OpenSideBarButton/OpenSideBarButton';
+import NewBoardLink from '../../[id]/NewBoardLink/NewBoardLink';
+import OpenSideBarButton from '../OpenSideBarButton/OpenSideBarButton';
 
 type TopbarProps = {
   isSidebarOpen: boolean;

@@ -3,7 +3,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { useTheme, Theme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
-import Topbar from './[id]/Topbar/Topbar';
+import Topbar from './_components/Topbar/Topbar';
 import Sidebar from './_components/Sidebar/Sidebar';
 
 const drawerWidth = 310; // Adjust this value as needed
