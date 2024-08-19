@@ -14,7 +14,7 @@ export const defaultPromptState: PromptRecord = {
   rows: 5,
   columns: 5,
   colorScheme: 'fitzgerald',
-  shouldUsePictonizer: true,
+  shouldUsePictonizer: false,
 };
 
 export const createPromptSlice: StateCreator<
