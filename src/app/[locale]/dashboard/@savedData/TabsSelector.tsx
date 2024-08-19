@@ -5,6 +5,8 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTranslations } from 'next-intl';
 import styles from './styles';
+import { Suspense } from 'react';
+import Loading from './loading';
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -58,7 +60,7 @@ export default function TabsSelector({
       </Tabs>
       <Box sx={styles.tabPanelSection}>
         <TabPanel value={value} index={0}>
-          <>{history}</>
+          <Suspense fallback={<Loading />}>{history}</Suspense>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <>{savedBoard}</>
