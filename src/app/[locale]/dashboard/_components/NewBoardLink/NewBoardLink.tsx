@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles';
 import Box from '@mui/material/Box';
-import { INITIAL_CONTENT_ID } from '../constants';
+import { INITIAL_CONTENT_ID } from '../../[id]/constants';
 import { Link } from '@/navigation';
 import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox';

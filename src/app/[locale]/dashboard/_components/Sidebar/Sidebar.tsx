@@ -6,7 +6,7 @@ import React from 'react';
 import { useTheme, Theme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 import OpenSideBarButton from '../OpenSideBarButton/OpenSideBarButton';
-import NewBoardLink from '@/dashboard/NewBoardLink/NewBoardLink';
+import NewBoardLink from '@/app/[locale]/dashboard/_components/NewBoardLink/NewBoardLink';
 
 export default function Sidebar({
   children,
