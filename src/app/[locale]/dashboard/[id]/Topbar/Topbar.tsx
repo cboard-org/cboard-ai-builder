@@ -3,21 +3,25 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
 import NewBoardLink from '../NewBoardLink/NewBoardLink';
+import OpenSideBarButton from '../../_components/OpenSideBarButton/OpenSideBarButton';
 
 type TopbarProps = {
-  OpenSidebarButton: () => React.JSX.Element;
   isSidebarOpen: boolean;
+  toogleSideBarOpen: () => void;
 };
 
 const Topbar: React.FC<TopbarProps> = ({
-  OpenSidebarButton,
   isSidebarOpen,
+  toogleSideBarOpen,
 }) => {
   return (
     <Box sx={styles.topbar}>
       {!isSidebarOpen && (
         <>
-          <OpenSidebarButton />
+          <OpenSideBarButton
+            isSidebarOpen={isSidebarOpen}
+            toggleSidebar={toogleSideBarOpen}
+          />
           <NewBoardLink />
         </>
       )}
