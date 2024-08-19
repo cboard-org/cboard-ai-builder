@@ -43,7 +43,7 @@ export default function TabsSelector({
   };
 
   return (
-    <Box sx={styles.savedDataContainer} px={2}>
+    <Box sx={styles.savedDataContainer}>
       <Tabs
         value={value}
         onChange={handleChange}

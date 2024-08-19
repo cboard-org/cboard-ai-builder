@@ -11,6 +11,6 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    px: 4,
+    px: 1,
   },
 } satisfies Record<string, SxProps>;

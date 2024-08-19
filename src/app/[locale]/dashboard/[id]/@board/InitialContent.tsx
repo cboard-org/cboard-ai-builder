@@ -10,6 +10,8 @@ import { useShallow } from 'zustand/react/shallow';
 import { useEffect } from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
 import Brand from '@/components/icons/Brand';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 const promptExampleMessagesKey = [
   {
@@ -17,21 +19,21 @@ const promptExampleMessagesKey = [
     columns: 5,
     rows: 4,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   },
   {
     description: 'promptExample2',
     columns: 5,
     rows: 4,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   },
   {
     description: 'promptExample3',
     columns: 5,
     rows: 4,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   },
 ] as const;
 
@@ -66,6 +68,7 @@ const PromptExamplesTextField = ({
             border: 'none',
             fontSize: '15px',
             textAlignLast: 'center',
+            borderRadius: 24,
           },
         }}
         sx={styles.textArea}
@@ -126,21 +129,33 @@ export default function InitialContent({
     );
 
   return (
-    <Box sx={{ height: '100%' }}>
+    <Box
+      sx={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        p: 2,
+      }}
+    >
       <Box sx={styles.initialContentContainer}>
+        <Typography sx={styles.introductionTitle}>
+          {messages.rich('createANewBoard', {
+            br: () => <br />,
+            b: (children) => <b>{children}</b>,
+          })}
+        </Typography>
         <SvgIcon sx={styles.brandIcon}>
           <Brand />
         </SvgIcon>
         <Box sx={styles.examplesContainer}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              gap: '1rem',
-              py: '1rem',
-              overflowX: 'auto',
-            }}
-          >
+          <Box>
+            <Typography>{messages('examples')}</Typography>
+          </Box>
+          <Divider />
+          <Box sx={styles.promptExamples}>
             {promptExampleMessagesKey.map((key, index) => {
               return (
                 <Box

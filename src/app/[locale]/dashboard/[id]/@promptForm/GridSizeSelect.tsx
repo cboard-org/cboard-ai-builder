@@ -27,8 +27,26 @@ export default function GridSizeSelect({
       defaultValue={initialValue}
       value={value}
       displayEmpty
-      sx={{ backgroundColor: 'white' }}
       onChange={onChange}
+      sx={{
+        borderRadius: 5,
+        '& .MuiOutlinedInput-notchedOutline': {
+          border: 'none',
+        },
+        '& .MuiSelect-select': {
+          borderRadius: 2,
+        },
+        '.MuiFilledInput-root': {
+          padding: 2,
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        },
+        '.MuiSelect-select': {
+          padding: 2,
+          borderRadius: 2,
+        },
+      }}
     >
       {Array.from({ length: totalItems }).map((_, index) => (
         <MenuItem value={index + 1} key={`${name}-${index + 1}`}>
