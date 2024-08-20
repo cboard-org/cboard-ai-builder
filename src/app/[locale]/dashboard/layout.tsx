@@ -13,12 +13,18 @@ const sxStyles = {
     backgroundColor: (theme: Theme) => theme.palette.background.default,
     color: (theme: Theme) => theme.palette.text.primary,
     height: '100%',
-    pb: { xs: 0, md: 2, lg: 3 },
+    p: { xs: 1, md: 2, lg: 3 },
     display: 'flex',
   },
 };
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export default function Home({
+  children,
+  savedData,
+}: {
+  children: React.ReactNode;
+  savedData: React.ReactNode;
+}) {
   const [sidebarOpen, setSidebarOpen] = React.useState(true); // the initial could be in the store
   const theme: Theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -30,7 +36,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
   return (
     <Box sx={sxStyles.app}>
       <Sidebar toggleSideBar={toggleSidebar} isSidebarOpen={sidebarOpen}>
-        LOL
+        {savedData}
       </Sidebar>
       <Box
         component="main"
