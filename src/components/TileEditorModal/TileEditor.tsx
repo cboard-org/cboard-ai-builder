@@ -176,6 +176,7 @@ const TileEditor: React.FC<PropType> = ({
               src={src}
               isChangingPicto={isChangingPicto}
               disabled={!src && !areUnviewedPictoGenerations}
+              tileColor={tile.backgroundColor}
             />
           ))}
         </div>
