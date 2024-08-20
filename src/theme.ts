@@ -1,28 +1,19 @@
-'use client';
 import { createTheme } from '@mui/material/styles';
-declare module '@mui/material/styles/createPalette' {
-  interface Palette {
-    custom: {
-      filledBackground: string;
-    };
-  }
-  interface PaletteOptions {
-    custom?: {
-      filledBackground?: string;
-    };
-  }
-}
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#7b1fa2',
-      light: '#D7B3FF',
+const getTheme = (mode: 'dark' | 'light') =>
+  createTheme({
+    palette: {
+      mode: mode,
+      primary: {
+        main: mode === 'dark' ? '#D7B3FF' : '#7b1fa2',
+        light: mode === 'dark' ? '#7b1fa2' : '#D7B3FF',
+      },
+      secondary: {
+        main: '#7b1fa2',
+        light: '#D7B3FF',
+      },
+      grey: { 100: mode === 'dark' ? 'rgba(255, 255, 255, 0.09)' : '#f5f5f5' },
     },
-    custom: {
-      filledBackground: 'rgba(0, 0, 0, 0.06)',
-    },
-  },
-});
+  });
 
-export default theme;
+export default getTheme;

@@ -9,16 +9,20 @@ type DashboardRecord = {
   board: BoardRecord | null;
 };
 
+type ColorTheme = 'auto' | 'dark' | 'light';
+
 export type DashboardStoreRecord = {
   hydrated: boolean;
   isGenerationPending: boolean;
   stashedDashboard: DashboardRecord;
+  theme: ColorTheme;
 };
 
 export type DashboardActions = {
   setHydrated: () => void;
   setGenerationPending: (pending: boolean) => void;
   stashDashboard: () => void;
+  setTheme: (theme: ColorTheme) => void;
 };
 export type DashboardSlice = DashboardStoreRecord & DashboardActions;
 
@@ -30,6 +34,7 @@ export const defaultDashboardState: DashboardStoreRecord = {
     prompt: null,
     board: null,
   },
+  theme: 'dark',
 };
 
 export const createDashboardSlice: StateCreator<
@@ -60,5 +65,10 @@ export const createDashboardSlice: StateCreator<
         type: 'Dashboard/stash',
       },
     );
+  },
+  setTheme: (theme: ColorTheme) => {
+    set(() => ({ theme }), false, {
+      type: 'Dashboard/setTheme',
+    });
   },
 });
