@@ -21,7 +21,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
-import theme from '@/theme';
 
 const BoardSection = () => {
   const message = useTranslations('Board.BoardContainer');
@@ -72,7 +71,11 @@ const BoardSection = () => {
       }}
     >
       <Box
-        bgcolor={isEditing ? theme.palette.primary.light : 'rgb(244, 244, 244)'}
+        bgcolor={
+          isEditing
+            ? (theme) => theme.palette.primary.light
+            : (theme) => theme.palette.grey[100]
+        }
         sx={styles.header}
       >
         <Box pr={2}>

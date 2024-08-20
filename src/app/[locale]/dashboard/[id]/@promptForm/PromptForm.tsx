@@ -16,7 +16,6 @@ import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
 import TuneIcon from '@mui/icons-material/Tune';
-import theme from '@/theme';
 import GridSizeSelect from './GridSizeSelect';
 import { useLocale, useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
@@ -207,7 +206,6 @@ export function PromptForm() {
                     inputComponent: 'textarea',
                     style: {
                       fontSize: '1rem',
-                      color: theme.palette.text.primary,
                     },
                     endAdornment: <SubmitButton text={message('newBoard')} />,
                   }}

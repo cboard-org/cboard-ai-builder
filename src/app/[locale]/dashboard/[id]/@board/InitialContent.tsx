@@ -63,8 +63,6 @@ const PromptExamplesTextField = ({
           readOnly: true,
           style: {
             width: '100%',
-            color: 'black',
-            backgroundColor: 'white',
             border: 'none',
             fontSize: '15px',
             textAlignLast: 'center',
