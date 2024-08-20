@@ -46,8 +46,4 @@ export default {
     backgroundColor: theme.palette.grey[100],
     borderRadius,
   },
-  board: {
-    minHeight: 0,
-    flexGrow: 1,
-  },
 } satisfies Record<string, SxProps>;
