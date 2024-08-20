@@ -63,7 +63,7 @@ export default function TabsSelector({
           <Suspense fallback={<Loading />}>{history}</Suspense>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <>{savedBoard}</>
+          <Suspense fallback={<Loading />}>{savedBoard}</Suspense>
         </TabPanel>
       </Box>
     </Box>
