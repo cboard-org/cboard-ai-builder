@@ -34,8 +34,7 @@ export default function Sidebar({
         />
         <NewBoardLink />
       </Box>
-      {/* <Box sx={sxStyles.controls}>{props.savedData}</Box> */}
-      {children}
+      <Box sx={sxStyles.controls}>{children}</Box>
     </Drawer>
   );
 }
