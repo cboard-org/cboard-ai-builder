@@ -4,7 +4,6 @@ on:
   push:
     paths: ['src/intl/cbuilder.json']
     branches: [main]
-  pull_request:
   workflow_dispatch:
 
 jobs:
