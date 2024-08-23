@@ -11,8 +11,6 @@ export default {
     maxWidth: '250px',
   },
   textArea: {
-    backgroundColor: 'white',
-    color: 'black',
     pointerEvents: 'none',
     width: '100%',
     borderRadius,

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { INITIAL_CONTENT_MAX_WIDTH } from '../constants';
-import theme from '@/theme';
+import { Theme } from '@mui/material/styles';
 
 const borderRadius = 6;
 
@@ -11,14 +11,15 @@ export default {
     maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
   submitIconButton: {
-    backgroundColor: theme.palette.primary.main,
-
+    backgroundColor: (theme) => theme.palette.primary.main,
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: (theme) => theme.palette.primary.dark,
     },
   },
-  submitIcon: { color: theme.palette.primary.contrastText },
-  promptImputsContainer: { color: theme.palette.primary.contrastText },
+  submitIcon: { color: (theme) => theme.palette.primary.contrastText },
+  promptImputsContainer: {
+    color: (theme) => theme.palette.primary.contrastText,
+  },
   sizeSelectorContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -26,7 +27,7 @@ export default {
   },
   sizeSelector: {
     width: 'max-content',
-    backgroundColor: theme.palette.custom.filledBackground,
+    backgroundColor: (theme) => theme.palette.grey[100],
     borderRadius,
     alignItems: 'center',
     display: 'flex',
@@ -41,7 +42,6 @@ export default {
   },
   inputLabelStyle: { ml: 2 },
   textField: {
-    backgroundColor: 'white',
     fontSize: '0.5rem',
     '.MuiFilledInput-underline:before': {
       borderBottom: 'none',
@@ -62,4 +62,4 @@ export default {
       backgroundColor: 'transparent',
     },
   },
-} satisfies Record<string, SxProps>;
+} satisfies Record<string, SxProps<Theme>>;

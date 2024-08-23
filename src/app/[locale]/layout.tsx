@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/theme';
+import ThemeProvider from '@/providers/ThemeProvider';
 import StoreProvider from '@/providers/StoreProvider';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
@@ -29,13 +28,11 @@ export default function RootLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <StoreProvider>
-              <NextIntlClientProvider messages={pick(messages, 'Dashboard')}>
-                {children}
-              </NextIntlClientProvider>
-            </StoreProvider>
-          </ThemeProvider>
+          <StoreProvider>
+            <NextIntlClientProvider messages={pick(messages, 'Dashboard')}>
+              <ThemeProvider>{children}</ThemeProvider>
+            </NextIntlClientProvider>
+          </StoreProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

@@ -49,8 +49,8 @@ export default function TabsSelector({
         onChange={handleChange}
         aria-label="Data selector"
         variant="fullWidth"
-        indicatorColor="secondary"
-        textColor="secondary"
+        indicatorColor="primary"
+        textColor="primary"
         sx={styles.tabs}
       >
         <Tab label={translations('history')} />

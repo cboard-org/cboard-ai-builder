@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 export default function GenerateIcon() {
   return (
     <Tooltip title={'Create a Pictogram'}>
-      <AutoAwesomeIcon />
+      <AutoAwesomeIcon color="secondary" />
     </Tooltip>
   );
 }

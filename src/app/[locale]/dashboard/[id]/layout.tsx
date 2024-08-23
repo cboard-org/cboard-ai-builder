@@ -18,8 +18,6 @@ const paddings = { xs: 1, md: 2, lg: 3 };
 const borderRadius = 4;
 const sxStyles = {
   app: {
-    backgroundColor: (theme: Theme) => theme.palette.background.default,
-    color: (theme: Theme) => theme.palette.text.primary,
     height: '100%',
     display: 'flex',
     p: paddings,
