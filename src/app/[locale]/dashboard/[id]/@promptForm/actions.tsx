@@ -132,6 +132,7 @@ export async function submit(
         suggestions,
         columns,
         rows,
+        prompt: prompt,
       });
 
       const savedPrompt = await savePrompt({
