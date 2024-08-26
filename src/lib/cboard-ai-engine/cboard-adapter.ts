@@ -1,8 +1,10 @@
 'use server';
 import { BoardRecord } from '@/commonTypes/Board';
 import { TileRecord } from '@/commonTypes/Tile';
-import testBoard from '@/dashboard/@board/testBoard.json';
+import moment from 'moment';
 import { Suggestion, AIImage } from 'cboard-ai-engine';
+import shortid from 'shortid';
+import { Session } from 'next-auth';
 
 const DEFAULT_TILE_BACKGROUND_COLOR = 'rgb(255, 241, 118)';
 
@@ -54,11 +56,13 @@ export const toCboardAdapter = async ({
   columns,
   rows,
   prompt,
+  session,
 }: {
   suggestions: Suggestion[];
   columns: number;
   rows: number;
   prompt: string;
+  session: Session;
 }): Promise<BoardRecord> => {
   if (!suggestions.length || !columns || !rows)
     throw new Error('Invalid input on Cboard adapter');
@@ -79,13 +83,26 @@ export const toCboardAdapter = async ({
   };
   const tilesIds = tiles.map((tile) => tile.id);
   const order = createMultidimensionalArray(tilesIds, columns);
-  return {
-    ...testBoard[1],
-    createdAt: '',
+  const newBoard: BoardRecord = {
+    isPublic: false,
+    id: shortid.generate(),
+    createdAt: moment().format(),
     updatedAt: '',
     tiles,
     grid: { order, rows, columns },
     //Engine should provide the title to be used as name
     name: prompt,
+    cellSize: 'medium',
+    locale: 'en',
+    format: 'cboard',
+    description: '',
+    isFixed: true,
+    email: session?.user?.email,
+    author: session?.user?.name,
+    lastEdited: moment().format(),
+    prevId: 'lots_of_stuff',
+    focusedTileId: 'b4',
+    promptId: '66cc0121cd26cab9d6cd3d19',
   };
+  return newBoard;
 };

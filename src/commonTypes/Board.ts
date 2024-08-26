@@ -7,8 +7,8 @@ export type BoardRecord = {
   isPublic: boolean;
   tiles: TileRecord[];
   isFixed: boolean;
-  author: string;
-  email: string;
+  author: string | null | undefined;
+  email: string | null | undefined;
   lastEdited: string;
   grid: Grid;
   cellSize?: string;
