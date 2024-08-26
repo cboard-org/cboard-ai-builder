@@ -134,6 +134,7 @@ export async function submit(
         rows,
         prompt,
         session,
+        locale,
       });
 
       const savedPrompt = await savePrompt({

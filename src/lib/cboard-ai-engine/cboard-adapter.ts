@@ -57,12 +57,14 @@ export const toCboardAdapter = async ({
   rows,
   prompt,
   session,
+  locale,
 }: {
   suggestions: Suggestion[];
   columns: number;
   rows: number;
   prompt: string;
   session: Session;
+  locale: string;
 }): Promise<BoardRecord> => {
   if (!suggestions.length || !columns || !rows)
     throw new Error('Invalid input on Cboard adapter');
@@ -81,28 +83,31 @@ export const toCboardAdapter = async ({
 
     return multidimensionalArray;
   };
+
   const tilesIds = tiles.map((tile) => tile.id);
   const order = createMultidimensionalArray(tilesIds, columns);
   const newBoard: BoardRecord = {
     isPublic: false,
     id: shortid.generate(),
     createdAt: moment().format(),
-    updatedAt: '',
+    updatedAt: moment().format(),
     tiles,
     grid: { order, rows, columns },
     //Engine should provide the title to be used as name
     name: prompt,
     cellSize: 'medium',
-    locale: 'en',
+    locale: locale,
     format: 'cboard',
-    description: '',
+    description:
+      'Board Automatically generated using the Cboard AI Builder - Prompt used: ' +
+      prompt,
     isFixed: true,
     email: session?.user?.email,
     author: session?.user?.name,
     lastEdited: moment().format(),
-    prevId: 'lots_of_stuff',
-    focusedTileId: 'b4',
-    promptId: '66cc0121cd26cab9d6cd3d19',
+    hidden: false,
+    focusedTileId: tiles[0].id,
+    promptId: shortid.generate(),
   };
   return newBoard;
 };
