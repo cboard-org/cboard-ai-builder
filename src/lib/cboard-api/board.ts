@@ -1,5 +1,4 @@
 import { BoardRecord } from '@/commonTypes/Board';
-
 /**
  * Sign in a user with credentials
  * @throws Error on fetch error
@@ -10,7 +9,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 export async function saveTemporaryBoard(
   board: BoardRecord,
   credentials: Record<'email' | 'authToken', string>,
-): Promise<Response> {
+) {
   const authToken = credentials.authToken;
   if (!authToken) {
     throw new Error('Need to be authenticated to perform this request');
@@ -34,5 +33,7 @@ export async function saveTemporaryBoard(
     throw new Error('Error exporting board');
   }
 
-  return apiResponse;
+  const data = await apiResponse.json();
+
+  return { boardId: data.id, ok: true };
 }

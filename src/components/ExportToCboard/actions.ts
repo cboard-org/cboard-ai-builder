@@ -16,13 +16,12 @@ export async function exportBoardToCboard(board: BoardRecord) {
   };
 
   try {
-    const response = await saveTemporaryBoard(board, credentials);
-    const data = await response.json();
-    const url = `${process.env.CBOARD_APP_URL_!}board/${data.id}?cbuilder=true`;
+    const { boardId } = await saveTemporaryBoard(board, credentials);
+    const url = `${process.env.CBOARD_APP_URL_!}board/${boardId}?cbuilder=true`;
     return {
       message: 'Board exported',
       ok: true,
-      boardId: data.id as string,
+      boardId,
       url,
     };
   } catch (error) {
