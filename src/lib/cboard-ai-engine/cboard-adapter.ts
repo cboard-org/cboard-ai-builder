@@ -4,7 +4,6 @@ import { TileRecord } from '@/commonTypes/Tile';
 import moment from 'moment';
 import { Suggestion, AIImage } from 'cboard-ai-engine';
 import { nanoid } from 'nanoid';
-import { Session } from 'next-auth';
 
 const DEFAULT_TILE_BACKGROUND_COLOR = 'rgb(255, 241, 118)';
 
@@ -56,14 +55,16 @@ export const toCboardAdapter = async ({
   columns,
   rows,
   prompt,
-  session,
+  author,
+  email,
   locale,
 }: {
   suggestions: Suggestion[];
   columns: number;
   rows: number;
   prompt: string;
-  session: Session;
+  author: string;
+  email: string;
   locale: string;
 }): Promise<BoardRecord> => {
   if (!suggestions.length || !columns || !rows)
@@ -102,8 +103,8 @@ export const toCboardAdapter = async ({
       'Board Automatically generated using the Cboard AI Builder - Prompt used: ' +
       prompt,
     isFixed: true,
-    email: session?.user?.email,
-    author: session?.user?.name,
+    email: email,
+    author: author,
     lastEdited: moment().format(),
     hidden: false,
     focusedTileId: tiles[0].id,
