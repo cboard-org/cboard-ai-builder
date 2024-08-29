@@ -44,7 +44,7 @@
       },
       "PictogramGeneratorFormDialog": {
         "title": "Use Pictonizer to generate pictograms",
-        "subtitle": "Generate 4 pictograms for",
+        "subtitle": "Generate pictograms for",
         "cancelButton": "CANCEL",
         "generateButton": "GENERATE",
         "generatingPictogramsTo": "Generating 4 pictograms to:"
