@@ -3,7 +3,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { TileRecord } from '@/commonTypes/Tile';
 import moment from 'moment';
 import { Suggestion, AIImage } from 'cboard-ai-engine';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid';
 import { Session } from 'next-auth';
 
 const DEFAULT_TILE_BACKGROUND_COLOR = 'rgb(255, 241, 118)';
@@ -88,7 +88,7 @@ export const toCboardAdapter = async ({
   const order = createMultidimensionalArray(tilesIds, columns);
   const newBoard: BoardRecord = {
     isPublic: false,
-    id: shortid.generate(),
+    id: nanoid(11),
     createdAt: moment().format(),
     updatedAt: moment().format(),
     tiles,
@@ -107,7 +107,7 @@ export const toCboardAdapter = async ({
     lastEdited: moment().format(),
     hidden: false,
     focusedTileId: tiles[0].id,
-    promptId: shortid.generate(),
+    promptId: nanoid(),
   };
   return newBoard;
 };
