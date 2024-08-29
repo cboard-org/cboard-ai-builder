@@ -2,17 +2,16 @@ import { headers } from 'next/headers';
 import { get as getBoard } from '@/db/services/Board/service';
 import { NextResponse } from 'next/server';
 
-const API_KEY = 'YOUR_API';
-
 export async function GET(
   request: Request,
   { params }: { params: { id: string } },
 ) {
   const headersList = headers();
-  const apiKey = headersList.get('x-api-key');
+  const token = headersList.get('Authorization')?.split(' ')[1] || '';
+
   const boardId = params.id;
 
-  if (apiKey !== API_KEY) {
+  if (token !== process.env.INTERNAL_API_KEY) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 500 });
   }
 
