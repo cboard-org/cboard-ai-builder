@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { exportBoardToCboard } from './actions';
+import { generateURL } from './actions';
 import { BoardRecord } from '@/commonTypes/Board';
 
 export const useExportToCboard = () => {
@@ -9,9 +9,9 @@ export const useExportToCboard = () => {
       return;
     }
     try {
-      const { url } = await exportBoardToCboard(board);
-      if (url) {
-        window.open(url, '_blank'); // Open in a new tab
+      const { URL } = await generateURL(board.id);
+      if (URL) {
+        window.open(URL, '_blank'); // Open in a new tab
       }
     } catch (error) {
       console.error((error as Error).message);

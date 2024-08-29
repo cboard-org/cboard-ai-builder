@@ -1,30 +1,8 @@
 'use server';
 
-import { BoardRecord } from '@/commonTypes/Board';
-import { saveTemporaryBoard } from '@/lib/cboard-api/board';
-import { getServerSession } from 'next-auth';
-import authConfig from '@/lib/next-auth/config';
-
-export async function exportBoardToCboard(board: BoardRecord) {
-  const session = await getServerSession(authConfig);
-  if (!session) {
-    throw new Error('User not authenticated');
-  }
-  const credentials = {
-    email: session.cboard_user.email,
-    authToken: session.cboard_user.authToken as string,
+export async function generateURL(boardId: string) {
+  const URL = `${process.env.CBOARD_APP_URL_!}board/${boardId}?cbuilder=true`;
+  return {
+    URL,
   };
-
-  try {
-    const { boardId } = await saveTemporaryBoard(board, credentials);
-    const url = `${process.env.CBOARD_APP_URL_!}board/${boardId}?cbuilder=true`;
-    return {
-      message: 'Board exported',
-      ok: true,
-      boardId,
-      url,
-    };
-  } catch (error) {
-    throw new Error('Error exporting board' + (error as Error).message);
-  }
 }
