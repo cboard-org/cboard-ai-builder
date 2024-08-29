@@ -12,7 +12,7 @@ export async function GET(
   const boardId = params.id;
 
   if (token !== process.env.INTERNAL_API_KEY) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 500 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 
   if (typeof boardId !== 'string') {
