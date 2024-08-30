@@ -6,7 +6,7 @@ import { BoardSlice, createBoardSlice } from '@/stores/board-slice';
 import { devtools } from 'zustand/middleware';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { DashboardSlice, createDashboardSlice } from '@/stores/dashboard-slice';
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 export type Store = PromptSlice & BoardSlice & DashboardSlice;
 export const StoreContext = createContext<StoreApi<Store> | null>(null);

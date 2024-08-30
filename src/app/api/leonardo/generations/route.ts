@@ -1,4 +1,4 @@
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 const leoBaseUrl: string = 'https://cloud.leonardo.ai/api/rest/v1/';
 

@@ -18,7 +18,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 const useUpdatedTileSynchronizer = () => {
   const updateTilePropsSaver = useUpdateTilePropsSaver();

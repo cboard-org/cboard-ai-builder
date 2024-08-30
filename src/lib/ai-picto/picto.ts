@@ -4,7 +4,7 @@ import {
   LeonardoImage,
 } from '@/commonTypes/LeonardoRes';
 import Error from 'next/error';
-import { getErrorMessage } from '../common/common';
+import { getErrorMessage } from '../../common/common';
 
 async function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));

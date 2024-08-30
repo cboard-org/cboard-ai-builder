@@ -11,7 +11,7 @@ import { getServerSession } from 'next-auth/next';
 import authConfig from '@/lib/next-auth/config';
 import { create as savePrompt } from '@/db/services/Prompt/service';
 import { revalidatePath } from 'next/cache';
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 const apiKey = process.env.AZURE_OPENAI_API_KEY;
 

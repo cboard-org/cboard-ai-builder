@@ -16,7 +16,7 @@ import Image from 'next/image';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 import usePrimarySuggestedImagesMerger from './hooks/usePrimarySuggestedImagesMerger';
 import CircularProgress from '@mui/material/CircularProgress';
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 type PropType = {
   primaryTile: TileRecord;

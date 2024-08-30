@@ -1,4 +1,4 @@
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 const midjBaseUrl: string = 'https://api.imaginepro.ai/api/v1/midjourney/';
 

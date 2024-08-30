@@ -22,7 +22,7 @@ import { useTheme } from '@mui/material';
 import styles from './styles';
 import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
 import Settings from '@/components/Settings/Settings';
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 type Props = {
   isEditing: boolean;

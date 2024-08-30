@@ -5,7 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { updateBoard } from './actions';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
 import { usePathname } from '@/navigation';
-import { getErrorMessage } from '@/lib/common/common';
+import { getErrorMessage } from '@/common/common';
 
 function useSaveOnSetBoard(): [(board: BoardRecord) => void, boolean] {
   const [setBoard, setBoardIsUpToDate] = useBoundStore(
