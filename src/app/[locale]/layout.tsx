@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/theme';
+import ThemeProvider from '@/providers/ThemeProvider';
 import StoreProvider from '@/providers/StoreProvider';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import pick from 'lodash.pick';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,13 +22,17 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const messages = useMessages();
+
   return (
     <html lang={locale}>
       <body className={inter.className}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <StoreProvider>{children}</StoreProvider>
-          </ThemeProvider>
+          <StoreProvider>
+            <NextIntlClientProvider messages={pick(messages, 'Dashboard')}>
+              <ThemeProvider>{children}</ThemeProvider>
+            </NextIntlClientProvider>
+          </StoreProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

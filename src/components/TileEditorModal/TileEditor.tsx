@@ -22,7 +22,7 @@ type PropType = {
   onClose: () => void;
   onNextGeneratedPictoClick: () => Promise<void>;
   isChangingPicto: boolean;
-  generatePicto: (label: string) => void;
+  generatePicto: (label: string) => Promise<void>;
   pictogramIndexBeforeSave: number | null;
 };
 
@@ -176,6 +176,7 @@ const TileEditor: React.FC<PropType> = ({
               src={src}
               isChangingPicto={isChangingPicto}
               disabled={!src && !areUnviewedPictoGenerations}
+              tileColor={tile.backgroundColor}
             />
           ))}
         </div>
@@ -220,7 +221,7 @@ const TileEditor: React.FC<PropType> = ({
     }
     const lastIndex = slides.length;
     setMustForceIndex(lastIndex - 1);
-    generatePicto(label);
+    await generatePicto(label);
   };
 
   const showCarrousel = slides.length > 0 || isChangingPicto;

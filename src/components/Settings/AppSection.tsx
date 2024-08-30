@@ -14,8 +14,13 @@ import { styles } from './styles';
 import { supportedLocales } from '@/intl/intl.constants';
 import { startTransition } from 'react';
 import { useRouter, usePathname } from '@/navigation';
+import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
 import ISO6391 from 'iso-639-1';
 import useIsSmallScreen from '@/hooks/useIsSmallScreen';
+
+type ColorTheme = 'auto' | 'dark' | 'light';
+const themeOptions = ['auto', 'dark', 'light'];
 
 export default function AppSection() {
   const router = useRouter();
@@ -23,6 +28,9 @@ export default function AppSection() {
   const messages = useTranslations('Settings');
   const locale = useLocale();
   const isSmallScreen = useIsSmallScreen();
+  const [theme, setTheme] = useBoundStore(
+    useShallow((state) => [state.theme, state.setTheme]),
+  );
 
   const handleOnChange = (event: SelectChangeEvent<string>) => {
     const nextLocale = event.target.value;
@@ -72,6 +80,35 @@ export default function AppSection() {
             <LanguageIcon />
           </ListItemIcon>
           <ListItemText id={'language'} primary={messages('language')} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem
+        disablePadding
+        secondaryAction={
+          <FormControl sx={styles.formControl} size="small">
+            <Select
+              labelId="theme-color-select"
+              id="theme-color-select"
+              value={theme}
+              onChange={(event) => {
+                const value = event.target.value;
+                setTheme(value as ColorTheme);
+              }}
+            >
+              {themeOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option.toUpperCase()}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        }
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <LanguageIcon />
+          </ListItemIcon>
+          <ListItemText id={'theme-switch'} primary={messages('theme')} />
         </ListItemButton>
       </ListItem>
     </List>

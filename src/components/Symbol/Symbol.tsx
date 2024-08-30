@@ -84,6 +84,7 @@ export default function Symbol({
       {isChangingPicto ? (
         <div className={style.SymbolLoadingContainer}>
           <CircularProgress
+            color="secondary"
             sx={{
               justifySelf: 'center',
               alignSelf: 'space-around',
@@ -140,7 +141,7 @@ const ImagePagination = ({
         <CircleIcon
           sx={{ fontSize: 10 }}
           fontSize="inherit"
-          color="primary"
+          color="secondary"
           key={i}
         />,
       );
@@ -149,7 +150,7 @@ const ImagePagination = ({
         <RadioButtonUncheckedIcon
           sx={{ fontSize: 10 }}
           // fontSize="inherit"
-          color="primary"
+          color="secondary"
           key={i}
         />,
       );

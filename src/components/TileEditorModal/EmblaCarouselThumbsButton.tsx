@@ -9,10 +9,12 @@ type PropType = {
   onClick: () => void;
   isChangingPicto?: boolean;
   disabled?: boolean;
+  tileColor?: string;
 };
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, onClick, src, isChangingPicto, disabled } = props;
+  const { selected, onClick, src, isChangingPicto, disabled, tileColor } =
+    props;
 
   return (
     <div
@@ -22,13 +24,19 @@ export const Thumb: React.FC<PropType> = (props) => {
     >
       <Button
         sx={{
-          border: 1,
-          borderColor: selected ? '#7b1fa2' : 'transparent',
+          border: selected ? 4 : 1,
+          borderColor: selected
+            ? (theme) => theme.palette.primary.main
+            : 'transparent',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
           height: '100%',
+          backgroundColor: src && tileColor ? tileColor : 'transparent',
+          '&:focus': {
+            backgroundColor: src && tileColor ? tileColor : 'transparent',
+          },
         }}
         variant={'text'}
         focusRipple

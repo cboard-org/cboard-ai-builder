@@ -1,7 +1,8 @@
 import { BoardRecord } from '@/commonTypes/Board';
 import { EXPORT_CONFIG_BY_TYPE } from './constants';
+import moment from 'moment';
 
-const getDatetimePrefix = () => new Date().toString();
+const getDatetimePrefix = () => moment().format('YYYY-MM-DD_HH-mm-ss-');
 
 declare global {
   interface Navigator {
@@ -15,18 +16,19 @@ export async function cboardExportAdapter(boards: BoardRecord[]) {
   });
 
   if (jsonData) {
-    let prefix = getDatetimePrefix();
+    const prefix = getDatetimePrefix();
+    let name: string | undefined = prefix;
     if (boards.length === 1) {
-      prefix = boards[0].name + ' ';
+      name = name + boards[0].name?.replace(' ', '-').substring(0, 20) + ' ';
     } else {
-      prefix = prefix + 'boardsset ';
+      name = name + 'boardsset ';
     }
 
     // IE11 & Edge
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(
         jsonData,
-        prefix + EXPORT_CONFIG_BY_TYPE.cboard.filename,
+        name + EXPORT_CONFIG_BY_TYPE.cboard.filename,
       );
     } else {
       // In FF link must be added to DOM to be clicked
@@ -34,7 +36,7 @@ export async function cboardExportAdapter(boards: BoardRecord[]) {
       link.href = window.URL.createObjectURL(jsonData);
       link.setAttribute(
         'download',
-        prefix + EXPORT_CONFIG_BY_TYPE.cboard.filename,
+        name + EXPORT_CONFIG_BY_TYPE.cboard.filename,
       );
       document.body.appendChild(link);
       link.click();

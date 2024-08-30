@@ -1,11 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
-import { grey } from '@mui/material/colors';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Button from '@mui/material/Button';
 import styles from './styles';
@@ -13,7 +8,10 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
 import { useEffect } from 'react';
-import Settings from '@/components/Settings/Settings';
+import SvgIcon from '@mui/material/SvgIcon';
+import Brand from '@/components/icons/Brand';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 const promptExampleMessagesKey = [
   {
@@ -21,21 +19,21 @@ const promptExampleMessagesKey = [
     columns: 5,
     rows: 4,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   },
   {
     description: 'promptExample2',
     columns: 5,
     rows: 4,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   },
   {
     description: 'promptExample3',
     columns: 5,
     rows: 4,
     colorScheme: 'fitzgerald',
-    shouldUsePictonizer: true,
+    shouldUsePictonizer: false,
   },
 ] as const;
 
@@ -65,10 +63,10 @@ const PromptExamplesTextField = ({
           readOnly: true,
           style: {
             width: '100%',
-            color: 'black',
-            backgroundColor: 'white',
             border: 'none',
+            fontSize: '15px',
             textAlignLast: 'center',
+            borderRadius: 24,
           },
         }}
         sx={styles.textArea}
@@ -129,87 +127,33 @@ export default function InitialContent({
     );
 
   return (
-    <Box sx={{ height: '100%' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          p: 2,
-          height: '100%',
-        }}
-      >
-        <Box sx={{ pb: '1rem' }}>
-          <Box
-            sx={{ display: 'flex', direction: 'row', alignContent: 'center' }}
-          >
-            <BrandTypography />
-            <Settings />
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            backgroundColor: grey,
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Box sx={{ width: { xs: '100%', sm: '336px' } }}>
-            <Box textAlign={'end'}>
-              <Chip
-                label={messages('ai')}
-                sx={{ backgroundColor: '#363636', color: 'white' }}
-              />
-            </Box>
-            <Typography
-              sx={{
-                fontSize: '48px',
-                textAlign: 'center',
-                lineHeight: '56px',
-              }}
-            >
-              {messages.rich('createANewBoard', {
-                br: () => <br />,
-                b: (children) => <b>{children}</b>,
-              })}
-            </Typography>
-          </Box>
-          <Box
-            component={'div'}
-            sx={{
-              position: 'relative',
-              width: '100%',
-              height: '40%',
-              mt: '1rem',
-              mb: '1rem',
-            }}
-          >
-            <Image
-              priority={true}
-              src="/images/tiles-example.png"
-              fill
-              alt="Tiles example"
-              style={{ objectFit: 'contain' }}
-              unoptimized // TDOD fix this see https://github.com/vercel/next.js/issues/58248
-            />
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ pb: '0.5rem' }}>
+    <Box
+      sx={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        p: 2,
+      }}
+    >
+      <Box sx={styles.initialContentContainer}>
+        <Typography sx={styles.introductionTitle}>
+          {messages.rich('createANewBoard', {
+            br: () => <br />,
+            b: (children) => <b>{children}</b>,
+          })}
+        </Typography>
+        <SvgIcon sx={styles.brandIcon}>
+          <Brand />
+        </SvgIcon>
+        <Box sx={styles.examplesContainer}>
+          <Box>
             <Typography>{messages('examples')}</Typography>
           </Box>
           <Divider />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              gap: '1rem',
-              py: '1rem',
-              overflowX: 'auto',
-            }}
-          >
+          <Box sx={styles.promptExamples}>
             {promptExampleMessagesKey.map((key, index) => {
               return (
                 <Box
@@ -231,15 +175,3 @@ export default function InitialContent({
     </Box>
   );
 }
-
-const BrandTypography = () => {
-  //const messages = useTranslations('');
-
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-      <Typography variant="subtitle1" component="h2" ml={0.5}>
-        <b>Cboard</b> Builder
-      </Typography>
-    </Box>
-  );
-};

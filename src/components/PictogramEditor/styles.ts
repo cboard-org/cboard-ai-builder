@@ -2,14 +2,13 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
   outlinedBox: {
-    backgroundColor: 'background.default',
+    backgroundColor: 'grey[100]',
     borderRadius: 2,
-    border: 1,
-    borderColor: 'primary.light',
+    border: 0.5,
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
     height: 'fit-content',
+    flexShrink: 0,
     minHeight: '26%',
     boxSizing: 'content-box',
     '&:hover': {
@@ -27,6 +26,7 @@ export default {
     flexDirection: 'column',
     height: '100%',
     justifyContent: { xs: 'space-evenly', sm: 'space-between' },
+    gap: 2,
   },
   morePictosButton: {
     display: 'flex',

@@ -1,13 +1,15 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
-  stack: {
+  savedDataContainer: {
     display: 'flex',
+    height: '100%',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
   },
-  list: { width: '100%', pt: 0 },
-  pagination: { paddingBottom: 1 },
+  tabs: {
+    mb: 1,
+  },
+  tabPanelSection: {
+    overflow: 'auto',
+  },
 } satisfies Record<string, SxProps>;

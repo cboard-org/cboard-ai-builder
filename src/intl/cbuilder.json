@@ -1,5 +1,9 @@
 {
-  "Dashboard": {},
+  "Dashboard": {
+    "closeSidebar": "Close Sidebar",
+    "openSidebar": "Open Sidebar",
+    "newBoard": "New boards"
+  },
   "History": {
     "title": "History"
   },
@@ -19,7 +23,7 @@
   "Board": {
     "InitialContent": {
       "ai": "AI",
-      "createANewBoard": "Create a <b>New <br></br> Board</b>",
+      "createANewBoard": "Create a new<b><br></br>AAC Board</b>",
       "examples": "Examples",
       "promptExample1": "Parts of the body",
       "promptExample2": "Jungle animals",
@@ -40,7 +44,7 @@
       },
       "PictogramGeneratorFormDialog": {
         "title": "Use Pictonizer to generate pictograms",
-        "subtitle": "Generate 4 pictograms for",
+        "subtitle": "Generate pictograms for",
         "cancelButton": "CANCEL",
         "generateButton": "GENERATE",
         "generatingPictogramsTo": "Generating 4 pictograms to:"
@@ -88,6 +92,7 @@
     "user": "User",
     "application": "Application",
     "language": "Language",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "theme": "Theme"
   }
 }

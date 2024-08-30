@@ -1,43 +1,70 @@
+'use client';
 import Box from '@mui/material/Box';
 import * as React from 'react';
-import styles from './styles.module.css';
+import Drawer from '@mui/material/Drawer';
+import { useTheme, Theme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import { useMediaQuery } from '@mui/material';
+import Topbar from './Topbar/Topbar';
+import Menu from '@mui/icons-material/Menu';
+import { INITIAL_CONTENT_ID } from './constants';
+import NewBoardLink from './NewBoardLink/NewBoardLink';
+import styles from './styles';
+import { useTranslations } from 'next-intl';
 
-const xsSpacing = 3;
-const mdSpacing = 2;
-const lgSpacing = 2;
-
-const xsPadding = 1;
-const mdPadding = 0;
-
-const menuBarHeight = 56;
+const drawerWidth = 310; // Adjust this value as needed
+const paddings = { xs: 1, md: 2, lg: 3 };
+const borderRadius = 4;
 const sxStyles = {
-  dashboardContainer: {
-    display: 'grid',
-    overflowY: { xs: 'scroll', md: 'unset' },
-    alignContent: { xs: 'flex-start', md: 'inherit' },
-    flexDirection: { xs: 'column' },
-    gridTemplateColumns: { xs: '1fr', md: '1fr 2fr', lg: '1fr 3fr' },
-    gridTemplateRows: {
-      xs: `max-content calc(100% - ${menuBarHeight}px) max-content`,
-      md: 'auto 1fr',
-    },
-
-    gridTemplateAreas: {
-      xs: `"title"
-    "board"
-    "sidebar"`,
-      md: `"title board"
-  "sidebar board"`,
-    },
-    columnGap: { xs: 0, md: mdSpacing, lg: lgSpacing },
-    rowGap: { xs: 0, md: mdSpacing, lg: lgSpacing },
-  },
-  sidebar: {
+  app: {
+    height: '100%',
     display: 'flex',
-    flexDirection: 'column',
-    overflow: 'auto',
-    rowGap: { xs: xsSpacing, md: mdSpacing, lg: lgSpacing },
-    borderRadius: '5px',
+    p: paddings,
+  },
+  drawer: {
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: drawerWidth,
+      boxSizing: 'border-box',
+      backgroundColor: {
+        xs: '#f5f5f5',
+        sm: 'transparent',
+      },
+      borderRight: '0',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 2,
+      py: paddings,
+      pl: paddings,
+    },
+  },
+  drawerMobile: {
+    '& .MuiDrawer-paper': {
+      backgroundColor: (theme: Theme) => theme.palette.grey[100],
+    },
+  },
+  drawerTopBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    p: 1,
+    flexShrink: 0,
+    backgroundColor: (theme: Theme) => theme.palette.grey[100],
+    borderRadius,
+  },
+  controls: {
+    minHeight: 0,
+    px: 1,
+    pb: 1,
+    backgroundColor: (theme: Theme) => theme.palette.grey[100],
+    borderRadius,
+  },
+  board: {
+    minHeight: 0,
+    flexGrow: 1,
   },
 };
 
@@ -47,23 +74,70 @@ export default function Dashboard(props: {
   promptForm: React.ReactNode;
   board: React.ReactNode;
   savedData: React.ReactNode;
+  params: {
+    id: string;
+  };
 }) {
+  const [sidebarOpen, setSidebarOpen] = React.useState(false); // the initial could be in the store
+  const theme: Theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const message = useTranslations('Dashboard');
+
+  const OpenSideBarButton = () => {
+    const toolbarTitle = sidebarOpen
+      ? message('closeSidebar')
+      : message('openSidebar');
+    return (
+      <Tooltip title={toolbarTitle}>
+        <IconButton onClick={toggleSidebar}>
+          <Menu />
+        </IconButton>
+      </Tooltip>
+    );
+  };
   return (
-    <Box py={{ xs: 0, md: 2, lg: 3 }} className={styles.dashboardBox}>
-      <Box
-        px={{ xs: 2, lg: 4 }}
-        sx={sxStyles.dashboardContainer}
-        className={styles.dashboardContainer}
+    <Box sx={sxStyles.app}>
+      <Drawer
+        variant={isMobile ? 'temporary' : 'persistent'}
+        open={sidebarOpen}
+        onClose={toggleSidebar}
+        sx={sxStyles.drawer}
       >
-        <Box py={{ xs: xsPadding, md: mdPadding }} className={styles.titleBox}>
-          <Box className={styles.controls}>{props.promptForm}</Box>
+        <Box sx={sxStyles.drawerTopBar}>
+          <OpenSideBarButton />
+          <NewBoardLink />
         </Box>
-        <Box pb={{ xs: xsSpacing, md: mdPadding }} sx={sxStyles.sidebar}>
-          <div className={styles.controls}>{props.savedData}</div>
-        </Box>
-        <Box pb={{ xs: xsSpacing, md: mdPadding }} className={styles.board}>
-          {props.board}
-        </Box>
+        <Box sx={sxStyles.controls}>{props.savedData}</Box>
+      </Drawer>
+
+      <Box
+        component="main"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          ml: isMobile ? 0 : sidebarOpen ? `${drawerWidth}px` : 0,
+          transition: theme.transitions.create(['margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <Topbar
+          OpenSidebarButton={OpenSideBarButton}
+          isSidebarOpen={sidebarOpen}
+        />
+        <Box sx={sxStyles.board}>{props.board}</Box>
+
+        {props.params.id === INITIAL_CONTENT_ID && (
+          <Box sx={styles.promptContainer}>{props.promptForm}</Box>
+        )}
         {props.children}
       </Box>
     </Box>

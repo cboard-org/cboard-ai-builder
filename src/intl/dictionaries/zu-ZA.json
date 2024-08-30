@@ -1,0 +1,97 @@
+{
+  "Dashboard": {
+    "closeSidebar": "crwdns58052:0crwdne58052:0",
+    "openSidebar": "crwdns58054:0crwdne58054:0",
+    "newBoard": "crwdns58056:0crwdne58056:0"
+  },
+  "History": {
+    "title": "crwdns57804:0crwdne57804:0"
+  },
+  "Navbar": {
+    "cboard": "crwdns57806:0crwdne57806:0",
+    "builder": "crwdns57808:0crwdne57808:0"
+  },
+  "PromptForm": {
+    "rows": "crwdns57810:0crwdne57810:0",
+    "columns": "crwdns57812:0crwdne57812:0",
+    "colorScheme": "crwdns57814:0crwdne57814:0",
+    "prompt": "crwdns57912:0crwdne57912:0",
+    "useAiPictograms": "crwdns57818:0crwdne57818:0",
+    "newBoard": "crwdns57820:0crwdne57820:0",
+    "newAACBoard": "crwdns57914:0crwdne57914:0"
+  },
+  "Board": {
+    "InitialContent": {
+      "ai": "crwdns57822:0crwdne57822:0",
+      "createANewBoard": "crwdns57824:0crwdne57824:0",
+      "examples": "crwdns57826:0crwdne57826:0",
+      "promptExample1": "crwdns57916:0crwdne57916:0",
+      "promptExample2": "crwdns57918:0crwdne57918:0",
+      "promptExample3": "crwdns57920:0crwdne57920:0"
+    },
+    "BoardContainer": {
+      "exportToCboard": "crwdns57834:0crwdne57834:0"
+    },
+    "TileEditor": {
+      "TileEditorDialogActions": {
+        "saveChanges": "crwdns57836:0crwdne57836:0"
+      },
+      "MorePictosButtons": {
+        "search": "crwdns57838:0crwdne57838:0",
+        "generate": "crwdns57840:0crwdne57840:0",
+        "searchAccessibility": "crwdns57842:0crwdne57842:0",
+        "generateAccessibility": "crwdns57844:0crwdne57844:0"
+      },
+      "PictogramGeneratorFormDialog": {
+        "title": "crwdns57846:0crwdne57846:0",
+        "subtitle": "crwdns57848:0crwdne57848:0",
+        "cancelButton": "crwdns57850:0crwdne57850:0",
+        "generateButton": "crwdns57852:0crwdne57852:0",
+        "generatingPictogramsTo": "crwdns57854:0crwdne57854:0"
+      },
+      "PictogramSearcher": {
+        "pictogramNotFound": "crwdns57856:0crwdne57856:0",
+        "error": "crwdns57858:0crwdne57858:0",
+        "writeKeywordToSearch": "crwdns57860:0crwdne57860:0",
+        "trySearchingWithAnotherKeywordOrGenerateIt": "crwdns57862:0crwdne57862:0",
+        "couldNotFetchPictograms": "crwdns57864:0crwdne57864:0",
+        "searchPictogramUsingTextField": "crwdns57866:0crwdne57866:0"
+      }
+    }
+  },
+  "SavedData": {
+    "savedBoards": "crwdns57868:0crwdne57868:0",
+    "history": "crwdns57870:0crwdne57870:0"
+  },
+  "SignIn": {
+    "cboard": "crwdns57872:0crwdne57872:0",
+    "builder": "crwdns57874:0crwdne57874:0",
+    "sloganTitle": "crwdns57876:0crwdne57876:0",
+    "sloganSubtitle": "crwdns57878:0crwdne57878:0",
+    "ai": "crwdns57880:0crwdne57880:0",
+    "errorMessage": "crwdns57882:0crwdne57882:0",
+    "hello": "crwdns57884:0crwdne57884:0",
+    "welcome": "crwdns57886:0crwdne57886:0",
+    "loginButton": "crwdns57888:0crwdne57888:0",
+    "signUpButton": "crwdns57890:0crwdne57890:0",
+    "signInWith": "crwdns57892:0{provider}crwdne57892:0",
+    "privacyPolicy": "crwdns57894:0crwdne57894:0",
+    "terms": "crwdns57896:0crwdne57896:0",
+    "LoginDialog": {
+      "title": "crwdns57898:0crwdne57898:0",
+      "email": "crwdns57900:0crwdne57900:0",
+      "password": "crwdns57902:0crwdne57902:0",
+      "loginButton": "crwdns57904:0crwdne57904:0",
+      "cancelButton": "crwdns57906:0crwdne57906:0",
+      "forgotPassword": "crwdns57908:0crwdne57908:0",
+      "errorMessage": "crwdns57910:0crwdne57910:0"
+    }
+  },
+  "Settings": {
+    "title": "crwdns57922:0crwdne57922:0",
+    "user": "crwdns57924:0crwdne57924:0",
+    "application": "crwdns57926:0crwdne57926:0",
+    "language": "crwdns57928:0crwdne57928:0",
+    "signOut": "crwdns57930:0crwdne57930:0"
+  }
+}

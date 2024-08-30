@@ -1,5 +1,9 @@
 {
-  "Dashboard": {},
+  "Dashboard": {
+    "closeSidebar": "Close Sidebar",
+    "openSidebar": "Open Sidebar",
+    "newBoard": "New boards"
+  },
   "History": {
     "title": "History"
   },
@@ -40,7 +44,7 @@
       },
       "PictogramGeneratorFormDialog": {
         "title": "Use Pictonizer to generate pictograms",
-        "subtitle": "Generate 4 pictograms for",
+        "subtitle": "Generate pictograms for",
         "cancelButton": "CANCEL",
         "generateButton": "GENERATE",
         "generatingPictogramsTo": "Generating 4 pictograms to:"

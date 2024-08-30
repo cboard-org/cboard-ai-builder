@@ -49,6 +49,12 @@ const nextConfig = {
         port: '',
         pathname: '/storage/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.leonardo.ai',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: false,
