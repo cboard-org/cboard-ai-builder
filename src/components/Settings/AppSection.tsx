@@ -16,6 +16,8 @@ import { startTransition } from 'react';
 import { useRouter, usePathname } from '@/navigation';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
+import ISO6391 from 'iso-639-1';
+import useIsSmallScreen from '@/hooks/useIsSmallScreen';
 
 type ColorTheme = 'auto' | 'dark' | 'light';
 const themeOptions = ['auto', 'dark', 'light'];
@@ -25,6 +27,7 @@ export default function AppSection() {
   const pathname = usePathname();
   const messages = useTranslations('Settings');
   const locale = useLocale();
+  const isSmallScreen = useIsSmallScreen();
   const [theme, setTheme] = useBoundStore(
     useShallow((state) => [state.theme, state.setTheme]),
   );
@@ -37,10 +40,15 @@ export default function AppSection() {
     });
   };
 
+  const getNativeName = (locale: string) => {
+    const countryCode = locale.slice(0, 2);
+    return ISO6391.getNativeName(countryCode);
+  };
+
   return (
     <List
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
+        <ListSubheader component="div" id="application-subheader">
           {messages('application')}
         </ListSubheader>
       }
@@ -49,14 +57,17 @@ export default function AppSection() {
         secondaryAction={
           <FormControl sx={styles.formControl} size="small">
             <Select
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
+              labelId="language-select-label"
+              id="language-select"
               value={locale}
               onChange={handleOnChange}
             >
               {supportedLocales.map((locale) => (
                 <MenuItem key={locale} value={locale}>
-                  {locale.slice(0, 2).toUpperCase()}
+                  {(isSmallScreen
+                    ? ''
+                    : locale.slice(0, 2).toUpperCase() + ' - ') +
+                    getNativeName(locale)}
                 </MenuItem>
               ))}
             </Select>
@@ -68,7 +79,7 @@ export default function AppSection() {
           <ListItemIcon>
             <LanguageIcon />
           </ListItemIcon>
-          <ListItemText id={'labelId'} primary={messages('language')} />
+          <ListItemText id={'language'} primary={messages('language')} />
         </ListItemButton>
       </ListItem>
       <ListItem
