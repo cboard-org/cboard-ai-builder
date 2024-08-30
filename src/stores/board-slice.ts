@@ -163,7 +163,7 @@ export const createBoardSlice: StateCreator<
       await updateBoard(editedBoard);
       setBoardIsUpToDate(set);
       return;
-    } catch (err) {
+    } catch (error) {
       set(
         () => ({
           isOutdated: true,

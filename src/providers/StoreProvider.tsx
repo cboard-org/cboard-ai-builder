@@ -6,6 +6,7 @@ import { BoardSlice, createBoardSlice } from '@/stores/board-slice';
 import { devtools } from 'zustand/middleware';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { DashboardSlice, createDashboardSlice } from '@/stores/dashboard-slice';
+import { getErrorMessage } from '@/common/common';
 
 export type Store = PromptSlice & BoardSlice & DashboardSlice;
 export const StoreContext = createContext<StoreApi<Store> | null>(null);
@@ -16,7 +17,10 @@ export default function StoreProvider({ children }: React.PropsWithChildren) {
     const onRehydrateStorage = ({ setHydrated }: Store) => {
       return (state: Store | undefined, error: unknown) => {
         if (error) {
-          console.error('an error happened during hydration', error);
+          console.error(
+            'an error happened during hydration',
+            getErrorMessage(error),
+          );
         } else {
           setHydrated();
         }

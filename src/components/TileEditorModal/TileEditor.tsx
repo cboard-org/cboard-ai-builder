@@ -16,6 +16,7 @@ import Image from 'next/image';
 import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 import usePrimarySuggestedImagesMerger from './hooks/usePrimarySuggestedImagesMerger';
 import CircularProgress from '@mui/material/CircularProgress';
+import { getErrorMessage } from '@/common/common';
 
 type PropType = {
   primaryTile: TileRecord;
@@ -152,8 +153,8 @@ const TileEditor: React.FC<PropType> = ({
   const handleOnNextGeneratedPictoClick = async () => {
     try {
       await onNextGeneratedPictoClick();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(getErrorMessage(error));
     }
   };
 

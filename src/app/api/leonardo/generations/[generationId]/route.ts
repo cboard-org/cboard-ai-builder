@@ -3,6 +3,7 @@ import {
   LeonardoData,
   LeonardoRes,
 } from '@/commonTypes/LeonardoRes';
+import { getErrorMessage } from '@/common/common';
 
 const leoBaseUrl: string = 'https://cloud.leonardo.ai/api/rest/v1/';
 
@@ -42,7 +43,7 @@ export async function GET(
     const data = await response.json();
     msgResponse = data;
   } catch (error) {
-    console.error('Error messaging AI image');
+    console.error('Error messaging AI image. ', getErrorMessage(error));
     return new Response('Error messaging AI image', { status: 500 });
   }
   return Response.json(msgResponse);
