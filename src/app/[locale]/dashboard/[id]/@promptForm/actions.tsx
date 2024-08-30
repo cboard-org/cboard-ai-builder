@@ -11,6 +11,7 @@ import { getServerSession } from 'next-auth/next';
 import authConfig from '@/lib/next-auth/config';
 import { create as savePrompt } from '@/db/services/Prompt/service';
 import { revalidatePath } from 'next/cache';
+import { getErrorMessage } from '@/lib/common/common';
 
 const apiKey = process.env.AZURE_OPENAI_API_KEY;
 
@@ -99,7 +100,6 @@ export async function submit(
 
   try {
     if (!validate.success) {
-      console.log('validate', validate.error);
       throw Error('Invalid input');
     }
     if (
@@ -161,7 +161,7 @@ export async function submit(
       };
     }
   } catch (error) {
-    console.error('Error: ', error);
+    console.error('Error: ', getErrorMessage(error));
     //could return a more specific error also re try the request
     //return { error: ERROR_RESPONSE_OBJECT };
   }

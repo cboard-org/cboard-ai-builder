@@ -18,6 +18,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { usePathname } from '@/navigation';
 import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
+import { getErrorMessage } from '@/lib/common/common';
 
 const useUpdatedTileSynchronizer = () => {
   const updateTilePropsSaver = useUpdateTilePropsSaver();
@@ -144,7 +145,7 @@ export default function Tile({
             setSelectedImageSuggestion(lastSuggestedImagesIndex);
           }
         } catch (error) {
-          console.error('Error generating picto', error);
+          console.error('Error generating picto.', getErrorMessage(error));
           setIsChangingPicto(false);
         }
       }
@@ -179,7 +180,10 @@ export default function Tile({
           }
           addGeneratedPicto(tile, generatedPicto, generatedSuggestion.url);
         } catch (error) {
-          console.error('Error changing generated picto', error);
+          console.error(
+            'Error changing generated picto',
+            getErrorMessage(error),
+          );
         }
         startTransition(() => {
           setIsChangingPicto(false);

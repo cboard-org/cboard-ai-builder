@@ -3,6 +3,8 @@ import {
   LeonardoData,
   LeonardoImage,
 } from '@/commonTypes/LeonardoRes';
+import Error from 'next/error';
+import { getErrorMessage } from '../common/common';
 
 async function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -43,6 +45,9 @@ export async function createAIPicto(description: string) {
       cache: 'no-store',
     });
     const data = await response.json();
+    if (data.error && data.code) {
+      throw new Error(data.error);
+    }
 
     do {
       await delay(1200);
@@ -67,7 +72,6 @@ export async function createAIPicto(description: string) {
       (img) => img.id,
     );
 
-    console.log(imgIds);
     return {
       url: msgResponse.generations_by_pk.generated_images[0].url,
       id: msgResponse.generations_by_pk.id,
@@ -78,12 +82,11 @@ export async function createAIPicto(description: string) {
     };
   } catch (error) {
     imgDone = true;
-    console.error('Error generating AI image. ' + JSON.stringify(error));
+    console.error('Error generating AI image. ', getErrorMessage(error));
   }
 }
 
 export async function changePicto(generationId: string, id: string) {
-  console.log(generationId);
   console.log(id);
 
   let imgDone: boolean = false;
@@ -137,8 +140,10 @@ export async function changePicto(generationId: string, id: string) {
       proxy_url: msgResponse.generations_by_pk.generated_images[0].url,
       changeImageIds: imgIds,
     };
-  } catch (err) {
-    console.error('Error upscaling the generated image');
-    throw new Error('Error upscaling the generated image');
+  } catch (error) {
+    console.error(
+      'Error upscaling the generated image',
+      getErrorMessage(error),
+    );
   }
 }

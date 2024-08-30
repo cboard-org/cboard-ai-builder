@@ -7,6 +7,7 @@ import { oauthLogin, credentialsLogin } from '@/lib/cboard-api/auth';
 import { User } from '../cboard-api/types';
 import { CboardUser, PICK_KEYS } from './types';
 import pick from 'lodash.pick';
+import { getErrorMessage } from '../common/common';
 const providers = [];
 
 if (process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
@@ -100,9 +101,9 @@ export default {
         try {
           const user = await credentialsLogin(credentials);
           return user;
-        } catch (e) {
-          console.error(e);
-          throw e;
+        } catch (error) {
+          console.error(getErrorMessage(error));
+          throw error;
         }
       },
     }),

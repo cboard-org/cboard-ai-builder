@@ -1,3 +1,5 @@
+import { getErrorMessage } from '@/lib/common/common';
+
 const leoBaseUrl: string = 'https://cloud.leonardo.ai/api/rest/v1/';
 
 export async function POST(req: Request) {
@@ -41,7 +43,7 @@ export async function POST(req: Request) {
     const data = await response.json();
     return Response.json(data);
   } catch (error) {
-    console.error('Error generating AI image');
+    console.error('Error generating AI image. ', getErrorMessage(error));
     return new Response('Error generating AI image', { status: 500 });
   }
 }

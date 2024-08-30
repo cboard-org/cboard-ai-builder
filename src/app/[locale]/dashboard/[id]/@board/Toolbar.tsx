@@ -22,6 +22,7 @@ import { useTheme } from '@mui/material';
 import styles from './styles';
 import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
 import Settings from '@/components/Settings/Settings';
+import { getErrorMessage } from '@/lib/common/common';
 
 type Props = {
   isEditing: boolean;
@@ -42,8 +43,8 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
         : await updateBoard(board);
       setBoardIsUpToDate();
       if (isNewBoard) router.push(`/dashboard/${savedBoard.id}`);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(getErrorMessage(error));
     }
     setisSaving(false);
   };
@@ -101,8 +102,8 @@ const useDownloadBoard = (): [() => Promise<void>, boolean] => {
     setIsDownloadingBoard(true);
     try {
       if (board) await cboardExportAdapter([board]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(getErrorMessage(error));
       //Show Error Notification
     }
     setIsDownloadingBoard(false);

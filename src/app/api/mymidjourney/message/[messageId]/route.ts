@@ -1,3 +1,5 @@
+import { getErrorMessage } from '@/lib/common/common';
+
 const midjBaseUrl: string = 'https://api.imaginepro.ai/api/v1/midjourney/';
 
 export async function GET(
@@ -32,7 +34,7 @@ export async function GET(
     const data = await response.json();
     messageResponse = data;
   } catch (error) {
-    console.error('Error messaging AI image');
+    console.error('Error messaging AI image. ', getErrorMessage(error));
     return new Response('Error messaging AI image', { status: 500 });
   }
   return Response.json(messageResponse);
