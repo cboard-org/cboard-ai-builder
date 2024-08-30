@@ -128,11 +128,17 @@ export async function submit(
         throw new Error('No suggestions found');
       }
 
+      const author = session.user?.name ? session.user.name : '';
+      const email = session.user?.email ? session.user.email : '';
+
       const generatedBoard = await toCboardAdapter({
         suggestions,
         columns,
         rows,
-        prompt: prompt,
+        prompt,
+        author,
+        email,
+        locale,
       });
 
       const savedPrompt = await savePrompt({
