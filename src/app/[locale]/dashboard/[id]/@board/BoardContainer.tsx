@@ -1,10 +1,13 @@
 'use client';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import NorthEast from '@mui/icons-material/NorthEast';
 import Grid from './Grid';
 import React, { useEffect, useState } from 'react';
 import Toolbar from './Toolbar';
 import { moveOrderItem } from './Grid/gridManipulation';
 import { BoardRecord } from '@/commonTypes/Board';
+import { useTranslations } from 'next-intl';
 import { DEFAULT_COLUMNS_NUMBER, DEFAULT_ROWS_NUMBER } from './constants';
 import Tile from '@/components/Tile';
 // import SelectTileMask from '@/components/SelectTileMask';
@@ -18,9 +21,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
-import ExportToCboard from '@/components/ExportToCboard/ExportToCboard';
 
 const BoardSection = () => {
+  const message = useTranslations('Board.BoardContainer');
   const [board, prompt] = useBoundStore(
     useShallow((state) => [state.board, state.prompt]),
   );
@@ -128,7 +131,14 @@ const BoardSection = () => {
           py: { xs: 1, sm: 1 },
         }}
       >
-        <ExportToCboard />
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<NorthEast />}
+          sx={{ fontSize: '0.7rem' }}
+        >
+          {message('exportToCboard')}
+        </Button>
       </Box>
     </Box>
   );
