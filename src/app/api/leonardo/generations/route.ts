@@ -1,15 +1,73 @@
 import { getErrorMessage } from '@/common/common';
+import {
+  TextAnalyticsClient,
+  AzureKeyCredential,
+} from '@azure/ai-text-analytics';
+import TextTranslationClient, {
+  TranslatorCredential,
+  InputTextItem,
+  isUnexpected,
+} from '@azure-rest/ai-translation-text';
 
+const translatorEndpoint: string =
+  'https://api.cognitive.microsofttranslator.com';
+const translatorApiKey: string = process.env.TEXT_TRANSLATOR_API_KEY || '';
+const region: string = 'eastus';
 const leoBaseUrl: string = 'https://cloud.leonardo.ai/api/rest/v1/';
+const detectorKey: string = process.env.LANGUAGE_KEY || '';
+const detectorEndpoint: string =
+  'https://cbuilder-language.cognitiveservices.azure.com/';
 
 export async function POST(req: Request) {
   const { description } = await req.json();
+  let desc = description;
+  try {
+    const client = new TextAnalyticsClient(
+      detectorEndpoint,
+      new AzureKeyCredential(detectorKey),
+    );
+    const result = (await client.detectLanguage([description]))[0];
+    if (!result.error && result.primaryLanguage?.iso6391Name !== 'en') {
+      const translateCedential: TranslatorCredential = {
+        key: translatorApiKey,
+        region,
+      };
+      const translationClient = TextTranslationClient(
+        translatorEndpoint,
+        translateCedential,
+      );
 
+      const inputText: InputTextItem[] = [{ text: description }];
+      const translateResponse = await translationClient
+        .path('/translate')
+        .post({
+          body: inputText,
+          queryParameters: {
+            to: 'en',
+            from: result.primaryLanguage.iso6391Name,
+          },
+        });
+
+      if (isUnexpected(translateResponse)) {
+        console.error(translateResponse.body.error);
+      } else {
+        const translations = translateResponse.body;
+        if (translations instanceof Array) {
+          desc = translations[0].translations[0].text;
+        }
+      }
+    }
+  } catch (error) {
+    console.error(
+      'Unable to translate for: ' + description + '. ',
+      getErrorMessage(error),
+    );
+  }
   const basePrompt =
     'Create a simple and clear pictogram of ' +
-    description +
+    desc +
     ' in the style of ARASAAC for AAC use. ' +
-    description +
+    desc +
     ' should be represented with basic shapes and minimal details, using bold lines and solid colors to ensure easy recognition and clarity.';
 
   const myHeaders = new Headers();
