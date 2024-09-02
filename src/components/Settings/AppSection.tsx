@@ -14,13 +14,12 @@ import { styles } from './styles';
 import { supportedLocales } from '@/intl/intl.constants';
 import { startTransition } from 'react';
 import { useRouter, usePathname } from '@/navigation';
-import { useBoundStore } from '@/providers/StoreProvider';
-import { useShallow } from 'zustand/react/shallow';
 import ISO6391 from 'iso-639-1';
 import useIsSmallScreen from '@/hooks/useIsSmallScreen';
+import { useColorScheme } from '@mui/material/styles';
 
-type ColorTheme = 'auto' | 'dark' | 'light';
-const themeOptions = ['auto', 'dark', 'light'];
+type ColorTheme = 'system' | 'dark' | 'light';
+const themeOptions = ['system', 'dark', 'light'];
 
 export default function AppSection() {
   const router = useRouter();
@@ -28,9 +27,7 @@ export default function AppSection() {
   const messages = useTranslations('Settings');
   const locale = useLocale();
   const isSmallScreen = useIsSmallScreen();
-  const [theme, setTheme] = useBoundStore(
-    useShallow((state) => [state.theme, state.setTheme]),
-  );
+  const { mode, setMode } = useColorScheme();
 
   const handleOnChange = (event: SelectChangeEvent<string>) => {
     const nextLocale = event.target.value;
@@ -89,10 +86,10 @@ export default function AppSection() {
             <Select
               labelId="theme-color-select"
               id="theme-color-select"
-              value={theme}
+              value={mode || 'system'}
               onChange={(event) => {
                 const value = event.target.value;
-                setTheme(value as ColorTheme);
+                setMode(value as ColorTheme);
               }}
             >
               {themeOptions.map((option) => (
