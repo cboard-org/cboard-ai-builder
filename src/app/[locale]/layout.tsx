@@ -25,7 +25,8 @@ export default function RootLayout({
   const messages = useMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
+      {/* See MUI documentation for why we use suppressHydrationWarning https://mui.com/material-ui/customization/css-theme-variables/configuration/#next-js-app-router  */}
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <StoreProvider>
