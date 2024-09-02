@@ -17,6 +17,7 @@ import { useRouter, usePathname } from '@/navigation';
 import ISO6391 from 'iso-639-1';
 import useIsSmallScreen from '@/hooks/useIsSmallScreen';
 import { useColorScheme } from '@mui/material/styles';
+import ContrastIcon from '@mui/icons-material/Contrast';
 
 type ColorTheme = 'system' | 'dark' | 'light';
 const themeOptions = ['system', 'dark', 'light'];
@@ -103,7 +104,7 @@ export default function AppSection() {
       >
         <ListItemButton>
           <ListItemIcon>
-            <LanguageIcon />
+            <ContrastIcon />
           </ListItemIcon>
           <ListItemText id={'theme-switch'} primary={messages('theme')} />
         </ListItemButton>
