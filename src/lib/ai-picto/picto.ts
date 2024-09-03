@@ -5,11 +5,15 @@ import {
 } from '@/commonTypes/LeonardoRes';
 import Error from 'next/error';
 import { getErrorMessage } from '../../common/common';
+import {
+  detectLanguage,
+  translateToEnglish,
+} from '../azureServices/language/language';
 
 async function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-export async function createAIPicto(description: string) {
+export async function createAIPicto(desc: string) {
   let imgDone: boolean = false;
   let tries: number = 0;
 
@@ -29,6 +33,17 @@ export async function createAIPicto(description: string) {
     generations_by_pk: messageData,
   };
 
+  let description;
+  try {
+    description = desc;
+    const language = await detectLanguage(desc);
+    if (language !== 'en' && typeof language === 'string') {
+      description = await translateToEnglish(desc, language);
+    }
+  } catch (error) {
+    console.error(getErrorMessage(error));
+  }
+  console.log(description);
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
