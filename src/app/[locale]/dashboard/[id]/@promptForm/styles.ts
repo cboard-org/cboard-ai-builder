@@ -10,13 +10,19 @@ export default {
     width: '100%',
     maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
-  submitIconButton: {
+  submitButton: {
+    color: (theme) => theme.palette.primary.contrastText,
+    marginRight: '6px',
+    minWidth: '112px',
+    borderRadius,
     backgroundColor: (theme) => theme.palette.primary.main,
     '&:hover': {
       backgroundColor: (theme) => theme.palette.primary.dark,
     },
   },
-  submitIcon: { color: (theme) => theme.palette.primary.contrastText },
+  submitIcon: {
+    color: (theme) => theme.palette.primary.contrastText,
+  },
   promptImputsContainer: {
     color: (theme) => theme.palette.primary.contrastText,
   },

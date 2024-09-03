@@ -18,7 +18,8 @@
     "prompt": "Crea un tablero sobre:",
     "useAiPictograms": "Usar pictogramas de IA",
     "newBoard": "Nuevo tablero",
-    "newAACBoard": "Nuevo tablero de CAA"
+    "newAACBoard": "Nuevo tablero de CAA",
+    "submitText": "Crear"
   },
   "Board": {
     "InitialContent": {

@@ -2,6 +2,7 @@
 import Button from '@mui/material/Button';
 import NorthEast from '@mui/icons-material/NorthEast';
 import { useTranslations } from 'next-intl';
+import styles from './styles';
 import { useExportToCboard } from './useExportToCboard';
 import { useBoundStore } from '@/providers/StoreProvider';
 
@@ -15,7 +16,7 @@ export default function ExportToCboard() {
       variant="contained"
       color="primary"
       startIcon={<NorthEast />}
-      sx={{ fontSize: '0.7rem' }}
+      sx={styles.exportButton}
       onClick={() => board && onExport(board)}
     >
       {message('exportToCboard')}
