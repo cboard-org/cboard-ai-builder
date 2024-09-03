@@ -5,10 +5,6 @@ import {
 } from '@/commonTypes/LeonardoRes';
 import Error from 'next/error';
 import { getErrorMessage } from '../../common/common';
-import {
-  detectLanguage,
-  translateToEnglish,
-} from '../azureServices/language/language';
 
 async function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -33,19 +29,45 @@ export async function createAIPicto(desc: string) {
     generations_by_pk: messageData,
   };
 
+  const myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
   let description;
+
   try {
     description = desc;
-    const language = await detectLanguage(desc);
-    if (language !== 'en' && typeof language === 'string') {
-      description = await translateToEnglish(desc, language);
+    const detectBody: string = JSON.stringify({
+      description: desc,
+    });
+    const language = await fetch('/api/azure-services/detect-language', {
+      method: 'POST',
+      headers: myHeaders,
+      body: detectBody,
+      redirect: 'follow',
+      cache: 'no-store',
+    });
+    const detectedLang = await language.json();
+    if (
+      detectedLang.language !== 'en' &&
+      typeof detectedLang.language === 'string'
+    ) {
+      const translateBody: string = JSON.stringify({
+        description: desc,
+        from: detectedLang.language,
+      });
+      const translation = await fetch('/api/azure-services/translate', {
+        method: 'POST',
+        headers: myHeaders,
+        body: translateBody,
+        redirect: 'follow',
+        cache: 'no-store',
+      });
+      const translationData = await translation.json();
+      description = translationData.translation;
     }
   } catch (error) {
     console.error(getErrorMessage(error));
   }
-  console.log(description);
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
 
   try {
     // Imagine image
