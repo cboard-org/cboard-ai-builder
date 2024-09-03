@@ -15,4 +15,8 @@ export default {
     ml: 2,
     minHeight: 40,
   },
+  settings: {
+    position: 'fixed',
+    right: '12px',
+  },
 } satisfies Record<string, SxProps>;

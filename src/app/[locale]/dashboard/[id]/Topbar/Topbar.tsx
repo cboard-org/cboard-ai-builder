@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
 import NewBoardLink from '../NewBoardLink/NewBoardLink';
+import Settings from '@/components/Settings/Settings';
 
 type TopbarProps = {
   OpenSidebarButton: () => React.JSX.Element;
@@ -22,6 +23,9 @@ const Topbar: React.FC<TopbarProps> = ({
         </>
       )}
       <BrandTypography />
+      <div style={styles.settings}>
+        <Settings />
+      </div>
     </Box>
   );
 };
