@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Modal from '../Modal/Modal';
 import IconButton from '@mui/material/IconButton';
@@ -26,7 +27,7 @@ export default function Settings() {
   return (
     <>
       <IconButton onClick={handleOnClick}>
-        <SettingsIcon fontSize="small" />
+        <SettingsIcon fontSize="medium" />
       </IconButton>
       <Modal onClose={handleOnClose} open={open}>
         <AppBar sx={{ position: 'relative' }}>

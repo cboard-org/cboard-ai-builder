@@ -21,7 +21,6 @@ import { useTheme } from '@mui/material';
 // import EditingToolbar from './EditingToolbar';
 import styles from './styles';
 import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
-import Settings from '@/components/Settings/Settings';
 import { getErrorMessage } from '@/common/common';
 
 type Props = {
@@ -146,7 +145,6 @@ const DefaultToolbar = () => {
       <IconButton>
         <PrintIcon fontSize="small" />
       </IconButton>
-      <Settings />
       <Divider orientation="vertical" flexItem />
     </>
   );
