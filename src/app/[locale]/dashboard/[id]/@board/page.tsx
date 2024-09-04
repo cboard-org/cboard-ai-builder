@@ -25,7 +25,7 @@ export default async function Page({
   }
 
   return (
-    <IntlWrapperForAsync propertyName={['Board', 'Settings']}>
+    <IntlWrapperForAsync propertyName={['Board']}>
       <BoardDisplayed remoteInitialBoard={board} id={id} />
     </IntlWrapperForAsync>
   );

@@ -29,7 +29,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <StoreProvider>
-            <NextIntlClientProvider messages={pick(messages, 'Dashboard')}>
+            <NextIntlClientProvider
+              messages={pick(messages, ['Dashboard', 'Settings'])}
+            >
               <ThemeProvider>{children}</ThemeProvider>
             </NextIntlClientProvider>
           </StoreProvider>
