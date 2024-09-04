@@ -15,17 +15,19 @@ const Topbar: React.FC<TopbarProps> = ({
   isSidebarOpen,
 }) => {
   return (
-    <Box sx={styles.topbar}>
-      {!isSidebarOpen && (
-        <>
-          <OpenSidebarButton />
-          <NewBoardLink />
-        </>
-      )}
-      <BrandTypography />
-      <div style={styles.settings}>
+    <Box sx={styles.topbarContainer}>
+      <Box sx={styles.leftSection}>
+        {!isSidebarOpen && (
+          <>
+            <OpenSidebarButton />
+            <NewBoardLink />
+          </>
+        )}
+        <BrandTypography />
+      </Box>
+      <Box sx={styles.rightSection}>
         <Settings />
-      </div>
+      </Box>
     </Box>
   );
 };

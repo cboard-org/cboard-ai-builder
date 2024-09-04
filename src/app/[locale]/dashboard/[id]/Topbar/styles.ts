@@ -1,12 +1,13 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
-  topbar: {
+  topbarContainer: {
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
     p: 1,
     flexShrink: 0,
+    justifyContent: 'space-between',
   },
   brandTypography: {
     display: 'flex',
@@ -15,8 +16,14 @@ export default {
     ml: 2,
     minHeight: 40,
   },
-  settings: {
-    position: 'fixed',
-    right: '12px',
+  leftSection: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
+  rightSection: {
+    alignSelf: 'flex-end',
   },
 } satisfies Record<string, SxProps>;
