@@ -7,12 +7,14 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { STASHED_CONTENT_ID } from '@/dashboard/constants';
 import { usePathname } from '@/navigation';
 
-export const useUpsertActualBoard = (): [
-  boolean,
-  boolean,
-  (board: BoardRecord) => Promise<void>,
-] => {
+export const useUpsertActualBoard = (): {
+  isSaving: boolean;
+  isNewBoard: boolean;
+  error: boolean;
+  upsertBoard: (board: BoardRecord) => Promise<BoardRecord | null>;
+} => {
   const [isSaving, setisSaving] = useState(false);
+  const [error, setError] = useState<boolean>(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -25,7 +27,8 @@ export const useUpsertActualBoard = (): [
 
   const setBoardIsUpToDate = useBoundStore((state) => state.setBoardIsUpToDate);
   const upsertBoard = useCallback(
-    async (board: BoardRecord) => {
+    async (board: BoardRecord): Promise<BoardRecord | null> => {
+      setError(false);
       try {
         setisSaving(true);
 
@@ -34,12 +37,16 @@ export const useUpsertActualBoard = (): [
           : await updateBoard(board);
         setBoardIsUpToDate();
         if (isNewBoard) router.push(`/dashboard/${savedBoard.id}`);
+        return savedBoard;
       } catch (error) {
         console.error(getErrorMessage(error));
+        setError(true);
+      } finally {
+        setisSaving(false);
       }
-      setisSaving(false);
+      return null;
     },
     [isNewBoard, router, setBoardIsUpToDate],
   );
-  return [isSaving, isNewBoard, upsertBoard];
+  return { isSaving, isNewBoard, error, upsertBoard };
 };
