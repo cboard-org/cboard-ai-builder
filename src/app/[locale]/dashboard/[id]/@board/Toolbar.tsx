@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -9,19 +9,16 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 // import FullscreenIcon from '@mui/icons-material/Fullscreen';
 // import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import { saveBoard, updateBoard } from './actions';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { BoardRecord } from '@/commonTypes/Board';
-import { useRouter } from '@/navigation';
-import { usePathname } from '@/navigation';
-import { STASHED_CONTENT_ID } from '../constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material';
 // import EditingToolbar from './EditingToolbar';
 import styles from './styles';
 import { cboardExportAdapter } from '@/lib/exportHelpers/cboardExportAdapter';
 import { getErrorMessage } from '@/common/common';
+import { useUpsertActualBoard } from '../hooks/useUpsertActualBoard';
 
 type Props = {
   isEditing: boolean;
@@ -29,35 +26,15 @@ type Props = {
 };
 
 export default function Toolbar({ isEditing, isSavingChange }: Props) {
-  const [isSaving, setisSaving] = useState(false);
+  const { isSaving, isNewBoard, upsertBoard } = useUpsertActualBoard();
 
-  const router = useRouter();
-  const setBoardIsUpToDate = useBoundStore((state) => state.setBoardIsUpToDate);
-  const onSaveBoard = async (board: BoardRecord, isNewBoard: boolean) => {
-    try {
-      setisSaving(true);
-
-      const savedBoard = isNewBoard
-        ? await saveBoard(board)
-        : await updateBoard(board);
-      setBoardIsUpToDate();
-      if (isNewBoard) router.push(`/dashboard/${savedBoard.id}`);
-    } catch (error) {
-      console.error(getErrorMessage(error));
-    }
-    setisSaving(false);
+  const onSaveBoard = async (board: BoardRecord) => {
+    await upsertBoard(board);
   };
 
   const [board, isOutdated] = useBoundStore(
     useShallow((state) => [state.board, state.isOutdated]),
   );
-  const pathname = usePathname();
-
-  const isNewBoard = useMemo(() => {
-    const parts = pathname.split('/');
-    const boardId = parts[parts.length - 1];
-    return boardId === STASHED_CONTENT_ID;
-  }, [pathname]);
 
   const theme = useTheme();
 
@@ -73,7 +50,7 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
       <Divider orientation="vertical" flexItem />
       <IconButton
         disabled={isSavingChange || isSaving || !isBoardOutdated}
-        onClick={() => onSaveBoard(board, isNewBoard)}
+        onClick={() => onSaveBoard(board)}
         color={'error'}
         sx={{
           '&.Mui-disabled': {
