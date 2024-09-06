@@ -29,27 +29,32 @@ import styles from './styles';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import Button from '@mui/material/Button';
 
 const totalRows = 12;
 const totalColumns = 12;
 
 function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
+  const message = useTranslations('PromptForm');
 
   return (
     <Box>
       <Tooltip title={text}>
-        <IconButton
+        <Button
           type="submit"
           disabled={pending}
-          sx={styles.submitIconButton}
+          sx={styles.submitButton}
+          startIcon={
+            pending ? (
+              <CircularProgress size={25} sx={{ justifyContent: 'center' }} />
+            ) : (
+              <AutoFixNormalIcon sx={styles.submitIcon} />
+            )
+          }
         >
-          {pending ? (
-            <CircularProgress size={25} sx={{ justifyContent: 'center' }} />
-          ) : (
-            <AutoFixNormalIcon sx={styles.submitIcon} />
-          )}
-        </IconButton>
+          {message('submitText')}
+        </Button>
       </Tooltip>
     </Box>
   );
