@@ -98,6 +98,12 @@ const BoardSection = () => {
         <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
       </Box>
       <Box sx={styles.boardGridContainer}>
+        <Box
+          className="print-title"
+          sx={{ ...styles.printTitle, ...styles.title }}
+        >
+          {prompt.description}
+        </Box>
         <Grid
           order={board.grid ? board.grid.order : []}
           items={board.tiles}
