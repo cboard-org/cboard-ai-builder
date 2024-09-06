@@ -49,24 +49,19 @@ export default {
     lineHeight: { xs: '32px', sm: '56px' },
   },
   brandIcon: {
-    fontSize: { xs: 35, md: 55 },
+    fontSize: { xs: 35, sm: 55 },
     display: 'flex',
-    '@media (max-height: 600px)': {
-      display: 'none',
-    },
   },
   examplesContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    '@media (max-height: 550px)': {
-      display: 'none',
-    },
   },
   promptExamples: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    textAlign: 'center',
+    flexWrap: { xs: 'nowrap', sm: 'wrap' },
     justifyContent: 'space-between',
     gap: '1rem',
     py: '1rem',
