@@ -5,8 +5,7 @@ import {
   AzureKeyCredential,
 } from '@azure/ai-text-analytics';
 
-const detectorKey: string =
-  process.env.LANGUAGE_KEY || 'cb79abbf579d441194d0b049b6ab5fda';
+const detectorKey: string = process.env.LANGUAGE_KEY || '';
 const detectorEndpoint: string =
   'https://cbuilder-language.cognitiveservices.azure.com';
 

@@ -36,7 +36,6 @@ export async function POST(req: Request) {
       console.error(translateResponse.body.error);
     } else {
       const translations = translateResponse.body;
-      console.log(translations);
       if (translations instanceof Array) {
         return NextResponse.json({
           translation: translations[0].translations[0].text,
