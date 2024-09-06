@@ -61,6 +61,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.microsofttranslator.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: false,
