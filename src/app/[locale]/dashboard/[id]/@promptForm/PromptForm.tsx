@@ -47,7 +47,7 @@ function SubmitButton({ text }: { text: string }) {
           sx={styles.submitButton}
           startIcon={
             pending ? (
-              <CircularProgress size={25} sx={{ justifyContent: 'center' }} />
+              <CircularProgress size={25} sx={styles.submitIcon} />
             ) : (
               <AutoFixNormalIcon sx={styles.submitIcon} />
             )

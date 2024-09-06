@@ -22,6 +22,7 @@ export default {
   },
   submitIcon: {
     color: (theme) => theme.palette.primary.contrastText,
+    justifyContent: 'center',
   },
   promptImputsContainer: {
     color: (theme) => theme.palette.primary.contrastText,
