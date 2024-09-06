@@ -19,6 +19,11 @@ export default {
     '&:hover': {
       backgroundColor: (theme) => theme.palette.primary.dark,
     },
+    '&:disabled': {
+      color: (theme) => theme.palette.primary.contrastText,
+      pointerEvents: 'unset',
+      cursor: 'progress',
+    },
   },
   submitIcon: {
     color: (theme) => theme.palette.primary.contrastText,
