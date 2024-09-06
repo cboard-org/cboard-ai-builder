@@ -55,6 +55,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.cognitiveservices.azure.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: false,
