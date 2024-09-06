@@ -112,6 +112,11 @@ const useDownloadBoard = (): [() => Promise<void>, boolean] => {
 };
 
 const DefaultToolbar = () => {
+  const handlePrint = () => {
+    document.body.classList.add('print-mode');
+    window.print();
+    document.body.classList.remove('print-mode');
+  };
   // const [isFullscreen, setisFullscreen] = useState(false);
   // const toggleFullscreen = () => {
   //   if (!document.fullscreenElement) {
@@ -142,7 +147,7 @@ const DefaultToolbar = () => {
           <DownloadIcon fontSize="small" />
         )}
       </IconButton>
-      <IconButton>
+      <IconButton onClick={handlePrint}>
         <PrintIcon fontSize="small" />
       </IconButton>
       <Divider orientation="vertical" flexItem />
