@@ -18,7 +18,8 @@
     "prompt": "Create a board about:",
     "useAiPictograms": "Use AI Pictograms",
     "newBoard": "New board",
-    "newAACBoard": "New AAC board"
+    "newAACBoard": "New AAC board",
+    "submitText": "Create"
   },
   "Board": {
     "InitialContent": {
@@ -27,7 +28,10 @@
       "examples": "Examples",
       "promptExample1": "Parts of the body",
       "promptExample2": "Jungle animals",
-      "promptExample3": "Italian food"
+      "promptExample3": "Italian food",
+      "promptExample4": "Common actions",
+      "promptExample5": "My moods",
+      "promptExample6": "Hygiene activities"
     },
     "BoardContainer": {
       "exportToCboard": "Export to Cboard"

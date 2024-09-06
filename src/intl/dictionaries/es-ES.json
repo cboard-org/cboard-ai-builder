@@ -18,7 +18,8 @@
     "prompt": "Crea un tablero sobre:",
     "useAiPictograms": "Usar pictogramas de IA",
     "newBoard": "Nuevo tablero",
-    "newAACBoard": "Nuevo tablero de CAA"
+    "newAACBoard": "Nuevo tablero de CAA",
+    "submitText": "Crear"
   },
   "Board": {
     "InitialContent": {
@@ -27,7 +28,10 @@
       "examples": "Ejemplos",
       "promptExample1": "Partes del cuerpo",
       "promptExample2": "Animales de la selva",
-      "promptExample3": "Comida italiana"
+      "promptExample3": "Comida italiana",
+      "promptExample4": "Acciones comunes",
+      "promptExample5": "Estados de ánimo",
+      "promptExample6": "Actividades de higiene"
     },
     "BoardContainer": {
       "exportToCboard": "Exportar a Cboard"

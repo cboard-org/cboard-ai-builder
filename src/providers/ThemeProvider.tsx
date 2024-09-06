@@ -1,25 +1,17 @@
 'use client'; // This directive ensures the component is treated as a client component
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import {
-  ThemeProvider as MuiThemeProvider,
-  useMediaQuery,
-} from '@mui/material';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material';
 import getTheme from '@/theme';
-import { useBoundStore } from './StoreProvider';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  // Detect the system preference for dark mode
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  const storeTheme = useBoundStore((state) => state.theme);
-  const colorTheme =
-    storeTheme !== 'auto' ? storeTheme : prefersDarkMode ? 'dark' : 'light';
-  const theme = useMemo(() => getTheme(colorTheme), [colorTheme]);
+  const theme = getTheme();
   return (
     <MuiThemeProvider theme={theme}>
-      <CssBaseline />
+      <InitColorSchemeScript attribute="class" />
+      <CssBaseline enableColorScheme />
       {children}
     </MuiThemeProvider>
   );

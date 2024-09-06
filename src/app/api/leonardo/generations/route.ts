@@ -4,7 +4,6 @@ const leoBaseUrl: string = 'https://cloud.leonardo.ai/api/rest/v1/';
 
 export async function POST(req: Request) {
   const { description } = await req.json();
-
   const basePrompt =
     'Create a simple and clear pictogram of ' +
     description +

@@ -1,18 +1,39 @@
 import { createTheme } from '@mui/material/styles';
 
-const getTheme = (mode: 'dark' | 'light') =>
+const getTheme = () =>
   createTheme({
-    palette: {
-      mode: mode,
-      primary: {
-        main: mode === 'dark' ? '#D7B3FF' : '#7b1fa2',
-        light: mode === 'dark' ? '#7b1fa2' : '#D7B3FF',
+    cssVariables: { colorSchemeSelector: 'class' },
+    colorSchemes: {
+      light: {
+        palette: {
+          primary: {
+            main: '#7b1fa2',
+            light: '#D7B3FF',
+          },
+          secondary: {
+            main: '#7b1fa2',
+            light: '#D7B3FF',
+          },
+          grey: {
+            100: '#f5f5f5',
+          },
+        },
       },
-      secondary: {
-        main: '#7b1fa2',
-        light: '#D7B3FF',
+      dark: {
+        palette: {
+          primary: {
+            main: '#D7B3FF',
+            light: '#7b1fa2',
+          },
+          secondary: {
+            main: '#7b1fa2',
+            light: '#D7B3FF',
+          },
+          grey: {
+            100: 'rgba(255, 255, 255, 0.09)',
+          },
+        },
       },
-      grey: { 100: mode === 'dark' ? 'rgba(255, 255, 255, 0.09)' : '#f5f5f5' },
     },
   });
 
