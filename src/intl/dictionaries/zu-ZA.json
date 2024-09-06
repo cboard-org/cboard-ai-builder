@@ -18,16 +18,20 @@
     "prompt": "crwdns57912:0crwdne57912:0",
     "useAiPictograms": "crwdns57818:0crwdne57818:0",
     "newBoard": "crwdns57820:0crwdne57820:0",
-    "newAACBoard": "crwdns57914:0crwdne57914:0"
+    "newAACBoard": "crwdns57914:0crwdne57914:0",
+    "submitText": "crwdns58064:0crwdne58064:0"
   },
   "Board": {
     "InitialContent": {
       "ai": "crwdns57822:0crwdne57822:0",
-      "createANewBoard": "crwdns57824:0crwdne57824:0",
+      "createANewBoard": "crwdns58058:0crwdne58058:0",
       "examples": "crwdns57826:0crwdne57826:0",
       "promptExample1": "crwdns57916:0crwdne57916:0",
       "promptExample2": "crwdns57918:0crwdne57918:0",
-      "promptExample3": "crwdns57920:0crwdne57920:0"
+      "promptExample3": "crwdns57920:0crwdne57920:0",
+      "promptExample4": "crwdns58066:0crwdne58066:0",
+      "promptExample5": "crwdns58068:0crwdne58068:0",
+      "promptExample6": "crwdns58070:0crwdne58070:0"
     },
     "BoardContainer": {
       "exportToCboard": "crwdns57834:0crwdne57834:0"
@@ -44,7 +48,7 @@
       },
       "PictogramGeneratorFormDialog": {
         "title": "crwdns57846:0crwdne57846:0",
-        "subtitle": "crwdns57848:0crwdne57848:0",
+        "subtitle": "crwdns58062:0crwdne58062:0",
         "cancelButton": "crwdns57850:0crwdne57850:0",
         "generateButton": "crwdns57852:0crwdne57852:0",
         "generatingPictogramsTo": "crwdns57854:0crwdne57854:0"
@@ -92,6 +96,7 @@
     "user": "crwdns57924:0crwdne57924:0",
     "application": "crwdns57926:0crwdne57926:0",
     "language": "crwdns57928:0crwdne57928:0",
-    "signOut": "crwdns57930:0crwdne57930:0"
+    "signOut": "crwdns57930:0crwdne57930:0",
+    "theme": "crwdns58060:0crwdne58060:0"
   }
 }

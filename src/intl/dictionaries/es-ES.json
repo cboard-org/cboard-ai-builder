@@ -24,13 +24,13 @@
   "Board": {
     "InitialContent": {
       "ai": "IA",
-      "createANewBoard": "Cree un <b>Nuevo <br></br> Tablero</b>",
+      "createANewBoard": "Crear un nuevo <b><br></br>Tablero de CAA</b>",
       "examples": "Ejemplos",
       "promptExample1": "Partes del cuerpo",
       "promptExample2": "Animales de la selva",
       "promptExample3": "Comida italiana",
       "promptExample4": "Acciones comunes",
-      "promptExample5": "Estados de ánimo",
+      "promptExample5": "Mis estados de ánimo",
       "promptExample6": "Actividades de higiene"
     },
     "BoardContainer": {
@@ -48,7 +48,7 @@
       },
       "PictogramGeneratorFormDialog": {
         "title": "Utilice Pictonizer para generar pictogramas",
-        "subtitle": "Generar 4 pictogramas para",
+        "subtitle": "Generar pictogramas para",
         "cancelButton": "CANCELAR",
         "generateButton": "GENERAR",
         "generatingPictogramsTo": "Generando 4 pictogramas para:"
@@ -96,6 +96,7 @@
     "user": "Usuario",
     "application": "Aplicación",
     "language": "Idioma",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "theme": "Tema"
   }
 }
