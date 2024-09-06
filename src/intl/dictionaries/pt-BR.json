@@ -18,16 +18,20 @@
     "prompt": "Crie um quadro sobre:",
     "useAiPictograms": "Use pictogramas de IA",
     "newBoard": "Nova diretoria",
-    "newAACBoard": "Nova placa AAC"
+    "newAACBoard": "Nova prancha de CAA",
+    "submitText": "Criar"
   },
   "Board": {
     "InitialContent": {
       "ai": "IA",
-      "createANewBoard": "Crie um <b>Novo <br></br> Tábua</b>",
+      "createANewBoard": "Crie uma nova<b><br></br>prancha de CAA</b>",
       "examples": "Exemplos",
       "promptExample1": "Partes do corpo",
       "promptExample2": "Animais da selva",
-      "promptExample3": "Comida italiana"
+      "promptExample3": "Comida italiana",
+      "promptExample4": "Acções comuns",
+      "promptExample5": "Meus humores",
+      "promptExample6": "Atividades de higiene"
     },
     "BoardContainer": {
       "exportToCboard": "Exportar para Cboard"
@@ -44,7 +48,7 @@
       },
       "PictogramGeneratorFormDialog": {
         "title": "Use o Pictonizer para gerar pictogramas",
-        "subtitle": "Gere 4 pictogramas para",
+        "subtitle": "Gere pictogramas para",
         "cancelButton": "CANCELAR",
         "generateButton": "GERAR",
         "generatingPictogramsTo": "Gerando 4 pictogramas para:"
@@ -92,6 +96,7 @@
     "user": "Utilizador",
     "application": "Aplicação",
     "language": "Idioma",
-    "signOut": "Sair"
+    "signOut": "Sair",
+    "theme": "Tema"
   }
 }
