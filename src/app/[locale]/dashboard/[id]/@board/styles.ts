@@ -65,6 +65,8 @@ export default {
   },
   promptExamples: {
     display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     gap: '1rem',
     py: '1rem',
