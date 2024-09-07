@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import ThemeProvider from '@/providers/ThemeProvider';
@@ -7,7 +7,7 @@ import StoreProvider from '@/providers/StoreProvider';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 
-const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Cboard AI Builder',
@@ -25,9 +25,21 @@ export default function RootLayout({
   const messages = useMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={montserrat.className}
+    >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       {/* See MUI documentation for why we use suppressHydrationWarning https://mui.com/material-ui/customization/css-theme-variables/configuration/#next-js-app-router  */}
-      <body className={inter.className}>
+      <body className={montserrat.className}>
         <AppRouterCacheProvider>
           <StoreProvider>
             <NextIntlClientProvider
