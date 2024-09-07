@@ -2,6 +2,9 @@ import { createTheme } from '@mui/material/styles';
 
 const getTheme = () =>
   createTheme({
+    typography: {
+      fontFamily: ['Montserrat', 'Roboto', 'Arial', 'sans-serif'].join(','),
+    },
     cssVariables: { colorSchemeSelector: 'class' },
     colorSchemes: {
       light: {

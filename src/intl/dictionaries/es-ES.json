@@ -2,7 +2,8 @@
   "Dashboard": {
     "closeSidebar": "Cerrar barra lateral",
     "openSidebar": "Abrir barra lateral",
-    "newBoard": "Nuevos tableros"
+    "createNewBoard": "Crea un nuevo tablero",
+    "newBoard": "Nuevo tablero"
   },
   "History": {
     "title": "Historia"
