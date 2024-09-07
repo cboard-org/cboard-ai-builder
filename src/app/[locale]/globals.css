@@ -56,3 +56,45 @@ a {
     color-scheme: dark;
   }
 }
+
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Make the print section visible */
+  .print-section,
+  .print-section * {
+    visibility: visible;
+  }
+
+  /* Force the print section to fill the page */
+  .print-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    page-break-inside: avoid;
+  }
+
+  .hide-on-print {
+    display: none !important;
+  }
+
+  .print-title {
+    display: block !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: black !important;
+    text-align: center !important;
+    margin-bottom: -6px !important;
+  }
+
+  @page {
+    margin: 0;
+  }
+}

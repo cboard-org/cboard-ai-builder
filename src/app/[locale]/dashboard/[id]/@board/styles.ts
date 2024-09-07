@@ -79,5 +79,9 @@ export default {
     overflow: 'auto',
     flexGrow: 1,
     display: 'flex',
+    flexDirection: 'column',
+  },
+  printTitle: {
+    display: 'none',
   },
 } satisfies Record<string, SxProps>;

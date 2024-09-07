@@ -157,7 +157,7 @@ const ImagePagination = ({
     }
   }
   return (
-    <Box pb={1} sx={{ display: 'flex' }}>
+    <Box pb={1} sx={{ display: 'flex' }} className={'hide-on-print'}>
       {pages}
     </Box>
   );
