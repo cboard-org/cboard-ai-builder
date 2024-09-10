@@ -23,6 +23,8 @@ const Topbar: React.FC<TopbarProps> = ({
             <NewBoardLink />
           </>
         )}
+      </Box>
+      <Box sx={styles.middleSection}>
         <BrandTypography />
       </Box>
       <Box sx={styles.rightSection}>
