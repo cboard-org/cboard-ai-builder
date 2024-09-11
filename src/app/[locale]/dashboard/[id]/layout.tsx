@@ -14,7 +14,7 @@ import styles from './styles';
 import { useTranslations } from 'next-intl';
 
 const drawerWidth = 310; // Adjust this value as needed
-const paddings = { xs: 1, md: 2, lg: 3 };
+const paddings = { xs: 1, md: 2 };
 const borderRadius = 4;
 const sxStyles = {
   app: {
@@ -35,11 +35,7 @@ const sxStyles = {
       gap: 2,
       py: paddings,
       pl: paddings,
-    },
-  },
-  drawerMobile: {
-    '& .MuiDrawer-paper': {
-      backgroundColor: (theme: Theme) => theme.palette.grey[100],
+      pr: { xs: 1, md: 0 },
     },
   },
   drawerTopBar: {
