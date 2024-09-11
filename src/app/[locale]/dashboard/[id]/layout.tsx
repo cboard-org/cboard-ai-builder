@@ -27,10 +27,7 @@ const sxStyles = {
     '& .MuiDrawer-paper': {
       width: drawerWidth,
       boxSizing: 'border-box',
-      backgroundColor: {
-        xs: '#f5f5f5',
-        sm: 'transparent',
-      },
+      backgroundColor: 'primary',
       borderRight: '0',
       overflow: 'hidden',
       display: 'flex',
