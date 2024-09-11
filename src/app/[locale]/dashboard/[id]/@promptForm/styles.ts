@@ -11,26 +11,26 @@ export default {
     maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
   submitButton: {
-    color: (theme) => theme.palette.primary.contrastText,
+    color: 'primary.contrastText',
     marginRight: '6px',
     minWidth: '112px',
     borderRadius,
-    backgroundColor: (theme) => theme.palette.primary.main,
+    backgroundColor: 'primary.main',
     '&:hover': {
-      backgroundColor: (theme) => theme.palette.primary.dark,
+      backgroundColor: 'primary.dark',
     },
     '&:disabled': {
-      color: (theme) => theme.palette.primary.contrastText,
+      color: 'primary.contrastText',
       pointerEvents: 'unset',
       cursor: 'progress',
     },
   },
   submitIcon: {
-    color: (theme) => theme.palette.primary.contrastText,
+    color: 'primary.contrastTex',
     justifyContent: 'center',
   },
   promptImputsContainer: {
-    color: (theme) => theme.palette.primary.contrastText,
+    color: 'primary.contrastText',
   },
   sizeSelectorContainer: {
     display: 'flex',
@@ -39,7 +39,7 @@ export default {
   },
   sizeSelector: {
     width: 'max-content',
-    backgroundColor: (theme) => theme.palette.grey[100],
+    backgroundColor: 'grey.100',
     borderRadius,
     alignItems: 'center',
     display: 'flex',
