@@ -123,7 +123,7 @@ export function PromptForm() {
       }}
     >
       <Fade
-        appear={true}
+        appear={false}
         in={blink}
         addEndListener={() => {
           if (blink) {
