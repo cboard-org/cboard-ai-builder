@@ -24,6 +24,7 @@ const usePromptBlinkAnimation = (
   }) => {
     const prevPrompt = usePrevious(prompt);
     useEffect(() => {
+      if (prevPrompt === undefined) return;
       const promptIsUpdated =
         JSON.stringify(prevPrompt) !== JSON.stringify(prompt);
       if (promptIsUpdated && !preventBlink.current) {
