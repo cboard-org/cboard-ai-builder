@@ -13,4 +13,6 @@ export default {
     height: '100%',
     width: '100%',
   },
+  smallDevices: { display: { xs: 'block', md: 'none' } },
+  largeDevices: { display: { xs: 'none', md: 'block' } },
 } satisfies Record<string, SxProps>;

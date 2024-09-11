@@ -8,28 +8,46 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import Button from '@mui/material/Button';
-
-// type Props = {};
+import IconButton from '@mui/material/IconButton';
 
 function NewBoardLink() {
-  const messages = useTranslations('Dashboard');
   const cleanPrompt = useBoundStore((state) => state.cleanPrompt);
   return (
     <Link onClick={cleanPrompt} href={`/dashboard/${INITIAL_CONTENT_ID}`}>
       <Box sx={styles.linkContent}>
-        <Tooltip title={messages('createNewBoard')}>
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<AddBoxIcon />}
-            sx={styles.newBoardButton}
-          >
-            {messages('newBoard')}
-          </Button>
-        </Tooltip>
+        <Box sx={styles.smallDevices}>
+          <NewBoardIconButton />
+        </Box>
+        <Box sx={styles.largeDevices}>
+          <NewBoardButton />
+        </Box>
       </Box>
     </Link>
   );
 }
+
+const NewBoardButton = () => {
+  const messages = useTranslations('Dashboard');
+  return (
+    <Tooltip title={messages('createNewBoard')}>
+      <Button
+        variant="outlined"
+        color="primary"
+        startIcon={<AddBoxIcon />}
+        sx={styles.newBoardButton}
+      >
+        {messages('newBoard')}
+      </Button>
+    </Tooltip>
+  );
+};
+
+const NewBoardIconButton = () => {
+  return (
+    <IconButton color="primary">
+      <AddBoxIcon />
+    </IconButton>
+  );
+};
 
 export default NewBoardLink;

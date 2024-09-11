@@ -2,18 +2,15 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 
 export default {
   topbarContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
+    display: 'grid',
+    gridAutoColumns: 'minmax(0, 1fr)',
+    gridAutoFlow: 'column',
     p: 1,
-    flexShrink: 0,
-    justifyContent: 'space-between',
   },
   brandTypography: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    ml: 2,
     minHeight: 40,
   },
   leftSection: {
@@ -21,9 +18,15 @@ export default {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: '100%',
+  },
+  middleSection: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   rightSection: {
-    alignSelf: 'flex-end',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 } satisfies Record<string, SxProps>;
