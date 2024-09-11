@@ -11,26 +11,42 @@ export default {
     maxWidth: INITIAL_CONTENT_MAX_WIDTH,
   },
   submitButton: {
-    color: (theme) => theme.palette.primary.contrastText,
+    color: 'primary.contrastText',
     marginRight: '6px',
     minWidth: '112px',
     borderRadius,
-    backgroundColor: (theme) => theme.palette.primary.main,
+    backgroundColor: 'primary.main',
     '&:hover': {
-      backgroundColor: (theme) => theme.palette.primary.dark,
+      backgroundColor: 'primary.dark',
     },
     '&:disabled': {
-      color: (theme) => theme.palette.primary.contrastText,
+      color: 'primary.contrastText',
       pointerEvents: 'unset',
       cursor: 'progress',
     },
   },
   submitIcon: {
-    color: (theme) => theme.palette.primary.contrastText,
+    color: 'primary.contrastTex',
     justifyContent: 'center',
   },
+  submitIconButton: {
+    color: 'primary.contrastText',
+    borderRadius,
+    p: 1,
+    backgroundColor: 'primary.main',
+    '&:disabled': {
+      color: 'primary.contrastText',
+      backgroundColor: 'primary.main',
+    },
+  },
+  submitSmallDeviceButton: {
+    display: { xs: 'block', md: 'none' },
+  },
+  submitLargeDeviceButton: {
+    display: { xs: 'none', md: 'block' },
+  },
   promptImputsContainer: {
-    color: (theme) => theme.palette.primary.contrastText,
+    color: 'primary.contrastText',
   },
   sizeSelectorContainer: {
     display: 'flex',
@@ -39,7 +55,7 @@ export default {
   },
   sizeSelector: {
     width: 'max-content',
-    backgroundColor: (theme) => theme.palette.grey[100],
+    backgroundColor: 'grey.100',
     borderRadius,
     alignItems: 'center',
     display: 'flex',
