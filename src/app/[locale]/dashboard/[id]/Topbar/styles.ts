@@ -5,6 +5,7 @@ export default {
     display: 'grid',
     gridAutoColumns: 'minmax(0, 1fr)',
     gridAutoFlow: 'column',
+    p: 1,
   },
   brandTypography: {
     display: 'flex',
