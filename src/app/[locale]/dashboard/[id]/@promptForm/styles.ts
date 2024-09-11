@@ -26,7 +26,7 @@ export default {
     },
   },
   submitIcon: {
-    color: 'primary.contrastTex',
+    color: 'primary.contrastText',
     justifyContent: 'center',
   },
   submitIconButton: {
