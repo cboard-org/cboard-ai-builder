@@ -14,7 +14,7 @@ import styles from './styles';
 import { useTranslations } from 'next-intl';
 
 const drawerWidth = 310; // Adjust this value as needed
-const paddings = { xs: 1, md: 2, lg: 3 };
+const paddings = { xs: 1, md: 2 };
 const borderRadius = 4;
 const sxStyles = {
   app: {
@@ -27,10 +27,7 @@ const sxStyles = {
     '& .MuiDrawer-paper': {
       width: drawerWidth,
       boxSizing: 'border-box',
-      backgroundColor: {
-        xs: '#f5f5f5',
-        sm: 'transparent',
-      },
+      backgroundColor: 'primary',
       borderRight: '0',
       overflow: 'hidden',
       display: 'flex',
@@ -38,11 +35,7 @@ const sxStyles = {
       gap: 2,
       py: paddings,
       pl: paddings,
-    },
-  },
-  drawerMobile: {
-    '& .MuiDrawer-paper': {
-      backgroundColor: (theme: Theme) => theme.palette.grey[100],
+      pr: { xs: 1, md: 0 },
     },
   },
   drawerTopBar: {
@@ -80,7 +73,7 @@ export default function Dashboard(props: {
 }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false); // the initial could be in the store
   const theme: Theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
