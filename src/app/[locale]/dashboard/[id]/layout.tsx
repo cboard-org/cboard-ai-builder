@@ -77,7 +77,7 @@ export default function Dashboard(props: {
 }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false); // the initial could be in the store
   const theme: Theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
