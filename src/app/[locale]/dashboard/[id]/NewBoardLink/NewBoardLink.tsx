@@ -15,7 +15,7 @@ function NewBoardLink() {
   return (
     <Link onClick={cleanPrompt} href={`/dashboard/${INITIAL_CONTENT_ID}`}>
       <Box sx={styles.linkContent}>
-        <Box sx={styles.xsmallDevices}>
+        <Box sx={styles.smallDevices}>
           <NewBoardIconButton />
         </Box>
         <Box sx={styles.largeDevices}>
