@@ -38,24 +38,35 @@ function SubmitButton({ text }: { text: string }) {
   const { pending } = useFormStatus();
   const message = useTranslations('PromptForm');
 
+  const icon = pending ? (
+    <CircularProgress size={25} sx={styles.submitIcon} />
+  ) : (
+    <AutoFixNormalIcon sx={styles.submitIcon} />
+  );
+
   return (
     <Box>
-      <Tooltip title={text}>
-        <Button
+      <Box sx={styles.submitSmallDeviceButton}>
+        <IconButton
           type="submit"
           disabled={pending}
-          sx={styles.submitButton}
-          startIcon={
-            pending ? (
-              <CircularProgress size={25} sx={styles.submitIcon} />
-            ) : (
-              <AutoFixNormalIcon sx={styles.submitIcon} />
-            )
-          }
+          sx={styles.submitIconButton}
         >
-          {message('submitText')}
-        </Button>
-      </Tooltip>
+          {icon}
+        </IconButton>
+      </Box>
+      <Box sx={styles.submitLargeDeviceButton}>
+        <Tooltip title={text}>
+          <Button
+            type="submit"
+            disabled={pending}
+            sx={styles.submitButton}
+            startIcon={icon}
+          >
+            {message('submitText')}
+          </Button>
+        </Tooltip>
+      </Box>
     </Box>
   );
 }
