@@ -79,7 +79,7 @@ a {
     margin: 0;
     padding: 0;
     page-break-inside: avoid;
-    overflow: visible !important;
+    overflow: visible;
   }
 
   .hide-on-print {
@@ -96,13 +96,11 @@ a {
   }
 
   .printTilesRow {
-    display: flex !important;
-    flex: 1 !important;
     height: auto !important;
     min-height: auto !important;
   }
 
   @page {
-    margin: 0 !important;
+    margin: 0;
   }
 }
