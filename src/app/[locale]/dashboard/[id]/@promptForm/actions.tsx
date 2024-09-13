@@ -2,10 +2,7 @@
 import { z } from 'zod';
 import { toCboardAdapter } from '@/lib/cboard-ai-engine/cboard-adapter';
 import { initEngine } from 'cboard-ai-engine';
-import {
-  type PictonizerConfiguration,
-  type ContentSafetyConfiguration,
-} from 'cboard-ai-engine';
+import { type ContentSafetyConfiguration } from 'cboard-ai-engine';
 import { BoardRecord } from '@/commonTypes/Board';
 import { getServerSession } from 'next-auth/next';
 import authConfig from '@/lib/next-auth/config';
@@ -36,12 +33,6 @@ const openAIConfiguration = {
   },
 };
 
-const pictonizerConfiguration = {
-  URL: process.env.PICTONIZER_URL,
-  token: process.env.PICTONIZER_AUTH_TOKEN,
-  keyWords: 'arasaac pictograms',
-} as PictonizerConfiguration;
-
 const contentSafetyConfiguration = {
   endpoint: process.env.CONTENT_SAFETY_ENDPOINT,
   key: process.env.CONTENT_SAFETY_KEY,
@@ -49,20 +40,8 @@ const contentSafetyConfiguration = {
 
 const boardGenerator = initEngine({
   openAIConfiguration,
-  pictonizerConfiguration,
   contentSafetyConfiguration,
 });
-
-function convertLocaletoIso639_3(locale: string) {
-  const iso639_1to3: { [key: string]: string } = {
-    en: 'eng',
-    es: 'spa',
-    pt: 'por',
-  };
-  const iso639_1 = locale.split('-')[0];
-
-  return iso639_1to3[iso639_1] || 'eng';
-}
 
 export async function submit(
   prevState: {
@@ -115,13 +94,11 @@ export async function submit(
 
       const numberOfTiles = rows * columns;
 
-      const language = convertLocaletoIso639_3(locale);
-
       const suggestions = await boardGenerator.getSuggestions({
         prompt: prompt,
         maxSuggestions: numberOfTiles,
         symbolSet: 'arasaac',
-        language: language,
+        language: locale,
       });
 
       if (!suggestions.length) {
