@@ -2,7 +2,7 @@
 import { BoardRecord } from '@/commonTypes/Board';
 import { TileRecord } from '@/commonTypes/Tile';
 import moment from 'moment';
-import { Suggestion, AIImage } from 'cboard-ai-engine';
+import { Suggestion } from 'cboard-ai-engine';
 import { nanoid } from 'nanoid';
 
 const DEFAULT_TILE_BACKGROUND_COLOR = 'rgb(255, 241, 118)';
@@ -14,19 +14,6 @@ const toCboardTilesAdapter = async (
   for await (const tile of tiles) {
     const id = tile.id;
     const getTileImages = async (pictogram: Suggestion['pictogram']) => {
-      if (pictogram.isAIGenerated) {
-        const images: string[] = [];
-        for await (const image of pictogram.images) {
-          const generatedPictogram = image as AIImage;
-          if (generatedPictogram.ok && generatedPictogram.blob) {
-            const buffer = await generatedPictogram.blob.arrayBuffer();
-            const base64 = Buffer.from(buffer).toString('base64');
-            images.push(base64);
-          }
-          images.push('');
-        }
-        return images;
-      }
       return pictogram.images.map((image) => {
         const pictogram = image as {
           id: string;
