@@ -268,6 +268,10 @@ export default function Tile({
         className={style.Tile}
         type="button"
         onClick={onTileClick}
+        sx={{
+          minWidth: 'auto',
+          p: '3px 5px 3px 5px',
+        }}
       >
         <div
           className={style.TileShape}
