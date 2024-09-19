@@ -21,7 +21,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
-import { STASHED_CONTENT_ID } from '../constants';
+import { STASHED_CONTENT_ID } from '../../constants';
 import { useRouter } from '@/navigation';
 import usePromptBlinkAnimation from './usePromptBlinkAnimation';
 import InputLabel from '@mui/material/InputLabel';
