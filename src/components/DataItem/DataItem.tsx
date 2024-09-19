@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
 import { Link } from '@/navigation';
-import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
+import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
 import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import useIsInitialContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsInitialContentView';

@@ -1,5 +1,5 @@
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
-import { INITIAL_CONTENT_MAX_WIDTH } from '../constants';
+import { INITIAL_CONTENT_MAX_WIDTH } from '../../constants';
 
 const borderRadius = 6;
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { usePathname } from '@/navigation';
-import { STASHED_CONTENT_ID } from '@/dashboard/constants';
+import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
 
 function useIsStashedContentView() {
   const pathname = usePathname();

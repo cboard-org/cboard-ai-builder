@@ -1,6 +1,9 @@
 import { useMemo } from 'react';
 import { usePathname } from '@/navigation';
-import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '@/dashboard/constants';
+import {
+  INITIAL_CONTENT_ID,
+  STASHED_CONTENT_ID,
+} from '@/app/[locale]/dashboard/constants';
 
 function useIsRemoteContentView() {
   const pathname = usePathname();

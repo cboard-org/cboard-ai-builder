@@ -10,7 +10,7 @@ import Tile from '@/components/Tile';
 // import SelectTileMask from '@/components/SelectTileMask';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
-import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../constants';
+import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../../constants';
 import { useRouter } from '@/navigation';
 import useSaveOnSetBoard from './useSaveOnSetBoard';
 import IconButton from '@mui/material/IconButton';

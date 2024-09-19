@@ -3,7 +3,7 @@
 import { useRouter } from '@/navigation';
 import { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { INITIAL_CONTENT_ID } from '@/dashboard/constants';
+import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
 
 export default function Error({
   error,
