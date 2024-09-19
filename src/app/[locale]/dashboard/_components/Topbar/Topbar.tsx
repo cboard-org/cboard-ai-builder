@@ -1,21 +1,19 @@
+'use client';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
 import NewBoardLink from '../NewBoardLink/NewBoardLink';
 import Settings from '@/components/Settings/Settings';
+import OpenSidebarButton from '../OpenSidebarButton/OpenSidebarButton';
+import { useBoundStore } from '@/providers/StoreProvider';
 
-type TopbarProps = {
-  OpenSidebarButton: () => React.JSX.Element;
-  isSidebarOpen: boolean;
-};
-
-const Topbar: React.FC<TopbarProps> = ({
-  OpenSidebarButton,
-  isSidebarOpen,
-}) => {
+const Topbar: React.FC = ({}) => {
+  const { isSidebarOpen } = useBoundStore((state) => ({
+    isSidebarOpen: state.isSidebarOpen,
+  }));
   return (
-    <Box sx={styles.topbarContainer}>
+    <Box sx={styles.topbarContainer} component={'nav'}>
       <Box sx={styles.leftSection}>
         {!isSidebarOpen && (
           <>
