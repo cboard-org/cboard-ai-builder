@@ -58,7 +58,9 @@ export default function TabsSelector({
       </Tabs>
       <Box sx={styles.tabPanelSection}>
         <TabPanel value={value} index={0}>
-          <>{history}</>
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <>{history}</>
+          </React.Suspense>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <>{savedBoard}</>
