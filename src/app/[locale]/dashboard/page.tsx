@@ -1,7 +1,21 @@
-import { redirect } from '@/navigation';
-import { DEFAULT_CALLBACK_URL } from '../signin/constants';
+import InitialContent from './[id]/@board/InitialContent';
+import { PromptForm } from './_components/promptForm/PromptForm';
+import { useMessages } from 'next-intl';
+import pick from 'lodash.pick';
+import { NextIntlClientProvider } from 'next-intl';
+import { Box } from '@mui/system';
+import styles from './styles';
 
-export default function page() {
-  redirect(DEFAULT_CALLBACK_URL);
-  return null;
+export default function DashboardPage() {
+  const messages = useMessages();
+  return (
+    <NextIntlClientProvider messages={pick(messages, ['PromptForm', 'Board'])}>
+      <Box sx={styles.initialContentContainer}>
+        <InitialContent newBoard />
+      </Box>
+      <Box sx={styles.promptContainer}>
+        <PromptForm />
+      </Box>
+    </NextIntlClientProvider>
+  );
 }
