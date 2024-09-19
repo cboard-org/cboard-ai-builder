@@ -4,7 +4,7 @@ import IntlWrapperForAsync from '@/components/IntlWrapperForAsync/IntlWrapperFor
 import {
   INITIAL_CONTENT_ID,
   STASHED_CONTENT_ID,
-} from '@/app/[locale]/dashboard/constants';
+} from '@/app/[locale]/(dashboard)/constants';
 import { getBoard } from './@board/actions';
 
 export default async function Page({

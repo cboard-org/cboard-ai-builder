@@ -11,10 +11,10 @@ import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
 import { Link } from '@/navigation';
-import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
+import { INITIAL_CONTENT_ID } from '@/app/[locale]/(dashboard)/constants';
 import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import useIsInitialContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsInitialContentView';
+import useIsInitialContentView from '@/app/[locale]/(dashboard)/board/[id]/hooks/useIsInitialContentView';
 import { usePathname } from 'next/navigation';
 
 export type BaseDataItemType = {
@@ -69,8 +69,8 @@ export default function DataItem<DataType extends BaseDataItemType>({
           <Link
             href={
               data.isSavedBoard //Replace this with boardId
-                ? `/dashboard/${data.id}`
-                : `/dashboard/${INITIAL_CONTENT_ID}`
+                ? `/board/${data.id}`
+                : `/board/${INITIAL_CONTENT_ID}`
             }
           >
             <IconButton

@@ -5,8 +5,8 @@ import sxStyles from './styles';
 import React from 'react';
 import { useTheme, Theme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
-import OpenSidebarButton from '../OpenSidebarButton/OpenSidebarButton';
-import NewBoardLink from '../NewBoardLink/NewBoardLink';
+import OpenSidebarButton from '@/components/OpenSidebarButton/OpenSidebarButton';
+import NewBoardLink from '@/components/NewBoardLink/NewBoardLink';
 import { useBoundStore } from '@/providers/StoreProvider';
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {

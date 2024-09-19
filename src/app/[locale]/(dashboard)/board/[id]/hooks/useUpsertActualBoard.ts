@@ -2,12 +2,12 @@ import { useState, useMemo, useCallback } from 'react';
 import {
   saveBoard,
   updateBoard,
-} from '@/app/[locale]/dashboard/[id]/@board/actions';
+} from '@/app/[locale]/(dashboard)/board/[id]/@board/actions';
 import { getErrorMessage } from '@/common/common';
 import { useRouter } from '@/navigation';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { BoardRecord } from '@/commonTypes/Board';
-import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
+import { STASHED_CONTENT_ID } from '@/app/[locale]/(dashboard)/constants';
 import { usePathname } from '@/navigation';
 
 export const useUpsertActualBoard = (): {
@@ -39,7 +39,7 @@ export const useUpsertActualBoard = (): {
           ? await saveBoard(board)
           : await updateBoard(board);
         setBoardIsUpToDate();
-        if (isNewBoard) router.push(`/dashboard/${savedBoard.id}`);
+        if (isNewBoard) router.push(`/board/${savedBoard.id}`);
         return savedBoard;
       } catch (error) {
         console.error(getErrorMessage(error));

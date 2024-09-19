@@ -3,9 +3,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styles from './styles';
-import NewBoardLink from '../NewBoardLink/NewBoardLink';
+import NewBoardLink from '@/components/NewBoardLink/NewBoardLink';
 import Settings from '@/components/Settings/Settings';
-import OpenSidebarButton from '../OpenSidebarButton/OpenSidebarButton';
+import OpenSidebarButton from '@/components/OpenSidebarButton/OpenSidebarButton';
 import { useBoundStore } from '@/providers/StoreProvider';
 
 const Topbar: React.FC = ({}) => {

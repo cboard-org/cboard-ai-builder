@@ -21,7 +21,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
-import { STASHED_CONTENT_ID } from '../../constants';
+import { STASHED_CONTENT_ID } from '../../../constants';
 import { useRouter } from '@/navigation';
 import usePromptBlinkAnimation from './usePromptBlinkAnimation';
 import InputLabel from '@mui/material/InputLabel';
@@ -86,7 +86,7 @@ const useFormStateWatcher = () => {
     if (state?.board) {
       setBoard(state.board);
       stashDashboard();
-      router.push(`/dashboard/${STASHED_CONTENT_ID}`);
+      router.push(`/board/${STASHED_CONTENT_ID}`);
     }
   }, [state, setErrorOnBoardGeneration, stashDashboard, router, setBoard]);
   return formAction;

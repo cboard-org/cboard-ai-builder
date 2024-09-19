@@ -3,7 +3,7 @@
 import { useRouter } from '@/navigation';
 import { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
+import { INITIAL_CONTENT_ID } from '@/app/[locale]/(dashboard)/constants';
 
 export default function Error({
   error,
@@ -16,7 +16,7 @@ export default function Error({
     // Log the error to an error reporting service
     console.error('err', error);
     setTimeout(() => {
-      router.push(`/dashboard/${INITIAL_CONTENT_ID}`);
+      router.push(`/board/${INITIAL_CONTENT_ID}`);
     }, 2000);
   }, [error, router]);
 

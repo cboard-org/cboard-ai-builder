@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import * as React from 'react';
-import Topbar from './_components/Topbar/Topbar';
-import Sidebar from './_components/Sidebar/Sidebar';
-import Main from './_components/Main/Main';
-import SavedData from './_components/savedData/SavedData';
+import Topbar from './components/Topbar/Topbar';
+import Sidebar from './components/Sidebar/Sidebar';
+import Main from './components/Main/Main';
+import SavedData from './components/savedData/SavedData';
 
 const paddings = { xs: 1, md: 2 };
 const sxStyles = {

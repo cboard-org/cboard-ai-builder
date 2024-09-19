@@ -12,7 +12,7 @@ import InternalLink from '@/components/InternalLink/InternalLink';
 function NewBoardLink() {
   const cleanPrompt = useBoundStore((state) => state.cleanPrompt);
   return (
-    <InternalLink onClick={cleanPrompt} href="/dashboard" prefetch={true}>
+    <InternalLink onClick={cleanPrompt} href="/board" prefetch={true}>
       <Box sx={styles.linkContent}>
         <Box sx={styles.smallDevices}>
           <NewBoardIconButton />

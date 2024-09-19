@@ -17,7 +17,7 @@ import useUpdateTilePropsSaver from '@/hooks/useUpdateTilePropsSaver';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { usePathname } from '@/navigation';
-import { STASHED_CONTENT_ID } from '@/app/[locale]/dashboard/constants';
+import { STASHED_CONTENT_ID } from '@/app/[locale]/(dashboard)/constants';
 import { getErrorMessage } from '@/common/common';
 
 const useUpdatedTileSynchronizer = () => {
@@ -38,7 +38,7 @@ const useGeneratePictoActive = () => {
   const [prompt] = useBoundStore(useShallow((state) => [state.prompt]));
   const pathname = usePathname();
   const isStashedContentView = pathname.includes(
-    `/dashboard/${STASHED_CONTENT_ID}`,
+    `/board/${STASHED_CONTENT_ID}`,
   );
   const isShouldUsePictonizer = prompt.shouldUsePictonizer;
   return {
