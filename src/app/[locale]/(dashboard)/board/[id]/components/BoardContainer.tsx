@@ -12,7 +12,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../../../constants';
 import { useRouter } from '@/navigation';
-import useSaveOnSetBoard from './useSaveOnSetBoard';
+import useSaveOnSetBoard from '../hooks/useSaveOnSetBoard';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';

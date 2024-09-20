@@ -2,7 +2,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { updateBoard } from './actions';
+import { updateBoard } from '../components/actions';
 import { INITIAL_CONTENT_ID, STASHED_CONTENT_ID } from '../../../constants';
 import { usePathname } from '@/navigation';
 import { getErrorMessage } from '@/common/common';

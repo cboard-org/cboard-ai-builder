@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react';
 import {
   saveBoard,
   updateBoard,
-} from '@/app/[locale]/(dashboard)/board/[id]/@board/actions';
+} from '@/app/[locale]/(dashboard)/board/[id]/components/actions';
 import { getErrorMessage } from '@/common/common';
 import { useRouter } from '@/navigation';
 import { useBoundStore } from '@/providers/StoreProvider';

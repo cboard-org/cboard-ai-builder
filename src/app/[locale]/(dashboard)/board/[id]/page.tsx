@@ -1,11 +1,11 @@
-import BoardDisplayed from './@board/BoardPage';
 import { BoardRecord } from '@/commonTypes/Board';
 import IntlWrapperForAsync from '@/components/IntlWrapperForAsync/IntlWrapperForAsync';
 import {
   INITIAL_CONTENT_ID,
   STASHED_CONTENT_ID,
 } from '@/app/[locale]/(dashboard)/constants';
-import { getBoard } from './@board/actions';
+import { getBoard } from './components/actions';
+import BoardContainer from './components/BoardContainer';
 
 export default async function Page({
   params: { id },
@@ -28,7 +28,7 @@ export default async function Page({
 
   return (
     <IntlWrapperForAsync propertyName={['Board']}>
-      <BoardDisplayed remoteInitialBoard={board} id={id} />
+      <BoardContainer remoteBoard={board} id={id} />
     </IntlWrapperForAsync>
   );
 }
