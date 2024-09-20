@@ -4,6 +4,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { create, get, update } from '@/db/services/Board/service';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
+import { revalidatePath } from 'next/cache';
 
 export const saveBoard = async (board: BoardRecord) => {
   const session = await getServerSession(authConfig);
@@ -12,7 +13,7 @@ export const saveBoard = async (board: BoardRecord) => {
   }
   const savedBoard = await create({ ...board, userId: session.cboard_user.id });
   const { _id, ...newBoard } = savedBoard;
-
+  revalidatePath('/board', 'layout');
   return {
     ...newBoard,
     id: _id.toString(),
