@@ -1,4 +1,4 @@
-import InitialContent from './[id]/@board/InitialContent';
+import InitialContent from './_components/InitialContent/InitialContent';
 import { PromptForm } from './_components/promptForm/PromptForm';
 import { useMessages } from 'next-intl';
 import pick from 'lodash.pick';
