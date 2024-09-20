@@ -114,7 +114,7 @@ export function PromptForm() {
   const [controlledPromptValue, setControlledPromptValue]: [
     PromptRecord,
     React.Dispatch<React.SetStateAction<PromptRecord>>,
-  ] = React.useState(initialPromptValue);
+  ] = React.useState(prompt || initialPromptValue);
   const descriptionTextFieldRef = React.useRef<HTMLElement>(null);
   const formRef = React.useRef<HTMLElement>(null);
 
