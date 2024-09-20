@@ -4,12 +4,12 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/icons-material/Menu';
 import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function OpenSidebarButton() {
-  const { isSidebarOpen, toogleIsSidebarOpen } = useBoundStore((state) => ({
-    isSidebarOpen: state.isSidebarOpen,
-    toogleIsSidebarOpen: state.toogleIsSidebarOpen,
-  }));
+  const [isSidebarOpen, toogleIsSidebarOpen] = useBoundStore(
+    useShallow((state) => [state.isSidebarOpen, state.toogleIsSidebarOpen]),
+  );
 
   const message = useTranslations('Dashboard');
   const toolbarTitle = isSidebarOpen
