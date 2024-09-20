@@ -8,6 +8,7 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InternalLink from '@/components/InternalLink/InternalLink';
+import { useShallow } from 'zustand/react/shallow';
 
 function NewBoardLink() {
   const cleanPrompt = useBoundStore((state) => state.cleanPrompt);
@@ -42,8 +43,11 @@ const NewBoardButton = () => {
 };
 
 const NewBoardIconButton = () => {
+  const [setIsSidebarOpen] = useBoundStore(
+    useShallow((state) => [state.setIsSidebarOpen]),
+  );
   return (
-    <IconButton color="primary">
+    <IconButton color="primary" onClick={() => setIsSidebarOpen(false)}>
       <AddBoxIcon />
     </IconButton>
   );
