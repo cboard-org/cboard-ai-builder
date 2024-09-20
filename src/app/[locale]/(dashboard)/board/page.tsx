@@ -1,5 +1,5 @@
-import InitialContent from './_components/InitialContent/InitialContent';
-import { PromptForm } from './_components/promptForm/PromptForm';
+import InitialContent from './components/InitialContent/InitialContent';
+import { PromptForm } from './components/promptForm/PromptForm';
 import { useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import { NextIntlClientProvider } from 'next-intl';
