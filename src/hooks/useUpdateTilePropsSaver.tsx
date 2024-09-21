@@ -1,7 +1,7 @@
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
-import useIsStashedContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsStashedView';
-import useIsRemoteContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsRemoteContentView';
+import useIsStashedContentView from '@/board/hooks/useIsStashedView';
+import useIsRemoteContentView from '@/board/hooks/useIsRemoteContentView';
 import { TileRecord } from '@/commonTypes/Tile';
 
 const useUpdateTilePropsSaver = () => {

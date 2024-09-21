@@ -19,7 +19,7 @@ yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) with your browser to see the result.
+Open [http://localhost:3000/board](http://localhost:3000/board) with your browser to see the result.
 
 The page auto-updates as you edit any file.
 

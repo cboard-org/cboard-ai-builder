@@ -14,7 +14,7 @@ export const StoreContext = createContext<StoreApi<Store> | null>(null);
 export default function StoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<StoreApi<Store>>();
   if (!storeRef.current) {
-    const onRehydrateStorage = ({ setHydrated }: Store) => {
+    const onRehydrateStorage = ({ setHydrated, setIsSidebarOpen }: Store) => {
       return (state: Store | undefined, error: unknown) => {
         if (error) {
           console.error(
@@ -23,6 +23,7 @@ export default function StoreProvider({ children }: React.PropsWithChildren) {
           );
         } else {
           setHydrated();
+          setIsSidebarOpen(false);
         }
       };
     };

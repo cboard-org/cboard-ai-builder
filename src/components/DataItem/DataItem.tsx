@@ -10,12 +10,8 @@ import { useBoundStore } from '@/providers/StoreProvider';
 import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
-import { Link } from '@/navigation';
-import { INITIAL_CONTENT_ID } from '@/app/[locale]/dashboard/[id]/constants';
-import { useState } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import useIsInitialContentView from '@/app/[locale]/dashboard/[id]/hooks/useIsInitialContentView';
-import { usePathname } from 'next/navigation';
+import InternalLink from '../InternalLink/InternalLink';
+import useIsSmallScreen from '@/hooks/useIsSmallScreen';
 
 export type BaseDataItemType = {
   id: string;
@@ -34,25 +30,26 @@ type Props<DataType extends BaseDataItemType> = {
 
 export default function DataItem<DataType extends BaseDataItemType>({
   data,
-  deleteItem: { deleteData, isDeleting },
+  deleteItem: { deleteData },
 }: Props<DataType>) {
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
-  const [setPrompt, isGenerationPending] = useBoundStore(
-    useShallow((state) => [state.setPrompt, state.isGenerationPending]),
-  );
-  const [isRedirecting, setIsRedirecting] = useState(false);
-  const isInitialContentView = useIsInitialContentView();
+  const isSmallScreen = useIsSmallScreen();
 
-  const pathname = usePathname();
+  const [setPrompt, isGenerationPending, toogleIsSidebarOpen] = useBoundStore(
+    useShallow((state) => [
+      state.setPrompt,
+      state.isGenerationPending,
+      state.toogleIsSidebarOpen,
+    ]),
+  );
 
   const onEdit = () => {
-    if (
-      (!isInitialContentView || data.isSavedBoard) &&
-      !pathname.includes(data.id)
-    )
-      setIsRedirecting(true);
+    if (isSmallScreen) {
+      toogleIsSidebarOpen();
+    }
+
     setPrompt({
       description,
       rows,
@@ -66,11 +63,11 @@ export default function DataItem<DataType extends BaseDataItemType>({
       divider
       secondaryAction={
         <Box>
-          <Link
+          <InternalLink
             href={
               data.isSavedBoard //Replace this with boardId
-                ? `/dashboard/${data.id}`
-                : `/dashboard/${INITIAL_CONTENT_ID}`
+                ? `/board/${data.id}`
+                : `/board`
             }
           >
             <IconButton
@@ -79,15 +76,11 @@ export default function DataItem<DataType extends BaseDataItemType>({
               onClick={() => onEdit()}
               size="small"
             >
-              {isRedirecting ? (
-                <CircularProgress size={24} />
-              ) : (
-                <EditOutlined fontSize="small" />
-              )}
+              <EditOutlined fontSize="small" />
             </IconButton>
-          </Link>
+          </InternalLink>
           <IconButton
-            disabled={isDeleting}
+            disabled={isGenerationPending}
             aria-label="Delete"
             onClick={() => deleteData(data)}
             size="small"

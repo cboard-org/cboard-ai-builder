@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import styles from './styles';
 import { useExportToCboard } from './useExportToCboard';
 import { useBoundStore } from '@/providers/StoreProvider';
-import { useUpsertActualBoard } from '@/dashboard/hooks/useUpsertActualBoard';
+import { useUpsertActualBoard } from '@/board/hooks/useUpsertActualBoard';
 import { BoardRecord } from '@/commonTypes/Board';
 
 export default function ExportToCboard() {

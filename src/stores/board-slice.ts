@@ -2,7 +2,7 @@ import { StateCreator } from 'zustand';
 import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
 import { TileRecord } from '@/commonTypes/Tile';
-import { updateBoard } from '@/app/[locale]/dashboard/[id]/@board/actions';
+import { updateBoard } from '@/app/[locale]/(dashboard)/board/[id]/components/actions';
 
 export type BoardStoreRecord = {
   board: BoardRecord | null;

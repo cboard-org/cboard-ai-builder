@@ -13,12 +13,15 @@ export type DashboardStoreRecord = {
   hydrated: boolean;
   isGenerationPending: boolean;
   stashedDashboard: DashboardRecord;
+  isSidebarOpen: boolean;
 };
 
 export type DashboardActions = {
   setHydrated: () => void;
   setGenerationPending: (pending: boolean) => void;
   stashDashboard: () => void;
+  toogleIsSidebarOpen: () => void;
+  setIsSidebarOpen: (isOpen: boolean) => void;
 };
 export type DashboardSlice = DashboardStoreRecord & DashboardActions;
 
@@ -30,6 +33,7 @@ export const defaultDashboardState: DashboardStoreRecord = {
     prompt: null,
     board: null,
   },
+  isSidebarOpen: false,
 };
 
 export const createDashboardSlice: StateCreator<
@@ -58,6 +62,28 @@ export const createDashboardSlice: StateCreator<
       false,
       {
         type: 'Dashboard/stash',
+      },
+    );
+  },
+  toogleIsSidebarOpen: () => {
+    set(
+      ({ isSidebarOpen }) => ({
+        isSidebarOpen: !isSidebarOpen,
+      }),
+      false,
+      {
+        type: 'Dashboard/toggleIsSidebarOpen',
+      },
+    );
+  },
+  setIsSidebarOpen: (isOpen: boolean) => {
+    set(
+      () => ({
+        isSidebarOpen: isOpen,
+      }),
+      false,
+      {
+        type: 'Dashboard/setIsSidebarOpen',
       },
     );
   },
