@@ -60,7 +60,7 @@
 
 .Symbol .SymbolLabel {
   width: 95%;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   margin: 0 auto;
   position: relative;
@@ -83,7 +83,7 @@
 
 @media (min-width: 600px) {
   .Symbol .SymbolLabel {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0 auto;
   }
 }
