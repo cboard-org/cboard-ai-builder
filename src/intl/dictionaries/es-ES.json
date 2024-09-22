@@ -2,20 +2,20 @@
   "Dashboard": {
     "closeSidebar": "Cerrar barra lateral",
     "openSidebar": "Abrir barra lateral",
-    "createNewBoard": "Crea un nuevo tablero",
+    "createNewBoard": "Crear un nuevo tablero",
     "newBoard": "Nuevo tablero"
   },
   "History": {
-    "title": "Historia"
+    "title": "Historial"
   },
   "Navbar": {
-    "cboard": "CBoard",
+    "cboard": "Cboard",
     "builder": "Constructor"
   },
   "PromptForm": {
     "rows": "Filas",
     "columns": "Columnas",
-    "colorScheme": "Combinación de colores",
+    "colorScheme": "Esquema de colores",
     "prompt": "Crea un tablero sobre:",
     "useAiPictograms": "Usar pictogramas de IA",
     "newBoard": "Nuevo tablero",
@@ -52,7 +52,7 @@
         "subtitle": "Generar pictogramas para",
         "cancelButton": "CANCELAR",
         "generateButton": "GENERAR",
-        "generatingPictogramsTo": "Generando 4 pictogramas para:"
+        "generatingPictogramsTo": "Generando pictogramas para:"
       },
       "PictogramSearcher": {
         "pictogramNotFound": "Pictograma no encontrado",
@@ -66,10 +66,10 @@
   },
   "SavedData": {
     "savedBoards": "Tableros guardados",
-    "history": "Historia"
+    "history": "Historial"
   },
   "SignIn": {
-    "cboard": "CBoard",
+    "cboard": "Cboard",
     "builder": "Constructor",
     "sloganTitle": "Rápido e inteligente",
     "sloganSubtitle": "Crea tableros con solo escribir lo que necesitas.",
@@ -78,13 +78,13 @@
     "hello": "¡Hola!",
     "welcome": "Bienvenido al creador de tableros de CAA",
     "loginButton": "INICIAR SESIÓN",
-    "signUpButton": "ÚNETE",
+    "signUpButton": "REGISTRARSE",
     "signInWith": "Iniciar sesión con {provider}",
     "privacyPolicy": "Política de privacidad",
-    "terms": "Letra chica",
+    "terms": "Términos",
     "LoginDialog": {
       "title": "Iniciar sesión",
-      "email": "Correo electrónico",
+      "email": "Email",
       "password": "Contraseña",
       "loginButton": "INICIAR SESIÓN",
       "cancelButton": "CANCELAR",
