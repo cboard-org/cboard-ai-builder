@@ -14,7 +14,6 @@ export type SavedBoardsData = {
 };
 
 export async function getSavedBoardsData(): Promise<SavedBoardsData[]> {
-  console.log('Get saved boards data action');
   const session = await getServerSession(authConfig);
   if (!session) {
     throw new Error('User not authenticated');
