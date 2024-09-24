@@ -36,6 +36,8 @@ export default function History({
   // when the first item is deleted the optimisitic update is not working
   useEffect(() => {
     if (
+      initialData.length > 0 &&
+      histories.length > 0 &&
       initialData[0].id !== histories[0].id &&
       initialData.length > histories.length
     ) {
