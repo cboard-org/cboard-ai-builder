@@ -4,6 +4,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
 import { getUserBoards } from '@/db/services/Board/service';
+import { unstable_cache } from 'next/cache';
 
 export type SavedBoardsData = {
   id: string;
@@ -13,6 +14,7 @@ export type SavedBoardsData = {
 };
 
 export async function getSavedBoardsData(): Promise<SavedBoardsData[]> {
+  console.log('Get saved boards data action');
   const session = await getServerSession(authConfig);
   if (!session) {
     throw new Error('User not authenticated');
@@ -53,3 +55,9 @@ export async function removeSavedBoardsData(data: SavedBoardsData) {
   });
   console.log('removing ', data);
 }
+
+export const getCachedSavedBoardsData = unstable_cache(
+  async () => getSavedBoardsData(),
+  ['savedBoards'],
+  { tags: ['savedBoards'] },
+);
