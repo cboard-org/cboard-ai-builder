@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 
 import styles from './DroppableCell.module.css';
@@ -11,7 +11,8 @@ type Props = {
 };
 
 function DroppableCell({ id, accept, onDrop, children }: Props) {
-  const [{ isOver, canDrop }] = useDrop({
+  const ref = useRef<HTMLDivElement>(null);
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
     collect: (monitor) => ({
@@ -20,10 +21,16 @@ function DroppableCell({ id, accept, onDrop, children }: Props) {
     }),
   });
 
+  useEffect(() => {
+    if (ref.current) {
+      drop(ref.current);
+    }
+  }, [drop]);
+
   const isActive = isOver && canDrop;
 
   return (
-    <div id={id} className={styles.root} data-isactive={isActive}>
+    <div id={id} className={styles.root} data-isactive={isActive} ref={ref}>
       {children}
     </div>
   );
