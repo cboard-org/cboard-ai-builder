@@ -7,7 +7,7 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { getServerSession } from 'next-auth/next';
 import authConfig from '@/lib/next-auth/config';
 import { create as savePrompt } from '@/db/services/Prompt/service';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { getErrorMessage } from '@/common/common';
 
 const apiKey = process.env.AZURE_OPENAI_API_KEY;
@@ -131,7 +131,7 @@ export async function submit(
 
       if (savedPrompt) generatedBoard.promptId = savedPrompt._id.toString();
 
-      revalidatePath('/');
+      revalidateTag('promptHistory');
 
       return {
         board: generatedBoard,

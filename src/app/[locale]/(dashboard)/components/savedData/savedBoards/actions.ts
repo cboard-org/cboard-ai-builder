@@ -4,6 +4,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
 import { getUserBoards } from '@/db/services/Board/service';
+import { unstable_cache } from 'next/cache';
 
 export type SavedBoardsData = {
   id: string;
@@ -53,3 +54,9 @@ export async function removeSavedBoardsData(data: SavedBoardsData) {
   });
   console.log('removing ', data);
 }
+
+export const getCachedSavedBoardsData = unstable_cache(
+  async () => getSavedBoardsData(),
+  ['savedBoards'],
+  { tags: ['savedBoards'] },
+);

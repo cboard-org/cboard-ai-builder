@@ -4,7 +4,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { getPromptHistoryList, softDelete } from '@/db/services/Prompt/service';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag, unstable_cache } from 'next/cache';
 
 export type HistoryData = {
   id: string;
@@ -37,12 +37,18 @@ export async function getPromptHistoryData(): Promise<HistoryData[]> {
   return historyData;
 }
 
+export const getCachedPromptHistoryData = unstable_cache(
+  async () => getPromptHistoryData(),
+  ['promptHistory'],
+  { tags: ['promptHistory'] },
+);
+
 export async function removeHistoryData(promptId: string) {
   const session = await getServerSession(authConfig);
   if (!session) {
     throw new Error('No session found');
   }
   const response = await softDelete(session.cboard_user.id, promptId);
-  revalidatePath('/');
+  revalidateTag('promptHistory');
   return response;
 }

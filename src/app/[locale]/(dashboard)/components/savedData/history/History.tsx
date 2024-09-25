@@ -1,7 +1,7 @@
-import { getPromptHistoryData } from './actions';
+import { getCachedPromptHistoryData } from './actions';
 import HistoryList from './HistoryList';
 
 export default async function History() {
-  const initialData = await getPromptHistoryData();
+  const initialData = await getCachedPromptHistoryData();
   return <HistoryList initialData={initialData} />;
 }
