@@ -1,7 +1,7 @@
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 
-export default function IntlWrapperForAsync({
+export default function IntlAsyncComponentProvider({
   children,
   propertyName,
 }: {
