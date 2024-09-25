@@ -1,5 +1,5 @@
 import { BoardRecord } from '@/commonTypes/Board';
-import IntlWrapperForAsync from '@/components/IntlWrapperForAsync/IntlWrapperForAsync';
+import IntlAsyncComponentProvider from '@/components/IntlAsyncComponentProvider/IntlAsyncComponentProvider';
 import {
   INITIAL_CONTENT_ID,
   STASHED_CONTENT_ID,
@@ -27,8 +27,8 @@ export default async function Page({
   }
 
   return (
-    <IntlWrapperForAsync propertyName={['Board']}>
+    <IntlAsyncComponentProvider propertyName={['Board']}>
       <BoardContainer remoteBoard={board} id={id} />
-    </IntlWrapperForAsync>
+    </IntlAsyncComponentProvider>
   );
 }
