@@ -25,6 +25,7 @@ const BoardSection = () => {
     useShallow((state) => [state.board, state.prompt]),
   );
   const [isEditing, setIsEditing] = useState(false);
+  const [isDragAndDrop, setIsDragAndDrop] = useState<boolean>(false);
   //const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
   const [updateBoard, isSaving] = useSaveOnSetBoard();
   if (!board) return null;
@@ -59,6 +60,11 @@ const BoardSection = () => {
     };
     updateBoard(newBoard);
   };
+
+  const handleDragAndDrop = () => {
+    setIsDragAndDrop(!isDragAndDrop);
+  };
+
   return (
     <Box
       sx={{
@@ -95,7 +101,12 @@ const BoardSection = () => {
         >
           {prompt.description}
         </Typography>
-        <Toolbar isEditing={isEditing} isSavingChange={isSaving} />
+        <Toolbar
+          isEditing={isEditing}
+          isSavingChange={isSaving}
+          isDragAndDrop={isDragAndDrop}
+          handleDragAndDrop={handleDragAndDrop}
+        />
       </Box>
       <Box sx={styles.boardGridContainer} className={'print-section'}>
         <Box
@@ -109,7 +120,7 @@ const BoardSection = () => {
           items={board.tiles}
           columns={board.grid ? board.grid.columns : DEFAULT_COLUMNS_NUMBER}
           rows={board.grid ? board.grid.rows : DEFAULT_ROWS_NUMBER}
-          dragAndDropEnabled={isEditing}
+          dragAndDropEnabled={isDragAndDrop}
           renderItem={(item) => (
             <Tile
               tile={item}
