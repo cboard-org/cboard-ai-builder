@@ -3,6 +3,8 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
 import { TileRecord } from '@/commonTypes/Tile';
 import { updateBoard } from '@/app/[locale]/(dashboard)/board/[id]/components/actions';
+import { BaseDataItemType } from '@/components/DataItem/DataItem';
+
 export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
