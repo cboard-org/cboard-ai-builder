@@ -57,6 +57,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         ? router.push(`/board/${boardLeaveStatus.id}`)
         : router.push('/board');
       console.log(prompt);
+      setBoardLeaveStatus('');
     }
     closeDialog();
   };
