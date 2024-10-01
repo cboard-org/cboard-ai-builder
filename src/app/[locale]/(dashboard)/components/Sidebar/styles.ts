@@ -38,4 +38,16 @@ export default {
     backgroundColor: 'grey.100',
     borderRadius,
   },
+  dialog: {
+    position: 'absolute',
+    top: '45%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 480,
+    bgcolor: 'background.paper',
+    padding: '10px',
+  },
+  button: {
+    marginRight: '16px',
+  },
 } satisfies Record<string, SxProps>;

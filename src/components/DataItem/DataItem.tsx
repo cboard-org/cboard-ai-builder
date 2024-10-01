@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import { useFormatter } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
-
+import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
@@ -32,10 +32,20 @@ export default function DataItem<DataType extends BaseDataItemType>({
   data,
   deleteItem: { deleteData },
 }: Props<DataType>) {
+  const router = useRouter();
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
   const isSmallScreen = useIsSmallScreen();
+  const { setBoardLeaveDialogStatus } = useBoundStore((state) => ({
+    setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
+  }));
+
+  const [isOutdated] = useBoundStore(useShallow((state) => [state.isOutdated]));
+
+  const setBoardLeaveStatus = useBoundStore(
+    (state) => state.setBoardLeaveStatus,
+  );
 
   const [setPrompt, isGenerationPending, toogleIsSidebarOpen] = useBoundStore(
     useShallow((state) => [
@@ -50,35 +60,35 @@ export default function DataItem<DataType extends BaseDataItemType>({
       toogleIsSidebarOpen();
     }
 
-    setPrompt({
-      description,
-      rows,
-      columns,
-      colorScheme,
-      shouldUsePictonizer,
-    });
+    if (!isOutdated) {
+      setPrompt({
+        description,
+        rows,
+        columns,
+        colorScheme,
+        shouldUsePictonizer,
+      });
+      data.isSavedBoard ? router.push(`/board/d`)
+    } else {
+      setBoardLeaveDialogStatus(true);
+      setBoardLeaveStatus(data);
+    }
   };
   return (
     <ListItem
       divider
       secondaryAction={
         <Box>
-          <InternalLink
-            href={
-              data.isSavedBoard //Replace this with boardId
-                ? `/board/${data.id}`
-                : `/board`
-            }
-          >
+          <div>
             <IconButton
               disabled={isGenerationPending}
               aria-label="Edit"
-              onClick={() => onEdit()}
+              onClick={onEdit}
               size="small"
             >
               <EditOutlined fontSize="small" />
             </IconButton>
-          </InternalLink>
+          </div>
           <IconButton
             disabled={isGenerationPending}
             aria-label="Delete"
