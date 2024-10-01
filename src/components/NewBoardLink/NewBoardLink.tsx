@@ -23,7 +23,6 @@ function NewBoardLink() {
     (state) => state.setBoardLeaveStatus,
   );
   const handleClick = () => {
-    console.log(isOutdated);
     if (!isOutdated) {
       cleanPrompt();
       router.push('/board');

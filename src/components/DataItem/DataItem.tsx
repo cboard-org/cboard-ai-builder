@@ -68,7 +68,9 @@ export default function DataItem<DataType extends BaseDataItemType>({
         colorScheme,
         shouldUsePictonizer,
       });
-      data.isSavedBoard ? router.push(`/board/d`)
+      data.isSavedBoard
+        ? router.push(`/board/${data.id}`)
+        : router.push('/board');
     } else {
       setBoardLeaveDialogStatus(true);
       setBoardLeaveStatus(data);
@@ -79,16 +81,14 @@ export default function DataItem<DataType extends BaseDataItemType>({
       divider
       secondaryAction={
         <Box>
-          <div>
-            <IconButton
-              disabled={isGenerationPending}
-              aria-label="Edit"
-              onClick={onEdit}
-              size="small"
-            >
-              <EditOutlined fontSize="small" />
-            </IconButton>
-          </div>
+          <IconButton
+            disabled={isGenerationPending}
+            aria-label="Edit"
+            onClick={onEdit}
+            size="small"
+          >
+            <EditOutlined fontSize="small" />
+          </IconButton>
           <IconButton
             disabled={isGenerationPending}
             aria-label="Delete"

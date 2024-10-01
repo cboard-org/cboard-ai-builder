@@ -30,7 +30,9 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
     }),
   );
-  const [setPrompt] = useBoundStore(useShallow((state) => [state.setPrompt]));
+  const [prompt, setPrompt] = useBoundStore(
+    useShallow((state) => [state.prompt, state.setPrompt]),
+  );
   const theme: Theme = useTheme();
   const { isSidebarOpen, toogleIsSidebarOpen } = useBoundStore((state) => ({
     isSidebarOpen: state.isSidebarOpen,
@@ -50,6 +52,11 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       const { description, rows, columns, colorScheme, shouldUsePictonizer } =
         boardLeaveStatus.prompt;
       setPrompt(description, rows, columns, colorScheme, shouldUsePictonizer);
+      console.log(prompt);
+      boardLeaveStatus.isSavedBoard
+        ? router.push(`/board/${boardLeaveStatus.id}`)
+        : router.push('/board');
+      console.log(prompt);
     }
     closeDialog();
   };
