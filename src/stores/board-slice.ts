@@ -3,16 +3,12 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
 import { TileRecord } from '@/commonTypes/Tile';
 import { updateBoard } from '@/app/[locale]/(dashboard)/board/[id]/components/actions';
-import { BaseDataItemType } from '@/components/DataItem/DataItem';
-
-type DataType = BaseDataItemType & {};
-
-export type BoardStoreRecord<DataType> = {
+export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
   boardId?: string;
   isOutdated?: boolean | null;
-  boardLeaveStatus?: string | DataType;
+  boardLeaveStatus?: string;
   boardLeaveDialogStatus: boolean;
 };
 
@@ -38,7 +34,7 @@ export type BoardActions = {
   setBoardLeaveStatus: (status: string) => void;
   setBoardLeaveDialogStatus: (status: boolean) => void;
 };
-export type BoardSlice<DataType> = BoardStoreRecord<DataType> & BoardActions;
+export type BoardSlice = BoardStoreRecord & BoardActions;
 
 export const defaultBoardState: {
   board: null;
@@ -60,7 +56,7 @@ type Set<State extends object> = (
   action?: Action | undefined,
 ) => void;
 
-const setBoardIsUpToDate = (set: Set<BoardSlice<DataType>>) => {
+const setBoardIsUpToDate = (set: Set<BoardSlice>) => {
   set(() => ({ isOutdated: false }), false, {
     type: 'Board/setBoardIsUpToDate',
   });
@@ -70,7 +66,7 @@ export const createBoardSlice: StateCreator<
   Store,
   [['zustand/devtools', never]],
   [],
-  BoardSlice<DataType>
+  BoardSlice
 > = (set) => ({
   ...defaultBoardState,
   setBoard: (board: BoardRecord) =>
@@ -95,12 +91,12 @@ export const createBoardSlice: StateCreator<
     generatedPicto?: TileRecord['generatedPicto'],
   ) => {
     set(
-      (state: BoardSlice<DataType>) => {
+      (state: BoardSlice) => {
         if (!state.board) {
           return state;
         }
 
-        const nextTiles = state.board.tiles.map((tile: TileRecord) =>
+        const nextTiles = state.board.tiles.map((tile) =>
           tile.id === tileId
             ? {
                 ...tile,
@@ -129,11 +125,11 @@ export const createBoardSlice: StateCreator<
   ) => {
     if (!board) {
       set(
-        (state: BoardSlice<DataType>) => {
+        (state: BoardSlice) => {
           if (!state.board) {
             return state;
           }
-          const nextTiles = state.board.tiles.map((tile: TileRecord) =>
+          const nextTiles = state.board.tiles.map((tile) =>
             tile.id === tileId ? { ...tile, ...newProps } : tile,
           );
           return {
@@ -190,7 +186,7 @@ export const createBoardSlice: StateCreator<
       type: 'Board/setBoardIsUpToDate',
     });
   },
-  setBoardLeaveStatus: (status: string | DataType) => {
+  setBoardLeaveStatus: (status: string) => {
     set(() => ({ boardLeaveStatus: status }), false, {
       type: 'Board/setBoardLeaveStatus',
     });
