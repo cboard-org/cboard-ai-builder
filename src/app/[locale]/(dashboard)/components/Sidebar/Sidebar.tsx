@@ -48,19 +48,19 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       cleanPrompt();
       router.push('/board');
       setBoardLeaveStatus('');
-    } else if (boardLeaveStatus == 'edit') {
-      // const { description, rows, columns, colorScheme, shouldUsePictonizer } =
-      //   data.prompt;
-      // setPrompt({
-      //   description,
-      //   rows,
-      //   columns,
-      //   colorScheme,
-      //   shouldUsePictonizer,
-      // });
-      // data.isSavedBoard
-      //   ? router.push(`/board/${data.id}`)
-      //   : router.push('/board');
+    } else if (boardLeaveStatus) {
+      const { description, rows, columns, colorScheme, shouldUsePictonizer } =
+        boardLeaveStatus.prompt;
+      setPrompt({
+        description,
+        rows,
+        columns,
+        colorScheme,
+        shouldUsePictonizer,
+      });
+      boardLeaveStatus.isSavedBoard
+        ? router.push(`/board/${boardLeaveStatus.id}`)
+        : router.push('/board');
       setBoardLeaveStatus('');
     }
     setBoardIsUpToDate();

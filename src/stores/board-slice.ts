@@ -10,7 +10,7 @@ export type BoardStoreRecord = {
   errorOnBoardGeneration?: boolean;
   boardId?: string;
   isOutdated?: boolean | null;
-  boardLeaveStatus?: string;
+  boardLeaveStatus?: any;
   boardLeaveDialogStatus: boolean;
 };
 
@@ -33,7 +33,7 @@ export type BoardActions = {
     board: BoardRecord | null,
   ) => void;
   setBoardIsUpToDate: () => void;
-  setBoardLeaveStatus: (status: string) => void;
+  setBoardLeaveStatus: (status: any) => void;
   setBoardLeaveDialogStatus: (status: boolean) => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
@@ -188,7 +188,7 @@ export const createBoardSlice: StateCreator<
       type: 'Board/setBoardIsUpToDate',
     });
   },
-  setBoardLeaveStatus: (status: string) => {
+  setBoardLeaveStatus: (status: any) => {
     set(() => ({ boardLeaveStatus: status }), false, {
       type: 'Board/setBoardLeaveStatus',
     });

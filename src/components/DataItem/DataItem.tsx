@@ -77,7 +77,7 @@ export default function DataItem<DataType extends BaseDataItemType>({
         : router.push('/board');
     } else {
       setBoardLeaveDialogStatus(true);
-      setBoardLeaveStatus('edit');
+      setBoardLeaveStatus(data);
     }
   };
   return (
