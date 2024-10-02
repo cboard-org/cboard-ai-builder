@@ -20,6 +20,7 @@ import pick from 'lodash.pick';
 import { styles } from './styles';
 import SvgIcon from '@mui/material/SvgIcon';
 import { BRAND_COLOR } from './constants';
+import { boardsExample, boardsExampleCut } from '../../../../public/images';
 
 export default function Signin({
   errorMessage,
@@ -95,7 +96,7 @@ export default function Signin({
             <Box sx={{ mb: 8 }}>
               <Image
                 // priority={true}
-                src="/images/boards-example.png"
+                src={boardsExample}
                 width={846}
                 height={463}
                 alt="Tiles"
@@ -155,13 +156,13 @@ export default function Signin({
             <Box sx={styles.bottomImage}>
               <Image
                 priority={true}
-                src="/images/boards-example-cut.png"
+                src={boardsExampleCut}
                 width={393}
                 height={127}
                 // fill
                 alt="Tiles"
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
+                // unoptimized // TODO fix this see https://github.com/vercel/next.js/issues/58248
               />
             </Box>
           </Box>
