@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     description +
     ' in the style of ARASAAC for AAC use. ' +
     description +
-    ' should be represented with basic shapes and minimal details, using bold lines and solid colors to ensure easy recognition and clarity.';
+    ' should be represented with basic shapes and minimal details in white  background, using bold lines and solid colors to ensure easy recognition and clarity.';
 
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
@@ -20,10 +20,10 @@ export async function POST(req: Request) {
     prompt: basePrompt,
     alchemy: false,
     num_images: 2,
-    width: 1024,
-    height: 768,
+    width: 512,
+    height: 512,
     modelId: '2067ae52-33fd-4a82-bb92-c2c55e7d2786', //"name": "AlbedoBase XL",
-    transparency: 'foreground_only',
+    //transparency: 'foreground_only',
     elements: [
       {
         akUUID: 'ec024a37-6fab-41ba-bc03-ab29ae0b9b5a', //Simple Icons
