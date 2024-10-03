@@ -7,6 +7,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import OpenWithIcon from '@mui/icons-material/OpenWith';
 // import FullscreenIcon from '@mui/icons-material/Fullscreen';
 // import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { useBoundStore } from '@/providers/StoreProvider';
@@ -23,9 +24,16 @@ import { useUpsertActualBoard } from '../hooks/useUpsertActualBoard';
 type Props = {
   isEditing: boolean;
   isSavingChange: boolean;
+  isDragAndDrop: boolean;
+  handleDragAndDrop: () => void;
 };
 
-export default function Toolbar({ isEditing, isSavingChange }: Props) {
+export default function Toolbar({
+  isEditing,
+  isSavingChange,
+  isDragAndDrop,
+  handleDragAndDrop,
+}: Props) {
   const { isSaving, isNewBoard, upsertBoard } = useUpsertActualBoard();
 
   const onSaveBoard = async (board: BoardRecord) => {
@@ -47,6 +55,18 @@ export default function Toolbar({ isEditing, isSavingChange }: Props) {
       {!isEditing ? <DefaultToolbar /> : <></>}
       {/* <EditingToolbar />} */}
 
+      {isEditing && (
+        <IconButton
+          onClick={handleDragAndDrop}
+          sx={{
+            color: isDragAndDrop
+              ? theme.palette.success.light
+              : theme.palette.error.dark,
+          }}
+        >
+          <OpenWithIcon />
+        </IconButton>
+      )}
       <Divider orientation="vertical" flexItem />
       <IconButton
         disabled={isSavingChange || isSaving || !isBoardOutdated}
