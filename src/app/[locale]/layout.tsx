@@ -6,6 +6,7 @@ import ThemeProvider from '@/providers/ThemeProvider';
 import StoreProvider from '@/providers/StoreProvider';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -50,6 +51,7 @@ export default function RootLayout({
           </StoreProvider>
         </AppRouterCacheProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.GA4_TRACKING_ID as string} />
     </html>
   );
 }
