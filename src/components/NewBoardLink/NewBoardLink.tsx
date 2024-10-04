@@ -12,15 +12,18 @@ import { useShallow } from 'zustand/react/shallow';
 
 function NewBoardLink() {
   const router = useRouter();
-  const cleanPrompt = useBoundStore((state) => state.cleanPrompt);
-  const { setBoardLeaveDialogStatus } = useBoundStore((state) => ({
-    setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
-  }));
-
-  const [isOutdated] = useBoundStore(useShallow((state) => [state.isOutdated]));
-
-  const setBoardLeaveStatus = useBoundStore(
-    (state) => state.setBoardLeaveStatus,
+  const {
+    cleanPrompt,
+    setBoardLeaveDialogStatus,
+    setBoardLeaveStatus,
+    isOutdated,
+  } = useBoundStore(
+    useShallow((state) => ({
+      cleanPrompt: state.cleanPrompt,
+      setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
+      setBoardLeaveStatus: state.setBoardLeaveStatus,
+      isOutdated: state.isOutdated,
+    })),
   );
   const handleClick = () => {
     if (!isOutdated) {

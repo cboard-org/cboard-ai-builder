@@ -62,6 +62,12 @@
         "couldNotFetchPictograms": "No pudimos conseguir los pictogramas. Por favor, inténtelo de nuevo más tarde.",
         "searchPictogramUsingTextField": "Buscar un pictograma usando el campo de texto en la parte superior"
       }
+    },
+    "ConfirmDialog": {
+      "title": "Unsaved Changes",
+      "content": "You have unsaved changes on the board. If you leave now, any unsaved work will be lost. Do you still want to proceed?",
+      "leave": "Leave without saving",
+      "save": "Save"
     }
   },
   "SavedData": {

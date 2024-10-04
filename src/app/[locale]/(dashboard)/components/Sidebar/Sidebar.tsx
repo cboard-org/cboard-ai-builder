@@ -1,8 +1,8 @@
 'use client';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import sxStyles from './styles';
-import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme, Theme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
@@ -10,35 +10,44 @@ import OpenSidebarButton from '@/components/OpenSidebarButton/OpenSidebarButton'
 import NewBoardLink from '@/components/NewBoardLink/NewBoardLink';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
-import { Modal, Button } from '@mui/material';
-
-import './sidebar.css';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useTranslations } from 'next-intl';
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
+  const messages = useTranslations('Board.InitialContent');
   const router = useRouter();
-  const cleanPrompt = useBoundStore((state) => state.cleanPrompt);
-  const { boardLeaveStatus, setBoardLeaveStatus } = useBoundStore((state) => ({
-    boardLeaveStatus: state.boardLeaveStatus,
-    setBoardLeaveStatus: state.setBoardLeaveStatus,
-  }));
-  const { boardLeaveDialogStatus, setBoardLeaveDialogStatus } = useBoundStore(
-    (state) => ({
+  const {
+    cleanPrompt,
+    boardLeaveStatus,
+    setBoardLeaveStatus,
+    boardLeaveDialogStatus,
+    setBoardLeaveDialogStatus,
+    setBoardIsUpToDate,
+    isSidebarOpen,
+    toogleIsSidebarOpen,
+    setPrompt,
+    isOutdated,
+  } = useBoundStore(
+    useShallow((state) => ({
+      cleanPrompt: state.cleanPrompt,
+      boardLeaveStatus: state.boardLeaveStatus,
+      setBoardLeaveStatus: state.setBoardLeaveStatus,
       boardLeaveDialogStatus: state.boardLeaveDialogStatus,
       setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
-    }),
-  );
-  const { setBoardIsUpToDate } = useBoundStore(
-    useShallow((state) => ({
       setBoardIsUpToDate: state.setBoardIsUpToDate,
+      isSidebarOpen: state.isSidebarOpen,
+      toogleIsSidebarOpen: state.toogleIsSidebarOpen,
+      setPrompt: state.setPrompt,
+      isOutdated: state.isOutdated,
     })),
   );
-  const [setPrompt] = useBoundStore(useShallow((state) => [state.setPrompt]));
-  const theme: Theme = useTheme();
-  const { isSidebarOpen, toogleIsSidebarOpen } = useBoundStore((state) => ({
-    isSidebarOpen: state.isSidebarOpen,
-    toogleIsSidebarOpen: state.toogleIsSidebarOpen,
-  }));
 
+  const theme: Theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const closeDialog = () => setBoardLeaveDialogStatus(false);
@@ -67,6 +76,31 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     closeDialog();
   };
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (isOutdated) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    };
+
+    const handlePopState = (event: PopStateEvent) => {
+      if (isOutdated) {
+        event.preventDefault();
+        console.log(window.location.href);
+        window.history.pushState(null, '', window.location.href);
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
   return (
     <>
       <Drawer
@@ -83,30 +117,26 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           <>{children}</>
         </Box>
       </Drawer>
-      <Modal
+      <Dialog
         open={boardLeaveDialogStatus}
         onClose={closeDialog}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <Box sx={sxStyles.dialog}>
-          <h1 id="modal-title" className="text-center">
-            You didn't save the board
-          </h1>
-          <div className="text-center margin-top-20">
-            <Button
-              variant="outlined"
-              sx={sxStyles.button}
-              onClick={handleNotSave}
-            >
-              Don't Save
-            </Button>
-            <Button variant="outlined" onClick={closeDialog}>
-              Close
-            </Button>
-          </div>
-        </Box>
-      </Modal>
+        <DialogTitle id="alert-dialog-title">{messages('ai')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You have unsaved changes on the board. If you leave now, any unsaved
+            work will be lost. Do you still want to proceed?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleNotSave}>Leave without Saving</Button>
+          <Button onClick={closeDialog} variant="contained">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

@@ -38,25 +38,22 @@ export default function DataItem<DataType extends BaseDataItemType>({
   const format = useFormatter();
   const isSmallScreen = useIsSmallScreen();
 
-  const { isOutdated } = useBoundStore(
+  const {
+    isOutdated,
+    setBoardLeaveStatus,
+    setBoardLeaveDialogStatus,
+    setPrompt,
+    isGenerationPending,
+    toogleIsSidebarOpen,
+  } = useBoundStore(
     useShallow((state) => ({
       isOutdated: state.isOutdated,
+      setBoardLeaveStatus: state.setBoardLeaveStatus,
+      setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
+      setPrompt: state.setPrompt,
+      isGenerationPending: state.isGenerationPending,
+      toogleIsSidebarOpen: state.toogleIsSidebarOpen,
     })),
-  );
-
-  const { setBoardLeaveStatus } = useBoundStore((state) => ({
-    setBoardLeaveStatus: state.setBoardLeaveStatus,
-  }));
-  const { setBoardLeaveDialogStatus } = useBoundStore((state) => ({
-    setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
-  }));
-
-  const [setPrompt, isGenerationPending, toogleIsSidebarOpen] = useBoundStore(
-    useShallow((state) => [
-      state.setPrompt,
-      state.isGenerationPending,
-      state.toogleIsSidebarOpen,
-    ]),
   );
 
   const onEdit = () => {
