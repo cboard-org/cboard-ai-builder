@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import sxStyles from './styles';
@@ -10,6 +10,7 @@ import OpenSidebarButton from '@/components/OpenSidebarButton/OpenSidebarButton'
 import NewBoardLink from '@/components/NewBoardLink/NewBoardLink';
 import { useBoundStore } from '@/providers/StoreProvider';
 import { useShallow } from 'zustand/react/shallow';
+import { useUpsertActualBoard } from '../../board/[id]/hooks/useUpsertActualBoard';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -32,6 +33,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     toogleIsSidebarOpen,
     setPrompt,
     isOutdated,
+    board,
   } = useBoundStore(
     useShallow((state) => ({
       cleanPrompt: state.cleanPrompt,
@@ -44,13 +46,46 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       toogleIsSidebarOpen: state.toogleIsSidebarOpen,
       setPrompt: state.setPrompt,
       isOutdated: state.isOutdated,
+      board: state.board,
     })),
   );
+  const { isSaving, isNewBoard, upsertBoard } = useUpsertActualBoard();
 
   const theme: Theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const closeDialog = () => setBoardLeaveDialogStatus(false);
+  const isOutdatedRef = useRef(isOutdated);
+  const pendingRoute = useRef(null);
+
+  const closeDialog = () => {
+    setBoardLeaveDialogStatus(false);
+  };
+
+  const handleSave = async () => {
+    if (!board) return null;
+    await upsertBoard(board);
+    if (boardLeaveStatus == 'new') {
+      cleanPrompt();
+      router.push('/board');
+      setBoardLeaveStatus('');
+    } else if (boardLeaveStatus) {
+      const { description, rows, columns, colorScheme, shouldUsePictonizer } =
+        boardLeaveStatus.prompt;
+      setPrompt({
+        description,
+        rows,
+        columns,
+        colorScheme,
+        shouldUsePictonizer,
+      });
+      boardLeaveStatus.isSavedBoard
+        ? router.push(`/board/${boardLeaveStatus.id}`)
+        : router.push('/board');
+      setBoardLeaveStatus('');
+    }
+    setBoardIsUpToDate();
+    closeDialog();
+  };
 
   const handleNotSave = () => {
     if (boardLeaveStatus == 'new') {
@@ -77,27 +112,29 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    isOutdatedRef.current = isOutdated;
+  }, [isOutdated]);
+
+  useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (isOutdated) {
+      if (isOutdatedRef.current) {
         event.preventDefault();
-        event.returnValue = '';
+        event.returnValue = messages('content');
       }
     };
 
-    const handlePopState = (event: PopStateEvent) => {
-      if (isOutdated) {
-        event.preventDefault();
-        console.log(window.location.href);
+    const handlePopState = () => {
+      if (isOutdatedRef.current) {
         window.history.pushState(null, '', window.location.href);
       }
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-    window.addEventListener('popstate', handlePopState);
+    // window.addEventListener('popstate', handlePopState);
 
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      window.removeEventListener('popstate', handlePopState);
+      // window.removeEventListener('popstate', handlePopState);
     };
   }, []);
 
@@ -131,7 +168,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleNotSave}>{messages('leave')}</Button>
-          <Button onClick={closeDialog} variant="contained">
+          <Button onClick={handleSave} variant="contained">
             {messages('save')}
           </Button>
         </DialogActions>
