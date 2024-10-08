@@ -19,7 +19,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useTranslations } from 'next-intl';
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
-  const messages = useTranslations('Board.InitialContent');
+  const messages = useTranslations('Dashboard.ConfirmDialog');
   const router = useRouter();
   const {
     cleanPrompt,
@@ -123,17 +123,16 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{messages('ai')}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{messages('title')}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            You have unsaved changes on the board. If you leave now, any unsaved
-            work will be lost. Do you still want to proceed?
+            {messages('content')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleNotSave}>Leave without Saving</Button>
+          <Button onClick={handleNotSave}>{messages('leave')}</Button>
           <Button onClick={closeDialog} variant="contained">
-            Save
+            {messages('save')}
           </Button>
         </DialogActions>
       </Dialog>

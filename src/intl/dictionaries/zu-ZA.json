@@ -2,7 +2,13 @@
   "Dashboard": {
     "closeSidebar": "crwdns58052:0crwdne58052:0",
     "openSidebar": "crwdns58054:0crwdne58054:0",
-    "newBoard": "crwdns58056:0crwdne58056:0"
+    "newBoard": "crwdns58056:0crwdne58056:0",
+    "ConfirmDialog": {
+      "title": "Unsaved Changes",
+      "content": "You have unsaved changes on the board. If you leave now, any unsaved work will be lost. Do you still want to proceed?",
+      "leave": "Leave without saving",
+      "save": "Save"
+    }
   },
   "History": {
     "title": "crwdns57804:0crwdne57804:0"
@@ -61,12 +67,6 @@
         "couldNotFetchPictograms": "crwdns57864:0crwdne57864:0",
         "searchPictogramUsingTextField": "crwdns57866:0crwdne57866:0"
       }
-    },
-    "ConfirmDialog": {
-      "title": "Unsaved Changes",
-      "content": "You have unsaved changes on the board. If you leave now, any unsaved work will be lost. Do you still want to proceed?",
-      "leave": "Leave without saving",
-      "save": "Save"
     }
   },
   "SavedData": {
