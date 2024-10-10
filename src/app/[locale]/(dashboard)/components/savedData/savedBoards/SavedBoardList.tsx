@@ -35,7 +35,11 @@ export default function SavedBoardsList({
   // a hack to update the board list when a new board is added
   // when the first item is deleted the optimisitic update is not working
   useEffect(() => {
-    if (initialData.length > 0 && initialData[0].id !== savedBoards[0].id) {
+    if (
+      initialData.length > 0 &&
+      savedBoards.length > 0 &&
+      initialData[0].id !== savedBoards[0].id
+    ) {
       startTransition(() => {
         updatesavedBoard({ type: 'ADD_BOARD', payload: initialData[0] });
       });
