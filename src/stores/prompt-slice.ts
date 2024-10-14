@@ -27,7 +27,7 @@ export const createPromptSlice: StateCreator<
   prompt: { ...defaultPromptState },
   setPrompt: (prompt: PromptRecord) =>
     set(() => ({ prompt: { ...prompt } }), false, {
-      type: 'Prompt/setPompt',
+      type: 'Prompt/setPrompt',
       prompt,
     }),
   cleanPrompt: () => {

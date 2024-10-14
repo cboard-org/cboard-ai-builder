@@ -3,12 +3,15 @@ import { BoardRecord } from '@/commonTypes/Board';
 import { Store } from './../providers/StoreProvider';
 import { TileRecord } from '@/commonTypes/Tile';
 import { updateBoard } from '@/app/[locale]/(dashboard)/board/[id]/components/actions';
+import { BaseDataItemType } from '@/components/DataItem/DataItem';
 
 export type BoardStoreRecord = {
   board: BoardRecord | null;
   errorOnBoardGeneration?: boolean;
   boardId?: string;
   isOutdated?: boolean | null;
+  boardLeaveStatus?: any;
+  boardLeaveDialogStatus: boolean;
 };
 
 export type BoardActions = {
@@ -30,6 +33,8 @@ export type BoardActions = {
     board: BoardRecord | null,
   ) => void;
   setBoardIsUpToDate: () => void;
+  setBoardLeaveStatus: (status: any) => void;
+  setBoardLeaveDialogStatus: (status: boolean) => void;
 };
 export type BoardSlice = BoardStoreRecord & BoardActions;
 
@@ -37,10 +42,12 @@ export const defaultBoardState: {
   board: null;
   errorOnBoardGeneration: boolean;
   isOutdated?: boolean;
+  boardLeaveDialogStatus: boolean;
 } = {
   board: null,
   errorOnBoardGeneration: false,
   isOutdated: false,
+  boardLeaveDialogStatus: false,
 };
 
 type Action = { type: string };
@@ -86,7 +93,7 @@ export const createBoardSlice: StateCreator<
     generatedPicto?: TileRecord['generatedPicto'],
   ) => {
     set(
-      (state) => {
+      (state: BoardSlice) => {
         if (!state.board) {
           return state;
         }
@@ -120,7 +127,7 @@ export const createBoardSlice: StateCreator<
   ) => {
     if (!board) {
       set(
-        (state) => {
+        (state: BoardSlice) => {
           if (!state.board) {
             return state;
           }
@@ -179,6 +186,16 @@ export const createBoardSlice: StateCreator<
   setBoardIsUpToDate: () => {
     set(() => ({ isOutdated: false }), false, {
       type: 'Board/setBoardIsUpToDate',
+    });
+  },
+  setBoardLeaveStatus: (status: any) => {
+    set(() => ({ boardLeaveStatus: status }), false, {
+      type: 'Board/setBoardLeaveStatus',
+    });
+  },
+  setBoardLeaveDialogStatus: (status: boolean) => {
+    set(() => ({ boardLeaveDialogStatus: status }), false, {
+      type: 'Board/setBoardLeaveDialogStatus',
     });
   },
 });
