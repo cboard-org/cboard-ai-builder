@@ -8,7 +8,7 @@ export const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: { xs: 'white', md: 'none' },
+    backgroundColor: { xs: 'secondary.contrastText', md: 'transparent' },
     padding: { xs: 3, md: 0 },
     borderRadius: { xs: 7, md: 0 },
   },

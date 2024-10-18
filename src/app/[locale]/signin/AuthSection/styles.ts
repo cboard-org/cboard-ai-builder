@@ -18,10 +18,9 @@ export const styles = {
   holaText: {
     fontWeight: 600,
     fontSize: { xs: '32px', md: '48px' },
-    color: '#181717',
     pb: '16px',
   },
-  welcomeText: { color: '#2B2B2B', fontSize: '16px' },
+  welcomeText: { fontSize: '16px' },
   divider: {
     my: { xs: 2, md: 4 },
     borderColor: { xs: '#6D6D6D', md: '#C9C9C9' },

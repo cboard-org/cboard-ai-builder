@@ -3,7 +3,7 @@ import { PURPLE } from './constants';
 
 export const styles = {
   root: {
-    background: { xs: PURPLE, md: 'white' },
+    background: { xs: PURPLE, md: 'transparent' },
     width: '100%',
     height: '100%',
     py: { xs: 0, md: 2 },
