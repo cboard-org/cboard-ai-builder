@@ -11,9 +11,9 @@ export async function POST(req: Request) {
   //     return Response.json({ error: 'Unauthorized' }, { status: 403 });
   //   }
   try {
-    const { source } = await req.json();
+    const { source, quantity } = await req.json();
     if (!source) return new Response('Source is required', { status: 400 });
-    const data = await createPasscodes(source);
+    const data = await createPasscodes(source, quantity);
     if (!data.success) return new Response(data.message, { status: 400 });
     return Response.json(data);
   } catch (error) {

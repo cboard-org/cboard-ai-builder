@@ -4,18 +4,24 @@ import { nanoid } from 'nanoid';
 
 export async function createPasscodes(
   source: string,
-  numberOfPasscodes: number = 1,
+  quantity: number = 1,
 ): Promise<{ success: boolean; message: string }> {
   try {
     await dbConnect();
-    const passcodes = Array.from({ length: numberOfPasscodes }, () => ({
+    if (!source) {
+      return { success: false, message: 'Source is required.' };
+    }
+    const passcodes = Array.from({ length: quantity }, () => ({
       code: nanoid(6).toUpperCase(),
       isUsed: false,
       email: null,
       source: source,
     }));
     await Passcode.insertMany(passcodes);
-    return { success: true, message: 'Passcodes created successfully.' };
+    return {
+      success: true,
+      message: `${passcodes.length} passcodes created successfully.`,
+    };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, message: error.message };
