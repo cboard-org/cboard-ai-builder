@@ -2,13 +2,7 @@
   "Dashboard": {
     "closeSidebar": "Close Sidebar",
     "openSidebar": "Open Sidebar",
-    "newBoard": "New boards",
-    "ConfirmDialog": {
-      "title": "Unsaved Changes",
-      "content": "You have unsaved changes on the board. If you leave now, any unsaved work will be lost. Do you still want to proceed?",
-      "leave": "Leave without saving",
-      "save": "Save"
-    }
+    "newBoard": "New boards"
   },
   "History": {
     "title": "História"
