@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl';
 import { ClientSafeProvider } from 'next-auth/react';
 import { useState } from 'react';
 import PassCode from '../PassCode/PassCode';
+import { getCboardSignupURL } from './action';
 
 export default function AuthSection({
   errorMessage,
@@ -21,6 +22,16 @@ export default function AuthSection({
 }) {
   const t = useTranslations('SignIn');
   const [isAuthorized, setIsAuthorized] = useState(false);
+
+  const onSignUpClick = async () => {
+    try {
+      const { URL } = await getCboardSignupURL();
+      return window.open(URL, '_blank');
+    } catch (error) {
+      return;
+    }
+  };
+
   return (
     <Box sx={styles.mainContainer}>
       <Box sx={styles.welcomeTextContainer}>
@@ -31,7 +42,12 @@ export default function AuthSection({
         <>
           <Login />
 
-          <Button fullWidth variant="contained" size="large">
+          <Button
+            fullWidth
+            variant="contained"
+            size="large"
+            onClick={onSignUpClick}
+          >
             {t('signUpButton')}
           </Button>
 
