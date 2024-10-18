@@ -3,7 +3,13 @@
     "closeSidebar": "Close Sidebar",
     "openSidebar": "Open Sidebar",
     "createNewBoard": "Create a new board",
-    "newBoard": "New board"
+    "newBoard": "New board",
+    "ConfirmDialog": {
+      "title": "Unsaved Changes",
+      "content": "You have unsaved changes on the board. If you leave now, any unsaved work will be lost. Do you still want to proceed?",
+      "leave": "Leave without saving",
+      "save": "Save"
+    }
   },
   "History": {
     "title": "History"
