@@ -1,4 +1,6 @@
+'use server';
 import { z } from 'zod';
+import { verifyPasscode } from '@/db/services/PassCode/service';
 
 const schema = z.object({
   email: z.string().email(),
@@ -17,8 +19,6 @@ export default async function validateCode(
     email: formData.get('email'),
     code: formData.get('code'),
   });
-
-  // Return early if the form data is invalid
   if (!validatedFields.success) {
     return {
       isAuthorized: false,
@@ -27,12 +27,20 @@ export default async function validateCode(
       error: true,
     };
   }
-
+  const response = await verifyPasscode(
+    validatedFields.data.code,
+    validatedFields.data.email,
+  );
+  if (!response.success) {
+    return {
+      isAuthorized: false,
+      errorMessage: response.message,
+      error: true,
+    };
+  }
   return {
     isAuthorized: true,
     errorMessage: '',
     error: false,
   };
-
-  // Mutate data
 }
