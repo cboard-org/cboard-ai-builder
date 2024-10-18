@@ -1,9 +1,12 @@
 import { getErrorMessage } from '@/common/common';
 import { assignPasscodeToEmail } from '@/db/services/PassCode/service';
+import { validateBearerToken } from '../../helpers';
 
 export async function PATCH(req: Request) {
-  const { email } = await req.json();
+  if (!validateBearerToken())
+    return new Response('Unauthorized', { status: 403 });
   try {
+    const { email } = await req.json();
     const data = await assignPasscodeToEmail(email);
     if (!data.success) return new Response(data.message, { status: 400 });
     return Response.json(data);
