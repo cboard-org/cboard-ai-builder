@@ -3,14 +3,9 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import OAuthButton from './OAuth/Button';
 import { getProviders } from 'next-auth/react';
 import InternalLink from '@/components/InternalLink/InternalLink';
 import Image from 'next/image';
-import Login from '@/app/[locale]/signin/Login/Login';
-import Alert from '@/components/Alert/Alert';
 import {
   NextIntlClientProvider,
   useMessages,
@@ -20,6 +15,7 @@ import pick from 'lodash.pick';
 import { styles } from './styles';
 import SvgIcon from '@mui/material/SvgIcon';
 import { BRAND_COLOR } from './constants';
+import AuthSection from './AuthSection/AuthSection';
 
 export default function Signin({
   errorMessage,
@@ -125,28 +121,10 @@ export default function Signin({
                   </Typography>
                 </Stack>
               </Box>
-              <Box sx={styles.mainContainer}>
-                <Box sx={styles.welcomeTextContainer}>
-                  <Typography sx={styles.holaText}>{t('hello')}</Typography>
-                  <Typography sx={styles.welcomeText}>
-                    {t('welcome')}
-                  </Typography>
-                </Box>
-
-                <Login />
-
-                <Button fullWidth variant="contained" size="large">
-                  {t('signUpButton')}
-                </Button>
-
-                <Divider flexItem sx={styles.divider} variant="fullWidth" />
-
-                {errorMessage && <Alert messages={t('errorMessage')} />}
-
-                {oauthProviders.map((provider) => (
-                  <OAuthButton key={provider.id} provider={provider} />
-                ))}
-              </Box>
+              <AuthSection
+                oauthProviders={oauthProviders}
+                errorMessage={errorMessage}
+              />
               <Box sx={styles.bottomLinks}>
                 <InternalLink href={'#'}>{t('privacyPolicy')}</InternalLink>
                 <InternalLink href={'#'}>{t('terms')}</InternalLink>

@@ -3,7 +3,7 @@ import { PURPLE } from './constants';
 
 export const styles = {
   root: {
-    background: { xs: PURPLE, md: 'white' },
+    background: { xs: PURPLE, md: 'transparent' },
     width: '100%',
     height: '100%',
     py: { xs: 0, md: 2 },
@@ -44,16 +44,6 @@ export const styles = {
     width: 'min-content',
     maxWidth: '100%',
   },
-  mainContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    maxWidth: '370px',
-    alignSelf: 'flex-end',
-  },
   brandLogoXs: {
     display: { xs: 'flex', md: 'none' },
     justifyContent: 'center',
@@ -81,21 +71,6 @@ export const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: { xs: 'flex-end', md: 'unset' },
-  },
-  welcomeTextContainer: {
-    alignSelf: { xs: 'center', md: 'start' },
-    textAlign: { xs: 'center', md: 'inherit' },
-  },
-  holaText: {
-    fontWeight: 600,
-    fontSize: { xs: '32px', md: '48px' },
-    color: '#181717',
-    pb: '16px',
-  },
-  welcomeText: { color: '#2B2B2B', fontSize: '16px' },
-  divider: {
-    my: { xs: 2, md: 4 },
-    borderColor: { xs: '#6D6D6D', md: '#C9C9C9' },
   },
   bottomLinks: {
     width: '100%',
