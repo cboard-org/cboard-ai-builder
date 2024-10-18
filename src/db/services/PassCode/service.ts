@@ -2,18 +2,20 @@ import Passcode from './model';
 import dbConnect from '@/lib/dbConnect';
 import { nanoid } from 'nanoid';
 
-export async function createPasscode(
+export async function createPasscodes(
   source: string,
+  numberOfPasscodes: number = 1,
 ): Promise<{ success: boolean; message: string }> {
   try {
     await dbConnect();
-    await Passcode.create({
+    const passcodes = Array.from({ length: numberOfPasscodes }, () => ({
       code: nanoid(6).toUpperCase(),
       isUsed: false,
       email: null,
       source: source,
-    });
-    return { success: true, message: 'Passcode created successfully.' };
+    }));
+    await Passcode.insertMany(passcodes);
+    return { success: true, message: 'Passcodes created successfully.' };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, message: error.message };
