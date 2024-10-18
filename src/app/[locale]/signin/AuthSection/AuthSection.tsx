@@ -27,7 +27,7 @@ export default function AuthSection({
         <Typography sx={styles.holaText}>{t('hello')}</Typography>
         <Typography sx={styles.welcomeText}>{t('welcome')}</Typography>
       </Box>
-      {isAuthorized ? (
+      {isAuthorized || errorMessage ? (
         <>
           <Login />
 
