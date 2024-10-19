@@ -90,6 +90,13 @@
       "cancelButton": "CANCEL",
       "forgotPassword": "FORGOT PASSWORD?",
       "errorMessage": "Wrong email or password"
+    },
+    "PassCode": {
+      "emailHelperText": "Enter your Cboard account email",
+      "invalidCredentials": "Invalid code or email",
+      "code": "Code",
+      "email": "Email",
+      "submit": "SUBMIT"
     }
   },
   "Settings": {
