@@ -4,7 +4,7 @@ import { PromptRecord } from '@/commonTypes/Prompt';
 import { getPromptHistoryList, softDelete } from '@/db/services/Prompt/service';
 import { getServerSession } from 'next-auth';
 import authConfig from '@/lib/next-auth/config';
-import { revalidateTag, unstable_cache } from 'next/cache';
+import { revalidatePath, unstable_cache } from 'next/cache';
 
 export type HistoryData = {
   id: string;
@@ -49,6 +49,7 @@ export async function removeHistoryData(promptId: string) {
     throw new Error('No session found');
   }
   const response = await softDelete(session.cboard_user.id, promptId);
-  revalidateTag('promptHistory');
+  // revalidateTag('promptHistory');
+  revalidatePath('/');
   return response;
 }
