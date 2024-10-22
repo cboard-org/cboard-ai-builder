@@ -4,7 +4,7 @@ import { redirect } from '@/navigation';
 import { getServerSession } from 'next-auth';
 import { DEFAULT_CALLBACK_URL } from './constants';
 import Signin from './Signin';
-import { revalidateCachedTags } from '@/app/[locale]/signin/actions';
+// import { revalidateCachedTags } from '@/app/[locale]/signin/actions';
 
 export default async function Page({
   searchParams,
@@ -29,6 +29,6 @@ export default async function Page({
   if ('error' in searchParams && typeof searchParams['error'] == 'string') {
     errorMessage = searchParams['error'];
   }
-  await revalidateCachedTags();
+  // await revalidateCachedTags();
   return <Signin errorMessage={errorMessage} authProviders={authProviders} />;
 }
