@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import { useFormatter } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
-
+import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import { PromptRecord } from '@/commonTypes/Prompt';
 import { useShallow } from 'zustand/react/shallow';
@@ -32,17 +32,28 @@ export default function DataItem<DataType extends BaseDataItemType>({
   data,
   deleteItem: { deleteData },
 }: Props<DataType>) {
+  const router = useRouter();
   const { description, rows, columns, colorScheme, shouldUsePictonizer } =
     data.prompt;
   const format = useFormatter();
   const isSmallScreen = useIsSmallScreen();
 
-  const [setPrompt, isGenerationPending, toogleIsSidebarOpen] = useBoundStore(
-    useShallow((state) => [
-      state.setPrompt,
-      state.isGenerationPending,
-      state.toogleIsSidebarOpen,
-    ]),
+  const {
+    isOutdated,
+    setBoardLeaveStatus,
+    setBoardLeaveDialogStatus,
+    setPrompt,
+    isGenerationPending,
+    toogleIsSidebarOpen,
+  } = useBoundStore(
+    useShallow((state) => ({
+      isOutdated: state.isOutdated,
+      setBoardLeaveStatus: state.setBoardLeaveStatus,
+      setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
+      setPrompt: state.setPrompt,
+      isGenerationPending: state.isGenerationPending,
+      toogleIsSidebarOpen: state.toogleIsSidebarOpen,
+    })),
   );
 
   const onEdit = () => {
@@ -50,61 +61,63 @@ export default function DataItem<DataType extends BaseDataItemType>({
       toogleIsSidebarOpen();
     }
 
-    setPrompt({
-      description,
-      rows,
-      columns,
-      colorScheme,
-      shouldUsePictonizer,
-    });
+    if (!isOutdated) {
+      setPrompt({
+        description,
+        rows,
+        columns,
+        colorScheme,
+        shouldUsePictonizer,
+      });
+      data.isSavedBoard
+        ? router.push(`/board/${data.id}`)
+        : router.push('/board');
+    } else {
+      setBoardLeaveDialogStatus(true);
+      setBoardLeaveStatus(data);
+    }
   };
   return (
-    <ListItem
-      divider
-      secondaryAction={
-        <Box>
-          <InternalLink
-            href={
-              data.isSavedBoard //Replace this with boardId
-                ? `/board/${data.id}`
-                : `/board`
-            }
-          >
+    <>
+      <ListItem
+        divider
+        secondaryAction={
+          <Box>
             <IconButton
               disabled={isGenerationPending}
               aria-label="Edit"
-              onClick={() => onEdit()}
+              onClick={onEdit}
               size="small"
             >
               <EditOutlined fontSize="small" />
             </IconButton>
-          </InternalLink>
-          <IconButton
-            disabled={isGenerationPending}
-            aria-label="Delete"
-            onClick={() => deleteData(data)}
-            size="small"
-          >
-            <DeleteOutline fontSize="small" />
-          </IconButton>
-        </Box>
-      }
-    >
-      <Tooltip title={description} arrow>
-        <ListItemText
-          primary={description}
-          primaryTypographyProps={{
-            style: {
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            },
-          }}
-          secondary={format.relativeTime(new Date(data.date))}
-          sx={{ pr: 4 }}
-          aria-multiline="false"
-        />
-      </Tooltip>
-    </ListItem>
+            <IconButton
+              disabled={isGenerationPending}
+              aria-label="Delete"
+              onClick={() => deleteData(data)}
+              size="small"
+            >
+              <DeleteOutline fontSize="small" />
+            </IconButton>
+          </Box>
+        }
+      >
+        <Tooltip title={description} arrow>
+          <ListItemText
+            primary={description}
+            primaryTypographyProps={{
+              style: {
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              },
+            }}
+            secondary={format.relativeTime(new Date(data.date))}
+            sx={{ pr: 4 }}
+            aria-multiline="false"
+          />
+        </Tooltip>
+      </ListItem>
+    </>
   );
 }

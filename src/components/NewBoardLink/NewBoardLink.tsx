@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './styles';
 import Box from '@mui/material/Box';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -7,13 +8,34 @@ import { useTranslations } from 'next-intl';
 import { useBoundStore } from '@/providers/StoreProvider';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import InternalLink from '@/components/InternalLink/InternalLink';
 import { useShallow } from 'zustand/react/shallow';
 
 function NewBoardLink() {
-  const cleanPrompt = useBoundStore((state) => state.cleanPrompt);
+  const router = useRouter();
+  const {
+    cleanPrompt,
+    setBoardLeaveDialogStatus,
+    setBoardLeaveStatus,
+    isOutdated,
+  } = useBoundStore(
+    useShallow((state) => ({
+      cleanPrompt: state.cleanPrompt,
+      setBoardLeaveDialogStatus: state.setBoardLeaveDialogStatus,
+      setBoardLeaveStatus: state.setBoardLeaveStatus,
+      isOutdated: state.isOutdated,
+    })),
+  );
+  const handleClick = () => {
+    if (!isOutdated) {
+      cleanPrompt();
+      router.push('/board');
+    } else {
+      setBoardLeaveDialogStatus(true);
+      setBoardLeaveStatus('new');
+    }
+  };
   return (
-    <InternalLink onClick={cleanPrompt} href="/board" prefetch={true}>
+    <div onClick={handleClick}>
       <Box sx={styles.linkContent}>
         <Box sx={styles.smallDevices}>
           <NewBoardIconButton />
@@ -22,7 +44,7 @@ function NewBoardLink() {
           <NewBoardButton />
         </Box>
       </Box>
-    </InternalLink>
+    </div>
   );
 }
 
