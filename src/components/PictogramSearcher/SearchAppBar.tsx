@@ -106,7 +106,7 @@ export default function SearchAppBar({
         locale,
         e.target.value,
       );
-      setSearchSuggestions(suggestionsIds);
+      setSearchSuggestions(suggestionsIds ? suggestionsIds : []);
       return;
     },
     [setSearchSuggestions, setIsError, setIsEmptyResults, setIsLoading, locale],
