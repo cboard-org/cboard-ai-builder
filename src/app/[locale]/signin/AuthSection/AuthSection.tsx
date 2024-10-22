@@ -47,6 +47,7 @@ export default function AuthSection({
             variant="contained"
             size="large"
             onClick={onSignUpClick}
+            sx={styles.signUpButton}
           >
             {t('signUpButton')}
           </Button>
